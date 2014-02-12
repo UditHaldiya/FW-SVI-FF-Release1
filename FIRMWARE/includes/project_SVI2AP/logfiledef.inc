@@ -1,3 +1,0 @@
-#MP Expand LogfBegin()
-#MP Expand LogfDefine(DUMMY_LOGFILE_MAXSIZE, DUMMY_LOGFILE_NUMCOPIES, DUMMY_LOGFILE_ID)
-#MP Expand LogfEnd()
