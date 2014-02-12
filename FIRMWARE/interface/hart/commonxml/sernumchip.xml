@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--    $Archive: /MNCB/Dev/AP_Release_3.1.x/LCX_devel/FIRMWARE/interface/hart/commonxml/sernumchip.xml $
+    $Date: 9/16/10 8:12p $
+    $Revision: 1 $
+    $Author: Arkkhasin $
+
+-->
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command CmdNum="129" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Read Raw SN Data" CmdNum="172" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_READ_COMMAND | HC_FACTORY_COMMAND">
+          <ResponseParams>
+            <Param>Raw SN Data</Param>
+            <Param>Raw SN Read Code</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+  <Variables>
+    <Variable Name="Raw SN Data" MaxSize="8" DataType="H_UCHAR" Printf="%02X" Description="Raw SN Data"></Variable>
+    <Variable Name="Raw SN Read Code" DataType="H_UCHAR" Description="Error code"></Variable>
+  </Variables>
+  <CannedCommands></CannedCommands>
+</HART>

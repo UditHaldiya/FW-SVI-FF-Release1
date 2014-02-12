@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command Name="Read Temperatures" CmdNum="143" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Reads current, min and max temperatures of all the sensors">
+      <ResponseParams>
+        <StructArray MaxSize="1">Temperatures</StructArray>
+        <Param>Tempr Units</Param>
+      </ResponseParams>
+    </Command>
+  </Commands>
+  <Variables></Variables>
+  <Structs></Structs>
+</HART>

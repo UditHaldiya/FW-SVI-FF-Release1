@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command CmdNum="171" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Write Error Limits" CmdNum="175" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Write Error Limits">
+          <RequestParams>
+            <Struct>Position Error Limits</Struct>
+          </RequestParams>
+          <ResponseParams>
+            <Struct>Position Error Limits</Struct>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+    <Command CmdNum="170" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Read Error Limits" CmdNum="175" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_READ_COMMAND" Description="Read Error Limits">
+          <ResponseParams>
+            <Struct>Position Error Limits</Struct>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+  <Structs>
+    <Struct Name="Position Error Limits">
+      <Param>Position Error Band</Param>
+      <Param>Position Error1 Enable</Param>
+      <Param>Position Time1</Param>
+      <Param>Near Position</Param>
+    </Struct>
+  </Structs>
+  <Variables>
+    <Variable Name="Position Error Band" DataType="H_FLOAT" Printf="%.5f" Description="Position Error Band" />
+    <Variable Name="Position Time1" DataType="H_FLOAT" Printf="%.5f" Description="Position Time1" />
+    <Variable Name="Position Error1 Enable" DataType="H_UCHAR" Printf="%u" Description="Position Error1 Enable" />
+    <Variable Name="Near Position" DataType="H_FLOAT" Printf="%.5f" Description="Near Position" />
+  </Variables>
+</HART>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART>
+  <CannedCommands>
+    <XCommand Name="CheckProcess" CmdNum="251">
+      <!--Alias to ensure commonality-->
+    </XCommand>
+  </CannedCommands>
+  <Sequences>
+    <Sequence Name="CheckProcess">
+      <Steps />
+    </Sequence>
+  </Sequences>
+  <Variables>
+    <XVariable Name="Percent Complete" DataType="H_UCHAR" Printf="%u" Description="Completion degree of a running process. Not all processes report a meaningful number" Default="0" />
+    <Variable Name="Process Id" DataType="H_UCHAR" Printf="%u" Description="Id of the running process. 0 is reserved to indicate no process running"></Variable>
+  </Variables>
+</HART>

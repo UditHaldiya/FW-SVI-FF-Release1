@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command CmdNum="130" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Reset Log File System" CmdNum="198" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_FACTORY_COMMAND" Description="Removes all log file data"></Command>
+      </SubCommands>
+    </Command>
+    <Command Name="Read Log File" CmdNum="198" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Reads up to 40 bytes from a log file">
+      <RequestParams>
+        <Struct>File Request</Struct>
+      </RequestParams>
+      <ResponseParams>
+        <Struct>File Request</Struct>
+        <Param>File Read Length</Param>
+        <Param>File Data</Param>
+      </ResponseParams>
+    </Command>
+  </Commands>
+  <Variables>
+    <Variable Name="File Id" DataType="H_UCHAR" Printf="%u" Description="File Id is specific to the device and is documented elsewhere" />
+    <Variable Name="File Version" DataType="H_UCHAR" Printf="%u" Description="&quot;Age&quot; of the file, 0 being the newest, 1 next to newest etc. The number of versions kept in the device is specific to the file." />
+    <Variable Name="File Position" DataType="H_UINT" Printf="%u" Description="Offset from the beginning of the file where the read begins" />
+    <Variable Name="File Read Length" DataType="H_UCHAR" Printf="%u" Description="The actual number of valid bytes read in File Data" />
+    <Variable Name="File Data" DataType="H_UCHAR" Printf="%02X" Description="Data read from the file. You need to know the meaning of the data which is specific to the file id." MaxSize="40" />
+  </Variables>
+  <Structs>
+    <Struct Name="File Request">
+      <Param>File Id</Param>
+      <Param>File Version</Param>
+      <Param>File Position</Param>
+    </Struct>
+  </Structs>
+</HART>

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--    $Archive: /MNCB/Dev/AP_Release_3.1.x/LCX_devel/FIRMWARE/interface/hart/commonxml/poscontrol.xml $
+    $Date: 2/11/11 2:31p $
+    $Revision: 12 $
+    $Author: Arkkhasin $
+
+-->
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command Name="IPC Firmware Download Data Transfer" CmdNum="245" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND" Description="IPC - F/W Download Data Transfer Command">
+      <RequestParams>
+        <Param>FW Send Data Block</Param>
+      </RequestParams>
+      <ResponseParams>
+        <Param>FW Receive Data Block</Param>
+      </ResponseParams>
+    </Command>
+    <SubCmdOnly CmdNum="129">
+      <SubCommands>
+        <Command Name="Read APP Active Flash Bank" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" CmdNum="41">
+          <RequestParams></RequestParams>
+          <ResponseParams>
+            <Param>APP Flash Bank</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </SubCmdOnly>
+  </Commands>
+  <Variables>
+    <Variable Name="FW Send Data Block" DataType="H_UCHAR" MaxSize="6" DisplayName="FW Send Data Block" Default="0" Description="FW Download Data Buffer sent to the device"></Variable>
+    <Variable Name="FW Receive Data Block" DataType="H_UCHAR" MaxSize="6" DisplayName="FW Receive Data Block" Default="0" Description="FW Download Data Buffer sent to the device"></Variable>
+    <Variable Name="APP Flash Bank" DataType="H_UCHAR" Description="Active Flash Bank (0 or 1)" />
+  </Variables>
+</HART>

@@ -1,0 +1,104 @@
+snapshot=snapshot
+snapshotroot?=..\$(snapshot)
+export dst:=$(snapshotroot)\FIRMWARE
+export _CURDIR=$(subst /,\,$(CURDIR))
+root:=$(subst C:,,$(CURDIR))/
+
+dpslist:=$(shell dir /S/B ..\FD-SW\*.dps)
+filecontent:=$(foreach fname, $(dpslist), $(shell type $(fname)))
+
+nakedfcontent:=$(subst FIRMWARE, FIRMWARE, $(filecontent))
+filteredcontent:=$(filter FIRMWARE/%, $(nakedfcontent))
+mylist:=$(sort $(filteredcontent))
+#myrelativelist:=$(subst $(root),, $(mylist))
+myrelativelist:=$(subst FIRMWARE/,, $(mylist))
+relativedirlist1:=$(dir $(myrelativelist))
+
+relativelist:=$(subst /,\,$(myrelativelist))
+relativedirlist:=$(sort $(subst /,\,$(relativedirlist1)))
+
+lintclude_dir:=cmdbuild\$(DIR)\project_FFAP
+
+archive:=..\$(snapshotroot)\$(snapshot).zip
+
+all : prepare sources headers
+    cp -f ffbuild.mak ffplugin.mak handover.mak makefile $(dst)
+    -cmd /E/C mkdir $(dst)\buildhelpers
+	xcopy /K/R/Y buildhelpers $(dst)\buildhelpers
+    -cmd /E/C mkdir $(dst)\LintCfg
+	xcopy /K/R/Y LintCfg $(dst)\LintCfg
+	cp -f fflint.mak dummy.c $(dst)
+    -cmd /E/C mkdir $(dst)\$(lintclude_dir)
+    if not exist $(lintclude_dir)\lintclude.lnt $(MAKE) proj=FFAP LINT LINT=echo
+	cp -f $(lintclude_dir)\lintclude.lnt $(dst)\$(lintclude_dir)
+    -cmd /E/C mkdir $(dst)\tools
+    xcopy /K/R/Y tools $(dst)\tools
+    -cmd /E/C mkdir $(dst)\..\FD-SW
+	cp -r -f -d ..\FD-SW\\* $(dst)\..\FD-SW
+    cmd /E/C del /S/A-R $(dst)\..\FD-SW\mak
+	cmd /E/C del /S/A-R $(dst)\..\FD-SW\\*.a
+	cmd /E/C del /S/A-R $(dst)\..\FD-SW\\*.o
+	-rm -f $(dst)\tools\\*.bat
+	rm -f $(dst)\tools\mnsign.exe
+	-rm -f $(dst)\tools\XLSperl.exe
+	-rm -f $(dst)\tools\XmlToStdout.exe
+	-rm -f $(dst)\tools\MnHartCmds.dll
+	cmd /E/C del /S/A-R $(dst)\..\FD-SW\\*.dps
+	-rm -f $(archive)
+    7za a -r $(archive) $(dst) $(dst)\..\FD-SW
+    dir $(archive)
+    echo Find it there!
+
+prepare :
+    @echo $(myrelativelist)
+        $(pause)
+    -rm -f -r $(snapshotroot)
+
+headers: $(myrelativelist)
+
+$(myrelativelist) : $(relativedirlist1)
+    cp -f $@ $(dst)\$@
+
+$(sort $(relativedirlist1)) : force
+    -cmd /E /C mkdir $(dst)\$(subst /,\,$@)
+
+
+#Now hunt for MN sources
+extensions:=.c .s79 .s
+#1. All files we've got
+mnfiles:=$(shell dir /S/B $(addprefix *, $(extensions)))
+mnfiles:=$(subst $(subst /,\,$(CURDIR))\,, $(mnfiles))
+#$(info mnfiles=$(mnfiles))
+#2. Find Objects in Softing logs
+objlist0:=$(shell dir /S/B ..\FD-SW\*.txt)
+objlist1:=$(filter-out %log.txt, $(objlist0))
+objlist:=$(filter-out %svi_ff_debug.txt %svi_ff_uta_debug.txt %svi_ff_release.txt %svi_ff_uta_release.txt, $(objlist1))
+$(info objlist=$(objlist))
+objfiles:=$(foreach fname, $(objlist), $(subst obj/,,($(shell cmd /C type $(fname)))))
+LPAREN=(
+objfiles:=$(subst $(LPAREN),,$(objfiles))
+RPAREN=)
+objfiles:=$(subst $(RPAREN),,$(objfiles))
+objfiles:=$(filter %.o, $(objfiles))
+objfiles:=$(sort $(objfiles))
+$(info objfiles=$(objfiles))
+
+#3. Calculate files to copy
+filestems:=$(objfiles:.o=)
+$(info filestems=$(filestems))
+tocopy:=$(foreach stem, $(filestems), $(filter $(addprefix %$(stem), $(extensions)), $(mnfiles)))
+$(info tocopy=$(tocopy))
+todirs:=$(addprefix $(dst)\, $(sort $(dir $(tocopy))))
+$(info todirs=$(todirs))
+
+sources : $(tocopy)
+    echo $(todirs)
+
+$(tocopy) : force
+    $(pause)
+    -cmd /E /C mkdir $(dst)\$(dir $@)
+    copy $@ $(dst)\$@
+
+
+
+force : ;

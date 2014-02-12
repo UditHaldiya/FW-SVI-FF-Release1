@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command CmdNum="171" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Write Position Control Limits" CmdNum="166" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Write Position Control Limits">
+          <RequestParams>
+            <Struct>Control Limits Conf</Struct>
+          </RequestParams>
+          <ResponseParams>
+            <Struct>Control Limits Conf</Struct>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+    <Command CmdNum="170" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Read Position Control Limits" CmdNum="166" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_READ_COMMAND" Description="Read Position Control Limits">
+          <ResponseParams>
+            <Struct>Control Limits Conf</Struct>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+  <Structs>
+    <Struct Name="Control Limits Conf">
+      <Param>Position Limits Protected</Param>
+      <Param>Tight Shutoff Enabled</Param>
+      <Param>Tight Cutoff Enabled</Param>
+      <Param>Tight Shut Off</Param>
+      <Param>Tight Cut Off</Param>
+      <Param>Position Limits Enabled</Param>
+      <Param>Position Limits</Param>
+      <Param>Position Rate Limits Enabled</Param>
+      <Param>Position Rate Limits</Param>
+    </Struct>
+  </Structs>
+  <Variables>
+    <Variable Name="Position Limits Protected" DataType="H_UCHAR" Description="0 means unprotected, non-0 protected">
+      <EnumValues v0="PLPUnprotected | Unprotected" v1="PLPProtected | Protected" />
+    </Variable>
+    <Variable Name="Position Rate Limits Enabled" DataType="H_UCHAR" Description="non-0 enables limit: [0]-lower; [1]-upper" MaxSize="2">
+      <EnumValues v0="PRLEDisabled | Disabled" v1="PRLEEnabled | Enabled" />
+    </Variable>
+    <Variable Name="Position Limits Enabled" DataType="H_UCHAR" Description="non-0 enables limit: [0]-lower; [1]-upper" MaxSize="2">
+      <EnumValues v0="PLEDisabled | Disabled" v1="PLEEnabled | Enabled" />
+    </Variable>
+    <Variable Name="Position Rate Limits" DataType="H_FLOAT" Units="%/s" Printf="%.2f" Description="Position Rate Limit; in effect only if enabled\n&#xD;&#xA;Units are % of adjusted position range per second">
+      <Range Model="Standard" MinValue="0.8" MaxValue="100.1" />
+    </Variable>
+    <Variable Name="Position Limits" DataType="H_FLOAT" Units="%" Printf="%.2f" Description="Position Limit [0]-lower; [1]-upper; in effect only if enabled\n&#xD;&#xA;Units are % of adjusted position range" MaxSize="2">
+      <Range Model="StandardArray" MinValue="-10 10" MaxValue="50 110" />
+    </Variable>
+    <Variable Name="Tight Shut Off" DataType="H_FLOAT" Printf="%.2f" Description="Tight Shut Off Threshold\n&#xD;&#xA;Units are % of adjusted position range">
+      <Range Model="Standard" MinValue="-1.0" MaxValue="20.0" />
+    </Variable>
+    <Variable Name="Tight Cut Off" DataType="H_FLOAT" Printf="%.2f" Description="Tight Cut Off Threshold\n&#xD;&#xA;Units are % of adjusted position range">
+      <Range Model="Standard" MinValue="80.0" MaxValue="101.0" />    
+    </Variable>
+    <Variable Name="Tight Shutoff Enabled" DataType="H_UCHAR" Description="Non-0 enables tight shutoff">
+      <EnumValues v0="TSEDisabled | Disabled" v1="TSEEnabled | Enabled" />
+    </Variable>
+    <Variable Name="Tight Cutoff Enabled" DataType="H_UCHAR" Description="Non-0 enables tight shutoff">
+      <EnumValues v0="TCEDisabled | Disabled" v1="TCEEnabled | Enabled" />
+    </Variable>
+  </Variables>
+</HART>

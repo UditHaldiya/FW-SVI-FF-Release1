@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--  $Archive: /MNCB/Dev/AP_Release_3.1.x/LCX_devel/FIRMWARE/interface/hart/commonxml/write_ctlout.xml $
+      $Date: 4/13/11 5:36p $
+      $Revision: 1 $
+      $Author: Sergey Kruss $
+-->
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command Name="Write IP Value" CmdNum="160" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS" CmdFlags="HC_COMMAND_COMMAND" Description="Command writes raw PWM counts, with no normalization">
+      <RequestParams>
+        <Param>ipValue_IPOut</Param>
+      </RequestParams>
+      <ResponseParams />
+    </Command>
+    <Command CmdNum="130" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Write Control Output" CmdNum="160" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_COMMAND_COMMAND | HC_FACTORY_COMMAND" Description="Command writes control counts, which are translated to PWM counts via standard normalization algorithm and sent to PWM chip.">
+          <RequestParams>
+            <Param>Control Output</Param>
+          </RequestParams>
+          <ResponseParams />
+        </Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+  <Variables>
+    <Variable Name="Control Output" DataType="H_UINT" Description="Number of counts, to be translated to PWM counts via standard normalization algorithm before sending to PWM chip." EnRangeCheck="1">
+      <Range Model="TypeRange" />
+    </Variable>
+    <Variable DisplayName="I/P Value" Name="ipValue_IPOut" DataType="H_UINT" Description="Raw PWM counts to drive I/P. 0 has a special meaning of returning to closed-loop control." EnRangeCheck="1">
+      <Range Model="TypeRange" />
+    </Variable>
+  </Variables>
+</HART>

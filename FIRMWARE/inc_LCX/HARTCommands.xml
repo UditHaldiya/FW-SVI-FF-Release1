@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--    $Archive: /MNCB/Dev/LCX2AP/FIRMWARE/inc_LCX/HARTCommands.xml $
+    $Date: 1/30/12 2:03p $
+    $Revision: 27 $
+    $Author: Arkkhasin $
+
+-->
+<HART Title="SVI2 LCX HART Commands Definition" Version="3.0">
+  <Commands>
+    <!--Sample commands; params are ordered-->
+  </Commands>
+  <Include>
+    <FileName>..\interface\hart\commonxml\mncommon.xml</FileName>
+    <FileName>..\interface\hart\commonxml\poscontrol.xml</FileName>
+    <FileName>..\interface\hart\commonxml\poscontrollimits.xml</FileName>
+    <FileName>..\interface\hart\commonxml\pneuparams.xml</FileName>
+    <FileName>..\interface\hart\commonxml\setpoint_signal.xml</FileName>
+    <FileName>..\interface\hart\commonxml\readairaction.xml</FileName>
+    <FileName>..\interface\hart\commonxml\bumpless.xml</FileName>
+    <FileName>..\interface\hart\commonxml\cmd_ext_analysis.xml</FileName>
+    <FileName>..\interface\hart\commonxml\subcmds_ext_analysis.xml</FileName>
+    <FileName>..\interface\hart\commonxml\activation.xml</FileName>
+    <FileName>.\fac_lcx_specific.xml</FileName>
+    <FileName>..\interface\hart\commonxml\stops_adj_readwrite.xml</FileName>
+    <FileName>..\interface\hart\commonxml\stops_adj_rwconf.xml</FileName>
+    <FileName>..\interface\hart\commonxml\testassert.xml</FileName>
+    <FileName>..\interface\hart\commonxml\mncbpres.xml</FileName>
+    <FileName>..\interface\hart\commonxml\engunitsif.xml</FileName>
+    <FileName>..\interface\hart\commonxml\signal_smoothing.xml</FileName>
+    <!--Added for new tempcomp - see what it means for AP and FF-->
+    <FileName>..\interface\hart\commonxml\calib.xml</FileName>
+    <FileName>..\interface\hart\commonxml\cmd_tempcomp.xml</FileName>
+    <FileName>..\interface\hart\commonxml\tempcomp_lcx.xml</FileName>
+    <FileName>..\interface\hart\commonxml\cmd220_221_mncb.xml</FileName>
+    <!--Magic for SA Custom Cal page automation-->
+    <FileName>..\interface\hart\commonxml\CCBoardID.xml</FileName>
+  </Include>
+</HART>

@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <FutureCommands>
+    <Command Name="Read Primary Variable" CmdType="Read" CmdNum="1" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read primary: level or interface in its engineering units">
+      <ResponseParams>
+        <Struct>Univ Position</Struct>
+      </ResponseParams>
+    </Command>
+    <Command Name="Read Current" CmdType="Read" CmdNum="2" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read PV: current and percentage of range">
+      <ResponseParams>
+        <Param>Signal</Param>
+        <Param>Signal Percent</Param>
+      </ResponseParams>
+    </Command>
+    <Command Name="Reset Configuration Changed Flag" CmdNum="38" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND" Description="Resets the &quot;configuration changed&quot; flag for the HART master that sent the command. Doesn not affect the flag for the alternative master."></Command>
+    <Command Name="Clear Faults" CmdNum="138" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND | HC_WRITE_PROTECT" Description="Clears all faults that can be cleared">
+      <RequestParams>
+        <Param>Fault Flag</Param>
+        <Param>Device Password</Param>
+      </RequestParams>
+      <ResponseParams></ResponseParams>
+    </Command>
+    <Command Name="Clear Event" CmdNum="197" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND | HC_WRITE_PROTECT" Description="Clears the specified event (fault) if it can be cleared">
+      <RequestParams>
+        <Param>Fault Number</Param>
+        <Param>Device Password</Param>
+      </RequestParams>
+      <ResponseParams></ResponseParams>
+    </Command>
+    <Command Name="Cancel Process" CmdNum="253" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Abort the running process.\n&#xD;&#xA;NOTE: It is a COMMAND command by its idea, but it is allowed even if a process is running (which is the purpose)">
+      <RequestParams></RequestParams>
+      <ResponseParams></ResponseParams>
+    </Command>
+  </FutureCommands>
+  <Structs>
+    <Struct Name="Temperatures">
+      <Param>Current Temperature</Param>
+      <Param>Min Temperature</Param>
+      <Param>Max Temperature</Param>
+    </Struct>
+    <Struct Name="Full Device Mode">
+      <Param>Device Mode</Param>
+      <Param>Device Submode</Param>
+    </Struct>
+  </Structs>
+  <Variables>
+    <Variable Name="Min Temperature" DataType="H_FLOAT" Printf="%.2f" Description="" />
+    <Variable Name="Current Temperature" DataType="H_FLOAT" Printf="%.2f" Description="" />
+    <Variable Name="Max Temperature" DataType="H_FLOAT" Printf="%.2f" Description="" />
+    <Variable Name="Number Of Temperature Sensors" DataType="H_UINT" Printf="%d" Description="Constant" Default="1" />
+    <Variable Name="Tempr Units" DataType="H_UCHAR" Printf="%u" Description="Temperature Units">
+      <EnumValues v32="DegC" v33="DegF" />
+    </Variable>
+    <Variable Name="Process Id" DataType="H_UCHAR" Printf="%u" Description="Id of the running process. 0 is reserved to indicate no process running"></Variable>
+    <Variable Name="Percent Complete" DataType="H_UCHAR" Printf="%u" Description="Completion degree of a running process. Not all processes report a meaningful number"></Variable>
+    <Variable Name="Buffer Id" DataType="H_UCHAR" Printf="%u" Description="An id of the buffer to read. Should be 0 (or 0x80|0) except special cases agreed with an application function" />
+    <Variable Name="Buffer Read Tag" DataType="H_UCHAR" Printf="%u" Description="A &quot;handshake&quot; value between request and response to synchronize response with requests" />
+    <Variable Name="Buffer Data" DataType="H_UINT" Printf="%04X" Description="Data read from the buffer. You need to know the meaning of the data which is specific to the context filling the buffer." MaxSize="11" />
+    <Variable Name="Raw Data Samples" DataType="H_UCHAR" Printf="%02X" Description="Byte stream read from the buffer. You need to know the meaning of the data which is specific to the context filling the buffer." MaxSize="48" />
+    <Variable Name="Buffer Read Length" DataType="H_UCHAR" Printf="%u" Description="The actual number of valid 16-bit items read in Buffer Data" />
+    <Variable Name="Data Sample Count" DataType="H_UCHAR" Printf="%u" Description="The actual number of valid samples read in Buffer Data" />
+    <Variable Name="Data Sample Skip Count" DataType="H_UCHAR" Printf="%u" Description="Number of samples to skip (0 means consecutive read)" />
+    <Variable Name="Data Sample Size" DataType="H_UCHAR" Printf="%u" Description="Size of a sample in bytes" />
+    <Variable Name="Data Offset" DataType="H_UINT" Printf="%u" Description="Read offset into the raw buffer (auto-incerementing)" />
+    <Variable Name="Buffer Data Long" DataType="H_UINT" Printf="%04X" Description="Data read from the buffer. You need to know the meaning of the data which is specific to the context filling the buffer." MaxSize="16" />
+    <Variable Name="Device Submode" DataType="H_UCHAR" Printf="%02x" Description="Device submode is a bitwise OR of zero or more of the following:&#xD;&#xA;NORMAL 00&#xD;&#xA;Low Power 10&#xD;&#xA;Marginal Power 40&#xD;&#xA;Fail high 80&#xD;&#xA;Trip state 20 - Trip means that the device is not necessarily in failsafe but outputs failsafe output because it is so configured to annunciate certain external conditions."></Variable>
+    <Variable Name="Device Mode" DataType="H_UCHAR" Printf="0x%02X" Description="Device mode" EnRangeCheck="1">
+      <Range Model="TypeRange" />
+      <EnumValues v00="H Setup | Setup" v01="H Manual | Manual" v02="H Failsafe | Failsafe" v03="H Normal | Normal" />
+    </Variable>
+  </Variables>
+  <FutureVariables>
+    <Variable Name="Device InvMode" DataType="H_UCHAR" Printf="0x%02X" Description="Inverted device mode for transmission redundancy" EnRangeCheck="1">
+      <Range Model="TypeRange" />
+      <EnumValues v0xFF="H ISetup|Inv Setup" v0xFE="H IManual|Inv Manual" v0xFD="H IFailsafe|Inv Failsafe" v0xFC="H INormal|Inv Normal" />
+    </Variable>
+    <Variable Name="Device Password" DataType="H_UINT4" Printf="%08x" MaxSize="2" EnRangeCheck="1">
+      <Range Model="TypeRange" />
+    </Variable>
+    <Variable Name="Tempr M Curr" DataType="H_FLOAT" Printf="%.2f" Description="" />
+    <Variable Name="Tempr M Min" DataType="H_FLOAT" Printf="%.2f" Description="" />
+    <Variable Name="Tempr S Min" DataType="H_FLOAT" Printf="%.2f" Description="" />
+    <Variable Name="Tempr M Max" DataType="H_FLOAT" Printf="%.2f" Description="" />
+    <Variable Name="Tempr S Max" DataType="H_FLOAT" Printf="%.2f" Description="" />
+    <Variable Name="Tempr S Curr" DataType="H_FLOAT" Printf="%.2f" Description="" />
+    <Variable Name="Position" DataType="H_FLOAT" Printf="%.3f" Description="Device-specific position, like valve position in AP or interface or level in DLT" DisplayName="Level" />
+    <Variable Name="Signal" DataType="H_FLOAT" Printf="%.3f" Description="Loop current (in positioners - measured; in transmitters - commanded)" />
+    <Variable Name="Signal Percent" DataType="H_FLOAT" Printf="%.3f" Description="Signal Percent" />
+  </FutureVariables>
+  <Commands>
+    <Command Name="Read Data Buffer Raw" CmdNum="193" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND" Description="Reads raw data from a linear buffer">
+      <RequestParams>
+        <Param>Buffer Id</Param>
+        <Param>Data Offset</Param>
+        <Param>Data Sample Size</Param>
+        <Param>Data Sample Skip Count</Param>
+      </RequestParams>
+      <ResponseParams>
+        <Param>Buffer Id</Param>
+        <Param>Data Offset</Param>
+        <Param>Data Sample Size</Param>
+        <Param>Data Sample Skip Count</Param>
+        <Param>Data Sample Count</Param>
+        <Param>Raw Data Samples</Param>
+      </ResponseParams>
+    </Command>
+    <Command Name="Reset" CmdNum="42" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND" Description="Resets the device after sending the response"></Command>
+    <Command Name="Read Settings" CmdNum="170" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Reads settings selected by the subcommand">
+      <ResponseParams>
+        <Param>SubCmdNum</Param>
+      </ResponseParams>
+      <RequestParams>
+        <Param>SubCmdNum</Param>
+      </RequestParams>
+      <SubCommands></SubCommands>
+      <FutureSubCommands>
+        <Command Name="Read Advanced Output Switch Config" CmdNum="0" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read Output Switch Configuration">
+          <RequestParams>
+            <Param>DO Under Config</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Struct>HART DO Configuration</Struct>
+          </ResponseParams>
+        </Command>
+        <Command Name="Read Output Switch Config" CmdNum="100" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_READ_COMMAND" Description="Read Output Switch Configuration">
+          <RequestParams>
+            <Param>DO Under Config</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Struct>HART Simple DO Configuration</Struct>
+          </ResponseParams>
+        </Command>
+        <Command Name="Read UI language" CmdNum="1" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read UI language">
+          <ResponseParams>
+            <Param>UI Language</Param>
+          </ResponseParams>
+        </Command>
+        <Command Name="Read UI Access Control" CmdNum="2" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read buttons lock and override password">
+          <ResponseParams>
+            <Struct>UI Access Control</Struct>
+          </ResponseParams>
+        </Command>
+        <Command Name="Read Level Alarm Settings" CmdNum="4" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read settings of the specified Level Alarm">
+          <RequestParams>
+            <Param>Alarm Selector</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Struct>Level Alarm Settings</Struct>
+          </ResponseParams>
+        </Command>
+        <Command Name="Read Level Alarm Hysteresis" CmdNum="5" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read Hysteresis for the Level Alarms">
+          <RequestParams></RequestParams>
+          <ResponseParams>
+            <Struct>Level Alarm Hysteresis</Struct>
+          </ResponseParams>
+        </Command>
+      </FutureSubCommands>
+    </Command>
+    <Command Name="Write Settings" CmdNum="171" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND" Description="Writes settings selected by the subcommand - Allowed modes must be selected by corresponding subcommand">
+      <RequestParams>
+        <Param>SubCmdNum</Param>
+      </RequestParams>
+      <ResponseParams>
+        <Param>SubCmdNum</Param>
+      </ResponseParams>
+      <FutureSubCommands>
+        <Command Name="Write Advanced Output Switch Config" CmdNum="0" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Write Output Switch Configuration">
+          <RequestParams>
+            <Struct>HART DO Configuration</Struct>
+          </RequestParams>
+          <ResponseParams>
+            <Struct>HART DO Configuration</Struct>
+          </ResponseParams>
+        </Command>
+        <Command Name="Write Output Switch Config" CmdNum="100" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Write Output Switch Configuration">
+          <RequestParams>
+            <Struct>HART Simple DO Configuration</Struct>
+          </RequestParams>
+          <ResponseParams>
+            <Struct>HART Simple DO Configuration</Struct>
+          </ResponseParams>
+        </Command>
+        <Command Name="Write UI language" CmdNum="1" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Write UI language">
+          <RequestParams>
+            <Param>UI Language</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Param>UI Language</Param>
+          </ResponseParams>
+        </Command>
+        <Command Name="Write UI Access Control" CmdNum="2" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Write buttons lock and override password">
+          <RequestParams>
+            <Struct>UI Access Control</Struct>
+          </RequestParams>
+          <ResponseParams>
+            <Struct>UI Access Control</Struct>
+          </ResponseParams>
+        </Command>
+        <Command Name="Write Level Alarm Settings" CmdNum="4" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Write settings of the specified Level Alarm">
+          <RequestParams>
+            <Struct>Level Alarm Settings</Struct>
+          </RequestParams>
+          <ResponseParams>
+            <Struct>Level Alarm Settings</Struct>
+          </ResponseParams>
+        </Command>
+        <Command Name="Write Level Alarm Hysteresis" CmdNum="5" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Write Hysteresis setting for the Level Alarms">
+          <RequestParams>
+            <Struct>Level Alarm Hysteresis</Struct>
+          </RequestParams>
+          <ResponseParams>
+            <Struct>Level Alarm Hysteresis</Struct>
+          </ResponseParams>
+        </Command>
+      </FutureSubCommands>
+      <SubCommands />
+    </Command>
+    <Command Name="Losslessly Read Data Buffer" CmdNum="176" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Reads data from a circular buffer (in 16-bit quantities)\n&#xD;&#xA;-          Additional flag in Buffer Id (MSB set means the following tag is the start tag of the read session\n&#xD;&#xA;-          Additional byte (tag) which is an arbitrary value if MSB is set, or (previous_value+1)%256 otherwise\n\n&#xD;&#xA;&#xD;&#xA;If MSB is set, the device will (by convention) reply &quot;transmitter-specific error&quot; to save on transmission time.&#xD;&#xA;&#xD;&#xA;Otherwise, if MSB is cleared, the device will compare the byte with the previous value. &#xD;&#xA;&#xD;&#xA;If the value is the same, the device will assume a retry and repeat the previous response&#xD;&#xA;&#xD;&#xA;If the value is (previous_value+1)%256, the device will send a new batch of data&#xD;&#xA;&#xD;&#xA;In either case the device will mirror the tag.&#xD;&#xA;&#xD;&#xA;In all other cases the device will assume the session is wrong and return &quot;invalid selection&quot;&#xD;&#xA;&#xD;&#xA;Command would read from the same buffer until the buffer is changed with MSB set.&#xD;&#xA;&#xD;&#xA;">
+      <RequestParams>
+        <Param>Buffer Id</Param>
+        <Param>Buffer Read Tag</Param>
+      </RequestParams>
+      <ResponseParams>
+        <Param>Buffer Read Tag</Param>
+        <Param>Buffer Read Length</Param>
+        <Param>Buffer Data Long</Param>
+      </ResponseParams>
+    </Command>
+    <Command Name="Check Process" CmdNum="251" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Get information on the running process">
+      <RequestParams></RequestParams>
+      <ResponseParams>
+        <Param>Process Id</Param>
+        <Param>Percent Complete</Param>
+      </ResponseParams>
+    </Command>
+    <Command Name="Change Device Mode" CmdNum="135" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND | HC_WRITE_PROTECT" Description="Change device mode">
+      <RequestParams>
+        <Param>Device Mode</Param>
+        <XParam>Device InvMode</XParam>
+        <XParam>Device Password</XParam>
+      </RequestParams>
+      <ResponseParams>
+        <Param>Device Mode</Param>
+        <XParam>Device InvMode</XParam>
+        <XParam>Device Password</XParam>
+      </ResponseParams>
+    </Command>
+    <Command Name="Read Device Mode" CmdNum="249" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read device mode and submode">
+      <RequestParams></RequestParams>
+      <ResponseParams>
+        <Struct>Full Device Mode</Struct>
+      </ResponseParams>
+    </Command>
+    <Command Name="Reset To Factory Calibrations" CmdNum="230" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Reset a calibration item specified by a subcommand">
+      <RequestParams>
+        <Param>SubCmdNum</Param>
+      </RequestParams>
+      <ResponseParams>
+        <Param>SubCmdNum</Param>
+      </ResponseParams>
+      <SubCommands></SubCommands>
+    </Command>
+    <Command Name="Read User Trim" CmdNum="229" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read user trim values specified by a subcommand\n&#xD;&#xA;NOTE: None of the parameters are device variables: they have to pull around to stick.">
+      <RequestParams>
+        <Param>SubCmdNum</Param>
+      </RequestParams>
+      <ResponseParams>
+        <Param>SubCmdNum</Param>
+      </ResponseParams>
+      <SubCommands></SubCommands>
+    </Command>
+    <Command Name="Run a Process" CmdNum="190" CmdType="Process" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND | HC_PROCESS_COMMAND | HC_WRITE_PROTECT" Description="Executes the requested process">
+      <RequestParams>
+        <Param>SubCmdNum</Param>
+      </RequestParams>
+      <ResponseParams>
+        <Param>SubCmdNum</Param>
+      </ResponseParams>
+      <SubCommands></SubCommands>
+    </Command>
+  </Commands>
+  <FutureVariables>
+    <Variable Name="DO Under Config" DataType="H_UCHAR" Printf="%u" Description="0-based DO number (0-DO1, 1-DO2). Not all DO in all projects are configurable." DisplayName="DO Number" EnRangeCheck="1">
+      <Range Model="TypeRange" />
+      <EnumValues v0="DO1" v1="DO2" />
+    </Variable>
+    <Variable Name="DO Normal State" DataType="H_UCHAR" Printf="%u" Description="Normal (not asserted) state of the DO. 0-normal closed, 1-normal open" DisplayName="Normal State" EnRangeCheck="1">
+      <Range Model="TypeRange" />
+      <EnumValues v0="Normal Closed" v1="Normal Open" />
+    </Variable>
+    <Variable Name="DO Modes map" DataType="H_UCHAR" Printf="%u" Description="When the device mode is m, the DO is asserted if bit # m is set in this byte (mask 1&lt;&lt;m)." DisplayName="Device Modes map" />
+    <Variable Name="DO Fault attributes map" DataType="H_UCHAR" Printf="%u" Description="When there is any fault (status) with an attribute a, the DO is asserted if bit # a is set in this byte (mask 1&lt;&lt;a)." DisplayName="Fault Attribs map"></Variable>
+    <Variable Name="Detailed Faults Map" DataType="H_UCHAR" Printf="%02X" Description="Bit array of Status (Event/Alarm/Fault) bits that assert the associated output switch (DO)" MaxSize="16" />
+    <Variable Name="UI Language" DataType="H_UCHAR" Description="UI Language code" Default="English" EnRangeCheck="1" DisplayName="Local UI Language">
+      <Range Model="TypeRange" />
+      <EnumValues v0="UI_English | English" v1="UI_French | French" v2="UI_Spanish | Spanish" v3="UI_Portuguese | Portuguese" v4="UI_Japanese | Japanese" v5="UI_Italian | Italian" v6="UI_German | German" />
+    </Variable>
+    <Variable Name="UI Lock Level" DataType="H_UCHAR" Description="From all enabled to all disabled. NOTE: No useful decoding until common enums are shared." />
+    <Variable Name="UI Password Enabled Flag" DataType="H_UCHAR" Description="0 disabled, 1 enabled, others invalid" EnRangeCheck="1">
+      <Range Model="TypeRange" />
+      <EnumValues v0="UIPassDisabled | Disabled" v1="UIPassEnabled | Enabled" />
+    </Variable>
+    <Variable Name="UI password" DataType="H_INT" Description="Any number can be a password" />
+    <Variable Name="Alarm Selector" DataType="H_UCHAR" Description="0 to number-of-alarms - 1.\n&#xD;&#xA;NOTE: Same variables are populated for different values of selector so they should be pulled around programmatically" EnRangeCheck="1">
+      <Range Model="TypeRange" />
+      <EnumValues v0="AlmSel0 | 0" v1="AlmSel1 | 1" v2="AlmSel2 | 2" v3="AlmSel3 | 3" />
+    </Variable>
+    <Variable Name="Alarm Enabled" DataType="H_UCHAR" Description="0-disabled, non-0-enambled" EnRangeCheck="1">
+      <Range Model="TypeRange" />
+      <EnumValues v0="Disabled" v1="Enabled" />
+    </Variable>
+    <Variable Name="Alarm Threshold" DataType="H_FLOAT" Description="Alarm threshold in the current units of level/position"></Variable>
+    <Variable Name="Alarm Hysteresis" DataType="H_FLOAT" Units="% of level range" Printf="%.2f" Description="Alarm treshold hysteresis in the current units of level/position">
+      <Range Model="Standard" MinValue="0.49" MaxValue="50" />
+    </Variable>
+    <Variable Name="Alarm Time" DataType="H_FLOAT" Units="s" Printf="%.2f" Description="Time outside thresholds before alarm is set; or inside the thresholds before the alarm is cleared">
+      <Range Model="Standard" MinValue="1" MaxValue="600" />
+    </Variable>
+    <Variable Name="DO Function" DataType="H_UCHAR" Description="One of the predefined functions for a DO simplified configurations.\n&#xD;&#xA;NOTE: Not all values apply to all projects" EnRangeCheck="1">
+      <Range Model="TypeRange" />
+      <EnumValues v0="SWITCH_DISABLE | Disable" v1="SWITCH_FAIL | FailSafe" v2="SWITCH_RESET | Reset" v3="SWITCH_POS_ERROR | | Not for DLT" v4="SWITCH_TIGHT | | AP only" v5="SWITCH_POS_LOW_1 | Alarm Low1 | Tied to Alarm 1" v6="SWITCH_POS_HIGH_1 | Alarm High1| Tied to Alarm 3" v7="SWITCH_MANUAL | Manual" v8="SWITCH_FAULT_ANN | Annunciate" v9="SWITCH_ESD_TRIG | | ESD only" v10="SWITCH_OFFLINE | Not Normal Mode | Not in normal mode" v11="SWITCH_PST_RUNNING | |ESD only" v12="SWITCH_POS_LOW_2 | Alarm Low2 | Tied to Alarm 2" v13="SWITCH_POS_HIGH_2 | Alarm High2 | Tied to Alarm 4" v14="SWITCH_ADVANCED_CONFIG | | Configured with advanced settings" v15="SWITCH_UI_OFF | Local UI off | UI off because of low temperature (or disconnect)" v16="SWITCH_TIMEWRK | Time Working " />
+    </Variable>
+  </FutureVariables>
+  <FutureStructs>
+    <Struct Name="HART DO Configuration">
+      <Param>DO Under Config</Param>
+      <Param>DO Normal State</Param>
+      <Param>DO Modes map</Param>
+      <Param>DO Fault attributes map</Param>
+      <Param>Detailed Faults Map</Param>
+    </Struct>
+    <Struct Name="HART Simple DO Configuration">
+      <Param>DO Under Config</Param>
+      <Param>DO Normal State</Param>
+      <Param>DO Function</Param>
+    </Struct>
+    <Struct Name="UI Access Control">
+      <Param>UI Lock Level</Param>
+      <Param>UI Password Enabled Flag</Param>
+      <Param>UI password</Param>
+    </Struct>
+    <Struct Name="Level Alarm Settings">
+      <Param>Alarm Selector</Param>
+      <Param>Alarm Enabled</Param>
+      <Param>Alarm Threshold</Param>
+      <Param>Alarm Time</Param>
+    </Struct>
+    <Struct Name="Level Alarm Hysteresis">
+      <Param>Alarm Hysteresis</Param>
+    </Struct>
+  </FutureStructs>
+  <CannedCommands>
+    <Command Name="CheckProcess" CmdNum="251">
+      <!--Alias to ensure commonality-->
+    </Command>
+  </CannedCommands>
+</HART>

@@ -1,0 +1,169 @@
+maestra demo
+Test 0: Just a demo of `for' and `if' instrumentation
+Test acceptance criteria:
+Manual: Inspect the trace
+I: [uut-sample.c:28] foo: The ?: or for condition i<x is false
+I: [uut-sample.c:37] foo: Hit `return'
+H: Computed 0
+I: [uut-sample.c:28] foo: The ?: or for condition i<x is false
+I: [uut-sample.c:37] foo: Hit `return'
+H: Computed 0
+I: [uut-sample.c:28] foo: The ?: or for condition i<x is true
+I: [uut-sample.c:28] foo: Hit `for'
+I: [uut-sample.c:29] foo: The if condition i==17 is false
+I: [uut-sample.c:30] foo: The if condition i==0 is false
+I: [uut-sample.c:31] foo: The if condition i%2 == 0 is false
+I: [uut-sample.c:28] foo: The ?: or for condition i<x is false
+I: [uut-sample.c:37] foo: Hit `return'
+H: Computed -1
+I: [uut-sample.c:28] foo: The ?: or for condition i<x is true
+I: [uut-sample.c:28] foo: Hit `for'
+I: [uut-sample.c:29] foo: The if condition i==17 is false
+I: [uut-sample.c:30] foo: The if condition i==0 is false
+I: [uut-sample.c:31] foo: The if condition i%2 == 0 is false
+I: [uut-sample.c:28] foo: The ?: or for condition i<x is true
+I: [uut-sample.c:28] foo: Hit `for'
+I: [uut-sample.c:29] foo: The if condition i==17 is false
+I: [uut-sample.c:30] foo: The if condition i==0 is false
+I: [uut-sample.c:31] foo: The if condition i%2 == 0 is true
+I: [uut-sample.c:28] foo: The ?: or for condition i<x is false
+I: [uut-sample.c:37] foo: Hit `return'
+H: Computed 1
+Overall test result: PASSED
+Test 1: Just a demo of `switch' and `case' instrumentation
+Test acceptance criteria:
+Automatic: Check results against pre-computed values
+I: [uut-sample.c:43] bar: Hit `switch'(x value 0)
+I: [uut-sample.c:44] bar: Hit `default'
+I: [uut-sample.c:45] bar: Hit `return'
+H: Testing bar(0)
+Expected 3.290000 vs. Actual 3.290000: PASSED
+I: [uut-sample.c:43] bar: Hit `switch'(x value 10)
+I: [uut-sample.c:44] bar: Hit `default'
+I: [uut-sample.c:45] bar: Hit `return'
+H: Testing bar(10)
+Expected 3.290000 vs. Actual 3.290000: ACCEPTED
+I: [uut-sample.c:43] bar: Hit `switch'(x value 5)
+I: [uut-sample.c:46] bar: Hit `case'(5 value 5)
+I: [uut-sample.c:47] bar: Hit `case'(8 value 8)
+I: [uut-sample.c:48] bar: Hit `return'
+H: Testing bar(5)
+Expected 3.280000 vs. Actual 3.280000: PASSED
+I: [uut-sample.c:43] bar: Hit `switch'(x value 8)
+I: [uut-sample.c:47] bar: Hit `case'(8 value 8)
+I: [uut-sample.c:48] bar: Hit `return'
+H: Testing bar(8)
+Expected 3.280000 vs. Actual 3.280000: PASSED
+I: [uut-sample.c:43] bar: Hit `switch'(x value 9)
+I: [uut-sample.c:47] bar: Hit `case'(8 value 8)
+I: [uut-sample.c:48] bar: Hit `return'
+H: Testing bar(9)
+Expected 3.280000 vs. Actual 3.280000: PASSED
+I: [uut-sample.c:43] bar: Hit `switch'(x value 90)
+I: [uut-sample.c:49] bar: Hit `case'(90 value 90)
+S: baz returns 0.000000
+I: [uut-sample.c:51] bar: Hit `break'
+I: [uut-sample.c:55] bar: Hit `return'
+H: Testing bar(90)
+Expected 8.200700 vs. Actual 8.200700: ACCEPTED
+I: [uut-sample.c:43] bar: Hit `switch'(x value 30)
+I: [uut-sample.c:52] bar: Hit `case'(30 value 30)
+I: [uut-sample.c:55] bar: Hit `return'
+H: Testing bar(30)
+Expected 0.000000 vs. Actual 0.000000: PASSED
+Overall test result: ACCEPTED
+Test 2: Just a demo of `while' instrumentation
+Test acceptance criteria:
+Manual: Inspect the trace
+I: [uut-sample.c:62] w: The while condition i-- is true
+Hey, i=1
+I: [uut-sample.c:62] w: The while condition i-- is true
+Hey, i=0
+I: [uut-sample.c:62] w: The while condition i-- is false
+Ah, i=-1
+I: [uut-sample.c:65] w: The while condition ++i<3 is true
+Ah, i=0
+I: [uut-sample.c:65] w: The while condition ++i<3 is true
+Ah, i=1
+I: [uut-sample.c:65] w: The while condition ++i<3 is true
+Ah, i=2
+I: [uut-sample.c:65] w: The while condition ++i<3 is false
+Overall test result: ACCEPTED
+Test 3: Just a demo of instrumentation for RMC/DC coverage
+Test acceptance criteria:
+Manual: MArvel at trace
+I: [uut-sample.c:73] andor: .AND. x[1] is false
+I: [uut-sample.c:73] andor: The if condition (x[0]) and (x[1]) and ( (x[2]) or (x[3])) is false
+I: [uut-sample.c:77] andor: Hit `return'
+Expected 200 vs. Actual 200: PASSED
+I: [uut-sample.c:73] andor: .AND. x[1] is true
+I: [uut-sample.c:73] andor: .AND. (x[2]) or (x[3]) is true
+I: [uut-sample.c:73] andor: The if condition (x[0]) and (x[1]) and ( (x[2]) or (x[3])) is true
+I: [uut-sample.c:75] andor: Hit `return'
+Expected 100 vs. Actual 100: PASSED
+I: [uut-sample.c:73] andor: .AND. x[1] is false
+I: [uut-sample.c:73] andor: The if condition (x[0]) and (x[1]) and ( (x[2]) or (x[3])) is false
+I: [uut-sample.c:77] andor: Hit `return'
+Expected 200 vs. Actual 200: PASSED
+I: [uut-sample.c:73] andor: .AND. x[1] is true
+I: [uut-sample.c:73] andor: .OR. x[3] is false
+I: [uut-sample.c:73] andor: .AND. (x[2]) or (x[3]) is false
+I: [uut-sample.c:73] andor: The if condition (x[0]) and (x[1]) and ( (x[2]) or (x[3])) is false
+I: [uut-sample.c:77] andor: Hit `return'
+Expected 200 vs. Actual 200: PASSED
+I: [uut-sample.c:73] andor: .AND. x[1] is false
+I: [uut-sample.c:73] andor: The if condition (x[0]) and (x[1]) and ( (x[2]) or (x[3])) is false
+I: [uut-sample.c:77] andor: Hit `return'
+Expected 200 vs. Actual 200: PASSED
+I: [uut-sample.c:73] andor: .AND. x[1] is true
+I: [uut-sample.c:73] andor: .AND. (x[2]) or (x[3]) is true
+I: [uut-sample.c:73] andor: The if condition (x[0]) and (x[1]) and ( (x[2]) or (x[3])) is true
+I: [uut-sample.c:75] andor: Hit `return'
+Expected 100 vs. Actual 100: PASSED
+I: [uut-sample.c:73] andor: .AND. x[1] is false
+I: [uut-sample.c:73] andor: The if condition (x[0]) and (x[1]) and ( (x[2]) or (x[3])) is false
+I: [uut-sample.c:77] andor: Hit `return'
+Expected 200 vs. Actual 200: PASSED
+I: [uut-sample.c:73] andor: .AND. x[1] is true
+I: [uut-sample.c:73] andor: .OR. x[3] is true
+I: [uut-sample.c:73] andor: .AND. (x[2]) or (x[3]) is true
+I: [uut-sample.c:73] andor: The if condition (x[0]) and (x[1]) and ( (x[2]) or (x[3])) is true
+I: [uut-sample.c:75] andor: Hit `return'
+Expected 100 vs. Actual 100: PASSED
+I: [uut-sample.c:73] andor: .AND. x[1] is false
+I: [uut-sample.c:73] andor: The if condition (x[0]) and (x[1]) and ( (x[2]) or (x[3])) is false
+I: [uut-sample.c:77] andor: Hit `return'
+Expected 200 vs. Actual 200: PASSED
+I: [uut-sample.c:73] andor: .AND. x[1] is true
+I: [uut-sample.c:73] andor: .AND. (x[2]) or (x[3]) is true
+I: [uut-sample.c:73] andor: The if condition (x[0]) and (x[1]) and ( (x[2]) or (x[3])) is true
+I: [uut-sample.c:75] andor: Hit `return'
+Expected 100 vs. Actual 100: PASSED
+I: [uut-sample.c:73] andor: .AND. x[1] is false
+I: [uut-sample.c:73] andor: The if condition (x[0]) and (x[1]) and ( (x[2]) or (x[3])) is false
+I: [uut-sample.c:77] andor: Hit `return'
+Expected 200 vs. Actual 200: PASSED
+I: [uut-sample.c:73] andor: .AND. x[1] is true
+I: [uut-sample.c:73] andor: .OR. x[3] is false
+I: [uut-sample.c:73] andor: .AND. (x[2]) or (x[3]) is false
+I: [uut-sample.c:73] andor: The if condition (x[0]) and (x[1]) and ( (x[2]) or (x[3])) is false
+I: [uut-sample.c:77] andor: Hit `return'
+Expected 200 vs. Actual 200: PASSED
+I: [uut-sample.c:73] andor: .AND. x[1] is false
+I: [uut-sample.c:73] andor: The if condition (x[0]) and (x[1]) and ( (x[2]) or (x[3])) is false
+I: [uut-sample.c:77] andor: Hit `return'
+Expected 200 vs. Actual 200: PASSED
+I: [uut-sample.c:73] andor: .AND. x[1] is true
+I: [uut-sample.c:73] andor: .AND. (x[2]) or (x[3]) is true
+I: [uut-sample.c:73] andor: The if condition (x[0]) and (x[1]) and ( (x[2]) or (x[3])) is true
+I: [uut-sample.c:75] andor: Hit `return'
+Expected 100 vs. Actual 100: PASSED
+I: [uut-sample.c:73] andor: .AND. x[1] is false
+I: [uut-sample.c:73] andor: The if condition (x[0]) and (x[1]) and ( (x[2]) or (x[3])) is false
+I: [uut-sample.c:77] andor: Hit `return'
+Expected 200 vs. Actual 200: PASSED
+I: [uut-sample.c:73] andor: The if condition (x[0]) and (x[1]) and ( (x[2]) or (x[3])) is false
+I: [uut-sample.c:77] andor: Hit `return'
+Expected 200 vs. Actual 200: PASSED
+Overall test result: ACCEPTED
+Overall test set result: ACCEPTED

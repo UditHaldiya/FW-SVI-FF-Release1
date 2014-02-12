@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command Name="Find Stops" CmdNum="180" CmdType="Process" AllowedModes="HC_ALLOWED_MODE_OOS" CmdFlags="HC_PROCESS_COMMAND | HC_WRITE_PROTECT">
+      <RequestParams></RequestParams>
+    </Command>
+  </Commands>
+  <Structs>
+    <XStruct Name="Diagnostic Parameters">
+      <Param>Stroke Speed</Param>
+      <Param>Start Position</Param>
+      <Param>End Position</Param>
+      <Param>Diag Param 1</Param>
+      <Param>Diag Param 2</Param>
+      <Param>Diag Param 3</Param>
+    </XStruct>
+  </Structs>
+</HART>

@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--    $Archive: /MNCB/Dev/AP_Release_3.1.x/LCX_devel/FIRMWARE/interface/hart/commonxml/activation.xml $
+    $Date: 9/25/10 4:11p $
+    $Revision: 6 $
+    $Author: Arkkhasin $
+
+-->
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command CmdNum="171" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Write Activation Code" CmdNum="159" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND | HC_FACTORY_COMMAND" Description="Write device-unique activation data">
+          <RequestParams>
+            <Param>Device Activation Signature 1</Param>
+            <Param>Device Activation Code 1</Param>
+            <Param>Device Activation Signature 2</Param>
+            <Param>Device Activation Code 2</Param>
+          </RequestParams>
+          <ResponseParams></ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+    <Command CmdNum="170" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Read Activation Data" CmdNum="159" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_READ_COMMAND | HC_FACTORY_COMMAND" Description="Read Activation Data">
+          <ResponseParams>
+            <Param>Device Activation Data 1</Param>
+            <Param>Device Activation Data 2</Param>
+            <Param>Device Activation Data 3</Param>
+            <Param>Device Activation Data 4</Param>
+            <Param>Device Activation Data 5</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+  <Variables>
+    <Variable Name="Device Activation Data 1" MaxSize="8" DataType="H_UCHAR" Printf="%02X" DisplayName="Activation Data 1"></Variable>
+    <Variable Name="Device Activation Data 2" MaxSize="8" DataType="H_UCHAR" Printf="%02X" DisplayName="Activation Data 2"></Variable>
+    <Variable Name="Device Activation Data 3" DataType="H_UINT" Printf="%04X" DisplayName="Activation Data 3"></Variable>
+    <Variable Name="Device Activation Signature 1" MaxSize="8" DataType="H_UCHAR" Printf="%02X" DisplayName="Activation Signature 1"></Variable>
+    <Variable Name="Device Activation Signature 2" MaxSize="8" DataType="H_UCHAR" Printf="%02X" DisplayName="Activation Signature 2"></Variable>
+    <Variable Name="Device Activation Code 1" DataType="H_UCHAR" Printf="%02X" DisplayName="Activation Code 1"></Variable>
+    <Variable Name="Device Activation Code 2" DataType="H_UCHAR" Printf="%02X" DisplayName="Activation Code 2"></Variable>
+    <Variable Name="Device Activation Data 4" DataType="H_UINT3" Printf="%u" DisplayName="Elapsed Time"></Variable>
+    <Variable Name="Device Activation Data 5" DataType="H_UCHAR" Printf="%u" DisplayName="Busy Time"></Variable>
+  </Variables>
+  <CannedCommands>
+    <Command CmdNum="170" Name="Read Activation Data">
+      <!--This canned command is just an alias for the hart command.  It is otherwise unnecessary.-->
+      <SubCommand CmdNum="159" Name=""></SubCommand>
+    </Command>
+    <Command CmdNum="171" Name="Write Activation Code">
+      <!--This canned command is just an alias for the hart command.  It is otherwise unnecessary.-->
+      <SubCommand CmdNum="159" Name=""></SubCommand>
+    </Command>
+  </CannedCommands>
+</HART>

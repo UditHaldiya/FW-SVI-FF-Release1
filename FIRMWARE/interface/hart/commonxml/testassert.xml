@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--    $Archive: /MNCB/Dev/AP_Release_3.1.x/LCX_devel/FIRMWARE/interface/hart/commonxml/testassert.xml $
+    $Date: 2/17/11 3:01p $
+    $Revision: 1 $
+    $Author: Arkkhasin $
+
+-->
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command CmdNum="130" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Assert Engine Test" CmdNum="253" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND | HC_FACTORY_COMMAND" Description="Assert Engine Test. A test must be supplemented by inspecting faults and trap records.">
+          <RequestParams>
+            <Param>Test Trap ID</Param>
+          </RequestParams>
+          <ResponseParams></ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+  <Variables>
+    <Variable Name="Test Trap ID" DataType="H_INT" Description="Will cause a trap (if negative) or assert of ==42 if non-negative" />
+  </Variables>
+</HART>

@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command Name="Read DO switches" CmdNum="142" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read DO switch: [0]=DO1, [1]=DO2">
+      <RequestParams></RequestParams>
+      <ResponseParams>
+        <Param>DO Switch State</Param>
+        <Param>DO Switch Logical State</Param>
+      </ResponseParams>
+    </Command>
+    <Command Name="Write DO switches" CmdNum="145" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND" Description="Write DO switch: [0]=DO1, [1]=DO2">
+      <RequestParams>
+        <Param>DO Switch Logical State</Param>
+      </RequestParams>
+      <ResponseParams></ResponseParams>
+    </Command>
+    <Command Name="Write Output Switches Configuration" CmdNum="134" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND">
+      <RequestParams>
+        <StructArray MaxSize="2">DOSWConf</StructArray>
+      </RequestParams>
+      <ResponseParams>
+        <StructArray MaxSize="2">DOSWConf</StructArray>
+      </ResponseParams>
+    </Command>
+    <Command Name="Read Output Switches Configuration" CmdNum="137" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+      <ResponseParams>
+        <StructArray MaxSize="2">DOSWConf</StructArray>
+      </ResponseParams>
+    </Command>
+  </Commands>
+  <Variables>
+    <Variable Name="DO Switch State" DataType="H_UCHAR" Printf="%u" Description="DO Switch physical state (0 - closed; 1 - open)" MaxSize="2" EnRangeCheck="1">
+      <Range Model="TypeRange" />
+      <EnumValues v0="DSS_Closed | Closed" v1="DSS_Opened | Opened" v2="DSS_NA | Not Avalibale" />
+    </Variable>
+    <Variable Name="DO Switch Logical State" DataType="H_UCHAR" Printf="%u" Description="DO Switch logical state (0 - inactive; 1 - active). Whether it is the same or opposite of physical state depends on &quot;normal state&quot; configuration" MaxSize="2" EnRangeCheck="1">
+      <Range Model="TypeRange" />
+      <EnumValues v0="DSS_Inactive | Inactive" v1="DSS_Active | Active" v2="DSS_LNA | Not Avalibale" />
+    </Variable>
+    <Variable Name="DO Normal State" DataType="H_UCHAR" Printf="%u" EnRangeCheck="1">
+      <Range Model="TypeRange" />
+      <EnumValues v0="SWITCH_normallyClosed | Normally Closed" v1="SWITCH_normallyOpen | Normally Open" />
+    </Variable>
+    <Variable Name="DO Function" DataType="H_UCHAR" Printf="%u" EnRangeCheck="1">
+      <Range Model="TypeRange" />
+      <EnumValues v0="HSWITCH_DISABLE | Disable" v1="HSWITCH_FAIL | FailSafe" v2="HSWITCH_RESET | Reset" v3="HSWITCH_POS_ERROR | Position Error" v4="HSWITCH_TIGHT | Tight Shutoff" v5="HSWITCH_POS_LOW | Alarm Low" v6="HSWITCH_POS_HIGH | Alarm High" v7="HSWITCH_MANUAL | Manual" v8="HSWITCH_PASSTHROUGH | Controlled by HART" v9="HSWITCH_ALWAYSON | Always On" v10="HSWITCH_ALWAYSOFF | Always Off" v11="HSWITCH_CUTOFF_HI | Cutoff HI" v12="HSWITCH_CUTOFF_LO | Cutoff LO" />
+    </Variable>
+  </Variables>
+  <Structs>
+    <Struct Name="DOSWConf">
+      <Param>DO Normal State</Param>
+      <Param>DO Function</Param>
+    </Struct>
+  </Structs>
+</HART>

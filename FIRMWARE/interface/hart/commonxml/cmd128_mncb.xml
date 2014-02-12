@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command Name="Read Variable Address" CmdType="Read" CmdNum="128" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read variable address">
+      <RequestParams>
+        <Param>Variable Number</Param>
+      </RequestParams>
+      <ResponseParams>
+        <Param>Variable Address</Param>
+        <Param>Variable Type</Param>
+        <Param>Variable Size</Param>
+      </ResponseParams>
+    </Command>
+  </Commands>
+  <Variables>
+    <Variable Name="Variable Number" DataType="H_UINT" Printf="%u" Description="requested variable number. Beginning with 10000, special stuff. Beginning with 32768, RAM variables" />
+    <Variable Name="Variable Address" DataType="H_UINT" Printf="%u" Description="response variable address" />
+    <Variable Name="Variable Type" DataType="H_UCHAR" Printf="%u" DisplayName="type" Description="response variable type (not all types applicable to all projects)">
+      <EnumValues v129="HC_VarTypeRAM | RAM" v130="HC_VarTypeNVMEM | FRAM" v132="HC_VarTypeROM | ROM" v161="LUI" v172="Serialization Chip"></EnumValues>
+    </Variable>
+    <Variable Name="Variable Size" DataType="H_UINT" Printf="%u" Description="response variable size" />
+  </Variables>
+</HART>

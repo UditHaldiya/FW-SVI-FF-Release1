@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Variables>
+    <Variable Name="Sampling Interval" DataType="H_UINT" Printf="%u" Description="Downsampling interval" EnRangeCheck="0"></Variable>
+    <Variable Name="Reserved samples" DataType="H_UCHAR" Printf="%u" Description="2X numbers to keep must be stuffed into the buffer before start sampling" EnRangeCheck="1">
+      <Range Model="Standard" MinValue="0" MaxValue="10" />
+    </Variable>
+    <Variable Name="Number Of Initial Points" DataType="H_UCHAR" Printf="%u" Description="Pre-stuffed points; must match what was on susccessful &quot;Start Sampling&quot;" EnRangeCheck="0"></Variable>
+    <Variable Name="Number Of Sampled Points" DataType="H_UINT" Printf="%u" Description="Sampled points stored in the buffer" EnRangeCheck="0"></Variable>
+    <Variable Name="Max Number Of Points To Keep" DataType="H_UINT" Printf="%u" Description="Sampled points stored in the buffer" EnRangeCheck="0"></Variable>
+    <Variable Name="Buffer Fill" DataType="H_INT" Printf="%d" Description="A value to write to a buffer" EnRangeCheck="1" DisplayName="DiagBuf fill">
+      <Range Model="Standard" MinValue="-32768" MaxValue="32767" />
+    </Variable>
+    <Variable Name="Buffer Fill 2" DataType="H_INT" Printf="%d" Description="A value to write to a buffer" EnRangeCheck="1" DisplayName="DiagBuf fill 2" MaxSize="2">
+      <Range Model="Standard" MinValue="-32768" MaxValue="32767" />
+    </Variable>
+  </Variables>
+  <Commands>
+    <SubCmdOnly CmdNum="130">
+      <SubCommands>
+        <Command Name="Write Data To Diag Buffer" CmdNum="187" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_FACTORY_COMMAND" Description="Fill an entry in the requested diagnostic buffer (for testing purposes)">
+          <RequestParams>
+            <Param>Buffer Id</Param>
+            <Param>Buffer Fill</Param>
+          </RequestParams>
+        </Command>
+        <Command Name="Write Sample To Diag Buffer" CmdNum="186" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_FACTORY_COMMAND" Description="Fill a 2-entry sample in the requested diagnostic buffer (for testing purposes)">
+          <RequestParams>
+            <Param>Buffer Id</Param>
+            <Param>Buffer Fill 2</Param>
+          </RequestParams>
+        </Command>
+        <Command Name="Start Sampling Into Diag Buffer " CmdNum="190" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_FACTORY_COMMAND | HC_COMMAND_COMMAND" Description="Initialize the buffer for sampling. Previously written samples are preserved up to Reserved samples">
+          <RequestParams>
+            <Param>Buffer Id</Param>
+            <Param>Reserved samples</Param>
+            <Param>Max Number Of Points To Keep</Param>
+          </RequestParams>
+        </Command>
+        <Command Name="Stop Sampling Into Diag Buffer " CmdNum="189" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_FACTORY_COMMAND | HC_READ_COMMAND" Description="End sampling">
+          <RequestParams>
+            <Param>Buffer Id</Param>
+          </RequestParams>
+        </Command>
+      </SubCommands>
+    </SubCmdOnly>
+    <SubCmdOnly CmdNum="129">
+      <SubCommands>
+        <Command Name="Read Diag Buffer Sampling Info" CmdNum="188" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read Diag Buffer Sampling Info">
+          <RequestParams>
+            <Param>Buffer Id</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Param>Buffer Id</Param>
+            <Param>Sampling Interval</Param>
+            <Param>Number Of Initial Points</Param>
+            <Param>Number Of Sampled Points</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </SubCmdOnly>
+  </Commands>
+</HART>

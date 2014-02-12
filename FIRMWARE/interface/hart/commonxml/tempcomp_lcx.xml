@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command CmdNum="236" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Read SP Signal TCRow" CmdNum="0" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+          <ResponseParams>
+            <Param>Channel Shift</Param>
+            <StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+          </ResponseParams>
+        </Command>
+        <Command Name="Read Tempr TCRow" CmdNum="3" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+          <ResponseParams>
+            <Param>Channel Shift</Param>
+            <StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+          </ResponseParams>
+        </Command>
+        <Command Name="Read Pres Atm TCRow" CmdNum="4" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+          <ResponseParams>
+            <Param>Channel Shift</Param>
+            <StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+          </ResponseParams>
+        </Command>
+        <Command Name="Read Pres Pilot TCRow" CmdNum="5" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+          <ResponseParams>
+            <Param>Channel Shift</Param>
+            <StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+          </ResponseParams>
+        </Command>
+        <Command Name="Read PosInt TCRow" CmdNum="9" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+          <ResponseParams>
+            <Param>Channel Shift</Param>
+            <StructArray MaxSize="8">TC OffsetSpan32</StructArray>
+          </ResponseParams>
+        </Command>
+        <Command Name="Read IP Current TCRow" CmdNum="11" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+          <ResponseParams>
+            <Param>Channel Shift</Param>
+            <StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+          </ResponseParams>
+        </Command>
+        <Command Name="Read Control Output TCRow" CmdNum="13" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+          <ResponseParams>
+            <Param>Channel Shift</Param>
+            <StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+    <Command CmdNum="233" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Write SP Signal TCRow" CmdNum="0" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND">
+          <RequestParams>
+            <Param>Channel Shift</Param>
+            <StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+          </RequestParams>
+        </Command>
+        <Command Name="Write Tempr TCRow" CmdNum="3" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND">
+          <RequestParams>
+            <Param>Channel Shift</Param>
+            <StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+          </RequestParams>
+        </Command>
+        <Command Name="Write Pres Atm TCRow" CmdNum="4" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+          <RequestParams>
+            <Param>Channel Shift</Param>
+            <StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+          </RequestParams>
+        </Command>
+        <Command Name="Write Pres Pilot TCRow" CmdNum="5" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND">
+          <RequestParams>
+            <Param>Channel Shift</Param>
+            <StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+          </RequestParams>
+        </Command>
+        <Command Name="Write PosInt TCRow" CmdNum="9" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND">
+          <RequestParams>
+            <Param>Channel Shift</Param>
+            <StructArray MaxSize="8">TC OffsetSpan32</StructArray>
+          </RequestParams>
+        </Command>
+        <Command Name="Write IP Current TCRow" CmdNum="11" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND">
+          <RequestParams>
+            <Param>Channel Shift</Param>
+            <StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+          </RequestParams>
+        </Command>
+        <Command Name="Write Control Output TCRow" CmdNum="13" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND">
+          <RequestParams>
+            <Param>Channel Shift</Param>
+            <StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+          </RequestParams>
+        </Command>
+      </SubCommands>
+    </Command>
+    <FutureCommand Name="Read Temperatures" CmdNum="143" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Reads current, min and max temperatures of all the sensors">
+      <ResponseParams>
+        <StructArray MaxSize="1">Temperatures</StructArray>
+      </ResponseParams>
+    </FutureCommand>
+  </Commands>
+  <Variables></Variables>
+  <Structs></Structs>
+</HART>

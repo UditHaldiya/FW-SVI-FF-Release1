@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command SubCmdOnly="1" CmdNum="167">
+      <SubCommands>
+        <Command Name="Set OS Adjust Overrun" CmdNum="2" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Set open stop adjustment overrun correction value (percent).">
+          <RequestParams>
+            <Param>adj_OSOverrun</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Param>adj_OSOverrun</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+    <Command SubCmdOnly="1" CmdNum="169">
+      <SubCommands>
+        <Command Name="Read OS Adjust Overrun" CmdNum="2" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read open stop adjustment overrun correction value (percent).">
+          <RequestParams />
+          <ResponseParams>
+            <Param>adj_OSOverrun</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+  <Variables>
+    <Variable Name="adj_OSOverrun" DataType="H_FLOAT" DisplayName="OS Overrun" Description="Open Stop Overrun percent value">
+      <Range Model="Standard" MinValue="-10.0" MaxValue="80.0" />
+    </Variable>
+  </Variables>
+</HART>

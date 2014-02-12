@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Commands></Commands>
+  <Variables>
+    <Variable Name="Cal Value" DataType="H_FLOAT" Printf="%.5f" Description="Generic calibration value" />
+    <Variable Name="Cal Type" DataType="H_UCHAR" Printf="%u" Description="Specifies what end to calibrate" EnRangeCheck="1">
+      <Range Model="TypeRange" />
+      <EnumValues v0="Trim Zero" v1="Trim Span"></EnumValues>
+    </Variable>
+    <Variable Name="User Range Values" DataType="H_INT" Printf="%d" Description="Values measured for trim by user [0]-lower, [1]-upper" MaxSize="2"></Variable>
+    <Variable Name="Device Range Values" DataType="H_INT" Printf="%d" Description="Values measured for trim by device [0]-lower, [1]-upper" MaxSize="2"></Variable>
+    <Variable Name="User Trim Tag" DataType="H_UINT4" Printf="%d" Description="A tag of user trim calibrations. Must match for I/O channels which must be synchronous"></Variable>
+    <Variable Name="confDirectionFlag" DataType="H_UCHAR" Printf="%u" Description="Direction flag that determines loop current change vs. position change." EnRangeCheck="1" DisplayName="Transmitter Action">
+      <Range Model="TypeRange" />
+      <EnumValues v0="Reversed" v1="Direct" />
+    </Variable>
+  </Variables>
+  <Structs>
+    <Struct Name="User Trim Record">
+      <Param>User Range Values</Param>
+      <Param>Device Range Values</Param>
+      <Param>User Trim Tag</Param>
+    </Struct>
+  </Structs>
+</HART>

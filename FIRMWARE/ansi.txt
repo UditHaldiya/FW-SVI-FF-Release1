@@ -1,0 +1,124 @@
+/******************************************************************************
+
+Sequence     Sequence                                      Parameter   or
+Mnemonic     Name              Sequence                    Value      Mode
+---------------------------------------------------------------------------
+APC  Applicatn Program Command Esc Fe                                 Delim
+CBT  Cursor Backward Tab       Esc [ Pn Z                   1         EdF
+CCH  Cancel Previous Character Esc T
+CHA  Cursor Horzntal Absolute  Esc [ Pn G                   1         EdF
+CHT  Cursor Horizontal Tab     Esc [ Pn I                   1         EdF
+CNL  Cursor Next Line          Esc [ Pn E                   1         EdF
+CPL  Cursor Preceding Line     Esc [ Pn F                   1         EdF
+CPR  Cursor Position Report    Esc [ Pn ; Pn R              1, 1
+CSI  Control Sequence Intro    Esc [                                  Intro
+CTC  Cursor Tab Control        Esc [ Ps W                   0         EdF
+CUB  Cursor Backward           Esc [ Pn D                   1         EdF
+CUD  Cursor Down               Esc [ Pn B                   1         EdF
+CUF  Cursor Forward            Esc [ Pn C                   1         EdF
+CUP  Cursor Position           Esc [ Pn ; Pn H              1, 1      EdF
+CUU  Cursor Up                 Esc [ Pn A                   1         EdF
+CVT  Cursor Vertical Tab       Esc [ Pn Y                             EdF
+DA   Device Attributes         Esc [ Pn c                   0
+DAQ  Define Area Qualification Esc [ Ps o                   0
+DCH  Delete Character          Esc [ Pn P                   1         EdF
+DCS  Device Control String     Esc P                                  Delim
+DL   Delete Line               Esc [ Pn M                   1         EdF
+DMI  Disable Manual Input      Esc \                                  Fs
+DSR  Device Status Report      Esc [ Ps n                   0
+EA   Erase in Area             Esc [ Ps O                   0         EdF
+ECH  Erase Character           Esc [ Pn X                   1         EdF
+ED   Erase in Display          Esc [ Ps J                   0         EdF
+EF   Erase in Field            Esc [ Ps N                   0         EdF
+EL   Erase in Line             Esc [ Ps K                   0         EdF
+EMI  Enable Manual Input       Esc b                                  Fs
+EPA  End of Protected Area     Esc W
+ESA  End of Selected Area      Esc G
+FNT  Font Selection            Esc [ Pn ; Pn Space D        0, 0      FE
+GSM  Graphic Size Modify       Esc [ Pn ; Pn Space B        100, 100  FE
+GSS  Graphic Size Selection    Esc [ Pn Space C             none      FE
+HPA  Horz Position Absolute    Esc [ Pn `                   1         FE
+HPR  Horz Position Relative    Esc [ Pn a                   1         FE
+HTJ  Horz Tab w/Justification  Esc I                                  FE
+HTS  Horizontal Tab Set        Esc H                                  FE
+HVP  Horz & Vertical Position  Esc [ Pn ; Pn f              1, 1      FE
+ICH  Insert Character          Esc [ Pn @                   1         EdF
+IL   Insert Line               Esc [ Pn L                   1         EdF
+IND  Index                     Esc D                                  FE
+INT  Interrupt                 Esc a                                  Fs
+JFY  Justify                   Esc [ Ps ; ... ; Ps Space F  0         FE
+MC   Media Copy                Esc [ Ps i                   0
+MW   Message Waiting           Esc U
+NEL  Next Line                 Esc E                                  FE
+NP   Next Page                 Esc [ Pn U                   1         EdF
+OSC  Operating System Command  Esc ]                                  Delim
+PLD  Partial Line Down         Esc K                                  FE
+PLU  Partial Line Up           Esc L                                  FE
+PM   Privacy Message           Esc ^                                  Delim
+PP   Preceding Page            Esc [ Pn V                   1         EdF
+PU1  Private Use 1             Esc Q
+PU2  Private Use 2             Esc R
+QUAD Typographic Quadding      Esc [ Ps Space H             0         FE
+REP  Repeat Char or Control    Esc [ Pn b                   1
+RI   Reverse Index             Esc M                                  FE
+RIS  Reset to Initial State    Esc c                                  Fs
+RM   Reset Mode                Esc [ Ps l                   none
+SD   Scroll Down               Esc [ Pn T                   1         EdF
+SEM  Select Edit Extent Mode   Esc [ Ps Q                   0
+SGR  Select Graphic Rendition  Esc [ Ps m                   0         FE
+SL   Scroll Left               Esc [ Pn Space @             1         EdF
+SM   Select Mode               Esc [ Ps h                   none
+SPA  Start of Protected Area   Esc V
+SPI  Spacing Increment         Esc [ Pn ; Pn Space G        none      FE
+SR   Scroll Right              Esc [ Pn Space A             1         EdF
+SS2  Single Shift 2 (G2 set)   Esc N                                  Intro
+SS3  Single Shift 3 (G3 set)   Esc O                                  Intro
+SSA  Start of Selected Area    Esc F
+ST   String Terminator         Esc \                                  Delim
+STS  Set Transmit State        Esc S
+SU   Scroll Up                 Esc [ Pn S                   1         EdF
+TBC  Tab Clear                 Esc [ Ps g                   0         FE
+TSS  Thin Space Specification  Esc [ Pn Space E             none      FE
+VPA  Vert Position Absolute    Esc [ Pn d                   1         FE
+VPR  Vert Position Relative    Esc [ Pn e                   1         FE
+VTS  Vertical Tabulation Set   Esc J                                  FE
+
+Abbreviations:
+
+Intro  an Introducer of some kind of defined sequence; the normal 7-bit
+       X3.64 Control Sequence Introducer is the two characters "Escape ["
+Delim  a Delimiter
+x/y    identifies a character by position in the ASCII table (column/row)
+EdF    editor function (see explanation)
+FE     format effector (see explanation)
+F      is a Final character in
+            an Escape sequence (F from 3/0 to 7/14 in the ASCII table)
+            a control sequence (F from 4/0 to 7/14)
+Gs     is a graphic character appearing in strings (Gs ranges from
+       2/0 to 7/14) in the ASCII table
+Ce     is a control represented as a single bit combination in the C1 set
+       of controls in an 8-bit character set
+C0     the familiar set of 7-bit ASCII control characters
+C1     roughly, the set of control characters available only in 8-bit systems.
+       This is too complicated to explain fully here, so read Jim Fleming's
+       article in the February 1983 BYTE, especially pages 214 through 224.
+Fe     is a Final character of a 2-character Escape sequence that has an
+       equivalent representation in an 8-bit environment as a Ce-type
+       (Fe ranges from 4/0 to 5/15)
+Fs     is a Final character of a 2-character Escape sequence that is
+       standardized internationally with identical representation in 7-bit
+       and 8-bit environments and is independent of the currently
+       designated C0 and C1 control sets (Fs ranges from 6/0 to 7/14)
+I      is an Intermediate character from 2/0 to 2/15 (inclusive) in the
+       ASCII table
+P      is a parameter character from 3/0 to 3/15 (inclusive) in the ASCII
+       table
+Pn     is a numeric parameter in a control sequence, a string of zero or
+       more characters ranging from 3/0 to 3/9 in the ASCII table
+Ps     is a variable number of selective parameters in a control sequence
+       with each selective parameter separated from the other by the code
+       3/11 (which usually represents a semicolon); Ps ranges from
+       3/0 to 3/9 and includes 3/11
+
+
+*/

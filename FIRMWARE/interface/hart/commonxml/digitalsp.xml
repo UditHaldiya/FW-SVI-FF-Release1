@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Variables>
+    <Variable Name="Target Block Mode" DataType="H_UCHAR" Printf="%u" EnRangeCheck="1">
+      <Range Model="TypeRange" />
+      <EnumValues v0="BMODE_NoChange | No change" v1="BMODE_OOS | OOS" v4="BMODE_Local | LOCAL" v8="BMODE_Man | MAN" v16="BMODE_Auto | AUTO" />
+    </Variable>
+    <Variable Name="TB SP Failure Target Mode" DataType="H_UCHAR" Printf="%u" EnRangeCheck="1">
+      <Range Model="TypeRange" />
+      <EnumValues v0="TB Target to OOS" v1="TB Target to Manual" />
+    </Variable>
+    <Variable Name="TB SP option" DataType="H_UCHAR" Printf="%u" EnRangeCheck="1">
+      <Range Model="TypeRange" />
+      <EnumValues v0="SP Start With Current Position" v1="SP Start With Default Setpoint" />
+    </Variable>
+    <Variable Name="Effective Block Mode" DataType="H_UCHAR" Printf="%u" EnRangeCheck="1">
+      <Range Model="TypeRange" />
+      <EnumValues />
+    </Variable>
+    <Variable Name="Set Effective Block Mode As Target" DataType="H_UCHAR" Printf="%u" EnRangeCheck="1">
+      <Range Model="Standard" MinValue="0" MaxValue="1" />
+    </Variable>
+    <Variable Name="Failed State Flag" DataType="H_UCHAR" Printf="%u" EnRangeCheck="0" Description="0 if not failed, 1 if failed"></Variable>
+    <Variable Name="Inversely Characterized Position" DataType="H_FLOAT" Printf="%.3f" EnRangeCheck="0" Description="Valve position in digital setpoint domain" Units="%"></Variable>
+    <Variable Name="Characterized Digital Setpoint" DataType="H_FLOAT" Printf="%.3f" EnRangeCheck="0" Description="Effective digital setpoint in position domain" Units="%"></Variable>
+    <Variable Name="TB FixedSetpoint" DataType="H_FLOAT" Printf="%.3f" EnRangeCheck="0" Description="Effective default digital setpoint" Units="%"></Variable>
+    <Variable Name="TB ShedTime" DataType="H_FLOAT" Printf="%.3f" EnRangeCheck="0" Description="Shed Time of default digital setpoint" Units="s"></Variable>
+    <Variable Name="TB InitTime" DataType="H_FLOAT" Printf="%.3f" EnRangeCheck="0" Description="Initial Shed Time of default digital setpoint" Units="s"></Variable>
+  </Variables>
+  <Commands>
+    <SubCmdOnly CmdNum="155">
+      <SubCommands>
+        <Command CmdNum="5" Name="Write Digital Setpoint" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND">
+          <RequestParams>
+            <Param>Digital Setpoint</Param>
+            <Param>Target Block Mode</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Param>Digital Setpoint</Param>
+            <Param>Target Block Mode</Param>
+            <Param>Effective Block Mode</Param>
+            <Param>Set Effective Block Mode As Target</Param>
+            <Param>Inversely Characterized Position</Param>
+            <Param>Characterized Digital Setpoint</Param>
+          </ResponseParams>
+        </Command>
+        <Command CmdNum="6" Name="Set Failed State" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND"></Command>
+        <Command CmdNum="7" Name="Clear Failed State" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND"></Command>
+      </SubCommands>
+    </SubCmdOnly>
+    <SubCmdOnly CmdNum="171">
+      <SubCommands>
+        <Command CmdNum="220" Name="Write Block Mode Configuration" AllowedModes="HC_ALLOWED_MODE_OOS" CmdFlags="HC_WRITE_COMMAND">
+          <RequestParams>
+            <Param>TB FixedSetpoint</Param>
+            <Param>TB ShedTime</Param>
+            <Param>TB InitTime</Param>
+            <Param>TB SP Failure Target Mode</Param>
+            <Param>TB SP option</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Param>TB FixedSetpoint</Param>
+            <Param>TB ShedTime</Param>
+            <Param>TB InitTime</Param>
+            <Param>TB SP Failure Target Mode</Param>
+            <Param>TB SP option</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </SubCmdOnly>
+    <SubCmdOnly CmdNum="170">
+      <SubCommands>
+        <Command CmdNum="220" Name="Read Block Mode Configuration" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+          <ResponseParams>
+            <Param>TB FixedSetpoint</Param>
+            <Param>TB ShedTime</Param>
+            <Param>TB InitTime</Param>
+            <Param>TB SP Failure Target Mode</Param>
+            <Param>TB SP option</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </SubCmdOnly>
+  </Commands>
+  <UpdateVariables>
+    <UpdateVariable Name="Effective Block Mode" EnumFromVarName="Target Block Mode" />
+  </UpdateVariables>
+</HART>

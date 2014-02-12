@@ -1,0 +1,246 @@
+/*
+Copyright 2006 by Dresser, Inc., as an unpublished trade secret.  All rights reserved.
+
+This document and all information herein are the property of Dresser, Inc.
+It and its contents are  confidential and have been provided as a part of
+a confidential relationship.  As such, no part of it may be made public,
+decompiled, reverse engineered or copied and it is subject to return upon
+demand.
+*/
+/**
+    \file bsp_a.s79
+    \brief Assembly language portion of Board Support Package, processor init, trap handling
+
+    CPU: Philips LPC21x4 (ARM)
+
+    OWNER: Ernie Price
+
+    $Archive: /MNCB/Dev/FIRMWARE/framework/bios/bsp_a.s79 $
+    $Date: 6/04/10 1:04a $
+    $Revision: 41 $
+    $Author: Arkkhasin $
+
+    \ingroup BSP
+*/
+#include "mntrapdef.h"
+
+#define ASSEMBLER_VERSION_5 (__VER__ >= 5000000)
+#if ASSEMBLER_VERSION_5
+# define org ;
+# define ENDMOD
+# define VECTOR_SECTION            SECTION      .intvec:CODE:ROOT(2)
+# define STARTUP_SECTION           SECTION      .text:CODE:NOROOT(2)
+#else
+# define SECTION RSEG
+# define VECTOR_SECTION            COMMON  INTVEC:CODE:ROOT(2)
+# define STARTUP_SECTION           RSEG    ICODE:CODE:NOROOT(2)
+#endif
+
+;-----------------------------------------------------------------------------
+; This file contains the startup code used by the ICCARM C compiler.
+;
+; The modules in this file are included in the libraries, and may be replaced
+; by any user-defined modules that define the PUBLIC symbol _program_start or
+; a user defined start symbol.
+; To override the cstartup defined in the library, simply add your modified
+; version to the workbench project.
+;
+;
+;-----------------------------------------------------------------------------
+
+
+;---------------------------------------------------------------
+; Macros and definitions for the whole file
+;---------------------------------------------------------------
+
+; Mode, corresponds to bits 0-5 in CPSR
+MODE_BITS       DEFINE  0x1F        ; Bit mask for mode bits in CPSR
+USR_MODE        DEFINE  0x10        ; User mode
+FIQ_MODE        DEFINE  0x11        ; Fast Interrupt Request mode
+IRQ_MODE        DEFINE  0x12        ; Interrupt Request mode
+SVC_MODE        DEFINE  0x13        ; Supervisor mode
+ABT_MODE        DEFINE  0x17        ; Abort mode
+UND_MODE        DEFINE  0x1B        ; Undefined Instruction mode
+SYS_MODE        DEFINE  0x1F        ; System mode
+
+NO_INT          DEFINE  0xC0        ; Mask used to disable interrupts (Both FIR and IRQ)
+
+;---------------------------------------------------------------
+; ?RESET
+; Reset Vector.
+; Normally, segment INTVEC is linked at address 0.
+; For debugging purposes, INTVEC may be placed at other
+; addresses.
+; A debugger that honors the entry point will start the
+; program in a normal way even if INTVEC is not at address 0.
+;---------------------------------------------------------------
+
+                MODULE  ?RESET
+                SECTION     IRQ_STACK:DATA(2)
+                VECTOR_SECTION
+                PUBLIC  __program_start, __iar_program_start
+        PUBLIC  __vector
+        PUBLIC  __vector_0x14
+
+                CODE32                      ; Always ARM mode after reset
+
+                org     0x00
+__vector:
+__program_start
+__iar_program_start
+                b       ?cstartup
+
+                org     0x04
+                b       undef_handler
+
+                org     0x08
+                b       swi_handler
+
+                org     0x0c
+                b       prefetch_handler
+
+                org     0x10
+                b       abort_handler
+__vector_0x14:
+                org     0x14
+                DCD     0
+                org     0x18
+                ldr     pc, [pc, #-0xff0]   ; direct branch to VIC vector
+
+                org     0x1c
+                b       fiq_handler
+
+;---------------------------------------------------------------
+; ?CSTARTUP
+;---------------------------------------------------------------
+
+                STARTUP_SECTION
+                PUBLIC pIRQStk
+
+; Execution starts here.
+; After a reset, the mode is ARM, Supervisor, interrupts disabled.
+
+?cstartup
+                EXTERN	procStack
+
+                EXTERN  bios_InitMicrocontroller
+                EXTERN  OSStackUnderflow                              ; stack underflow trap address
+                EXTERN   main
+#if __VER__ < 5020000
+                EXTERN segment_init
+#else
+                EXTERN __iar_data_init2
+#endif
+
+; Initialize the stack pointers.
+; The pattern below can be used for any of the exception stacks:
+; FIQ, IRQ, SVC, ABT, UND, SYS.
+; The USR mode uses the same stack as SYS.
+
+                msr     cpsr_cxsf,#IRQ_MODE | NO_INT        ; Switch to IRQ mode with IRQ and FIQ disabled
+                ldr     sp,=SFE(IRQ_STACK)                    ; End of IRQ_STACK
+;
+;   Because we wish to initialize the I/O configuration quickly, we'll
+;   run on the IRQ stack.
+;
+                bl      bios_InitMicrocontroller
+;
+;   Now switch to service mode. We'll run in this CPU mode and stack configuration until
+;   the OS starts the first task.
+;
+                msr     cpsr_cxsf,#SVC_MODE | NO_INT        ; Switch to SVC mode with IRQ and FIQ disabled
+                ldr     r0,=procStack                       ; use a later starting task stack for C initialize
+                ldr     sp,[r0, #0]                         ; End of CSTACK
+
+#if __VER__ < 5020000 // Pre-5.20 table format, fully replaced
+                bl      segment_init                        ; intialize the C environment - in bsp.c
+#else //5.20+ table format, can only be reasonbly replaced on table function's level
+                //See ARM\crc\lib\init\data_init2.c and ARM\crc\lib\arm\cmain.s for details
+                bl __iar_data_init2 ; this will call init functions
+__iar_init$$done:               ; Copy initialization is done
+#endif
+                bl      main                                ; start C execution
+                b       OSStackUnderflow                    ; in case main() returns
+
+pIRQStk         dc32    SFB(IRQ_STACK)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+;   Trap handlers
+;
+                EXTERN  mn_assert ;(pointer, id)
+                PUBLIC  bsp_WatchdogInterrupt
+
+; undef_handler and swi_handler will need to be adjusted for Thumb mode
+
+undef_handler
+                mov     r1, #TRAPID_UNDEF_INSTRUCTION
+                b       common_trap_handler_4bytes
+swi_handler
+                mov     r1, #TRAPID_SWI
+                b       common_trap_handler_4bytes
+
+abort_handler
+                mov     r1, #TRAPID_DATA_ABORT
+                sub     r0, lr, #0x8                        ; instruction with offending pointer
+                b       common_trap_handler
+
+bsp_WatchdogInterrupt
+                mov     r1, #TRAPID_WATCHDOG
+                b       common_trap_handler_4bytes
+
+prefetch_handler:
+                mov     r1, #TRAPID_PREFETCH_ABORT
+                b       common_trap_handler_4bytes
+
+fiq_handler
+                mov     r1, #TRAPID_FIQ
+common_trap_handler_4bytes
+                sub     r0, lr, #0x4                        ; instruction with offending pointer
+common_trap_handler
+                rsb     r1, r1, #0                          ; invert the id
+                ldr     sp,=SFE(IRQ_STACK)                    ; End of IRQ stack - we are about to die: no reason to invent a new stack
+                b       mn_assert
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+;       Timer interrupt routine. The interrupt is serviced at a higher level but provision
+;       for preemption is made here
+;
+
+                EXTERN  bios_ProcessTick        ; service timer
+                EXTERN  OSIntCtxSwFlag
+                EXTERN  OS_IntCtxSw
+
+                PUBLIC  bsp_ServiceTimer
+;
+; void MN_IRQ bsp_ServiceTimer(void)
+;
+bsp_ServiceTimer
+                sub     LR, LR, #0x4            ; adjust LR for return
+                stmfd   sp!,{r0-r3,r12,lr}      ; save standard C regs + LR
+
+                ; T0IR = 0xff;                  ; Clear timer 0 interrupt line.
+                mov     r2, #0xE0000000
+                orr     r2, r2, #0x4000
+                mov     r3, #0xFF
+                str     r3, [r2, #+0]
+
+                ; VicVectAddr = 0;              ; clear VIC interrupt
+                mvn     r0, #0xff0              ; r0 = 0xfffff00f
+                mov     r1, #0
+                str     r1,[r0, #0x21]
+
+                bl      bios_ProcessTick        ; service the interrupt
+
+                ldr     r0, =OSIntCtxSwFlag     ; check for preemption wanted
+                ldrb    r1, [r0,#0]
+                cmp     r1, #0
+
+                bne     OS_IntCtxSw             ; preemption: switch tasks - in os_cpu_a.s79
+
+                ldmfd   SP!,{r0-r3,r12,pc}^     ; Restore registers and return to interrupted task's
+
+                ENDMOD
+                END
+
+/* This line marks the end of the source */

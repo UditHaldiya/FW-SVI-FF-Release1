@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--    $Archive: /MNCB/Dev/AP_Release_3.1.x/LCX_devel/FIRMWARE/interface/hart/commonxml/hwuisimple.xml $
+    $Date: 12/06/10 3:42p $
+    $Revision: 9 $
+    $Author: Arkkhasin $
+
+-->
+<HART Version="1.0 ">
+  <Include></Include>
+  <!--  <Commands>
+    <Command Name="Read Settings" CmdNum="170" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Reads settings selected by the subcommand">
+      <ResponseParams>
+        <Param>SubCmdNum</Param>
+      </ResponseParams>
+      <RequestParams>
+        <Param>SubCmdNum</Param>
+      </RequestParams>
+      <SubCommands></SubCommands>
+      <SubCommands>
+        <Command Name="Read UI Access Control" CmdNum="2" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read buttons lock and override password">
+          <ResponseParams>
+            <Struct>UI Access Control</Struct>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+    <Command Name="Write Settings" CmdNum="171" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Writes settings selected by the subcommand">
+      <RequestParams>
+        <Param>SubCmdNum</Param>
+      </RequestParams>
+      <ResponseParams>
+        <Param>SubCmdNum</Param>
+      </ResponseParams>
+      <SubCommands>
+        <Command Name="Write UI Access Control" CmdNum="2" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Write buttons lock and override password">
+          <RequestParams>
+            <Struct>UI Access Control</Struct>
+          </RequestParams>
+          <ResponseParams>
+            <Struct>UI Access Control</Struct>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+
+  <Variables>
+    <Variable Name="UI Lock Level" DataType="H_UCHAR" Description="From all unlocked to all locked." EnRangeCheck="1">
+      <Range Model="TypeRange" />
+      <EnumValues v0="Unlocked | Unlocked" v1="Locked | Locked" />
+    </Variable>
+    <Variable Name="UI Password Enabled Flag" DataType="H_UCHAR" Description="0 disabled, 1 enabled, others invalid. No effect for SVi1000." EnRangeCheck="1">
+      <Range Model="TypeRange" />
+      <EnumValues v0="UIPassDisabled | Disabled" v1="UIPassEnabled | Enabled" />
+    </Variable>
+    <Variable Name="UI password" DataType="H_UINT" Description="Any number can be a password. No effect for SVi1000.">
+      <Range Model="Standard" MinValue="0" MaxValue="65535" />
+    </Variable>
+  </Variables>
+  <Structs>
+    <Struct Name="UI Access Control">
+      <Param>UI Lock Level</Param>
+      <Param>UI Password Enabled Flag</Param>
+      <Param>UI password</Param>
+    </Struct>
+  </Structs>
+-->
+  <Commands>
+    <Command CmdNum="129" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Read Raw UI HW Data" CmdNum="150" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_READ_COMMAND" Description="This command is intended to read the state of the Local User Interface (LUI) related Hardware: Pushbuttons (after de-bouncing), Rotary Switch, LEDs (as set by the LED driver) and the amount of clicks entered by Rotary Encoder. Please note that normally the number of clicks for the Rotary Encoder does not change, as the Rotary Encoder is normally disabled. The Test mode commands enable the Rotary Encoder interrupts thus allowing it to change the number of clicks.\n&amp;#xD;&amp;#xA;Set Address param to any valid address value (0 recommended).">
+          <ResponseParams>
+            <Param>LED State</Param>
+            <Param>Rotary Switch State</Param>
+            <Param>Pushbuttons Edges</Param>
+            <Param>Pushbuttons State</Param>
+            <Param>Quad Encoder Step</Param>
+            <Param>DO Card Presence</Param>
+            <Param>DO 1 Hardware State</Param>
+            <Param>DO 2 Hardware State</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+    <Command CmdNum="170" SubCmdOnly="1">
+      <SubCommands>
+        <Command CmdNum="218" Name="Read Control Immediate Parameters Selector" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+          <ResponseParams>
+            <Param>PIDData Selector</Param>
+          </ResponseParams>
+        </Command>
+        <Command CmdNum="219" Name="Read Immediate ATO Selector" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+          <ResponseParams>
+            <Param>ATO Selector</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+  <Variables>
+    <Variable Name="LED State" DataType="H_UCHAR" Printf="%02u" Description="Normal::Blinking pattern: GreenLed1(50ms) – GreenLed2(50ms)- GreenLed3(50ms) ALL_OFF(1000ms)-&amp;gt; Beginning\nThis state indicates that the device is in NORMAL mode.\n\n&amp;#xD;&amp;#xA;HART Override:: Blinking Pattern: RedLed(500ms) – ALL_OFF(500ms) -&amp;gt; Beginning.\n&amp;#xD;&amp;#xA;This state indicates that the device is not in the Normal Mode and is controlled by the Remote HART Master.\n\n&amp;#xD;&amp;#xA;Fault:: Blinking pattern: GreenLed1(50ms),GreenLed 2(50ms), GreenLed3(50ms) – RedLed(50ms) -- ALL_OFF(50ms) – &amp;#xD;&amp;#xA;RedLed(50ms) -- ALL_OFF(50ms) – RedLed(50ms) -- ALL_OFF(1000ms) -&amp;gt; Beginning\n&amp;#xD;&amp;#xA;This state indicates that the device is in NORMAL mode and has one or more annunciateable faults.\n\n&amp;#xD;&amp;#xA;FAILSAFE:: RED LED is continuously ON.  &amp;#xD;&amp;#xA;Note, that in Manufacturing Test Mode this state indicates that the RED LED is continuously ON as if &amp;#xD;&amp;#xA;the device were in FAILSAFE mode but it does not actually indicate the FAILSAFE state.\n\n&amp;#xD;&amp;#xA;Test:: Blinking pattern: GreenLed1(250ms) – GreenLed2(250ms) -- GreenLed3(250ms) – RedLed(250ms) -&amp;gt; Beginning.\n&amp;#xD;&amp;#xA;This state indicates that the device is executing the LED test.\n\n&amp;#xD;&amp;#xA;Find Stops (Green Led 1), Open Stop Adjustment(Green Led 2) or AutoTune(Green Led 3)\n&amp;#xD;&amp;#xA;These states indicate that an appropriate process has been either selected or is running.\n\n&amp;#xD;&amp;#xA;Warning-Find Stops(Green Led 1), Warning-Open Stop Adjustment(Green Led 2) or Warning-AutoTune(Green Led 3)\n&amp;#xD;&amp;#xA;This state indicates that an appropriate process detected an improper configuration that potentially &amp;#xD;&amp;#xA;may result in error and sent a warning. The Warnings are function specific. For Open Stop Adjustment &amp;#xD;&amp;#xA;this indicates that the current Open Stop Position is below 60%.\n\n&amp;#xD;&amp;#xA;Error-Find Stops(Green Led 1), Error-Open Stop Adjustment(Green Led 2) or Error-AutoTune(Green Led 3)\n&amp;#xD;&amp;#xA;This state indicate  s that an appropriate process encountered an error and could not complete.\n\n&amp;#xD;&amp;#xA;Debug State1:: GREEN LED 1 is continuously ON.\n&amp;#xD;&amp;#xA;Debug State2:: GREEN LED 2 is continuously ON.\n&amp;#xD;&amp;#xA;Debug State3:: GREEN LED 3 is continuously ON.\n">
+      <EnumValues v0="Normal" v1="HART Override" v2="Fault" v3="FAILSAFE" v4="Test" v5="Find Stops" v6="Open Stop Adjustment" v7="AutoTune" v8="Warning-Find Stops" v9="Warning-Open Stop Adjustment" v10="Warning-AutoTune" v11="Error-Find Stops" v12="Error-Open Stop Adjustment" v13="Error-AutoTune" v14="All LED Off" v15="Debug State1" v16="Debug State2" v17="Debug State3" v18="Red LED Continuously On"></EnumValues>
+    </Variable>
+    <Variable Name="Rotary Switch State" DataType="H_UCHAR" Description="The position of the Rotary Switch"></Variable>
+    <Variable Name="Pushbuttons State" DataType="H_UCHAR" Description="Pushbutton state: 1 - pressed, 0 - not pressed"></Variable>
+    <Variable Name="Pushbuttons Edges" DataType="H_UCHAR" Description="Bitmap of Released / Pressed transitions. \n1 – the Pushbutton became pressed. \n0 – the state of the Pushbutton did not change or it became released."></Variable>
+    <Variable Name="Quad Encoder Step" DataType="H_INT" Description="The Rotary encoder, when rotated, increments or decrements the value being read. Clock Wise rotation of the shaft causes the value being read to be incremented. Counterclockwise rotation of the shaft causes the value being read to be decremented. Note, that the Encoder Driver provides an acceleration function that increases the speed of changing the counters proportionally to the rotational speed of the Encoder’s shaft. This acceleration function changes the rate of increment or decrement rates."></Variable>
+    <Variable Name="DO Card Presence" DataType="H_UCHAR" Description="Presence of the DO card: 0 - No card, 1 - DO card is installed."></Variable>
+    <Variable Name="DO 1 Hardware State" DataType="H_UCHAR" Description="The DO 1 State: 0 - Open, 1 - Closed."></Variable>
+    <Variable Name="DO 2 Hardware State" DataType="H_UCHAR" Description="The DO 2 State: 0 - Open, 1 - Closed."></Variable>
+  </Variables>
+  <CannedCommands>
+    <!--129 Commands-->
+    <Command Name="Read LUI" CmdNum="129">
+      <SubCommand CmdNum="150" Name="">
+        <ResponseParams>
+          <Param Value="Status LED">LED State</Param>
+          <Param Value="Rotary Switch BitArray Map">Rotary Switch State</Param>
+          <Param Value="Pushbuttons Status BitArray Map">Pushbuttons State</Param>
+          <Param Value="Pushbuttons Edges BitArray Map">Pushbuttons Edges</Param>
+          <Param Value="Rotary Encoder Reading">Quad Encoder Step</Param>
+          <Param Value="DO Card present">DO Card Presence</Param>
+          <Param Value="DO 1 State">DO 1 Hardware State</Param>
+          <Param Value="DO 2 State">DO 2 Hardware State</Param>
+        </ResponseParams>
+      </SubCommand>
+    </Command>
+  </CannedCommands>
+  <ClonedVariables>
+    <ClonedVariable Name="Status LED" Parent="LED State" />
+    <ClonedVariable Name="Rotary Encoder Reading" Parent="Quad Encoder Step" />
+    <ClonedVariable Name="Pushbutton Edges" Parent="Pushbuttons Edges" />
+    <ClonedVariable Name="Pushbutton State" Parent="Pushbuttons State" />
+    <ClonedVariable Name="DO Card present" Parent="DO Card Presence" />
+    <ClonedVariable Name="DO 1 State" Parent="DO 1 Hardware State" />
+    <ClonedVariable Name="DO 2 State" Parent="DO 2 Hardware State" />
+  </ClonedVariables>
+  <BitVariables>
+    <BitVariable Name="PID Slot Num" DataType="H_UCHAR" BitNum="0" NumBits="3" Description="These bits reflect the current state of the Jumpers. The bits are inversed by the driver, i.e., 1 – indicates the jumper is installed of the pin is LOW. 0 – indicates the jumper is NOT installed or the pin is HIGH. Jumper mapping:&#xD;&#xA;Bit 0..2 – The PID Parameter slot number. "></BitVariable>
+    <BitVariable Name="Air To Open/Close" DataType="H_UCHAR" BitNum="3" NumBits="1" Description="This bit reflects the current state of the Jumper. The bits are inversed by the driver, i.e., 1 – indicates the jumper is installed of the pin is LOW. 0 – indicates the jumper is NOT installed or the pin is HIGH. Jumper mapping:&#xD;&#xA;Bit 3 – ATC / ATO. 1 – ATC, 0 – ATO.">
+      <EnumValues v0="ATO" v1="ATC" />
+    </BitVariable>
+    <BitVariable Name="Find Stops Btn" DataType="H_UCHAR" BitNum="0" NumBits="1" Description="Indicates the current state of the Pushbutton: \n1 – pressed; 0 – released.\nThe Pushbuttons byte are sent after the Pushbuttons are de-bounced by the driver.">
+      <EnumValues v0="Released" v1="Pressed" />
+    </BitVariable>
+    <BitVariable Name="Open Stop Adjustment Btn" OldPrintf="%04X" DataType="H_UCHAR" BitNum="1" NumBits="1" Description="Indicates the current state of the Pushbutton: \n1 – pressed; 0 – released.\nThe Pushbuttons byte are sent after the Pushbuttons are de-bounced by the driver.">
+      <EnumValues v0="Released" v1="Pressed" />
+    </BitVariable>
+    <BitVariable Name="Auto Tune Btn" OldPrintf="%04X" DataType="H_UCHAR" BitNum="2" NumBits="1" Description="Indicates the current state of the Pushbutton: \n1 – pressed; 0 – released.\nThe Pushbuttons byte are sent after the Pushbuttons are de-bounced by the driver.">
+      <EnumValues v0="Released" v1="Pressed" />
+    </BitVariable>
+    <BitVariable Name="Cancel Btn" OldPrintf="%04X" DataType="H_UCHAR" BitNum="3" NumBits="1" Description="Indicates the current state of the Pushbutton: \n1 – pressed; 0 – released.\nThe Pushbuttons byte are sent after the Pushbuttons are de-bounced by the driver.">
+      <EnumValues v0="Released" v1="Pressed" />
+    </BitVariable>
+  </BitVariables>
+  <BitArrays>
+    <BitArray MaxSize="1" StartBitNum="0" Printf="%02X" Name="Rotary Switch BitArray Map">
+      <Param>PID Slot Num</Param>
+      <Param>Air To Open/Close</Param>
+    </BitArray>
+    <BitArray MaxSize="1" StartBitNum="0" Printf="%02X" Name="Pushbuttons Status BitArray Map">
+      <Param>Find Stops Btn</Param>
+      <Param>Open Stop Adjustment Btn</Param>
+      <Param>Auto Tune Btn</Param>
+      <Param>Cancel Btn</Param>
+    </BitArray>
+    <BitArray MaxSize="1" StartBitNum="0" Printf="%02X" Name="Pushbuttons Edges BitArray Map">
+      <Param>Find Stops Btn</Param>
+      <Param>Open Stop Adjustment Btn</Param>
+      <Param>Auto Tune Btn</Param>
+      <Param>Cancel Btn</Param>
+    </BitArray>
+  </BitArrays>
+</HART>

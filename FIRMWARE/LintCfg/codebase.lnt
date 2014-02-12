@@ -1,0 +1,92 @@
+//--------- lint bugs (9.00h, 9.00i) ---------------------
+-emacro(546,CONST_ASSERT)
+-emacro(866,CONST_ASSERT)
+
+//-------- codebase-specific ------------
+-esym(960,4.1) //hex escape sequence - needed for Sitronix character map
+-efile(766, *config.h) //this one OK not to be used
+-efile(766, *projectdef.h) //this one OK not to be used - may be intended so that doesn't compile as project-independent
+-esym(962,NEED_NVMEM_END) //it is a flag defining visibility of certain things
+-esym(755,UNITS_*_N_ENTRY) //higher-res units conversion is optional
+-esym(756,*_least_t) -esym(756,*_least) -esym(756,*_fast_t) //fast types are optional
+-esym(755,std2f) //we'd love to remove it from the module but it may be used in other projects
+-esym(755,CANCELPROC_POWERMARGIN) // marginal power monitoring may not be supported
+
+//---------- thread safety --------------
+-atomic( any_type Atomic_ )
+-atomic( any_scalar Atomic_ [*])
+-etype(458,*Atomic_)
+-etype(457,*Atomic_)
+-etype(457,*Atomic_ [*])
+
+//-------------- RTOS and RTOS interface ------------
+//RTOS
+-esym(729,OSRunning) //not explicitly init'ed
+-esym(843,OSRunning) //not const: changed in assembler port
+-esym(729,OSTCBCur) //not explicitly init'ed
+-esym(843,OSTCBCur) //not const: changed in assembler port
+//RTOS awareness
+-sem(main,no_thread) //semantics
+
+//---------------- Compiler -------------------
+-d__sfe(a)=0 //let Lint ignore the linker interface
+
+//Imported from "fault matrix"
+-efile(755,*\uilabels.h) //not referenced OK
+-efile(755,*\faultdef.h) //not referenced OK
+//Other automatically generated
+-esym(755, ROMEND)
+
+//--------------- lint overreach --------------------------
+--emacro((546),CONST_ASSERT) //Suspicious use of &
+-emacro(866,CONST_ASSERT) //Unusual use of '&' in argument to sizeof
+
+
+//----------------- thread safety issues misunderstood by Lint -------------------------
+-etype(457,struct HartState_t [*])
+-etype(457,struct RcvState_t [*])
+
+-estring(457,"of thread 'control_ControlTask(void *)'")
+-estring(457,control_ControlTask*has*an*unprotected)
+-estring(458,"of thread 'control_ControlTask(void *)'")
+
+
+//----------------- optional system headers (OK if unused) ------------------
+-efile(766,*\mnassert.h) //not referenced OK
+
+//There is no requiement (yet?) that all or any enumerations in hcimport_enum.h derived
+//from XML be used: XML enumerations may be useful sometimes but their primary use is 
+//in tools/documentation
+-efile(769,*hcimport_enum.h)
+
+//------------------- ignore instrumentation hooks ---------------
+-efile(766,*instrum.h) //OK if unused
+
+//------------------- unused harmless provisions for future -------------------
+-esym(768, SubCommandInfo_t::length_offset) //one way of doing variable-length subcommands
+
+//------------------- lint (9.00h) gets it wrong - review! -------------
+-esym(458, mode_GuardControlMode) //unprotected read access to m_Mode_ - Lint (9.00h) mistake - or prove otherwise :)
+
+//------------------- stuff of optional use -------------------------------
+-esym(769, ErrorCode_t::*) //some error codes might not be applicable
+-esym(755, HART_COMMAND_0*)
+-esym(755, HART_COMMAND_1*)
+-esym(755, HART_COMMAND_2*)
+-esym(755, HART_COMMAND_6*)
+-esym(755, HART_COMMAND_3*) //seldom if ever used; the automatically made definitions are for backward compatibility
+
+//-------------------- stuff for use by external tools analyzing the firmware image -----------------
+-esym(768, VerInfo_t::*) //no field is required to be accessed
+
+//------------------ OK now but keep an eye on these -------------------------
+-esym(755, SWOPTION_UI_LOWCOST_ENABLE_SPLIT_RANGE) //option may or may not be used in a project
+-esym(755, SWOPTION_UI_LOWCOST_ENABLE_CUSTOM_CHARACT) //option may or may not be used in a project
+
+//------------------ NEEDS CLEANUP minding sister projects -------------------
+-efile(755, *\hartcmd.h) //unused legacy commands macros
+-efile(755, *\hartfunc.h) //unused response codes etc.
+-efile(769, *\process.h) //global enumeration of processes 
+
+
+//------------------ bad masking of potential bugs -------------------

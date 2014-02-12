@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--    $Archive: /MNCB/Dev/LCX2AP/FIRMWARE/interface/hart/commonxml/engunitsif.xml $
+    $Date: 1/23/12 11:52a $
+    $Revision: 1 $
+    $Author: Arkkhasin $
+
+-->
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command CmdNum="129" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Read Conversion Coefficients" CmdNum="40" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read parameters for converting from external representation (floating point) to internal (integer) and back.\n&#xD;&#xA;Let x be internal number and X external. The conversion formulas are as follows:\n&#xD;&#xA;X = (i2f_slope*(x - Xintercept)*2**(-i2f_shift) + Yintercept)/(10**order)\n&#xD;&#xA;y = round(X*10**order)\n&#xD;&#xA;If y does not fit 32-bit integer, reject\n&#xD;&#xA;x = round(f2i_slope*(y-Yintercept)*2**(-f2i_shift) + Xintercept)">
+          <RequestParams>
+            <Param>HFP_Dimension</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Param>HFP_Dimension</Param>
+            <Param>HFP_UnitsCode</Param>
+            <Param>HFP_i2f_slope</Param>
+            <Param>HFP_Xintercept</Param>
+            <Param>HFP_Yintercept</Param>
+            <Param>HFP_i2f_shift</Param>
+            <Param>HFP_order</Param>
+            <Param>HFP_f2i_slope</Param>
+            <Param>HFP_f2i_shift</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+  <Variables>
+    <Variable Name="HFP_i2f_slope" DataType="H_INT4" Description="Scaling coefficeient (see command description)" />
+    <Variable Name="HFP_Xintercept" DataType="H_INT4" Description="Scaling coefficeient (see command description)" />
+    <Variable Name="HFP_Yintercept" DataType="H_INT4" Description="Scaling coefficeient (see command description)" />
+    <Variable Name="HFP_i2f_shift" DataType="H_UCHAR" Description="Scaling coefficeient (see command description)" />
+    <Variable Name="HFP_order" DataType="H_UCHAR" Description="Scaling coefficeient (see command description)" />
+    <Variable Name="HFP_f2i_slope" DataType="H_UINT4" Description="Scaling coefficeient (see command description)" />
+    <Variable Name="HFP_f2i_shift" DataType="H_UCHAR" Description="Scaling coefficeient (see command description)" />
+    <Variable Name="HFP_UnitsCode" DataType="H_UCHAR" Description="HART units code" />
+    <Variable Name="HFP_Dimension" DataType="H_UCHAR" Description="Id of a physical quantity (position, signal, pressure etc.)">
+      <EnumValues v0="HPF_Id_Pressure" v1="HPF_Id_Signal" v2="HPF_Id_Position" v3="HPF_Id_PV" v4="HPF_Id_Dummy" v5="HPF_Id_PosSpeed" v6="HPF_Id_Percent" v7="HPF_Id_MNTime" v8="HPF_Id_Tempr" v9="HPF_Id_Time" v10="HPF_Id_CtlOut" v11="HPF_Id_ShedTime" />
+    </Variable>
+  </Variables>
+  <Structs></Structs>
+</HART>

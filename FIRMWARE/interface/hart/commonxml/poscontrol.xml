@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--    $Archive: /MNCB/Dev/AP_Release_3.1.x/LCX_devel/FIRMWARE/interface/hart/commonxml/poscontrol.xml $
+    $Date: 2/11/11 2:31p $
+    $Revision: 12 $
+    $Author: Arkkhasin $
+
+-->
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command Name="Autotune" CmdNum="189" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_OOS" CmdFlags="HC_WRITE_COMMAND | HC_PROCESS_COMMAND | HC_WRITE_PROTECT" Description="Autimatically tune the control algorithm">
+      <RequestParams>
+        <Struct>Autotune Params</Struct>
+      </RequestParams>
+      <ResponseParams>
+        <Struct>Autotune Params</Struct>
+      </ResponseParams>
+    </Command>
+    <Command Name="Write Control Parameters" CmdNum="173" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND" Description="Write Control Parameters in the selected slot">
+      <RequestParams>
+        <Param>PIDData Selector</Param>
+        <Struct>Control Params</Struct>
+      </RequestParams>
+      <ResponseParams>
+        <Param>PIDData Selector</Param>
+        <Struct>Control Params</Struct>
+      </ResponseParams>
+    </Command>
+    <Command Name="Read Current Control Parameters Set" CmdNum="216" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read Control Parameters Set">
+      <RequestParams></RequestParams>
+      <ResponseParams>
+        <Struct>Control Params</Struct>
+      </ResponseParams>
+    </Command>
+    <Command CmdNum="170" SubCmdOnly="1">
+      <RequestParams />
+      <SubCommands>
+        <Command Name="Read Control Parameters Ext" CmdNum="217" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read Control Parameters Set">
+          <RequestParams>
+            <Param>PIDData Selector</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Param>PIDData Selector</Param>
+            <Struct>Control Params</Struct>
+          </ResponseParams>
+        </Command>
+        <Command CmdNum="216" Name="Read Control Parameters Selector" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+          <ResponseParams>
+            <Param>PIDData Selector</Param>
+          </ResponseParams>
+        </Command>
+        <Command CmdNum="189" Name="Read Tuning Parameters" Description="Retrieves settings for the tuning algorithm" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+          <ResponseParams>
+            <Struct>Autotune Params</Struct>
+            <Param>Tune Completion Code</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+    <Command CmdNum="171" SubCmdOnly="1">
+      <SubCommands>
+        <Command CmdNum="189" Name="Write Tuning Parameters" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_OOS" CmdFlags="HC_WRITE_COMMAND | HC_PROCESS_COMMAND | HC_WRITE_PROTECT" Description="Sets the tuning parameters and optionally runs the tuning algorithm">
+          <RequestParams>
+            <Struct>Autotune Params</Struct>
+          </RequestParams>
+          <ResponseParams>
+            <Struct>Autotune Params</Struct>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+  <Variables>
+    <Variable Name="Default Supply Pressure" DataType="H_FLOAT" Description="" Units="Pres Units"></Variable>
+    <Variable Name="Tune Aggressiveness" DataType="H_CHAR" Printf="%d" Description=""></Variable>
+    <Variable Name="Tune Flags" DataType="H_UCHAR" Printf="%u" Description="For SVi1000 the flag has no effect.\n&#xD;&#xA;Future plans:\n&#xD;&#xA;Bit 0 if set skips step 3 of tune algorithm\n&#xD;&#xA;Bit 1 if set starts tuning from default settings" />
+    <Variable Name="Tune Completion Code" DataType="H_INT" Description="0 if not run or success, other TBD">
+      <EnumValues v0="TCCNot Run or Success | Not Run or Success" v1="TCCRunAutotune" v31="TCCFAIL_ACTUATION | Failed actuation" v32="TCCFAIL_PROTECTED | Control limits protected" v33="TCCFAIL_OPEN_LOOP | Failed open loop tuning" v45="TCCFAIL_P_TOO_SMALL | P gain below limit" v46="TCCFAIL_PADJ_TOO_BIG | P gain adjustment above limit" v55="TCCBIAS_OUT_RANGE | Bias out of range" v66="TCCOVER_TIME_FILL | Fill time exceeded" v77="TCCOVER_TIME_EXHA | Exhaust time exceeded" v88="TCCOVER_PARAM_OUTOFRANGE | Parameter out of range" v32767="TCCSizer | Do not use; for guaranteed enum size only" />
+    </Variable>
+  </Variables>
+  <Variables>
+    <Variable Name="PIDData P" DataType="H_INT" Description="PIDData P" />
+    <Variable Name="PIDData I" DataType="H_INT" Description="PIDData I" />
+    <Variable Name="PIDData D" DataType="H_INT" Description="PIDData D" />
+    <Variable Name="PIDData PADJ" DataType="H_INT" Description="PIDData PADJ" />
+    <Variable Name="PIDData BETA" DataType="H_INT" Description="PIDData BETA" />
+    <Variable Name="PIDData DAMPING" DataType="H_INT" Description="PIDData DAMPING" />
+    <Variable Name="PIDData POS_COMP" DataType="H_INT" Description="PIDData POS_COMP" />
+    <Variable Name="PIDData DEADZONE" DataType="H_INT" Description="PIDData DEADZONE" />
+    <Variable Name="PIDData NONLIN1" DataType="H_INT" Description="PIDData NONLIN1" />
+    <Variable Name="PIDData NONLIN2" DataType="H_INT" Description="PIDData NONLIN2" />
+    <Variable Name="PIDData RES1" DataType="H_INT" Description="PIDData RES1" />
+    <Variable Name="PIDData RES2" DataType="H_INT" Description="PIDData RES2" />
+    <Variable Name="PIDData Selector" DataType="H_UCHAR" Description="A selector of active PID parameters" />
+    <Variable Name="ATO Selector" DataType="H_UCHAR" Description="A selector of active ATO / ATC parameter">
+      <EnumValues v0="ATC" v1="ATO" />
+    </Variable>
+  </Variables>
+  <Structs>
+    <Struct Name="Autotune Params">
+      <Param>Default Supply Pressure</Param>
+      <Param>Tune Aggressiveness</Param>
+      <Param>Tune Flags</Param>
+    </Struct>
+    <Struct Name="Control Params">
+      <Param>PIDData P</Param>
+      <Param>PIDData I</Param>
+      <Param>PIDData D</Param>
+      <Param>PIDData PADJ</Param>
+      <Param>PIDData BETA</Param>
+      <Param>PIDData POS_COMP</Param>
+      <Param>PIDData DEADZONE</Param>
+      <Param>PIDData NONLIN1</Param>
+      <NonParam>PIDData NONLIN2</NonParam>
+      <NonParam>PIDData RES1</NonParam>
+      <NonParam>PIDData RES2</NonParam>
+    </Struct>
+  </Structs>
+</HART>

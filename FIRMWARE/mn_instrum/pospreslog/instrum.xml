@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command CmdNum="130" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Restart Sampling" CmdNum="193" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND" Description="Fill an entry in the requested diagnostic buffer (for testing purposes)">
+          <RequestParams>
+            <Param>Skip Count</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Param>Skip Count</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+  <Variables>
+    <Variable Name="Skip Count" DataType="H_UCHAR" Printf="%d" Description="Pruning count for sampling, 0=no sampling at all" EnRangeCheck="1">
+      <Range Model="Standard" MinValue="0" MaxValue="255" />
+    </Variable>
+  </Variables>
+</HART>

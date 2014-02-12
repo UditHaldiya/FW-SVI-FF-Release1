@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--    $Archive: /MNCB/Dev/AP_Release_3.1.x/LCX_devel/FIRMWARE/interface/hart/commonxml/output_digipot.xml $
+    $Date: 9/16/10 8:18p $
+    $Revision: 1 $
+    $Author: Arkkhasin $
+
+-->
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command CmdNum="129" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Read Output Digital Pot" CmdNum="170" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="cmd 130/170 read counterpart">
+          <RequestParams>
+            <Param>DigiPot Memory Dest</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Param>DigiPot Memory Dest</Param>
+            <Param>DigiPot Data</Param>
+            <Param>DigiPot Error</Param>
+          </ResponseParams>
+        </Command>
+        <Command Name="Read Output Digital Pot Status" CmdNum="173" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="TBD">
+          <RequestParams></RequestParams>
+          <ResponseParams>
+            <Param>DigiPot Status</Param>
+            <Param>DigiPot Error</Param>
+          </ResponseParams>
+        </Command>
+        <Command Name="Read Output Digital Pot Config" CmdNum="175" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="TBD">
+          <RequestParams></RequestParams>
+          <ResponseParams>
+            <Param>DigiPot Config</Param>
+            <Param>DigiPot Error</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+  <Commands>
+    <Command CmdNum="130" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Write Output Digital Pot" CmdNum="170" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND | HC_FACTORY_COMMAND" Description="Factory programming of digital potentiometer">
+          <RequestParams>
+            <Param>DigiPot Memory Dest</Param>
+            <Param>DigiPot Data</Param>
+          </RequestParams>
+        </Command>
+        <Command Name="Enable Output DigitalPot WiperLock" CmdNum="173" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND | HC_FACTORY_COMMAND" Description="Factory programming of digital potentiometer"></Command>
+        <Command Name="Disable Output DigitalPot WiperLock" CmdNum="174" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND | HC_FACTORY_COMMAND" Description="Factory programming of digital potentiometer"></Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+  <Variables>
+    <Variable Name="DigiPot Error" DataType="H_UCHAR" Description="Error code" EnRangeCheck="1">
+      <Range Model="TypeRange" />
+    </Variable>
+    <Variable Name="DigiPot Memory Dest" DataType="H_UCHAR" Description="0:RAM, 1:ROM" EnRangeCheck="1" DisplayName="DigiPot Memory Storage Type">
+      <Range Model="TypeRange" />
+      <EnumValues v0="Volatile Storage (RAM)" v1="Non-Volatile Storage (ROM)" />
+    </Variable>
+    <Variable Name="DigiPot Data" DataType="H_UINT" Description="Digital Potentiometer Value" EnRangeCheck="1">
+      <Range Model="Standard" MaxValue="128" MinValue="0" />
+    </Variable>
+    <Variable Name="DigiPot Status" DataType="H_UINT" Description="DigiPot Status" EnRangeCheck="1">
+      <Range Model="TypeRange" />
+    </Variable>
+    <Variable Name="DigiPot Config" DataType="H_UINT" Description="DigiPot Configuration" EnRangeCheck="1">
+      <Range Model="TypeRange" />
+    </Variable>
+  </Variables>
+  <Structs></Structs>
+  <CannedCommands></CannedCommands>
+</HART>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--    $Archive: /MNCB/Dev/AP_Release_3.1.x/LCX_devel/FIRMWARE/inc_LCX/fac_lcx_specific.xml $
+    $Date: 4/13/11 6:24p $
+    $Revision: 3 $
+    $Author: Sergey Kruss $
+
+-->
+<HART Title="SVI2 LCX HART Commands Definition" Version="1.0">
+  <Commands>
+    <!--Sample commands; params are ordered-->
+  </Commands>
+  <Include>
+    <FileName>..\interface\hart\commonxml\sernumchip.xml</FileName>
+    <FileName>..\interface\hart\commonxml\hwuisimple.xml</FileName>
+    <FileName>..\interface\hart\commonxml\output_digipot.xml</FileName>
+    <FileName>..\interface\hart\commonxml\lowpwrdata.xml</FileName>
+	<FileName>..\interface\hart\commonxml\write_ctlout.xml</FileName>
+  </Include>
+</HART>

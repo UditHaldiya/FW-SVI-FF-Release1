@@ -1,0 +1,39 @@
+/**
+Copyright 2004 by Dresser, Inc., as an unpublished work.  All rights reserved.
+
+This document and all information herein are the property of Dresser, Inc.
+It and its contents are  confidential and have been provided as a part of
+a confidential relationship.  As such, no part of it may be made public,
+decompiled, reverse engineered or copied and it is subject to return upon
+demand.
+ 
+    \file [filename]
+    \brief [A brief description of the file content]
+
+    CPU: [Architecture limitations like 
+         Middle-endian 37-bit architectures only]
+    
+    OWNER: [File owner's name]
+    \n RCS: $Id: $
+     $DateTime: $ $Change: $ $Author: $
+*/
+/* This is optional and is pruned at sole discretion of the maintainer
+   HISTORY:
+   WHAT: [changes made]
+   WHY: [reason for the change]
+   WHO: [Implementer's username, not necessarily the owner] [date]
+*/
+
+
+/** \brief [A short description]
+
+  [Detailed description goes here and
+  it can be as long as you see fit.
+  Document what the function does, not
+  how it does it.]
+  \param[arg] [name] [description]
+  \return [description]
+*/
+//your function()
+
+/* This line marks the end of the source */

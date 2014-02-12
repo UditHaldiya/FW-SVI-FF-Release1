@@ -1,0 +1,385 @@
+/*
+Copyright 2010 by Dresser, Inc., as an unpublished trade secret.  All rights reserved.
+
+This document and all information herein are the property of Dresser, Inc.
+It and its contents are  confidential and have been provided as a part of
+a confidential relationship.  As such, no part of it may be made public,
+decompiled, reverse engineered or copied and it is subject to return upon
+demand.
+*/
+/**
+    \file snchip_a.s79
+    \brief Assembler Low Level support code for Serial Chip Driver
+
+    See also ds2401.c
+
+    CPU: NXP LPC21x4 (IAR Assembler)
+
+    OWNER: AP
+    $Archive: /MNCB/Dev/AP_Release_3.1.x/LCX_devel/FIRMWARE/framework/bios/project_LCX/snchip_a.s79 $
+    $Date: 10/25/10 6:53p $
+    $Revision: 1 $
+    $Author: Anatoly Podpaly $
+*/
+
+//--------------------------------------------------------------------------------------------
+
+//#include "sernumchip.h"
+#include "snchippriv.h"
+#include "timebase.h"
+
+//--------------------------------------------------------------------------------------------
+
+        RSEG CODE:CODE:NOROOT(2)
+        CODE32
+
+//--------------------------------------------------------------------------------------------
+// Define timing values for the 1-wire protocol. Note, that for the system with very LOW
+// execution speed this is not trivial and results in the code specifically tweaked for the 
+// particular Hardware platform. The code may be partially or completelt non-portable.
+// This is the Hardware driver, teh above limitation is to be acceptable.
+
+#if     VPRATE == VPBDIV1
+#define     IO_TICKS        8	        // cpu cycles per 1 IO cycle
+#elif   VPRATE == VPBDIV2 
+#define     IO_TICKS        10          // cpu cycles per 1 IO cycle
+#elif   VPRATE == VPBDIV4 
+#define     IO_TICKS        16          // cpu cycles per 1 IO cycle
+#else
+#error Cannot work with this VPBRATE
+#endif
+
+//----------------------------------------------
+// Timer 1 - ticks per second
+// Thus, 1 tick is 1 / PCLFREQ seconds
+#define TIMER1_COUNTS_PER_SEC   PCLKFREQ
+
+// Delays are measured in uS - nmumber of uS in Sec
+#define US_IN_SECOND            (1000000)
+#define US_TO_TICKS(x)          (((x) * US_IN_SECOND) / TIMER1_COUNTS_PER_SEC)
+
+//----------------------------------------------
+// Actual delays for OW protocol - generated for really slow processor			   s
+// These delays are SPECIFIC for this particular H/W platform
+// characterized by VERY LOW execution speed., to meet power requirement.
+#define     DELAY_SLOW_TICKS(x) (US_TO_TICKS(x) - (3 * IO_TICKS))
+
+// This value is used to correct "LONG" delays > 410us (H, J)
+#define LONG_DELAY_CORRECTION	(60)
+
+// Local delays defs
+#define ASM_DELAY_VALUE_B    (DELAY_SLOW_TICKS(DELAY_VALUE_B) + 2)
+#define ASM_DELAY_VALUE_C    (DELAY_SLOW_TICKS(DELAY_VALUE_C))
+#define ASM_DELAY_VALUE_F    (DELAY_SLOW_TICKS(DELAY_VALUE_F))
+#define ASM_DELAY_VALUE_I    (DELAY_SLOW_TICKS(DELAY_VALUE_I))
+
+// Manual adjustment
+#define ASM_DELAY_VALUE_H    (DELAY_SLOW_TICKS(DELAY_VALUE_H) - LONG_DELAY_CORRECTION)
+#define ASM_DELAY_VALUE_J    (DELAY_SLOW_TICKS(DELAY_VALUE_J) - LONG_DELAY_CORRECTION)
+
+//----------------------------------------------
+// Register usage
+// Input parameters
+#define ptrToTimer              R0                      // Pointer To Timer (in the WRITE function)
+#define ptrToData               R1                      // Address to GPIO Data port (BASE)
+#define OWPinMask               R2                      // OW Pin mask
+
+// Local vars - GPIO control
+#define IDirection		R3                      // BitMask to set INput  on OW pin
+#define ODirection		R4                      // BitMask to set OUTput on OW pin
+
+// Timer-related registers
+#define StartTime               R5                      // Starting Time (for Time loop)
+#define CurrentTime             R6                      // Current Time
+#define DelayTime               R7                      // Delay time (for Time loop)
+#define ScratchPadForDelays     R8                      // Used for Delays
+
+//-----------------------------------------------------------------------------
+// GPIO Register references -- offsets fromthe Base register
+
+#define IO_OFFSET_DATA          0                       // IOPIN to IODATA (itself)
+#define IO_OFFSET_SET           4                       // IOPIN to IOSET
+#define IO_OFFSET_DIR           8                       // IOPIN to IODIR
+#define IO_OFFSET_CLR           12                      // IOPIN to IOCLR
+
+//-----------------------------------------------------------------------------
+// Timer Loop MACRO
+// 
+// The MACRO executes the delay based on free running Timer.
+// Register usage: "Global"
+// -- R2         Pointer to the timer
+// 
+// Register usage: "Local To Function"
+// -- R7         Delay Time
+//
+// Register usage: "Local To Macro"
+// -- R5         Start Time
+// -- R6         Current Time
+//-----------------------------------------------------------------------------
+InlineDelayLoop         MACRO       
+        local   TimerLoop
+        ldr     StartTime, [ptrToTimer, #0] 		// Get starting timer value
+TimerLoop
+        ldr     CurrentTime, [ptrToTimer, #0]           // Read current timer value
+        sub     CurrentTime, CurrentTime, StartTime     // Compute elapsed time
+        cmp     CurrentTime, DelayTime                  // Compare elapsed with desired
+        bcc     TimerLoop                               // Loop again
+        ENDM
+
+//-----------------------------------------------------------------------------
+// Inline Short Delay
+
+// Delay A - 6 us
+InlineDelay_A           MACRO
+        mov     ScratchPadForDelays, DelayTime
+        ENDM
+
+// Delay E - 9 us
+InlineDelay_E           MACRO
+        InlineDelay_A
+        mov     ScratchPadForDelays, DelayTime
+        mov     ScratchPadForDelays, DelayTime
+        ENDM
+
+// Delay D - 10 us
+InlineDelay_D           MACRO
+        InlineDelay_E
+        mov     ScratchPadForDelays, DelayTime
+        mov     ScratchPadForDelays, DelayTime
+        ENDM
+
+// Delay G
+InlineDelay_G      MACRO
+        add     ScratchPadForDelays, ScratchPadForDelays, #0
+        ENDM
+
+// Longer delays via LOOP
+// Delay B
+InlineDelay_B      MACRO
+        ldr	DelayTime, =ASM_DELAY_VALUE_B
+        InlineDelayLoop
+        ENDM
+
+// Delay C
+InlineDelay_C      MACRO
+        ldr     DelayTime, =ASM_DELAY_VALUE_C
+        InlineDelayLoop
+        ENDM
+
+// Delay F
+InlineDelay_F      MACRO
+        ldr	DelayTime, =ASM_DELAY_VALUE_F
+        InlineDelayLoop
+        ENDM
+
+// Delay H
+InlineDelay_H      MACRO
+        ldr	DelayTime, =ASM_DELAY_VALUE_H
+        InlineDelayLoop
+        ENDM
+
+// Delay I
+InlineDelay_I      MACRO
+        ldr	DelayTime, =ASM_DELAY_VALUE_I
+        InlineDelayLoop
+        ENDM
+
+// Delay J
+InlineDelay_J      MACRO
+        ldr	DelayTime, =ASM_DELAY_VALUE_J
+        InlineDelayLoop
+        ENDM
+
+//-----------------------------------------------------------------------------
+// LOWLevel_OW_Init
+// This routine executes LOW LEVEL code to Init teh OW sub-system
+//
+// Prototype (with parameter allocation)
+//
+// u32  LOWLevel_OW_Init(volatile u32        *ptrToTimer,          R0
+//                       volatile u32        *ptrToData,           R1
+//                       u32                 OWPinMask)//          R2
+//
+// Register Usage -- see above
+//-----------------------------------------------------------------------------
+        PUBLIC  LOWLevel_OW_Init
+LOWLevel_OW_Init
+        push    {R3, R4, R5, R6, R7, R8, LR}                    // Push some regs
+
+        // ODirection  = *ptrToDir  | OWPinMask//
+        ldr     ODirection, [ptrToData, #IO_OFFSET_DIR]         // Get Current Direction
+        orr     ODirection, OWPinMask, ODirection               // Get OUTput direction
+
+        // IDirection  = ODirection & (~OWPinMask)//
+        bic     IDirection, ODirection, OWPinMask               // Get INput direction
+
+        // OW_DELAY_G//
+        InlineDelay_G                                           // Delay
+
+        // -----------------------------------------------
+        // Preparations are done - do the work!
+
+        // *ptrToDir = ODirection//
+        str     ODirection, [ptrToData, #IO_OFFSET_DIR]         // Drive OUT (0)
+        // Set the Bus LOW
+        str     OWPinMask, [ptrToData, #IO_OFFSET_CLR]          // Set the pin LOW
+
+        // OW_DELAY_H//
+        InlineDelay_H                                           // Delay
+
+        // *ptrToDir = IDirection//
+        str     IDirection, [ptrToData, #IO_OFFSET_DIR]         // Drive IN (1)
+
+        // OW_DELAY_I//
+        InlineDelay_I                                           // Delay
+
+        // Prepare the return value
+        ldr     R2, [ptrToData, #IO_OFFSET_DATA]                // Get the data to R2 temporarily
+
+        // OW_DELAY_J//
+        InlineDelay_J                                           // Delay
+
+        mov     R0, R2                                          // Copy the data to "return" register
+        
+        pop     {R3, R4, R5, R6, R7, R8, PC}                    // Restore regs and return                
+//-----------------------------------------------------------------------------
+ 
+
+//-----------------------------------------------------------------------------
+// LOWLevel_OW_ReadBit
+// This routine executes LOW LEVEL code to Write one bit 1 over the OW interface
+//
+// Prototype (with parameter allocation)
+//
+// void LOWLevel_OW_ReadBit(volatile u32        *ptrToTimer,          R0
+//                          volatile u32        *ptrToData,           R1
+//                          u32                 OWPinMask)//          R2
+//
+// Register Usage -- see above
+//-----------------------------------------------------------------------------
+        PUBLIC  LOWLevel_OW_ReadBit
+LOWLevel_OW_ReadBit
+        push    {R3, R4, R5, R6, R7, R8, LR}                    // Push some regs
+
+        // ODirection  = *ptrToDir  | OWPinMask//
+        ldr     ODirection, [ptrToData, #IO_OFFSET_DIR]         // Get Current Direction
+        orr     ODirection, OWPinMask, ODirection               // Get OUTput direction
+
+        // IDirection  = ODirection & (~OWPinMask)//
+        bic     IDirection, ODirection, OWPinMask               // Get INput direction
+
+        // -----------------------------------------------
+        // Preparations are done - do the work!
+
+        // *ptrToDir = ODirection//
+        str     ODirection, [ptrToData, #IO_OFFSET_DIR]         // Drive OUT (0)
+
+        // OW_DELAY_A//
+        InlineDelay_A                                           // Delay
+
+        // *ptrToDir = IDirection//
+        str     IDirection, [ptrToData, #IO_OFFSET_DIR]         // Drive IN (1)
+
+        // OW_DELAY_E//
+        InlineDelay_E                                           // Delay
+
+        // Prepare the return value
+        ldr     R2, [ptrToData, #IO_OFFSET_DATA]                // Get the data to R2 temporarily
+
+        // OW_DELAY_F//
+        InlineDelay_F                                           // Delay
+
+        mov     R0, R2                                          // Copy the data to "return" register
+
+        pop     {R3, R4, R5, R6, R7, R8, PC}                    // Restore regs and return                
+//-----------------------------------------------------------------------------
+
+
+//-----------------------------------------------------------------------------
+// LOWLevel_OW_WriteBit_1
+// This routine executes LOW LEVEL code to Write one bit 1 over the OW interface
+//
+// Prototype (with parameter allocation)
+//
+// void LOWLevel_OW_WriteBit_1(volatile u32        *ptrToTimer,          R0
+//                             volatile u32        *ptrToData,           R1
+//                             u32                  OWPinMask)//          R2
+////
+// Register Usage -- see above
+//-----------------------------------------------------------------------------
+        PUBLIC  LOWLevel_OW_WriteBit_1
+LOWLevel_OW_WriteBit_1
+        push    {R3, R4, R5, R6, R7, R8, LR}                    // Push some regs
+
+        // ODirection  = *ptrToDir  | OWPinMask//
+        ldr     ODirection, [ptrToData, #IO_OFFSET_DIR]         // Get Current Direction
+        orr     ODirection, OWPinMask, ODirection               // Get OUTput direction
+
+        // IDirection  = ODirection & (~OWPinMask)//
+        bic     IDirection, ODirection, OWPinMask               // Get INput direction
+
+        // -----------------------------------------------
+        // Preparations are done - do the work!
+
+        // *ptrToDir = ODirection//
+        str     ODirection, [ptrToData, #IO_OFFSET_DIR]         // Drive OUT (0)
+
+        // OW_DELAY_A//
+        InlineDelay_A                                           // Delay
+
+        // *ptrToDir = IDirection//
+        str     IDirection, [ptrToData, #IO_OFFSET_DIR]         // Drive IN (1)
+
+        // OW_DELAY_B//
+        InlineDelay_B                                           // Delay
+
+        pop     {R3, R4, R5, R6, R7, R8, PC}                    // Restore regs and return                
+//-----------------------------------------------------------------------------
+
+
+//-----------------------------------------------------------------------------
+// LOWLevel_OW_WriteBit_0
+// This routine executes LOW LEVEL code to Write one bit 0 over the OW interface
+//
+// Prototype (with parameter allocation)
+//
+// void LOWLevel_OW_WriteBit_0(volatile u32        *ptrToTimer,          R0
+//                             volatile u32        *ptrToData,           R1
+//                             u32                  OWPinMask)//          R2
+//
+// Register Usage -- see above
+//-----------------------------------------------------------------------------
+        PUBLIC  LOWLevel_OW_WriteBit_0
+LOWLevel_OW_WriteBit_0
+        push    {R3, R4, R5, R6, R7, R8, LR}                    // Push some regs
+
+        // ODirection  = *ptrToDir  | OWPinMask//
+        ldr     ODirection, [ptrToData, #IO_OFFSET_DIR]         // Get Current Direction
+        orr     ODirection, OWPinMask, ODirection               // Get OUTput direction
+
+        // IDirection  = ODirection & (~OWPinMask)//
+        bic     IDirection, ODirection, OWPinMask               // Get INput direction
+
+        // -----------------------------------------------
+        // Preparations are done - do the work!
+
+        // *ptrToDir = ODirection//
+        str     ODirection, [ptrToData, #IO_OFFSET_DIR]         // Drive OUT (0)
+
+        // OW_DELAY_C//
+        InlineDelay_C                                           // Delay
+
+        // *ptrToDir = IDirection//
+        str     IDirection, [ptrToData, #IO_OFFSET_DIR]         // Drive IN (1)
+
+        // OW_DELAY_D//
+        InlineDelay_D                                           // Delay
+
+        pop     {R3, R4, R5, R6, R7, R8, PC}                    // Restore regs and return                
+//-----------------------------------------------------------------------------
+
+            end
+
+/* This line marks the end of the source */
+//-----------------------------------------------------------------------------
+
