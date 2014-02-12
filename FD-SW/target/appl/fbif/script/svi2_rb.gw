@@ -1,0 +1,84 @@
+// ===========================================================================
+//
+// FILE_NAME          svi2_rb.gw
+// Time-stamp: <2013-08-16 12:15:17 GE-300010777>
+//
+// FUNCTIONAL_MODULE_DESCRIPTION
+//
+//    A GenVFD script contains custom (non-standard) parameters
+//    of the FF transducer block.
+//
+//    Must be included in the SVI_Positioner_APP.gw AFTER positioner_tb.gw
+//
+// ===========================================================================
+
+//STRUCT _BLOCK_HEADER 13 VS|32|block_tag UNSIGNED32|4|dd_member_id UNSIGNED32|4|dd_item_id UNSIGNED16|2|dd_revision UNSIGNED16|2|profile UNSIGNED16|2|profile_revision UNSIGNED32|4|execution_time UNSIGNED32|4|period_of_execution UNSIGNED16|2|number_of_parameters UNSIGNED16|2|next_block_to_execute UNSIGNED16|2|starting_od_index_for_views UNSIGNED8|1|number_of_view_3 UNSIGNED8|1|number_of_view_4
+//STRUCT _MODE_BLK 4 BIT_STRING|1|target BIT_STRING|1|actual BIT_STRING|1|permitted BIT_STRING|1|normal
+//STRUCT _TEST_RW 15 UNSIGNED8|1|value_1 Var Int8|1|value_2 Var Int16|2|value_3 Var Int32|4|value_4 UNSIGNED8|1|value_5 Var UInt16|2|value_6 Var UInt32|4|value_7 FLOATING_POINT|4|value_8 Var VisString|32|value_9 Var Ostring|32|value_10 Var Date|7|value_11 Var TimeOfDay|6|value_12 Var TimeDifference|6|value_13 Var BitStr|2|value_14 Var TimeValue|8|value_15
+//STRUCT _GRANT_DENY 2 BIT_STRING|1|grant BIT_STRING|1|deny
+//STRUCT _UPDATE_EVT 5 UNSIGNED8|1|unacknowledged UNSIGNED8|1|update_state TIME_VALUE|8|time_stamp UNSIGNED16|2|static_revision UNSIGNED16|2|relative_index
+//STRUCT _BLOCK_ALM 5 UNSIGNED8|1|unacknowledged UNSIGNED8|1|alarm_state TIME_VALUE|8|time_stamp UNSIGNED16|2|sub_code UNSIGNED8|1|value
+//STRUCT _ALARM_SUM 4 UNSIGNED|2|2|current UNSIGNED|2|2|unacknowledged UNSIGNED|2|2|unreported UNSIGNED|2|2|disabled
+//STRUCT _WRITE_ALM 5 UNSIGNED8|1|unacknowledged UNSIGNED8|1|alarm_state TIME_VALUE|8|time_stamp UNSIGNED16|2|sub_code UNSIGNED8|1|value
+
+//STRUCT _WRONG_CONFIGURATION 3 UNSIGNED32|4|index UNSIGNED32|4|sub_index VISIBLE_STRING|32|description
+
+// ===========================================================================
+//
+//  NON-STANDARD RECORD TYPES DEFINITIONS
+//      Types not defined in <stdStructs_unpacked.gw>
+//
+//      (Non-std record type names start with an underscore..
+//      ..to distinguish them from parameter names)
+//
+// ===========================================================================
+
+// -------------------------------------------------------------------------------
+// These are definitions for the FF F/W Revision RB parameter:
+//
+// USIGN32 software_rev_ff;
+//
+//  Format:
+//      Byte_3 - MAJOR REVISION # -- This is the Device Revision!
+//      Byte_2 - MINOR REVISION #
+//      Byte_1 - BUILD #
+//      Byte_0 - Revision #
+// -------------------------------------------------------------------------------
+// Current definition:  1.0.0.12, thus:
+
+%#define SW_FF_MAJOR                 (RES_VAL_DEV_REV)
+%#define SW_FF_MINOR                 (0u)
+%#define SW_FF_BUILD                 (0u)
+%#define SW_FF_REVISION              (15u)   //Changed for Half Cycle support
+
+%#define SOFTWARE_FF_REVISION        ((SW_FF_MAJOR << 24) | (SW_FF_MINOR << 16) | (SW_FF_BUILD << 8) | (SW_FF_REVISION))
+
+// -------------------------------------------------------------------------------
+// This is a default definition for the DEFAULT APP F/W Revision RB parameter:
+//
+// USIGN32 software_rev_app;
+//
+//  Format:
+//      Byte_3 - MAJOR REVISION #
+//      Byte_2 - MINOR REVISION #
+//      Byte_1 - BUILD #
+//      Byte_0 - Revision #
+// -------------------------------------------------------------------------------
+// Default definition for the APP uC Software:  1.0.0.1, thus:
+
+#define SW_APP_DEFAULT_REVISION     0x0100000F   //Changed for Half Cycle support
+
+// -------------------------------------------------------------------------------
+
+// index = 65
+PARAM SOFTWARE_REV NR 32 Simple VISIBLE_STRING 32 #0x31,0x2E,0x30,0x2E,0x30,0x2E,0x31,0x35,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20
+// index = 66
+PARAM HARDWARE_REV NR 32 Simple VISIBLE_STRING 32 #0x31,0x2E,0x30,0x2E,0x30,0x2E,0x31,0x35,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20
+// index = 67
+PARAM COMPATIBILITY_REV R 1 Simple UNSIGNED8 1 #0x01 SubIndexAccess=0
+// index = 68
+PARAM BLOCK_ERR_DESC_1 VR 4 Simple BIT_STRING 1 #0 SubIndexAccess=0
+// index = 69
+PARAM SOFTWARE_REV_FF NR 4 Simple UNSIGNED32 1 #SOFTWARE_FF_REVISION SubIndexAccess=0
+// index = 70
+PARAM SOFTWARE_REV_APP NR 4 Simple UNSIGNED32 1 #SW_APP_DEFAULT_REVISION SubIndexAccess=0

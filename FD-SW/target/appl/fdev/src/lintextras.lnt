@@ -1,0 +1,5 @@
+-e766 //don't care about unused headers here
+-i..\FD-SW\target\sys\eep\inc
+..\FD-SW\target\sys\eep\src\eep_if.c
+..\FD-SW\target\appl\fdev\src\appl_if.c
+..\FD-SW\target\appl\hm\src\hm_task.c

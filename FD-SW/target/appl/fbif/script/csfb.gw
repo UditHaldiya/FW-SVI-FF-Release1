@@ -1,0 +1,85 @@
+
+// ===========================================================================
+//
+// FILE_NAME          csfb.gw
+//
+//
+//
+// FUNCTIONAL_MODULE_DESCRIPTION
+//
+//     A GenVFD script with a description of a standard FF control selector
+//     block.
+//
+// ===========================================================================
+
+// index = 0
+STANDARD_PARAM CONTROL_SELECTOR_BLOCK SRW 62 Record BLOCK 13 #0 SubIndexAccess=641
+
+// index = 1
+STANDARD_PARAM ST_REV SR 2 Simple UNSIGNED16 1 #0
+
+// index = 2
+STANDARD_PARAM TAG_DESC SRW 32 Simple OCTET_STRING 32 #"                                "
+
+// index = 3
+STANDARD_PARAM STRATEGY SRW 2 Simple UNSIGNED16 1 #0
+
+// index = 4
+STANDARD_PARAM ALERT_KEY SRW 1 Simple UNSIGNED8 1 #0
+
+// index = 5
+STANDARD_PARAM MODE_BLK SRW 4 Record MODE 4 #0x01;0x01;0x19;0x10 SubIndexAccess=13
+
+// index = 6
+STANDARD_PARAM BLOCK_ERR R 2 Simple BIT_STRING 1 #0
+
+// index = 7
+STANDARD_PARAM OUT NRWO 5 Record FLOAT_S 2 #0x1C;0.0 SubIndexAccess=0
+
+// index = 8
+STANDARD_PARAM OUT_SCALE SRW 11 Record SCALE 4 #100.0;0.0;1342;0 SubIndexAccess=0
+
+// index = 9
+STANDARD_PARAM GRANT_DENY SRW 2 Record ACCESS_PERM 2 #0;0 SubIndexAccess=0
+
+// index = 10
+STANDARD_PARAM STATUS_OPTS SRW 2 Simple BIT_STRING 1 #0
+
+// index = 11
+STANDARD_PARAM SEL_1 RWI 5 Record FLOAT_S 2 #0x1C;0.0 SubIndexAccess=0
+
+// index = 12
+STANDARD_PARAM SEL_2 RWI 5 Record FLOAT_S 2 #0x1C;0.0 SubIndexAccess=0
+
+// index = 13
+STANDARD_PARAM SEL_3 RWI 5 Record FLOAT_S 2 #0x1C;0.0 SubIndexAccess=0
+
+// index = 14
+STANDARD_PARAM SEL_TYPE SRW 1 Simple UNSIGNED8 1 #0
+
+// index = 15
+STANDARD_PARAM BKCAL_IN RWI 5 Record FLOAT_S 2 #0x1C;0.0 SubIndexAccess=0
+
+// index = 16
+STANDARD_PARAM OUT_HI_LIM SRW 4 Simple FLOATING_POINT 1 #100.0
+
+// index = 17
+STANDARD_PARAM OUT_LO_LIM SRW 4 Simple FLOATING_POINT 1 #0.0
+
+// index = 18
+STANDARD_PARAM BKCAL_SEL_1 RO 5 Record FLOAT_S 2 #0x1C;0.0 
+
+// index = 19
+STANDARD_PARAM BKCAL_SEL_2 RO 5 Record FLOAT_S 2 #0x1C;0.0 
+
+// index = 20
+STANDARD_PARAM BKCAL_SEL_3 RO 5 Record FLOAT_S 2 #0x1C;0.0 
+
+// index = 21
+STANDARD_PARAM UPDATE_EVT RW 16 Record ALARM_EVENT 7 #0;0;0,0;0;0;9;0 SubIndexAccess=1
+
+// index = 22
+STANDARD_PARAM BLOCK_ALM RW 18 Record ALARM_DISC 9 #0;0;0,0;0;0;0;8;0;0 SubIndexAccess=1
+
+// index = 23
+STANDARD_PARAM BLOCK_ERR_DESC_1 R 4 Simple BIT_STRING 1 #0

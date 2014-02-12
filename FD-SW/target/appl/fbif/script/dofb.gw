@@ -1,0 +1,97 @@
+
+// ===========================================================================
+//
+// FILE_NAME          dofb.gw
+//
+//
+//
+// FUNCTIONAL_MODULE_DESCRIPTION
+//
+//     A GenVFD script with a description of standard FF discrete output
+//     block.
+//
+// ===========================================================================
+
+// Index = 0
+STANDARD_PARAM DISCRETE_OUTPUT_BLOCK SRW 62 Record BLOCK 13 #0 SubIndexAccess=641
+
+// Index = 1
+STANDARD_PARAM ST_REV SR 2 Simple UNSIGNED16 1 #0
+
+// Index = 2
+STANDARD_PARAM TAG_DESC SRW 32 Simple OCTET_STRING 32 #"                                "
+
+// Index = 3
+STANDARD_PARAM STRATEGY SRW 2 Simple UNSIGNED16 1 #0
+
+// Index = 4
+STANDARD_PARAM ALERT_KEY SRW 1 Simple UNSIGNED8 1 #0
+
+// Index = 5
+STANDARD_PARAM MODE_BLK SRW 4 Record MODE 4 #0x01;0x01;0x79;0x30 SubIndexAccess=13
+
+// Index = 6
+STANDARD_PARAM BLOCK_ERR R 2 Simple BIT_STRING 1 #0
+
+// Index = 7
+STANDARD_PARAM PV_D R 2 Record DISC_S 2 #0;0 SubIndexAccess=0
+
+// Index = 8
+STANDARD_PARAM SP_D NRW 2 Record DISC_S 2 #DO_VAL_SP_D_STATUS;DO_VAL_SP_D_VALUE SubIndexAccess=2
+
+// Index = 9
+STANDARD_PARAM OUT_D NRWO 2 Record DISC_S 2 #0x1C;0 SubIndexAccess=2
+
+// Index = 10
+STANDARD_PARAM SIMULATE_D RW 5 Record SIM_DISC 5 #0;0;0;0;1 SubIndexAccess=0
+
+// Index = 11
+STANDARD_PARAM PV_STATE SRW 2 Simple UNSIGNED16 1 #0
+
+// Index = 12
+STANDARD_PARAM XD_STATE SRW 2 Simple UNSIGNED16 1 #0
+
+// Index = 13
+STANDARD_PARAM GRANT_DENY SRW 2 Record ACCESS_PERM 2 #0;0 SubIndexAccess=0
+
+// Index = 14
+STANDARD_PARAM IO_OPTS SRW 2 Simple BIT_STRING 1 #0
+
+// Index = 15
+STANDARD_PARAM STATUS_OPTS SRW 2 Simple BIT_STRING 1 #0
+
+// Index = 16
+STANDARD_PARAM READBACK_D R 2 Record DISC_S 2 #0;0
+
+// Index = 17
+STANDARD_PARAM CAS_IN_D RWI 2 Record DISC_S 2 #0x08;0 SubIndexAccess=0
+
+// Index = 18
+STANDARD_PARAM CHANNEL|DO_CHANNEL SRW 2 Simple UNSIGNED16 1 #0
+
+// Index = 19
+STANDARD_PARAM FSTATE_TIME SRW 4 Simple FLOATING_POINT 1 #0.0
+
+// Index = 20
+STANDARD_PARAM FSTATE_VAL_D SRW 1 Simple UNSIGNED8 1 #0
+
+// Index = 21
+STANDARD_PARAM BKCAL_OUT_D RO 2 Record DISC_S 2 #0;0
+
+// Index = 22
+STANDARD_PARAM RCAS_IN_D RW 2 Record DISC_S 2 #0x1C;0 SubIndexAccess=0
+
+// Index = 23
+STANDARD_PARAM SHED_OPT SRW 1 Simple UNSIGNED8 1 #0
+
+// Index = 24
+STANDARD_PARAM RCAS_OUT_D R 2 Record DISC_S 2 #0;0
+
+// Index = 25
+STANDARD_PARAM UPDATE_EVT RW 16 Record ALARM_EVENT 7 #0;0;0,0;0;0;9;0 SubIndexAccess=1
+
+// Index = 26
+STANDARD_PARAM BLOCK_ALM RW 18 Record ALARM_DISC 9 #0;0;0,0;0;0;0;8;0;0 SubIndexAccess=1
+
+// index = 27
+STANDARD_PARAM BLOCK_ERR_DESC_1 R 4 Simple BIT_STRING 1 #0

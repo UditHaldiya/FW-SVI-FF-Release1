@@ -1,0 +1,45 @@
+
+// ===========================================================================
+//
+// FILE_NAME          hm_tb.gw
+//
+// 
+//
+// FUNCTIONAL_MODULE_DESCRIPTION
+//
+//    A GenVFD script with a description of a FF transducer block with 1
+//    analog input (PRIMARY_VALUE).
+//
+// ===========================================================================
+
+// index = 0
+STANDARD_PARAM PTB SRW 62 Record BLOCK 13 #0 SubIndexAccess=641
+
+// index = 1
+STANDARD_PARAM ST_REV SR 2 Simple UNSIGNED16 1 #0
+
+// index = 2
+STANDARD_PARAM TAG_DESC SRW 32 Simple OCTET_STRING 32 #32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32
+
+// index = 3
+STANDARD_PARAM STRATEGY SRW 2 Simple UNSIGNED16 1 #0
+
+// index = 4
+STANDARD_PARAM ALERT_KEY SRW 1 Simple UNSIGNED8 1 #0
+
+// index = 5
+STANDARD_PARAM MODE_BLK|SVI2_TB_MODE_BLK SRW 4 Record MODE 4 #0x08;0x08;0x19;0x08 SubIndexAccess=13
+//#13143-1) Permitted for PTB shall be AUTO|MAN|OOS from SK
+
+// index = 6
+STANDARD_PARAM BLOCK_ERR R 2 Simple BIT_STRING 1 #0
+
+// index = 7
+STANDARD_PARAM UPDATE_EVT RW 16 Record ALARM_EVENT 7 #0;0;0,0;0;0;9;0 SubIndexAccess=1
+
+// index = 8
+STANDARD_PARAM BLOCK_ALM RW 18 Record ALARM_DISC 9 #0;0;0,0;0;0;0;8;0;0 SubIndexAccess=1
+
+// index = 9
+STANDARD_PARAM TRANSDUCER_DIRECTORY NR 8 Array UNSIGNED16 4 #3,START_INDEX_TB_POS+10,START_INDEX_TB_POS+48,START_INDEX_TB_POS+59
+

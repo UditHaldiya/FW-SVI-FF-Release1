@@ -1,0 +1,235 @@
+// ===========================================================================
+// Time-stamp: <2013-08-21 10:01:57 GE-300010777>
+//
+// FILE_NAME          views.dat
+//
+//
+// FUNCTIONAL_MODULE_DESCRIPTION
+//
+//      A GenVFD data file with a description of FF views for some
+//      transducer blocks.
+//
+// ===========================================================================
+
+#include "std_views.dat"
+
+//Defines the view objects for TB.
+#define _ST_REV                         1
+#define _TAG_DESC                       2
+#define _STRATEGY                       3
+#define _ALERT_KEY                      4
+#define _MODE_BLK                       5
+#define _BLOCK_ERR                      6
+#define _UPDATE_EVT                     7
+#define _BLOCK_ALM                      8
+#define _TRANSDUCER_DIRECTORY           9
+#define _POSITION_TRANSDUCER_TYPE       10
+#define _XD_ERROR_POS                   11
+#define _FINAL_VALUE                    12
+#define _FINAL_VALUE_RANGE              13
+#define _POSITION_LIMITS                14
+#define _FINAL_VALUE_CUTOFF_HI          15
+#define _FINAL_VALUE_CUTOFF_LO          16
+#define _FINAL_POSITION_VALUE           17
+#define _ACTIVATE_CONTROL_SET           18
+#define _ACTIVE_CONTROL_SET             19
+#define _CUSTOM_CONTROL_SET             20
+#define _BACKUP_CONTROL_SET             21
+#define _TRAVEL_CALIBRATION             22
+#define _TRAVEL                         23
+#define _WORKING_SP                     24
+#define _WORKING_POS                    25
+#define _DEVIATION_ALERT                26
+#define _POSITION_HIHI_ALERT            27
+#define _POSITION_HI_ALERT              28
+#define _POSITION_LO_ALERT              29
+#define _POSITION_LOLO_ALERT            30
+#define _TRAVEL_ACCUMULATION_A_ALERT    31
+#define _TRAVEL_ACCUMULATION_B_ALERT    32
+#define _TRAVEL_ACCUMULATION_TREND      33
+#define _CYCLE_COUNTER_A_ALERT          34
+#define _CYCLE_COUNTER_B_ALERT          35
+#define _CYCLE_COUNTER_TREND            36
+#define _POSITION_ERROR_TREND           37
+#define _POSITION_HISTOGRAM             38
+#define _NEAR_CLOSED_ALERT              39
+#define _POSITION_ERROR_HISTOGRAM       40
+#define _SETPOINT_TIMEOUT_ALERT         41
+#define _XD_FSTATE                      42
+#define _CHAR_SELECTION                 43
+#define _CURRENT_CHAR_POINTS            44
+#define _CUSTOM_CHAR                    45
+#define _CUSTOM_CHAR_POINTS             46
+#define _READBACK_SELECT                47
+#define _TRANSDUCER_TYPE                48
+#define _XD_ERROR_PRESSURE              49
+#define _SUPPLY_PRESSURE                50
+#define _PRESSURE_RANGE                 51
+#define _SUPPLY_PRESSURE_HI_ALERT       52
+#define _SUPPLY_PRESSURE_LO_ALERT       53
+#define _SUPPLY_PRESSURE_LOLO_ALERT     54
+#define _ACTUATOR_A_PRESSURE            55
+#define _ACTUATOR_B_PRESSURE            56
+#define _ATMOSPHERIC_PRESSURE           57
+#define _PILOT_PRESSURE                 58
+#define _TEMP_TRANSDUCER_TYPE           59
+#define _XD_ERROR_TEMPERATURE           60
+#define _TEMPERATURE                    61
+#define _TEMPERATURE_HI_ALERT           62
+#define _TEMPERATURE_LO_ALERT           63
+#define _IP_DRIVE_CURRENT               64
+#define _IP_DRIVE_CURRENT_HI_ALERT      65
+#define _IP_DRIVE_CURRENT_LO_ALERT      66
+#define _FIND_STOPS                     67
+#define _OFFLINE_DIAGNOSTIC             68
+#define _DIAGNOSTIC_CONFIGURATION       69
+#define _DIAGNOSTIC_DATA                70
+#define _AUTOTUNE                       71
+#define _CHECK_PROCESS                  72
+#define _UI_CUSTOM_CONFIGURATION        73
+#define _FAILED_STATE                   74
+#define _FINAL_VALUE_D                  75
+#define _FINAL_POSITION_VALUE_D         76
+#define _FINAL_VALUE_DINT               77
+#define _FINAL_POSITION_VALUE_DINT      78
+#define _DISCRETE_OUTPUT_1_STATE        79
+#define _DISCRETE_OUTPUT_2_STATE        80
+#define _DISCRETE_INPUT                 81
+#define _DISCRETE_SWITCH_1_CONF         82
+#define _DISCRETE_SWITCH_2_CONF         83
+#define _UI_ACCESS_CONTROL              84
+#define _UI_LANGUAGE                    85
+#define _APP_MODE                       86
+#define _COMPLETE_STATUS                87
+#define _CLEAR_STATUS                   88
+#define _OPEN_STOP_ADJUSTMENT           89
+#define _SETPOINT_SOURCE                90
+#define _SETPOINT                       91
+#define _ACTUAL_POSITION                92
+#define _RAW_POSITION                   93
+#define _ALERT_ACTION                   94
+#define _ALERT_STATE                    95
+#define _ALERT_COUNTERS                 96
+#define _ALERT_LOG                      97
+#define _WORKING_TIMES                  98
+#define _WORKING_TIME_ALERT             99
+#define _FACTORY_USE_1                  100
+#define _FACTORY_USE_2                  101
+#define _ACTUATOR_1                     102
+#define _ACTUATOR_2                     103
+#define _ACTUATOR_3                     104
+#define _ACTUATOR_INFO                  105
+#define _VALVE_IDENTIFICATION           106
+#define _VALVE_SERVICE                  107
+#define _VALVE_BODY_1                   108
+#define _VALVE_BODY_2                   109
+#define _VALVE_BODY_3                   110
+#define _VALVE_INFO                     111
+#define _BOOSTER                        112
+#define _ACCESSORY                      113
+#define _POSITION_EXTREMES              114
+#define _PRESSURE_EXTREMES              115
+#define _TEMPERATURE_EXTREMES           116
+#define _IP_CURRENT_EXTREMES            117
+#define _ADVANCED                       118
+#define _BLOCK_ERR_DESC_1               119
+
+Block DITB
+  VIEW_1 1,5,6,10,11,13
+  VIEW_2 1,10
+  VIEW_3 1,5,6,10,11,13
+  VIEW_4 1,3,4,10
+
+Block DOTB
+  VIEW_1 1,5,6,10,11,13
+  VIEW_2 1,10
+  VIEW_3 1,5,6,10,11,13
+  VIEW_4 1,3,4,10
+
+Block AOTB
+  VIEW_1 1,5,6,10,11,13
+  VIEW_2 1,10
+  VIEW_3 1,5,6,10,11,13
+  VIEW_4 1,3,4,10
+
+Block AITB
+  VIEW_1 1,5,6,10,11,13
+  VIEW_2 1,10
+  VIEW_3 1,5,6,10,11,13
+  VIEW_4 1,3,4,10
+
+Block MAITB
+  VIEW_1 1,5,6,10,11,13,14,15,16,17,18,19,20
+  VIEW_2 1,10
+  VIEW_3 1,5,6,10,11,13,14,15,16,17,18,19,20
+  VIEW_4 1,3,4,10
+
+Block MAOTB
+  VIEW_1 1,5,6,10,11,13,14,15,16,17,18,19,20
+  VIEW_2 1,10
+  VIEW_3 1,5,6,10,11,13,14,15,16,17,18,19,20
+  VIEW_4 1,3,4,10
+
+Block MDITB
+  VIEW_1 1,5,6,10,11,13,14,15,16,17,18,19,20
+  VIEW_2 1,10
+  VIEW_3 1,5,6,10,11,13,14,15,16,17,18,19,20
+  VIEW_4 1,3,4,10
+
+Block MDOTB
+  VIEW_1 1,5,6,10,11,13,14,15,16,17,18,19,20
+  VIEW_2 1,10
+  VIEW_3 1,5,6,10,11,13,14,15,16,17,18,19,20
+  VIEW_4 1,3,4,10
+
+Block HMTB
+  VIEW_1 1,5,6,10,11,13,14,15,16,27,31,36
+  VIEW_2 1,10,35
+  VIEW_3 1,5,6,10,11,13,14,15,16,27,31,36
+  VIEW_4 1,3,4,10,28,29,30,32,33,34
+
+Block MMTB
+  VIEW_1 1,5,6,10,11,13,14,15,16,17,18,19,20,24,29,30,31
+  VIEW_2 1,10
+  VIEW_3 1,5,6,10,11,13,14,15,16,17,18,19,20,24,29,30,31
+  VIEW_4 1,3,4,10,21,22,23,25,26,27,28
+
+Block PTB
+
+  //D_1/Meas/71
+  VIEW_1 _ST_REV,_FINAL_VALUE,_FINAL_POSITION_VALUE,_WORKING_SP,_WORKING_POS,_SUPPLY_PRESSURE,_ACTUATOR_A_PRESSURE,_ACTUATOR_B_PRESSURE,_ATMOSPHERIC_PRESSURE,_PILOT_PRESSURE,_TEMPERATURE,_IP_DRIVE_CURRENT,_SETPOINT,_ACTUAL_POSITION,_RAW_POSITION
+
+  // S_1/71
+  VIEW_2 _ST_REV,_TAG_DESC,_STRATEGY,_ALERT_KEY,_UI_CUSTOM_CONFIGURATION,_UI_ACCESS_CONTROL,_UI_LANGUAGE,_ALERT_ACTION
+
+  VIEW_3 _ST_REV,_FINAL_VALUE,_FINAL_POSITION_VALUE,_WORKING_SP,_WORKING_POS,_SUPPLY_PRESSURE,_ACTUATOR_A_PRESSURE,_ACTUATOR_B_PRESSURE,_ATMOSPHERIC_PRESSURE,_PILOT_PRESSURE,_TEMPERATURE,_IP_DRIVE_CURRENT,_SETPOINT,_ACTUAL_POSITION,_RAW_POSITION
+
+  // D_2/Disc/24
+  VIEW_3 _ST_REV,_FAILED_STATE,_FINAL_VALUE_D,_FINAL_POSITION_VALUE_D,_FINAL_VALUE_DINT,_FINAL_POSITION_VALUE_DINT,_DISCRETE_OUTPUT_1_STATE,_DISCRETE_OUTPUT_2_STATE,_DISCRETE_INPUT
+
+  // D_3/Stts1/113
+  VIEW_3 _ST_REV,_MODE_BLK,_BLOCK_ERR,_XD_ERROR_POS,_XD_ERROR_PRESSURE,_XD_ERROR_TEMPERATURE,_APP_MODE,_COMPLETE_STATUS,_ALERT_STATE,_ALERT_COUNTERS
+
+  // D_4/Hstgrm/98
+  VIEW_3 _ST_REV,_POSITION_HISTOGRAM,_POSITION_ERROR_HISTOGRAM
+
+  // D_5/Extrms/82
+  VIEW_3 _ST_REV,_POSITION_EXTREMES,_PRESSURE_EXTREMES,_TEMPERATURE_EXTREMES,_IP_CURRENT_EXTREMES
+
+  // D_6/Stts2/52
+  VIEW_3 _ST_REV,_UPDATE_EVT,_BLOCK_ALM,_WORKING_TIMES,_BLOCK_ERR_DESC_1
+
+  // S_1/Pstn/78
+  VIEW_4 _ST_REV,_FINAL_VALUE_RANGE,_POSITION_LIMITS,_FINAL_VALUE_CUTOFF_HI,_FINAL_VALUE_CUTOFF_LO,_CUSTOM_CONTROL_SET,_TRAVEL,_XD_FSTATE,_READBACK_SELECT,_OPEN_STOP_ADJUSTMENT,_SETPOINT_SOURCE
+
+  // S_2/Prssr/13
+  VIEW_4 _ST_REV,_PRESSURE_RANGE
+
+  // S_3/PstnAlrm1/111
+  VIEW_4 _ST_REV,_DEVIATION_ALERT,_POSITION_HIHI_ALERT,_POSITION_HI_ALERT,_POSITION_LO_ALERT,_POSITION_LOLO_ALERT,_TRAVEL_ACCUMULATION_A_ALERT,_TRAVEL_ACCUMULATION_B_ALERT
+
+  // S_4/PstnAlm2/69
+  VIEW_4 _ST_REV,_CYCLE_COUNTER_A_ALERT,_CYCLE_COUNTER_B_ALERT,_NEAR_CLOSED_ALERT,_SETPOINT_TIMEOUT_ALERT,_WORKING_TIME_ALERT
+
+  // S_5/PrTmpCrnt/107
+  VIEW_4 _ST_REV,_SUPPLY_PRESSURE_HI_ALERT,_SUPPLY_PRESSURE_LO_ALERT,_SUPPLY_PRESSURE_LOLO_ALERT,_TEMPERATURE_HI_ALERT,_TEMPERATURE_LO_ALERT,_IP_DRIVE_CURRENT_HI_ALERT,_IP_DRIVE_CURRENT_LO_ALERT

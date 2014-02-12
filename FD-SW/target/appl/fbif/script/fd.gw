@@ -1,0 +1,82 @@
+
+// ===========================================================================
+//
+// FILE_NAME          fd.gw
+//
+//
+//
+// FUNCTIONAL_MODULE_DESCRIPTION
+//
+//     A GenVFD script with Field Diagnostics Parameter Access of RESB
+//
+// ===========================================================================
+
+// index = 42
+STANDARD_PARAM FD_VER SR 2 Simple UNSIGNED16 1 #1
+
+// index = 43
+STANDARD_PARAM FD_FAIL_ACTIVE R 4 Simple BIT_STRING 1 #0
+
+// index = 44
+STANDARD_PARAM FD_OFFSPEC_ACTIVE R 4 Simple BIT_STRING 1 #0
+
+// index = 45
+STANDARD_PARAM FD_MAINT_ACTIVE R 4 Simple BIT_STRING 1 #0
+
+// index = 46
+STANDARD_PARAM FD_CHECK_ACTIVE R 4 Simple BIT_STRING 1 #0
+
+// index = 47
+STANDARD_PARAM FD_FAIL_MAP SRW 4 Simple BIT_STRING 1 #RES_VAL_FAIL_MAP
+
+// index = 48
+STANDARD_PARAM FD_OFFSPEC_MAP SRW 4 Simple BIT_STRING 1 #RES_VAL_OFFSPEC_MAP
+
+// index = 49
+STANDARD_PARAM FD_MAINT_MAP SRW 4 Simple BIT_STRING 1 #RES_VAL_MAINT_MAP
+
+// index = 50
+STANDARD_PARAM FD_CHECK_MAP SRW 4 Simple BIT_STRING 1 #RES_VAL_CHECK_MAP
+
+// index = 51
+STANDARD_PARAM FD_FAIL_MASK SRW 4 Simple BIT_STRING 1 #RES_VAL_FAIL_MASK
+
+// index = 52
+STANDARD_PARAM FD_OFFSPEC_MASK SRW 4 Simple BIT_STRING 1 #RES_VAL_OFFSPEC_MASK
+
+// index = 53
+STANDARD_PARAM FD_MAINT_MASK SRW 4 Simple BIT_STRING 1 #RES_VAL_MAINT_MASK
+
+// index = 54
+STANDARD_PARAM FD_CHECK_MASK SRW 4 Simple BIT_STRING 1 #RES_VAL_CHECK_MASK
+
+// index = 55
+STANDARD_PARAM FD_FAIL_ALM RW 15 Record ALARM_FD_DIAG 9 #0;0;0,0;0;0;0;15;0;0 SubIndexAccess=1
+
+// index = 56
+STANDARD_PARAM FD_OFFSPEC_ALM RW 15 Record ALARM_FD_DIAG 9 #0;0;0,0;0;0;0;16;0;0 SubIndexAccess=1
+
+// index = 57
+STANDARD_PARAM FD_MAINT_ALM RW 15 Record ALARM_FD_DIAG 9 #0;0;0,0;0;0;0;17;0;0 SubIndexAccess=1
+
+// index = 58
+STANDARD_PARAM FD_CHECK_ALM RW 15 Record ALARM_FD_DIAG 9 #0;0;0,0;0;0;0;18;0;0 SubIndexAccess=1
+
+// index = 59
+STANDARD_PARAM FD_FAIL_PRI SRW 1 Simple UNSIGNED8 1 #0
+
+// index = 60
+STANDARD_PARAM FD_OFFSPEC_PRI SRW 1 Simple UNSIGNED8 1 #0
+
+// index = 61
+STANDARD_PARAM FD_MAINT_PRI SRW 1 Simple UNSIGNED8 1 #0
+
+// index = 62
+STANDARD_PARAM FD_CHECK_PRI SRW 1 Simple UNSIGNED8 1 #0
+
+// index = 63
+STANDARD_PARAM FD_SIMULATE RW 9 Record SIMULATE_FD 3 #0;0;1 SubIndexAccess=0
+
+// index = 64
+STANDARD_PARAM FD_RECOMMEN_ACT R 2 Simple UNSIGNED16 1 #0
+

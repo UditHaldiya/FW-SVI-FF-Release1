@@ -1,0 +1,96 @@
++libh(softing_base.h)
++libh(vfd.h)
++libh(fbif.h)
++libh(fbif_dcl.h)
+-esym(14,pc_lint_unref_param)
+-esym(960,12.7) //Alas! signed bitwise ops galore!
+-d__root=volatile
+-dRES_VAL_DEV_TYPE=0x0008
+-dCUSTOMER_HW
+-dPROTOCOL_FF
+-dHART_MASTER
+-dRES_VAL_DEV_REV=1
+-esym(750,MODULE_ID) -esym(767,MODULE_ID) -esym(962,MODULE_ID) //unused or redefined
+-e756 //typedef not referenced
+-e757 //global declarator not referenced
+-e526 //symbol not defined - not everything is in lint project
+-e765 //could be made static
+-e768 //global struct member not referenced
+-e769 //global enumeration constant not referenced
+-e758 //global enum not referenced
+-e755 //global macro not referenced
+-e714 //symbol not referenced
+-e759 //declaration can be moved from header (goes with 714)
+-e726 //lint is wrong since C99 - comma at enum end is legal
+-esym(818,'struct _T_FBIF_READ_DATA *') //const-ness may be misleading
+-esym(962, MN_TYPE_ENABLE_DEFERRED) //macro defined identically - necessary for breaking into Softing headers
+-estring(686,blanket suppression can hide configuration problems) //the only way I found to suppress 686 in ffthreads
+
+//Compiler headers peculiarities
+//On a 64-bit machine, "%ProgramFiles% contains a '(' which silly diagnostic we have to suppress separately
+-e582 
+-esym(451, "%ProgramFiles%\IAR Systems\Embedded Workbench 6.30\ARM\inc\c\*.h") //non-standard header guard
++e582 
+
+//May be useful generally
++rw(__no_init) -esym(950,__no_init) //non-standard keyword
+-e717 //do ... while(0) is fine
+
+//like in APP:
+-esym(754,*::endmark)
+
+//----------- Threads ---------------
+-sem(main,no_thread) //semantics
+-atomic(bool_t)
+-atomic(u16)
+-atomic(any_scalar)
+-atomic(any_type *)
+-esym(457, Atomic_) -esym(458, Atomic_)
+-sem(OS_SDI,thread_lock)
+-sem(OS_RI,thread_unlock)
+-sem(DISABLE_INTERRUPTS,thread_lock)
+-sem(RESTORE_INTERRUPTS,thread_unlock)
+-sem(osif_disable_all_tasks,thread_lock)
+-sem(osif_enable_all_tasks,thread_unlock)
+-sem(osif_disable_all_tasks,thread_safe)
+-sem(osif_enable_all_tasks,thread_safe)
+-sem(eep_AcquireMutex,thread_lock)
+-sem(eep_ReleaseMutex,thread_unlock)
+-sem(eep_AcquireMutex,thread_safe)
+-sem(eep_ReleaseMutex,thread_safe)
+-sem(eep_AcquireLocalMutex,thread_lock)
+-sem(eep_ReleaseLocalMutex,thread_unlock)
+-sem(eep_AcquireLocalMutex,thread_safe)
+-sem(eep_ReleaseLocalMutex,thread_safe)
+-esym(457, p_resource) //single atomic write
+-esym(457, p_resb_desc) //single atomic write
+
+//We can scrutinize it later
+-esym(457,Task) -esym(458,Task) //access to an individual Task[] is allowed by osif layer
+
+-esym(457,xcp_dscr) ///Wrong but a step at a time!
+//-esym(457,osif_*) ///Likely wrong but a step at a time!
+-e454 -e455 -e456 -e457 -e458 -e459 -e460 -e461 //Use `ffthreads' build target to analyze threads 
+
+//in dummy_appl_task -sem(appl_task,thread_mono)
+//Add what we don't have the source for:
+-sem(eep_task_main,thread_mono)				//Task 0 "EEP Task", pty=0x18
+-sem(dummy_appl_task,thread_mono)			//Task_1 "APPL Task", pty=0x0D
+-sem(dummy_FB_exec_task,thread_mono)		//Task_2 "FB Exec Task", pty=0x32
+											//Task 3 not initialized, pty=
+-sem(task_hm_base_routine,thread_mono)		//Task 4 "HM Task", pty=0x09
+-sem(dummy_FDC_task,thread_mono)			//Task_5 "FDC Task", pty=0x14
+//Task_6 "SBCR Task" (task_data_subscription), pty=0x19
+//Task_7 "MVC Task" (task_send_mvc), pty=0x14
+//Task_8 "BGD50 Task" (task_fdc_background50), pty=0x0C
+-sem(dummy_Background_task,thread_mono)		//Task_9 "BGD Task", pty=0x0A
+//Task 10 "LAS Task" , pty=0x5A
+//-------------- end threads ---------------------
+
+//But do not thoroughly lint the containing Softing files
++libm(*\hm_task.c) +libm(*\appl_if.c) +libm(*\eep_if.c)
++libh(*\eep\inc\*.h)
+
+
+//Remove this later
+-esym(534, fbs_write_param_loc) //the return value is ignored EVERYWHERE

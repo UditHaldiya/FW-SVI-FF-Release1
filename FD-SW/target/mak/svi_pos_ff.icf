@@ -1,0 +1,135 @@
+/* ICF linker configuration file for STM32F103ZGT6 */
+
+/* Specials */
+if (rombank==0) {
+define symbol __intvec_start__ = 0x08000000;
+}
+if (rombank==1) {
+define symbol __intvec_start__ = 0x08080000;
+}
+
+/* Memory Regions */
+/* STM32F101ZGT6 has 1 MByte of Flash Memory, managed in two 512 kByte Flash banks */
+if (rombank==0) {
+define symbol __region_INT_ROM_BANK0_start__  = 0x08000000;
+define symbol __region_INT_ROM_BANK0_end__    = 0x0807FFFF;
+define symbol __region_INT_ROM_BANK0_size__   = 0x00080000;
+define symbol __region_INT_ROM_BANK0_FW_start__ = 0x08000800;
+}
+if (rombank==1) {
+define symbol __region_INT_ROM_BANK0_start__  = 0x08080000;
+define symbol __region_INT_ROM_BANK0_end__    = 0x080FFFFF;
+define symbol __region_INT_ROM_BANK0_size__   = 0x00080000;
+define symbol __region_INT_ROM_BANK0_FW_start__ = 0x08080800;
+}
+
+define symbol __region_INT_ROM_BANK1_start__  = 0x08080000;
+define symbol __region_INT_ROM_BANK1_end__    = 0x080FFFFF;
+define symbol __region_INT_ROM_BANK1_size__   = 0x00080000;
+
+/* STM32F101ZGT6 has 80 KByte of internal SRAM */
+define symbol __region_INT_RAM_start__  = 0x20000000;
+define symbol __region_INT_RAM_end__    = 0x20013FFF;
+define symbol __region_INT_RAM_size__   = 0x00014000;
+
+/* additional 512 KByte of external SRAM accessible over FSMC Bank 1 SRAM1 */
+define symbol __region_EXT_RAM_start__  = 0x60000000;
+define symbol __region_EXT_RAM_end__    = 0x6007FFFF;
+define symbol __region_EXT_RAM_size__   = 0x00080000;
+
+/* Sizes */
+define symbol __size_cstack__       = 0x1000;
+define symbol __size_heap__         = 0x10000;
+define symbol __size_osif_stacks__  = 0x2000;
+
+/* Define a memory region "mem" that covers the entire 4 GB addressible space of the processor. */
+define memory mem with size = 4G;
+
+/* Define a region for first 512kByte on-chip flash. */
+define region INT_ROM_BANK0   = mem:[from __region_INT_ROM_BANK0_FW_start__    to __region_INT_ROM_BANK0_end__];
+/* Define a region for second 512kByte on-chip flash. */
+define region INT_ROM_BANK1   = mem:[from __region_INT_ROM_BANK1_start__    to __region_INT_ROM_BANK1_end__];
+
+/* Define a region for the on-chip SRAM. */
+define region INT_RAM   = mem:[from __region_INT_RAM_start__   to __region_INT_RAM_end__];
+
+/* Define a region for the external SRAM. */
+define region EXT_RAM   = mem:[from __region_EXT_RAM_start__   to __region_EXT_RAM_end__];
+
+define block CSTACK     with alignment = 8, size = __size_cstack__      { };
+define block HEAP       with alignment = 8, size = __size_heap__        { };
+define block OSIF_MEM   with alignment = 0x100, fixed order, size = __size_osif_stacks__  { section __osif_data_mem__ };
+
+/* Indicate that the read/write values should be initialized by copying from flash. */
+initialize by copy with packing = none { readwrite };
+
+/* Required in a multi-threaded application */
+initialize by copy with packing = none { section __DLIB_PERTHREAD };
+
+/* Indicate that the noinit values should be left alone. */
+do not initialize  { section .noinit, section __osif_data_mem__, section EEP_IMAGE };
+
+
+define block __hw_code__ with fixed order {section hw_code};
+define block __dbg_code__ with fixed order {section dbg_code};
+define block __eep_code__ with fixed order {section eep_code};
+define block __osif_code__ with fixed order {section osif_code};
+define block __cif_code__ with fixed order {section cif_code};
+
+define block __fbs_code__ with fixed order {section fbs_code};
+define block __fbif_code__ with fixed order {section fbif_code};
+define block __fdev_code__ with fixed order {section fdev_code};
+define block __uta_code__ with fixed order {section uta_code};
+
+define block __ddl_code__ with fixed order {section dll_code};
+define block __fal_code__ with fixed order {section fal_code};
+define block __fmg_code__ with fixed order {section fmg_code};
+
+define block __general_code__ with fixed order {section .text};
+define block __const_data__ with fixed order {section .rodata};
+
+
+/* Define a block for the kernel's functions.  - 0x130 because the first part of
+    the 8K is taken by the interrupt vectors. */
+define block __kernel_functions_block__ with alignment = 8, size = 0x2000 - 0x130 { section __kernel_functions__};
+
+define block __mn_checksum__ {ro section checksum};
+keep { section checksum };
+
+/* Place the interrupt vectors at the required address, followed by the kernel's functions. */
+place at address mem:__intvec_start__ { readonly section .intvec, block __kernel_functions_block__ };
+
+/* Place the remainder of the read-only items into flash. */
+place in INT_ROM_BANK0   { first block __const_data__,
+                       block __hw_code__,
+                       block __dbg_code__,
+                       block __eep_code__,
+                       block __osif_code__,
+                       block __cif_code__,
+                       block __fbs_code__,
+                       block __fbif_code__,
+                       block __fdev_code__,
+                       block __uta_code__,
+                       block __ddl_code__,
+                       block __fal_code__,
+                       block __fmg_code__,
+                       block __general_code__,
+                       readonly,
+					   last block __mn_checksum__
+                     };
+
+
+
+/* Place data in internal SRAM */
+place in INT_RAM { zi, block OSIF_MEM, readwrite, block CSTACK };
+
+/* Place data in external SRAM */
+place in EXT_RAM   { last block HEAP, section EEP_IMAGE };
+
+/* Export symbols required by C code. */
+export symbol __intvec_start__;
+export symbol __size_cstack__;
+export symbol __region_INT_ROM_BANK0_start__;
+export symbol __region_INT_ROM_BANK0_end__;
+export symbol __region_INT_ROM_BANK1_start__;
+export symbol __region_INT_ROM_BANK1_end__;
