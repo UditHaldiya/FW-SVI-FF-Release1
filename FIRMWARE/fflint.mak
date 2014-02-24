@@ -133,7 +133,7 @@ DOX : $(ffdoxfiles) force
     $(Hide)$(MN_ECHO) CHM_FILE = ffdox.chm >> DoxyfileFF
     $(Hide)$(MN_ECHO) @INCLUDE = $(ffdoxfiles) >> DoxyfileFF
     $(Hide)$(MN_ECHO) EXCLUDE_PATTERNS = *.dep *.ewd *ewp *eww dox*.* >> DoxyfileFF
-    $(Hide)$(MN_ECHO) DOT_PATH = "$(ProgramFiles)\Graphviz2.32\bin" >> DoxyfileFF
+    $(Hide)$(MN_ECHO) DOT_PATH = \"$(ProgramFiles)\Graphviz2.32\bin\" >> DoxyfileFF
     $(Hide)$(MN_ECHO) WARN_LOGFILE = ffdoxygen.log >> DoxyfileFF
     $(DOXYGEN) DoxyfileFF
 

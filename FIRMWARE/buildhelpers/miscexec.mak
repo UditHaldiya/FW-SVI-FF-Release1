@@ -41,7 +41,7 @@ DOX: $(doxfiles) force
     $(Hide)$(MN_ECHO) CHM_FILE = $(PROJ).chm >> Doxyfile
     $(Hide)$(MN_ECHO) @INCLUDE = $(doxfiles) >> Doxyfile
     $(Hide)$(MN_ECHO) EXCLUDE_PATTERNS = *.dep *.ewd *ewp *eww dox*.* >> Doxyfile
-    $(Hide)$(MN_ECHO) DOT_PATH = "$(ProgramFiles)\Graphviz2.32\bin" >> Doxyfile
+    $(Hide)$(MN_ECHO) DOT_PATH = \"$(ProgramFiles)\Graphviz2.32\bin\" >> Doxyfile
     $(Hide)$(MN_ECHO) WARN_LOGFILE = doxygen_$(PROJ).log >> Doxyfile
     $(DOXYGEN)
 
