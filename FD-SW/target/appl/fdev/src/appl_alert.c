@@ -102,7 +102,7 @@ typedef struct Alert_TimeHandling_t
 
 } Alert_TimeHandling_t;
 
-static u32 Alert_SPTimeout_TimeStamp;
+static volatile u32 Alert_SPTimeout_TimeStamp;
 
 //-----------------------------------------------------------------------------------------------
 // Copy of PTB instance. ALerts do not need it and use PTB instead, calculated once, except
@@ -653,11 +653,9 @@ static bool_t   AlertHandle_SPTimeout(T_FBIF_PTB          *p_PTB,
     { // alert present
         if ((bool_t)pAlert->component_5)
         { //alert enabled
-            float32 duration_time_s;
-            u32 current_timestamp;
+            u32 timediff = osif_get_ms_since(Alert_SPTimeout_TimeStamp);
 
-            current_timestamp = osif_get_time_in_ms();
-            duration_time_s = MS_TO_SEC((float32)current_timestamp - Alert_SPTimeout_TimeStamp);
+            float32 duration_time_s = MS_TO_SEC((float32)timediff);
             pAlert->component_0 = duration_time_s;
             if (pAlert->component_0 > pAlert->component_2)
             {

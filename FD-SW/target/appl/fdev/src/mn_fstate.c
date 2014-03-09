@@ -123,13 +123,11 @@ static bool_t   ff_fstate_CheckTimeToActivate(const T_FBIF_BLOCK_INSTANCE *p_blo
     bool_t  retval;
 
     // Check if the Time since last update has expired
-    u32     CurrentTime;
     u32     TimeDiff;
     u32     TimePassed;
     u32     TempTime;
 
-    CurrentTime = osif_get_time_in_ms();
-    TimeDiff    = TIME_DIFF(FStateData.SP_TimeStamp,CurrentTime);
+    TimeDiff    = osif_get_ms_since(FStateData.SP_TimeStamp);
     TimePassed  = MS_TO_SEC(TimeDiff);
     TempTime    = (u32)p_PTB->xd_fstate.component_3;
 

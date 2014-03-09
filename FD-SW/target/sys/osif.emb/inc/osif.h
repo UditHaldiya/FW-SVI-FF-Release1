@@ -960,4 +960,16 @@ RETURN_VALUES:
 
 extern USIGN32 osif_GetNumberOfRuns(USIGN8 task_id);
 
+/** \brief Returns the number of milliseconds elapsed since basetime timestamp
+\param basetime - reference timestamp
+\return time in ms since timestamp
+*/
+static inline USIGN32 osif_get_ms_since(USIGN32 basetime)
+{
+	USIGN32 base = *(volatile USIGN32 *) &basetime; //make sure optimizer doesn't play tricks on us
+	USIGN32 current_rime = OS_GetTime32(); //read current time *AFTER* base is established
+	USIGN32 diff = current_rime - base; //assignment guarantees correct modulo operation
+	return diff;
+}
+
 #endif /* __OSIF_H__ */

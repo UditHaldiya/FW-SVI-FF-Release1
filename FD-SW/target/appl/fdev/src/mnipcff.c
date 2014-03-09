@@ -217,15 +217,13 @@ void        mn_HART_ReceivedResponse(void)
 */
 void    mn_HART_VerifyResponseTO(void)
 {
-    u32     CurrentTime;
     u32     TimePassed;
     u32     TimeOutValue;
 
     if (mn_HART_NeedToCheckTimeout)
-    {   // Need to cvheck the T/O on response
+    {   // Need to check the T/O on response
 
-        CurrentTime = osif_get_time_in_ms();                            // Get current Time
-        TimePassed  = CurrentTime - mn_HART_ReceiveTimeStamp;           // Calculate time from the Last Response
+        TimePassed  = osif_get_ms_since(mn_HART_ReceiveTimeStamp);           // Calculate time from the Last Response
 
         TimeOutValue = HART_RESPONSE_ABSENSE_TIMEOUT;                   // TimeOut value
         if(TimePassed > TimeOutValue)
