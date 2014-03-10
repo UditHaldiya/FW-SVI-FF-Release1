@@ -1370,12 +1370,6 @@ USIGN16 Write_handler_PTB(T_FBIF_BLOCK_INSTANCE *p_block_instance,
                 result = ctrl_param_Autotune(p_block_instance, snd_buf, rcv_buf);
                 break;
 
-            case REL_IDX_PTB_UI_CUSTOM_CONFIGURATION:
-            {
-                enable_cust_conf();
-                break;
-            }
-
             case REL_IDX_PTB_POSITION_ERROR_HISTOGRAM:
             {
                 result = OnWritePosErrHistogram(p_PTB);

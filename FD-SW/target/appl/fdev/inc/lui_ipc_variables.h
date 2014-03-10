@@ -13,7 +13,6 @@
 
 extern void cmd_186_handler(u8 * toHart, u8 *send_length);
 extern void cmd_187_handler(u8 * toHart, u8 *send_length);
-extern void enable_cust_conf(void);
 extern fferr_t WriteUiCustomConfiguration(const T_FBIF_WRITE_DATA* p_write);
 extern void cmd_170_handler
 (

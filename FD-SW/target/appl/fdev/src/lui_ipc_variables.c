@@ -64,15 +64,9 @@ demand.
 #define CUSTOM_VAR_DEVICE_TAG_ENABLED    4
 #define CUSTOM_VAR_DEVICE_ADDR_ENABLED   3
 
-#define CUSTOM_CONF_ENABLED     0x03u
-#define CUSTOM_CONF_0_ENABLED   0x01u
-#define CUSTOM_CONF_1_ENABLED   0x02u
 
-
-static u8  cust_conf_enabled = CUSTOM_CONF_ENABLED;
 static u8 is_enabled_float_var(IPC_Variable_IDs_t var_id);
 static u8 is_enabled_var(IPC_Variable_IDs_t var_id);
-static u8 is_cust_conf_enabled(IPC_Variable_IDs_t var_id);
 static u8 device_param(IPC_Variable_IDs_t var_id);
 
 static u8 float_str[FLOAT_STRING_LEN]; //the first 8 bytes is the formated value. The last byte is the status of this value
@@ -118,8 +112,8 @@ typedef struct
 const HART_short_variable_info_t short_var_info_array[] =
 {
 //   -----------id-----------      ---------len---------      block_idx     ---------------------value_offset--------------------------                            status_offset                                                function pointer
-    {IPC_TB_UI_CUST_CONF_0,        ONE_BYTE_LEN,              ID_PTB_1,     MN_OFFSETOF(T_FBIF_PTB, ui_custom_configuration)+MN_OFFSETOF(_UI_CUST_CONF, component_0),    OFFSET_DISABLE,                                              is_cust_conf_enabled},
-    {IPC_TB_UI_CUST_CONF_1,        ONE_BYTE_LEN,              ID_PTB_1,     MN_OFFSETOF(T_FBIF_PTB, ui_custom_configuration)+MN_OFFSETOF(_UI_CUST_CONF, component_1),    OFFSET_DISABLE,                                              is_cust_conf_enabled},
+    {IPC_TB_UI_CUST_CONF_0,        ONE_BYTE_LEN,              ID_PTB_1,     MN_OFFSETOF(T_FBIF_PTB, ui_custom_configuration)+MN_OFFSETOF(_UI_CUST_CONF, component_0),    OFFSET_DISABLE,                                              NULL},
+    {IPC_TB_UI_CUST_CONF_1,        ONE_BYTE_LEN,              ID_PTB_1,     MN_OFFSETOF(T_FBIF_PTB, ui_custom_configuration)+MN_OFFSETOF(_UI_CUST_CONF, component_1),    OFFSET_DISABLE,                                              NULL},
     {IPC_TB_BLOCK_ACTUAL_MODE,     BLOCK_ACTUAL_MODE_LEN,     ID_PTB_1,     MN_OFFSETOF(T_FBIF_PTB, mode_blk)+MN_OFFSETOF(MODE, actual),                                 OFFSET_DISABLE,                                              NULL},
     {IPC_TB_BLOCK_ERROR,           BLOCK_ERROR_LEN,           ID_PTB_1,     MN_OFFSETOF(T_FBIF_PTB, block_err),                                                       OFFSET_DISABLE,                                              NULL},
 
@@ -399,41 +393,6 @@ static void format_float_into_array(u8* str, u8 maxlen, float32 value)
     }
 }
 
-
-/** \brief enable cust_conf_enabled
-*/
-void enable_cust_conf(void)
-{
-    cust_conf_enabled = CUSTOM_CONF_ENABLED;
-}
-
-static u8 is_cust_conf_enabled(IPC_Variable_IDs_t var_id)
-{
-    u8 ret;
-
-    if(0 != (CUSTOM_CONF_ENABLED & cust_conf_enabled))
-    {
-        if(IPC_TB_UI_CUST_CONF_0 == var_id)
-        {
-            cust_conf_enabled = cust_conf_enabled & (~CUSTOM_CONF_0_ENABLED);
-        }
-        else if(IPC_TB_UI_CUST_CONF_1 == var_id)
-        {
-            cust_conf_enabled = cust_conf_enabled & (~CUSTOM_CONF_1_ENABLED);
-        }
-        else
-        {
-            //exception
-        }
-        ret = CUSTOM_VAR_ENABLED;
-    }
-    else
-    {
-        ret = CUSTOM_VAR_DISABLED;
-    }
-
-    return ret;
-}
 
 static u8 is_enabled_var(IPC_Variable_IDs_t var_id)
 {
