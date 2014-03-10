@@ -1277,7 +1277,7 @@ IMPORT  MANUFACTURER        __FF,
         }
       }
 
-      REDEFINE VARIABLE    __status_opts
+      REDEFINE VARIABLE    __status_opts_os
       {
         LABEL           [status_opts_label] ;
         HELP            [status_opts_help] ;
