@@ -44,7 +44,7 @@ fferr_t WriteBlockHeader(const T_FBIF_BLOCK_INSTANCE* p_block_instance, const T_
     T_FBIF_PTB *p_PTB = p_block_instance->p_block_desc->p_block;
     STRINGV* p_block_tag = NULL;
 
-    if(p_PTB->mode_blk.actual != MODE_OS)
+    if(p_PTB->mode_blk.actual != MODE_OS && p_PTB->mode_blk.actual != MODE_LO)
     {
         switch (p_write->subindex)
         {

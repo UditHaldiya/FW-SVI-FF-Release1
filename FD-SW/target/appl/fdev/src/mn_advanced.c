@@ -696,7 +696,8 @@ fferr_t ffcheck_WriteFilter
     {
         if (MODE_LO == p_PTB->mode_blk.actual)
         {
-            if (p_write->rel_idx != REL_IDX_PTB_MODE_BLK
+            if (p_write->rel_idx != REL_IDX_PTB_PTB
+                &&p_write->rel_idx != REL_IDX_PTB_MODE_BLK
                 && p_write->rel_idx != REL_IDX_PTB_APP_MODE
                 && p_write->rel_idx != REL_IDX_PTB_ADVANCED
                 && p_write->rel_idx != REL_IDX_PTB_FACTORY_USE_1)
