@@ -160,11 +160,11 @@ void mnptb_ProcErrors(const T_FBIF_BLOCK_INSTANCE *p_block_instance)
         T_FBIF_RESB *p_RB = pRB_inst->p_block_desc->p_block;
         if (p_RB != NULL)
         {
-            //first clear old alerts errors
-            p_RB->block_err &= ~(BLK_ERR_DEV_NEEDS_MAINT_SOON | BLK_ERR_DEV_NEEDS_MAINT_NOW | BLK_ERR_DEV_FAULT_STATE_SET | BLK_ERR_LOST_NV_DATA | BLK_ERR_LOST_STATIC_DATA | BLK_ERR_MEMORY_FAILURE);
-
             if (p_PTB->alert_action.mapped_to_rb == BLK_ERR_ALERT_MAP_TO_RB)
             {
+                //first clear old alerts errors
+                p_RB->block_err &= ~(BLK_ERR_DEV_NEEDS_MAINT_SOON | BLK_ERR_DEV_NEEDS_MAINT_NOW | BLK_ERR_LOST_NV_DATA | BLK_ERR_LOST_STATIC_DATA | BLK_ERR_MEMORY_FAILURE);
+
                 //set new alerts errors
                 p_RB->block_err |= (block_err & (BLK_ERR_DEV_NEEDS_MAINT_SOON | BLK_ERR_DEV_NEEDS_MAINT_NOW | BLK_ERR_DEV_FAULT_STATE_SET | BLK_ERR_LOST_NV_DATA | BLK_ERR_LOST_STATIC_DATA | BLK_ERR_MEMORY_FAILURE));
             }
