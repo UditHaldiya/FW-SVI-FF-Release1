@@ -70,7 +70,7 @@ OFFDir:=Rel
 buildname?=nevermind
 OFFroot := C:\tfsbuild\$(buildname)\FIRMWARE
 #Version control system root
-TFSProject:=Firmware-SVI II AP FF
+TFSProject:=FW SVI FF Releases
 #Version to build (see /version for tf get); can override from command line
 #Default is T (latest)
 OFFver :=T
@@ -94,7 +94,7 @@ OFFTester:=Khan, Rizwan
 OFFWIT:="$(ProgramFiles)\Microsoft Team Foundation Server 2010 Power Tools\tfpt.exe" workitem
 # -- End Do not change --
 
-VCSroot :="$$/$(TFSProject)/FIRMWARE"
+VCSroot :="$$/$(TFSProject)/Release1/FIRMWARE"
 VCSmodroot :="$$/Core/FIRMWARE"
 OFFlogin:=/login:$(OFFuser),$(OFFpass)
 OFFWITFields:="Title=*$(PROJ) test build $(buildname) $(OFFver);Assigned To=$(OFFTester);Discipline=Testing Task;Estimated Time=5;Description=Ready for testing"

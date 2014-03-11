@@ -27,7 +27,7 @@ fdpath=$(lastword $(strip $(fdp)))\..\FD-SW
 define VC_PLUGIN
     -rm -f -r $(ffroot)
     @echo Now getting FFP
-    $(OFFVCS) workfold /map "$$/$(TFSProject)/FD-SW" $(ffroot) /workspace:$(OFFworkspace) $(OFFlogin)
+    $(OFFVCS) workfold /map "$$/$(TFSProject)/Release1/FD-SW" $(ffroot) /workspace:$(OFFworkspace) $(OFFlogin)
     $(PAUSE)
     echo %TIME% Sync FF >> $(PROJDIR)\buildtime.log
     $(OFFVCS) get $(ffroot);$(OFFver) /recursive /force $(OFFlogin)
