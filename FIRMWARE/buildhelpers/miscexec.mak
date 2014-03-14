@@ -97,7 +97,7 @@ OFFWIT:="$(ProgramFiles)\Microsoft Team Foundation Server 2010 Power Tools\tfpt.
 VCSroot :="$$/$(TFSProject)/Release1/FIRMWARE"
 VCSmodroot :="$$/Core/FIRMWARE"
 OFFlogin:=/login:$(OFFuser),$(OFFpass)
-OFFWITFields:="Title=*$(PROJ) test build $(buildname) $(OFFver);Assigned To=$(OFFTester);Discipline=Testing Task;Estimated Time=5;Description=Ready for testing"
+OFFWITFields:="Title=*SVI FF 1.0.0.x build $(buildname) $(OFFver);Assigned To=$(OFFTester);Discipline=Testing Task;Estimated Time=5;Description=Ready for testing"
 
 #Default OFFICIAL goals
 OGOALS?=BUILD #DOX DOXZIP
