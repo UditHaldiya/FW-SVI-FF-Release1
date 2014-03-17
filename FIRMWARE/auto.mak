@@ -12,5 +12,5 @@ all :
     $(TF) history ..\FD-SW /noprompt /sort:ascending /recursive | sed -e :a -e "$$!d" >>appserverc.txt
     @echo $(appserverc)
     $(synccmd)
-    if not exist $(out_dir)\$(buildname) $(MAKE) -f ffbuild.mak OFFICIAL notask=1 buildname=$(buildname) OFFver=$(buildname) OFFroot=$(OFFroot) MNS_OFFICIAL_DIR=$(out_dir)\$(buildname)
+    if not exist $(out_dir)\$(buildname) cmd /C mkdir $(out_dir)\$(buildname) && $(MAKE) -f ffbuild.mak OFFICIAL notask=1 buildname=$(buildname) OFFver=$(buildname) OFFroot=$(OFFroot) MNS_OFFICIAL_DIR=$(out_dir)\$(buildname) silent=1 >$(out_dir)\$(buildname)\build.log 2>&1
 

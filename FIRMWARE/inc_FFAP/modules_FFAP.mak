@@ -61,7 +61,7 @@ SUBMODULES+= corefac_1-0.mak,28702 \
 SUBMODULES+=diswif_1-0.mak,27138
 
 
-SUBMODULES+=hcframework_1-0.mak,31286
+SUBMODULES+=hcframework_1-0.mak,35209
 SUBMODULES+=faultsimport_1-0.mak,27138
 
 #NVMEM
