@@ -10,8 +10,8 @@ OFFroot = $(uniqroot)\FIRMWARE
 OFFmodroot = $(uniqroot)\Core\FIRMWARE
 
 all :
-    $(TF) history . /noprompt /sort:ascending /recursive | sed -e :a -e "$$!d" >appserverc.txt
-    $(TF) history ..\FD-SW /noprompt /sort:ascending /recursive | sed -e :a -e "$$!d" >>appserverc.txt
+    $(TF) history . /noprompt /sort:ascending /recursive | sed --text -e "$$!d" >appserverc.txt
+    $(TF) history ..\FD-SW /noprompt /sort:ascending /recursive | sed --text -e "$$!d" >>appserverc.txt
     @echo $(appserverc)
     $(synccmd)
     if not exist $(out_dir)\$(buildname) cmd /C mkdir $(out_dir)\$(buildname) && $(MAKE) -f ffbuild.mak OFFICIAL notask=1 buildname=$(buildname) OFFver=$(buildname) \
