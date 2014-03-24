@@ -60,7 +60,7 @@ build_raw : #unimal
     $(makecmd) build TargetSuffix=$(TargetSuffix)
     "$(subst /,\,$(CC_CORTEX_M3))"\bin\ielftool.exe --ihex --verbose $(FFP_MNS:.mns=.out) $(FFP_MNS:.mns=.hex)
     mnhextool.exe -i$(FFP_MNS:.mns=.hex) -b$(FFP_MNS)
-	type $(subst /,\,$(FFP_MNS))
+	si-cat.exe $(subst /,\,$(FFP_MNS))
 
 #-------------- Abandoned for now ---------
 
