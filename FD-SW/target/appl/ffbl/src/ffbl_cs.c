@@ -610,6 +610,7 @@ FUNCTION GLOBAL USIGN16 Execute_CSFB
     /////////////////////////////////////////////////////////////////////////////
     /* Handle OUT parameter ---------------------------------------------------*/
     //OUT.Value Handling
+    p_csfb->out.status = SQ_GOOD_CAS; //pre- set the out status
     if (actual_mode == MODE_AUTO)
     {
         if ((p_csfb->bkcal_in.status & LIMIT_MASK) == LIMIT_CONST)
@@ -624,14 +625,17 @@ FUNCTION GLOBAL USIGN16 Execute_CSFB
             if (p_csfb->sel_type == CS_SEL_TYPE_HI)
             {
                 p_csfb->out.value = inputs[2].p_sel->value;
+                p_csfb->out.status = inputs[2].p_sel->status; //forward selected input status
             }
             else if (p_csfb->sel_type == CS_SEL_TYPE_MIDDLE)
             {
                 p_csfb->out.value = inputs[1].p_sel->value;
+                p_csfb->out.status = inputs[1].p_sel->status;
             }
             else //p_csfb->sel_type == CS_SEL_TYPE_LOW
             {
                 p_csfb->out.value = inputs[0].p_sel->value;
+                p_csfb->out.status = inputs[0].p_sel->status;
             }
         }
     }
@@ -654,7 +658,8 @@ FUNCTION GLOBAL USIGN16 Execute_CSFB
     }
 
     //OUT.Status Handling
-    p_csfb->out.status = SQ_GOOD_CAS;
+    //p_csfb->out.status = SQ_GOOD_CAS;
+    //out status is already set during input selection
     if (actual_mode == MODE_MAN)
     {
         //case when an input SEL_x is BAD and cause the MAN mode
