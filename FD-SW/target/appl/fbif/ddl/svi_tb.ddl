@@ -4705,7 +4705,7 @@ METHOD do_autotune
 METHOD change_app_mode
 {
     LABEL "|en|change app mode";
-    HELP  HLP5("|en|to change the app mode:Setup, Normal or Manual");
+    HELP  "|en|to change the app mode:Setup, Normal or Manual";
     CLASS INPUT;
     DEFINITION
     {
@@ -4776,7 +4776,7 @@ METHOD  cancel_find_stops
 METHOD  do_manual_hi_low_stops
 {
     LABEL "|en|Manual Stops";
-    HELP HLP5("|en|Manual High/Low Stop Limits adjustment");
+    HELP "|en|Manual High/Low Stop Limits adjustment";
     CLASS OUTPUT;
     DEFINITION
     {
