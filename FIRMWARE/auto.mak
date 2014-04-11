@@ -9,7 +9,20 @@ uniqroot = C:\tfsbuildR\SVIFF\Release1
 OFFroot = $(uniqroot)\FIRMWARE
 OFFmodroot = $(uniqroot)\Core\FIRMWARE
 
-all :
+all : appserverc.txt
+    @echo appserverc=$(appserverc)
+    $(synccmd)
+    if not exist $(out_dir)\$(buildname) cmd /C mkdir $(out_dir)\$(buildname) && $(MAKE) -f ffbuild.mak OFFICIAL notask=1 buildname=$(buildname) OFFver=$(buildname) \
+	OFFroot=$(OFFroot) OFFmodroot=$(OFFmodroot) MNS_OFFICIAL_DIR=$(out_dir)\$(buildname) silent=1 >$(out_dir)\$(buildname)\build.log 2>&1
+
+appserverc.txt : force
+    $(TF) history . /noprompt /sort:ascending /recursive | sed --text -e "$$!d" >$@
+    $(TF) history ..\FD-SW /noprompt /sort:ascending /recursive | sed --text -e "$$!d" >>$@
+	type appserverc.txt
+
+force : ;
+
+all_old :
     $(TF) history . /noprompt /sort:ascending /recursive | sed --text -e "$$!d" >appserverc.txt
     $(TF) history ..\FD-SW /noprompt /sort:ascending /recursive | sed --text -e "$$!d" >>appserverc.txt
     @echo $(appserverc)
