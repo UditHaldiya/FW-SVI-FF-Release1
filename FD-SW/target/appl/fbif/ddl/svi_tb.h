@@ -338,15 +338,10 @@ MENU device_status_#x_tb                                \
   display_message("|en|\n", dummy, dummy, 0); \
  \
   if ( ivalue == 1 ) { \
- \
       status = edit_device_value("|en|Change to:", dummy, dummy, 0, id, mb); \
- \
       IF_ERROR_ABORT_MACRO_INFO("Edit" para_str) \
       status = send_value(id, mb); \
-      IF_ERROR_ABORT_MACRO_INFO("Sending" para_str ) \
       status = read_value(id, mb); \
-      IF_ERROR_ABORT_MACRO_INFO("Reading back" para_str ) \
- \
       status = get_float_value(id, mb, &flt_buf); \
       status = display_message("|en| " para_str "= %{flt_buf} " unit_str ".\n",  dummy, dummy, 0); \
  } \
@@ -410,7 +405,7 @@ MENU device_status_#x_tb                                \
         READ_PARAM(ITEM_ID(PARAM.MODE_BLK), MEMBER_ID(ACTUAL), "MODE_BLK");                        \
         status = get_unsigned_value(ITEM_ID(PARAM.MODE_BLK), MEMBER_ID(ACTUAL), &us8_buf);      \
                                                                                                 \
-        if ( us8_buf !=_LOCKED && us8_buf != _MANUAL ) { /* TB spec. V37 */                     \
+        if ( us8_buf != _MANUAL ) { /* TB spec. V37 */                                          \
             get_acknowledgement("|en|MODE_BLK(Actual) is not in MAN mode.\n"                    \
                                 "Please set to the MAN mode.\n",dummy,dummy,0);                 \
             METHOD_ABORT_MACRO                                                                  \
@@ -429,6 +424,7 @@ MENU device_status_#x_tb                                \
                 if(( BLTIN_FAIL_RESPONSE_CODE != status)||(8!=resp_code))break;			\
             }																			\
         }																				\
+/*
         if(BLTIN_SUCCESS != status)														\
         {																				\
             get_acknowledgement("|en|Error(%[d]{status}) on reading:" error_prompt, dummy, dummy, 0);	\
@@ -440,9 +436,11 @@ MENU device_status_#x_tb                                \
             }																			\
             NO_ABORT_FOR_TEST(method_abort("|en|Aborting due to the error");)								\
         }																				\
+*/
 
 #define SEND_PARAM(param_id, mb_id, error_prompt)										\
 		status = send_value(param_id, mb_id);											\
+/* comment below code to avoid error in NI 4.0.1
         if(BLTIN_SUCCESS != status)														\
         {																				\
             get_acknowledgement("|en|\f Error(%[d]{status}) on sending:" error_prompt, dummy, dummy, 0);	\
@@ -455,7 +453,7 @@ MENU device_status_#x_tb                                \
             }                                                           \
             NO_ABORT_FOR_TEST(method_abort("|en|Aborting due to the error");) \
          }                                                       \
-
+*/
 
 /*~~~~~~~~~~~~~~~~~~~~~~~/
 *** Local parameter list
@@ -3295,20 +3293,19 @@ MENU device_status_#x_tb                                \
 /---------------------*/
 
 #define TB_METHOD_LIST       \
-  update_custom_char_points, \
+  /* update_custom_char_points, */ \
   /* do_setup_wizard, */           \
   /* do_configure_wizard, */       \
-  do_enable_position_limits, \
+  /*do_enable_position_limits, */  \
   do_find_stops,             \
   /* do_open_stop_adjustment, */   \
   do_autotune,               \
   do_manual_hi_low_stops,    \
-  do_full_close,             \
-  do_full_open,              \
+  /*do_full_close, */        \
+  /*do_full_open,  */        \
   /* do_set_position, */           \
-  change_app_mode,           \
-  /* do_factory_configure, */      \
-  display_internal_versions  \
+  change_app_mode            \
+  /* do_factory_configure, */
 
 /* autotune,                               \ */
 /* travel_calibration,                     \ */
@@ -3483,13 +3480,8 @@ MENU device_status_#x_tb                                \
   {255, "|en|Activate Custom (Defined in CUSTOM_CHAR.CUSTOM_CHAR_POINTS)", "|en|Activate Custom (Defined in CUSTOM_CHAR.CUSTOM_CHAR_POINTS)"}\
 
 #define ENUM_RELAY_TYPE                                                                                                                      \
-  {1,   "|en|Relay A or C - Double or Single Direct"},                                                                   \
-  {2,   "|en|Relay B--Single Reverse"},                                                                                       \
-  {5,   "|en|Relay C-Special App. --Single Direct"},                                                                          \
-  {6,   "|en|Relay B-Special App. --Single Reverse"},                                                                         \
-  {9,   "|en|Lo-Bleed Relay A or C--Double or Single Direct"},                                                  \
-  {10,  "|en|Lo-Bleed Relay B-- Single Reverse"},                                                                    \
-  {13,  "|en|Lo-Bleed Relay C-Special App.--Single Direct"}
+  {1,   "|en|Standard Relay"},                                                                   \
+  {2,   "|en|High Capacity Relay"}
 
 #define ENUM_VALVE_TYPE                                                                                                                      \
   {0,   "|en|Undefined", "|en|Undefined"},                                                                                                   \

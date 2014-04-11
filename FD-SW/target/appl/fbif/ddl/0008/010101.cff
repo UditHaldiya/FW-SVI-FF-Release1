@@ -9,7 +9,7 @@
 Description     = "Common Format File for GE/Dresser-Masoneilan's SVI Application"
 FileType        = CapabilitiesFile
 FileDate        = 2013,02,08
-CffVersion      = 1,9
+CffVersion      = 1,7
 
 // Device Header
 

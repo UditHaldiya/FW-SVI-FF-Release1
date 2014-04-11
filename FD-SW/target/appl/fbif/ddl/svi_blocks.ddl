@@ -204,11 +204,35 @@ METHOD  restart
         unsigned long   id;                 /*  item id  */
         unsigned long   dummy[1];
         long            status;             /*  error return from builtins  */
-        unsigned long   manu_id_buf;
-		id = ITEM_ID(PARAM.MANUFAC_ID);
-        status = get_unsigned_value(id, 2, &manu_id_buf );
-        get_acknowledgement("|en|manufac_ID = %[d]{manu_id_buf} \n", dummy, dummy,0);
+        int             ivalue;
 
+        id = ITEM_ID(PARAM.RESTART);
+        status = select_from_menu("|en|Please select the restart type.\n", dummy, dummy, 0,
+                                   "Run;Resource;Defaults;Processor;Factory Defaults", &ivalue);
+
+        switch( ivalue ) {
+        case 1:
+            status = put_unsigned_value(id, 0, 1);
+            break;
+        case 2:
+            status = put_unsigned_value(id, 0, 2);
+            break;
+        case 3:
+            status = put_unsigned_value(id, 0, 3);
+            break;
+        case 4:
+            status = put_unsigned_value(id, 0, 4);
+            break;
+        case 5:
+            status = put_unsigned_value(id, 0, 5);
+            break;
+        default:
+            break;
+        }
+
+        SEND_PARAM(id, 0, "RB_RESTART");
+
+        return;
     }
 }
 

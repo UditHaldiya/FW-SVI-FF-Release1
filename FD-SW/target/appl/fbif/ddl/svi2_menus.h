@@ -180,7 +180,6 @@ MENU hdevice_ptb
     ITEMS
     {
         mnu_manualsetpoint
-        do_setup_wizard
         mnu_manualsetup
         mnu_config
         mnu_calibrate
@@ -223,7 +222,6 @@ MENU device_root_menu_ptb
     ITEMS
     {
         mnu_manualsetpoint
-        do_setup_wizard
         mnu_manualsetup
         mnu_config
         mnu_calibrate
@@ -671,13 +669,8 @@ MENU mnu_manualsetpoint
         PARAM.FINAL_POSITION_VALUE.STATUS
         PARAM.FINAL_POSITION_VALUE.VALUE
         EDD(ROWBREAK)
-        do_full_close
-        EDD(COLUMNBREAK)
         PARAM.SETPOINT.STATUS
         PARAM.SETPOINT.VALUE    
-        EDD(COLUMNBREAK)
-        do_full_open
-        do_set_position
     }
 }
 
@@ -690,8 +683,6 @@ MENU mnu_manualsetup
         mnu_block_mode
         do_find_stops
         do_autotune
-        do_factory_configure
-        do_configure_wizard
     }
 }
 
@@ -1508,7 +1499,7 @@ MENU mnu_positioning
     {
         PARAM.CHAR_SELECTION.TYPE_1 /*_svi2*/
         PARAM.CHAR_SELECTION.NUMBER_OF_POINTS_1 /*_svi2*/
-        update_custom_char_points    
+        /*update_custom_char_points */    
         /* mnu_current_char_points */
         EDD(COLUMNBREAK)
         PARAM.CUSTOM_CHAR.ACTION
