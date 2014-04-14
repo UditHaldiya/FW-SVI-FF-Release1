@@ -119,6 +119,7 @@ SS : force
     -$(MAKE) OFFREPARE
     -$(MN_RM) -f -r $(OFFroot)
     -$(MN_RM) -f -r $(MNS_OFFICIAL_DIR)
+    $(CLEAN_PLUGIN)
 # 2. Clone the builder's abstract workspace on local machine
     echo %TIME% Prepare workspace >> $(PROJDIR)\buildtime.log
     $(OFFVCS) workspace /new /noprompt /template:$(OFFworktemplate) $(OFFworkspace) $(OFFlogin)
