@@ -1,3 +1,10 @@
+#Do not change unless instructed
+manufacturer_ID:=004745
+type_ID:=0008
+DEVICE_REV:=01
+DD_REV:=02
+
+
 #defaults
 rombank?=0
 FFOUTBASENAME=fffp_
@@ -17,7 +24,8 @@ MN_STD_INC:=includes inc_FFAP mn_instrum/noinstrum hal/bios/inc
 MNINCLLUDE:=$(addprefix ../../../../FIRMWARE/,$(MN_STD_INC))
 export MNINCLLUDE
 
-makecmd:=$(MAKE) -f $(CURDIR)/handover.mak -C $(ffroot)/target/mak BFD_EXECUTABLE=$(BFD_EXECUTABLE) rombank=$(rombank)
+makecmd:=$(MAKE) -f $(CURDIR)/handover.mak -C $(ffroot)/target/mak BFD_EXECUTABLE=$(BFD_EXECUTABLE) rombank=$(rombank) \
+    DEVICE_TYPE=$(type_ID) DEVICE_REV=$(DEVICE_REV) DD_REV=$(DD_REV)
 
 include
 
@@ -60,7 +68,7 @@ build_raw : #unimal
     $(makecmd) build TargetSuffix=$(TargetSuffix)
     "$(subst /,\,$(CC_CORTEX_M3))"\bin\ielftool.exe --ihex --verbose $(FFP_MNS:.mns=.out) $(FFP_MNS:.mns=.hex)
     mnhextool.exe -i$(FFP_MNS:.mns=.hex) -b$(FFP_MNS)
-	type $(subst /,\,$(FFP_MNS)) | sed --text -n -e s/\\(.*\\)/\\1/pg
+	sed --text $(subst /,\,$(FFP_MNS)) -n -e s/\\(.*\\)/\\1/pg
 
 #-------------- Abandoned for now ---------
 
@@ -109,36 +117,39 @@ SurpressWarning:=718
 includepath:=$(TokenizerDir)\ddl
 releasepath:=$(TokenizerDir)\release
 imagepath:=$(TokenizerDir)\ddl\htk
-option4=
+
 #Set option4=-4 on the command line if you need it
 
-#Do not change unless instructed
-manufacturer_ID:=004745
-type_ID:=0008
 SOURCE_BINARY_DD:=$(releasepath)\$(manufacturer_ID)\$(type_ID)
-TARGET_BINARY_DD:=$(subst /,\,$(ffroot))\target\appl\fbif\ddl\0008
+TARGET_BINARY_DD:=$(subst /,\,$(ffroot))\target\appl\fbif\ddl\$(type_ID)
 
 #pretok:=tmptok.log
 
+DDLDIR:=$(ffroot)/target/appl/fbif/ddl
+DDLSRC:=$(DDLDIR)/svi_positioner.ddl
+DDLINC:=$(DDLDIR)/svi_ids.h
 
 _tok: $(pretok)
     $(FFTokenizerpath)/ff_tok32.exe $(pretok)
-#   && $(pretok) && rm tok.opt
 
-$(pretok) : $(DDLSRC)
-    $(FFTokenizerpath)/ffpretok.exe $(option4) -d $(dictfile) -w $(SurpressWarning) -I$(includepath) -R $(releasepath) -p "$(imagepath)" $< $@
+$(pretok) : $(DDLSRC) force
+    @echo option=$(option)
+    $(FFTokenizerpath)/ffpretok.exe $(option) -d $(dictfile) -w $(SurpressWarning) -I$(includepath) -R $(releasepath) -p "$(imagepath)" $< $@
 
-
-DDLSRC=$(ffroot)/target/appl/fbif/ddl/svi_positioner.ddl
-
-tok:
+tok: $(DDLINC)
     buildhelpers\cmpcpy.bat $(includepath)\standard.sym $(releasepath)\standard.sym
     -cmd /E /C mkdir $(manufacturer_ID)\$(type_ID)
     -cmd /E /C mkdir $(SOURCE_BINARY_DD)
-    $(MAKE) -f $(CURDIR)\$(firstword $(MAKEFILE_LIST)) -C $(releasepath) _tok DDLSRC=$(DDLSRC) pretok=$(TARGET_BINARY_DD)\_tmptok
+#    $(MAKE) -f $(CURDIR)\$(firstword $(MAKEFILE_LIST)) -C $(releasepath) _tok DDLSRC=$(DDLSRC) pretok=$(TARGET_BINARY_DD)\_tmptok-4 option=-4
+    $(MAKE) -f $(CURDIR)\$(firstword $(MAKEFILE_LIST)) -C $(releasepath) _tok DDLSRC=$(DDLSRC) pretok=$(TARGET_BINARY_DD)\_tmptok option=
     cp $(SOURCE_BINARY_DD)/* $(TARGET_BINARY_DD)
 
-force : ;
+$(DDLINC) : force
+    echo MANUFACTURER      0x$(manufacturer_ID),>$@
+    echo DEVICE_TYPE       0x$(type_ID),>>$@
+    echo DEVICE_REVISION   $(DEVICE_REV),>>$@
+    echo DD_REVISION       $(DD_REV)>>$@
+
 
 fflint ffthreads DOX : force
 	$(MAKE) -f fflint.mak $@ IARver=$(IARver)
@@ -148,3 +159,5 @@ OFFICIAL SEND:
 
 MOCKOFF:
 	$(MAKE) -f ffbuild.mak OFFICIAL SS= OFFroot=. buildname=test
+
+force : ;
