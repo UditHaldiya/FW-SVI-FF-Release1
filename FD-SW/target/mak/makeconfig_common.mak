@@ -100,8 +100,8 @@ export STACK_TYPE    = FF_LM
     # Define function block application:
 export BLOCKS      = ao ai di do pid is os m_a_i cs ar
 export MAIN_SCRIPT = SVI_Positioner_APP.gw
-export DEVICE_TYPE = 0008
-export DEVICE_REV  = 01
+#export DEVICE_TYPE = 0008
+#export DEVICE_REV  = 01
 
     # Define standard transducer blocks: ai_tb.gw
     # or manufacturer specific transducer block

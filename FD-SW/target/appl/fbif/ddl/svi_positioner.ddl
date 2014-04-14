@@ -1,6 +1,6 @@
 #define TS_SVI_POS "Time-stamp: <2013-11-12 13:20:17 GE-300010777>"
 /* ===========================================================================
-   
+
    FILE_NAME          svi_positioner.ddl
 
 
@@ -37,11 +37,7 @@
 **********************************************************************
 */
 
-MANUFACTURER      0x004745,
-DEVICE_TYPE       0x0008,
-DEVICE_REVISION   1,
-DD_REVISION       2
-
+#include "svi_ids.h"
 
 /*
 ***********************************************************************
@@ -135,7 +131,7 @@ IMPORT MANUFACTURER     __FF,
                   MIN_VALUE 0;
                   MAX_VALUE 100;
               }
-              
+
           }
           REDEFINE VARIABLE __discrete_output_nd
           {
@@ -686,13 +682,13 @@ DD_REVISION      SFT_RES_BLOCK_2_dd_rev
     EVERYTHING ;
     REDEFINITIONS
     {
-        
+
         /* -------------------------------------------------------------- */
         /* Field Diagnostics parameters are added to the Resouce Block -- */
         /* -------------------------------------------------------------- */
-        
+
         /* (The following _FD_xxx macros are defined in com_tbls.h)       */
-        
+
         BLOCK  __resource_block_2
         {
             PARAMETERS
@@ -701,7 +697,7 @@ DD_REVISION      SFT_RES_BLOCK_2_dd_rev
                 __FD_PARAMS
                 ADD_SVI_ADDITION_PARA_RB
             }
-            
+
 #ifndef NOMENUS
             REDEFINE MENU_ITEMS
             {
@@ -712,9 +708,9 @@ DD_REVISION      SFT_RES_BLOCK_2_dd_rev
             {
                 RB_METHOD_LIST
             }
-            
+
         }
-        
+
         VARIABLE_LIST   __res_2_view_1
         {
             MEMBERS
@@ -723,17 +719,17 @@ DD_REVISION      SFT_RES_BLOCK_2_dd_rev
                 /* ADD_SVI_ADDITION_VIEW3_ITEMS_RB */
             }
         }
-        
+
         VARIABLE_LIST   __res_2_view_3
         {
             MEMBERS
             {
                 __FD_PARAMS_VIEW3
                 /* ADD_SVI_ADDITION_VIEW3_ITEMS_RB */ /* use the view defines from softing */
-                
+
             }
         }
-        
+
         VARIABLE_LIST   __res_2_view_4
         {
             MEMBERS
@@ -742,7 +738,7 @@ DD_REVISION      SFT_RES_BLOCK_2_dd_rev
                 /* ADD_SVI_ADDITION_VIEW4_ITEMS_RB     */
             }
         }
-        
+
     }
 }
 
@@ -1151,7 +1147,7 @@ IMPORT MANUFACTURER     __FF,
        DD_REVISION      SFT_DO_BLOCK_dd_rev
   {
       EVERYTHING;
-      
+
       REDEFINITIONS
       {
           BLOCK __discrete_output_block
@@ -1391,7 +1387,7 @@ IMPORT MANUFACTURER    __FF,
 
             }
         }
-        
+
         REDEFINE VARIABLE_LIST   __cs_view_4
         {
             MEMBERS
@@ -1403,7 +1399,7 @@ IMPORT MANUFACTURER    __FF,
                 VL_SEL_TYPE,    PARAM.SEL_TYPE ;
             }
         }
-        
+
     }
 
 }
@@ -1812,13 +1808,13 @@ BLOCK PTB
     CHARACTERISTICS   ptb_character ;
     LABEL             LBL_POSITIONER_TRANSDUCER_BLOCK ;
     HELP              HLP_POSITIONER_TRANSDUCER_BLOCK ;
-    
+
     PARAMETERS
     {
         TB_BLOCK_MEMBERS_STD;
         TB_BLOCK_MEMBERS_SVI;
     }
-    
+
     PARAMETER_LISTS
     {
         VIEW_1, ptb_view_1 ;
@@ -1826,7 +1822,7 @@ BLOCK PTB
         VIEW_3, ptb_view_3 ;
         VIEW_4, ptb_view_4 ;
     }
-    
+
     UNIT_ITEMS
     {
         /* pv_unit_relation, */ /* The sviFF use the % as pv unit */
@@ -1834,24 +1830,24 @@ BLOCK PTB
         working_sp_unit_relation,
         travel_unit_relation
     }
-#ifndef NOMENUS    
+#ifndef NOMENUS
     MENU_ITEMS
     {
         TB_MENU_LIST
     }
-#endif /* NOMENUS */    
+#endif /* NOMENUS */
 
     METHOD_ITEMS
     {
         TB_METHOD_LIST
     }
-    
+
     COLLECTION_ITEMS
     {
         no_download_ptb,
         upload_wanted_ptb
     }
-    
+
     /* LOCAL_PARAMETERS */
     /* { */
     /*     LOCAL_PARAMETER_LIST */

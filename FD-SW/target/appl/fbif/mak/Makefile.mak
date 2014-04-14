@@ -99,7 +99,7 @@ else
 	LAS_SRCS =
 endif
 
-DDL_FILE = $(DEVICE_REV)02.sy5
+DDL_FILE = $(DEVICE_REV)$(DD_REV).sy5
 
 GEN_VFD_EXE   = $(TARGET)/appl/$(COMPONENT)/script/$(GEN_VFD)
 
