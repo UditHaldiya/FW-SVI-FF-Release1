@@ -52,9 +52,9 @@ define SEND_PLUGIN
     $(mns_cp) -f -p $(FFP_BBASE)1.mns $(MNS_OFFICIAL_DIR)\$(FFP_MNS_OFFICIAL_BNAME1)_1.mns
     cp.exe -f -p $(FFP_BBASE)0.map $(MNS_OFFICIAL_DIR)\$(FFP_MNS_OFFICIAL_BNAME0)_0.map
     cp.exe -f -p $(FFP_BBASE)1.map $(MNS_OFFICIAL_DIR)\$(FFP_MNS_OFFICIAL_BNAME1)_1.map
-    cp.exe -f -p $(ffroot)\target\appl\fbif\ddl\0008\*.cff $(MNS_OFFICIAL_DIR)
-    cp.exe -f -p $(ffroot)\target\appl\fbif\ddl\0008\*.ff5 $(MNS_OFFICIAL_DIR)
-    cp.exe -f -p $(ffroot)\target\appl\fbif\ddl\0008\*.sy5 $(MNS_OFFICIAL_DIR)
+    cp.exe -f -p $(ffroot)\target\appl\fbif\ddl\0008/*.cff $(MNS_OFFICIAL_DIR)
+    cp.exe -f -p $(ffroot)\target\appl\fbif\ddl\0008/*.ff5 $(MNS_OFFICIAL_DIR)
+    cp.exe -f -p $(ffroot)\target\appl\fbif\ddl\0008/*.sy5 $(MNS_OFFICIAL_DIR)
     @echo Also checking in .ffd files
     cp.exe -f -p $(BTARGET:.mns=.ffd) $(MNS_OFFICIAL_DIR)\ALLFF_$(OFFDir)_$(OFFver)_F$(FFP_FW_VERID0)_$(FFP_FW_CRCID0)_A$(FW_VERID)_$(FW_CRCID).ffd
     cp.exe -f -p $(BTARGET:.mns=1.ffd) $(MNS_OFFICIAL_DIR)\FFAP_$(OFFDir)_$(OFFver)_$(FW_VERID)_$(FW_CRCID).ffd
