@@ -133,15 +133,22 @@ _tok: $(pretok)
 $(pretok) : $(DDLSRC) force
     @echo option=$(option)
     $(FFTokenizerpath)/ffpretok.exe $(option) -d $(dictfile) -w $(SurpressWarning) -I$(includepath) -R $(releasepath) -p "$(imagepath)" $< $@
+ifeq ($(option),)
+    cp $(SOURCE_BINARY_DD)/$(DEVICE_REV)$(DD_REV).ffo $(dst)/
+    cp $(SOURCE_BINARY_DD)/$(DEVICE_REV)$(DD_REV).sym $(dst)/
+else
+    cp $(SOURCE_BINARY_DD)/$(DEVICE_REV)$(DD_REV).ff5 $(dst)/
+    cp $(SOURCE_BINARY_DD)/$(DEVICE_REV)$(DD_REV).sy5 $(dst)/
+endif
 	$(pause)
 
 tok: $(DDLINC)
     buildhelpers\cmpcpy.bat $(includepath)\standard.sym $(releasepath)\standard.sym
     -cmd /E /C mkdir $(manufacturer_ID)\$(type_ID)
     -cmd /E /C mkdir $(SOURCE_BINARY_DD)
-    $(MAKE) -f $(CURDIR)\$(firstword $(MAKEFILE_LIST)) -C $(releasepath) _tok DDLSRC=$(DDLSRC) pretok=$(TARGET_BINARY_DD)\_tmptok-4 option="-a -DDD4 -4"
-    $(MAKE) -f $(CURDIR)\$(firstword $(MAKEFILE_LIST)) -C $(releasepath) _tok DDLSRC=$(DDLSRC) pretok=$(TARGET_BINARY_DD)\_tmptok option=
-    cp $(SOURCE_BINARY_DD)/* $(TARGET_BINARY_DD)
+    $(MAKE) -f $(CURDIR)\$(firstword $(MAKEFILE_LIST)) -C $(releasepath) _tok DDLSRC=$(DDLSRC) pretok=$(TARGET_BINARY_DD)\_tmptok-4 dst=$(TARGET_BINARY_DD) option="-a -DDD4 -4"
+    $(MAKE) -f $(CURDIR)\$(firstword $(MAKEFILE_LIST)) -C $(releasepath) _tok DDLSRC=$(DDLSRC) pretok=$(TARGET_BINARY_DD)\_tmptok dst=$(TARGET_BINARY_DD) option=
+#    cp $(SOURCE_BINARY_DD)/* $(TARGET_BINARY_DD)
 
 $(DDLINC) : force
     echo MANUFACTURER      0x$(manufacturer_ID),>$@
