@@ -56,7 +56,7 @@ define SEND_PLUGIN
     cp.exe -f -p $(ffroot)\target\appl\fbif\ddl\$(type_ID)/*.ff5 $(MNS_OFFICIAL_DIR)
     cp.exe -f -p $(ffroot)\target\appl\fbif\ddl\$(type_ID)/*.sy5 $(MNS_OFFICIAL_DIR)
     cp.exe -f -p $(ffroot)\target\appl\fbif\ddl\$(type_ID)/*.ffo $(MNS_OFFICIAL_DIR)
-    cp.exe -f -p $(ffroot)\target\appl\fbif\ddl\$(type_ID)/*.sy5 $(MNS_OFFICIAL_DIR)
+    cp.exe -f -p $(ffroot)\target\appl\fbif\ddl\$(type_ID)/*.sym $(MNS_OFFICIAL_DIR)
     @echo Also checking in .ffd files
     cp.exe -f -p $(BTARGET:.mns=.ffd) $(MNS_OFFICIAL_DIR)\ALLFF_$(OFFDir)_$(OFFver)_F$(FFP_FW_VERID0)_$(FFP_FW_CRCID0)_A$(FW_VERID)_$(FW_CRCID).ffd
     cp.exe -f -p $(BTARGET:.mns=1.ffd) $(MNS_OFFICIAL_DIR)\FFAP_$(OFFDir)_$(OFFver)_$(FW_VERID)_$(FW_CRCID).ffd
