@@ -160,8 +160,15 @@ FUNCTION_BODY
       }
       else  /* (mo.mode.target != MODE_MAN) */
       {
-        Return_in_manual_mode (MODE_IMAN);
-        return;
+		  // Process all other cases, except Not Selected. When the output is Not selected, the PID block has to Process the value
+		  //
+		  if((SQ_GOOD_CAS|SUB_NS) != bkcal_in_status)	
+		  {
+			  Return_in_manual_mode (MODE_IMAN);
+			  return;
+		  }
+		  //	This is the path to continue if the value is Not Selected
+        mo.pid_downstream = PID_DOWNSTREAM_INIT;
       }
     }
     else /* (bkcal_in_status == (SQ_GOOD_CAS|SUB_NON_SPECIFIC) ||
