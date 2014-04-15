@@ -1,6 +1,6 @@
 #Do not change unless instructed
 manufacturer_ID:=004745
-type_ID:=0008
+export type_ID:=0008
 DEVICE_REV:=01
 DD_REV:=02
 
@@ -118,8 +118,6 @@ includepath:=$(TokenizerDir)\ddl
 releasepath:=$(TokenizerDir)\release
 imagepath:=$(TokenizerDir)\ddl\htk
 
-#Set option4=-4 on the command line if you need it
-
 SOURCE_BINARY_DD:=$(releasepath)\$(manufacturer_ID)\$(type_ID)
 TARGET_BINARY_DD:=$(subst /,\,$(ffroot))\target\appl\fbif\ddl\$(type_ID)
 
@@ -135,12 +133,13 @@ _tok: $(pretok)
 $(pretok) : $(DDLSRC) force
     @echo option=$(option)
     $(FFTokenizerpath)/ffpretok.exe $(option) -d $(dictfile) -w $(SurpressWarning) -I$(includepath) -R $(releasepath) -p "$(imagepath)" $< $@
+	$(pause)
 
 tok: $(DDLINC)
     buildhelpers\cmpcpy.bat $(includepath)\standard.sym $(releasepath)\standard.sym
     -cmd /E /C mkdir $(manufacturer_ID)\$(type_ID)
     -cmd /E /C mkdir $(SOURCE_BINARY_DD)
-#    $(MAKE) -f $(CURDIR)\$(firstword $(MAKEFILE_LIST)) -C $(releasepath) _tok DDLSRC=$(DDLSRC) pretok=$(TARGET_BINARY_DD)\_tmptok-4 option=-4
+    $(MAKE) -f $(CURDIR)\$(firstword $(MAKEFILE_LIST)) -C $(releasepath) _tok DDLSRC=$(DDLSRC) pretok=$(TARGET_BINARY_DD)\_tmptok-4 option="-a -DDD4 -4"
     $(MAKE) -f $(CURDIR)\$(firstword $(MAKEFILE_LIST)) -C $(releasepath) _tok DDLSRC=$(DDLSRC) pretok=$(TARGET_BINARY_DD)\_tmptok option=
     cp $(SOURCE_BINARY_DD)/* $(TARGET_BINARY_DD)
 
