@@ -11,6 +11,7 @@
 //    Must be included in the SVI_Positioner_APP.gw AFTER positioner_tb.gw
 //
 // ===========================================================================
+#include "ids.gw"
 
 //STRUCT _BLOCK_HEADER 13 VS|32|block_tag UNSIGNED32|4|dd_member_id UNSIGNED32|4|dd_item_id UNSIGNED16|2|dd_revision UNSIGNED16|2|profile UNSIGNED16|2|profile_revision UNSIGNED32|4|execution_time UNSIGNED32|4|period_of_execution UNSIGNED16|2|number_of_parameters UNSIGNED16|2|next_block_to_execute UNSIGNED16|2|starting_od_index_for_views UNSIGNED8|1|number_of_view_3 UNSIGNED8|1|number_of_view_4
 //STRUCT _MODE_BLK 4 BIT_STRING|1|target BIT_STRING|1|actual BIT_STRING|1|permitted BIT_STRING|1|normal
@@ -44,14 +45,10 @@
 //      Byte_1 - BUILD #
 //      Byte_0 - Revision #
 // -------------------------------------------------------------------------------
-// Current definition:  1.0.0.17, thus:
+// Current definition:  RES_VAL_DEV_REV.RES_DEV_MINOR_REV.RES_BUILD.RES_BUILD_REV, thus:
 
 %#define SW_FF_MAJOR                 (RES_VAL_DEV_REV)
-%#define SW_FF_MINOR                 (0u)
-%#define SW_FF_BUILD                 (0u)
-%#define SW_FF_REVISION              (17u)   // Changed for Control Selector change
 
-%#define SOFTWARE_FF_REVISION        ((SW_FF_MAJOR << 24) | (SW_FF_MINOR << 16) | (SW_FF_BUILD << 8) | (SW_FF_REVISION))
 
 // -------------------------------------------------------------------------------
 // This is a default definition for the DEFAULT APP F/W Revision RB parameter:
@@ -64,14 +61,13 @@
 //      Byte_1 - BUILD #
 //      Byte_0 - Revision #
 // -------------------------------------------------------------------------------
-// Default definition for the APP uC Software:  1.0.0.17, thus:
+// Default definition for the APP uC Software is identical:  RES_VAL_DEV_REV.RES_DEV_MINOR_REV.RES_BUILD.RES_BUILD_REV, thus:
 
-#define SW_APP_DEFAULT_REVISION     0x01000011   //Changed for Half Cycle support
 
 // -------------------------------------------------------------------------------
 
 // index = 65
-PARAM SOFTWARE_REV NR 32 Simple VISIBLE_STRING 32 #0x31,0x2E,0x30,0x2E,0x30,0x2E,0x31,0x37,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20
+//PARAM SOFTWARE_REV NR 32 Simple VISIBLE_STRING 32 #SOFTWARE_REV_C
 // index = 66
 PARAM HARDWARE_REV NR 32 Simple VISIBLE_STRING 32 #0x31,0x2E,0x30,0x2E,0x30,0x2E,0x31,0x37,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20
 // index = 67

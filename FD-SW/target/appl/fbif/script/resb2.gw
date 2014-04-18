@@ -52,6 +52,7 @@ STANDARD_PARAM DEV_REV R 1 Simple UNSIGNED8 1 #RES_VAL_DEV_REV
 
 // index = 13
 STANDARD_PARAM DD_REV R 1 Simple UNSIGNED8 1 #RES_VAL_DD_REV
+//This is the *minimum* DD revision compatible with the firmware
 
 // index = 14
 STANDARD_PARAM GRANT_DENY SRWB 2 Record ACCESS_PERM 2 #0 SubIndexAccess=0
