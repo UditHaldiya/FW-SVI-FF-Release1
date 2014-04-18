@@ -3,7 +3,10 @@ manufacturer_ID:=004745
 export type_ID:=0008
 DEVICE_REV:=01
 DD_REV:=02
-
+MIN_DD_REV:=01
+RES_DEV_MINOR_REV:=0
+RES_BUILD:=0
+RES_BUILD_REV:=17
 
 #defaults
 rombank?=0
@@ -61,7 +64,8 @@ endif
 FFP_MNS=$(ffroot)\target\mak\$(TargetDir)\exe\$(BFD_EXECUTABLE:.out=.mns)
 
 clean :
-	-del ..\FD-SW\target\mak\FF_SVI_DBG\allfiles.lnt
+	-del v.u
+    -del ..\FD-SW\target\mak\FF_SVI_DBG\allfiles.lnt
     $(makecmd) $@ TargetSuffix=$(TargetSuffix)
 
 build_raw : #unimal
@@ -120,7 +124,7 @@ imagepath:=$(TokenizerDir)\ddl\htk
 
 SOURCE_BINARY_DD:=$(releasepath)\$(manufacturer_ID)\$(type_ID)
 TARGET_BINARY_DD:=$(subst /,\,$(ffroot))\target\appl\fbif\ddl\$(type_ID)
-
+GW_DIR:=..\FD-SW\target\appl\fbif\script
 DDLDIR:=$(ffroot)/target/appl/fbif/ddl
 DDLSRC:=$(DDLDIR)/svi_positioner.ddl
 DDLINC:=$(DDLDIR)/svi_ids.h
@@ -140,7 +144,7 @@ $(pretok) : $(DDLSRC) force
     $(FFTokenizerpath)/ffpretok.exe $(option) -d $(dictfile) -w $(SurpressWarning) -I$(includepath) -R $(releasepath) -p "$(imagepath)" $< $@
 	$(pause)
 
-tok: $(DDLINC)
+tok: $(DDLINC) $(GW_DIR)\ids.gw
     buildhelpers\cmpcpy.bat $(includepath)\standard.sym $(releasepath)\standard.sym
     -cmd /E /C mkdir $(manufacturer_ID)\$(type_ID)
     -rm -f -r $(SOURCE_BINARY_DD)
@@ -154,7 +158,23 @@ $(DDLINC) : force
     echo DEVICE_REVISION   $(DEVICE_REV),>>$@
     echo DD_REVISION       $(DD_REV)>>$@
 
+$(GW_DIR)\ids.gw  : ids.gw
+    cp $< $@
 
+ids.gw: v.u gw_rb_helper.u
+    Unimal -Iincludes -O. gw_rb_helper.u
+
+u.v: force;
+    echo #MP Setstr DEVICE_REV="$(DEVICE_REV)" >>$@
+    echo #MP Setstr RES_DEV_MINOR_REV="$(RES_DEV_MINOR_REV)" >>$@
+    echo #MP Setstr RES_BUILD="$(RES_BUILD)" >>$@
+    echo #MP Setstr RES_BUILD_REV="$(RES_BUILD_REV)" >>$@
+    $(pause)
+
+v.u : u.v
+    fc $@ $< || cp $< $@
+
+#--------------------------------------------------------------------------------------
 fflint ffthreads DOX : force
 	$(MAKE) -f fflint.mak $@ IARver=$(IARver)
 
