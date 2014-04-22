@@ -155,7 +155,8 @@ tok: $(DDLINC) $(GW_DIR)\ids.gw
     $(MAKE) -f $(CURDIR)\$(firstword $(MAKEFILE_LIST)) -C $(releasepath) _tok DDLSRC=$(DDLSRC) pretok=$(TARGET_BINARY_DD)\_tmptok-4 dst=$(TARGET_BINARY_DD) option="-a -DDD4 -4"
     $(MAKE) -f $(CURDIR)\$(firstword $(MAKEFILE_LIST)) -C $(releasepath) _tok DDLSRC=$(DDLSRC) pretok=$(TARGET_BINARY_DD)\_tmptok dst=$(TARGET_BINARY_DD) option=
 
-$(DDLINC) : force
+$(DDLINC) : $(MAKEFILE_LIST)
+    @echo MAKEFILE_LIST = $(MAKEFILE_LIST)
     echo MANUFACTURER      0x$(manufacturer_ID),>$@
     echo DEVICE_TYPE       0x$(type_ID),>>$@
     echo DEVICE_REVISION   $(DEVICE_REV),>>$@
