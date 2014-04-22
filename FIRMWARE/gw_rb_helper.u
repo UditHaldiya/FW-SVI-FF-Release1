@@ -28,6 +28,7 @@
 
 #MP atoi[DEVICE_REV]
 #MP Setstr RES_VAL_DEV_REV = {%dDEVICE_REV} ;remove padding, if any
+#MP atoi[RES_VAL_DEV_REV]
 #MP atoi[RES_DEV_MINOR_REV]
 #MP atoi[RES_BUILD]
 #MP atoi[RES_BUILD_REV]

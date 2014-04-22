@@ -8,6 +8,9 @@ RES_DEV_MINOR_REV:=0
 RES_BUILD:=0
 RES_BUILD_REV:=17
 
+#debug
+Hide:=@
+
 #defaults
 rombank?=0
 FFOUTBASENAME=fffp_
@@ -164,15 +167,14 @@ $(GW_DIR)\ids.gw  : ids.gw
 ids.gw: v.u gw_rb_helper.u
     Unimal -Iincludes -O. gw_rb_helper.u
 
-u.v: force;
-    echo #MP Setstr DEVICE_REV="$(DEVICE_REV)" >>$@
-    echo #MP Setstr RES_DEV_MINOR_REV="$(RES_DEV_MINOR_REV)" >>$@
-    echo #MP Setstr RES_BUILD="$(RES_BUILD)" >>$@
-    echo #MP Setstr RES_BUILD_REV="$(RES_BUILD_REV)" >>$@
+v.u : $(MAKEFILE_LIST)
+    @echo MAKEFILE_LIST = $(MAKEFILE_LIST)
+    $(Hide)echo #MP Setstr DEVICE_REV="$(DEVICE_REV)" >$@
+    $(Hide)echo #MP Setstr RES_DEV_MINOR_REV="$(RES_DEV_MINOR_REV)" >>$@
+    $(Hide)echo #MP Setstr RES_BUILD="$(RES_BUILD)" >>$@
+    $(Hide)echo #MP Setstr RES_BUILD_REV="$(RES_BUILD_REV)" >>$@
     $(pause)
 
-v.u : u.v
-    fc $@ $< || cp $< $@
 
 #--------------------------------------------------------------------------------------
 fflint ffthreads DOX : force
