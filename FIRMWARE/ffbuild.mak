@@ -53,9 +53,9 @@ ifneq (,$(filter $(DIR), Rel REL rel))
 #TargetDir:=FF_SVI_REL
 TargetSuffix:=debug
 TargetDir:=FF_SVI_DBG
-build_raw : $(fflint)
+fflint : build_raw 
 ffthreads : build_raw
-build : $(ffthreads) build_raw
+build : $(ffthreads) $(fflint) build_raw
 else
 TargetSuffix:=debug
 TargetDir:=FF_SVI_DBG
