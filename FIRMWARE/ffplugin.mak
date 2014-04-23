@@ -74,7 +74,7 @@ endef
 define BUILD_PLUGIN
     @echo Now building FFP at ROM bank 0
     $(PAUSE)
-	$(MAKE) -C $(OFFroot) -f ffbuild.mak clean tok build
+	$(MAKE) -C $(OFFroot) -f ffbuild.mak tok build
     @echo Now building APP at ROM bank 1
 	cd
     $(PAUSE)
