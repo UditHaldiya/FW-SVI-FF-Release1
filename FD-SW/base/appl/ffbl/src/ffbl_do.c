@@ -60,9 +60,14 @@ INCLUDES
   #include "ffbl_mo.h"
   #include "fbif_idx.h"
   #include "..\..\fdev\inc\mn_errorbits.h"
-
+  #include "fbif_cfg.h"
 
 LOCAL_DEFINES
+
+/*--------------------- OUTPUT VALUE ----------------------*/
+#define MN_ONEHUNDRED              100u
+#define MN_ZERO                    0u
+#define MN_ONE                     1u
 
 LOCAL_TYPEDEFS
 
@@ -186,10 +191,31 @@ FUNCTION_BODY
 
 
     /* Apply IO option 'Invert' ------------------------------------------- */
-    if (p_dofb->io_opts & IO_OPT_INVERT)
+    if ((p_dofb->io_opts & IO_OPT_INVERT) != MN_ZERO)
     {
-      if (raw_out_d.value) raw_out_d.value = 0;
-      else                 raw_out_d.value = 1;
+        if (p_dofb->channel == CH_POSITION_DISCRETE_POSITION)
+        {
+            if (raw_out_d.value >= MN_ONEHUNDRED)
+            {
+                raw_out_d.value = MN_ZERO;
+            }
+            else
+            {
+                raw_out_d.value = MN_ONEHUNDRED - raw_out_d.value;
+            }
+        }
+        else
+        {
+            if (raw_out_d.value)
+            {
+                raw_out_d.value = MN_ZERO;
+            }
+            else
+            {
+                raw_out_d.value = MN_ONE;
+            }
+        }
+
     }
 
     p_dofb->out_d.value = raw_out_d.value;
@@ -872,10 +898,30 @@ FUNCTION_BODY
 
     /* Apply IO option 'Invert' ------------------------------------------- */
 
-    if (p_dofb->io_opts & IO_OPT_INVERT)
+    if ((p_dofb->io_opts & IO_OPT_INVERT) != MN_ZERO)
     {
-      if (raw_out_d.value) raw_out_d.value = 0;
-      else                 raw_out_d.value = 1;
+        if (p_dofb->channel == CH_POSITION_DISCRETE_POSITION)
+        {
+            if (raw_out_d.value >= MN_ONEHUNDRED)
+            {
+                raw_out_d.value = MN_ZERO;
+            }
+            else
+            {
+                raw_out_d.value = MN_ONEHUNDRED - raw_out_d.value;
+            }
+        }
+        else
+        {
+            if (raw_out_d.value)
+            {
+                raw_out_d.value = MN_ZERO;
+            }
+            else
+            {
+                raw_out_d.value = MN_ONE;
+            }
+        }
     }
 
     /* Map good cascade status to good non-cascade status ----------------- */
@@ -1019,10 +1065,30 @@ FUNCTION_BODY
   p_dofb->readback_d          = raw_rb_d;
 
   /* Apply IO option 'Invert' --------------------------------------------- */
-  if (p_dofb->io_opts & IO_OPT_INVERT)
+  if ((p_dofb->io_opts & IO_OPT_INVERT) != MN_ZERO)
   {
-    if (raw_rb_d.value) raw_rb_d.value = 0;
-    else                raw_rb_d.value = 1;
+        if (p_dofb->channel == CH_POSITION_DISCRETE_POSITION)
+        {
+            if (raw_rb_d.value >= MN_ONEHUNDRED)
+            {
+                raw_rb_d.value = MN_ZERO;
+            }
+            else
+            {
+                raw_rb_d.value = MN_ONEHUNDRED - raw_rb_d.value;
+            }
+        }
+        else
+        {
+            if (raw_rb_d.value)
+            {
+                raw_rb_d.value = MN_ZERO;
+            }
+            else
+            {
+                raw_rb_d.value = MN_ONE;
+            }
+        }
   }
 
 
