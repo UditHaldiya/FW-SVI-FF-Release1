@@ -1115,6 +1115,287 @@ VARIABLE device_status_11_c
     }
 }
 
+/* Add more variable for travel trend and cycle counter alert*/
+VARIABLE _currently_collected
+{
+    LABEL           "|en|Currently Collected";
+    CLASS           CONTAINED;
+    TYPE            UNSIGNED_INTEGER (4) ;
+    HANDLING        READ ;
+}
+
+VARIABLE _today
+{
+    LABEL           LBL_168_TODAY;
+    CLASS           CONTAINED;
+    TYPE            UNSIGNED_INTEGER (4) ;
+    HANDLING        READ ;
+}
+
+VARIABLE _last_day
+{
+    LABEL           LBL_169_LAST_DAY;
+    CLASS           CONTAINED;
+    TYPE            UNSIGNED_INTEGER (4) ;
+    HANDLING        READ ;
+}
+
+VARIABLE _previous_day
+{
+    LABEL           LBL_170_PREVIOUS_DAY;
+    CLASS           CONTAINED;
+    TYPE            UNSIGNED_INTEGER (4) ;
+    HANDLING        READ ;
+}
+
+VARIABLE _three_days_ago
+{
+    LABEL           LBL_171_THREE_DAYS_AGO;
+    CLASS           CONTAINED;
+    TYPE            UNSIGNED_INTEGER (4) ;
+    HANDLING        READ ;
+}
+
+VARIABLE _current_week
+{
+    LABEL           LBL_172_CURRENT_WEEK;
+    CLASS           CONTAINED;
+    TYPE            UNSIGNED_INTEGER (4) ;
+    HANDLING        READ ;
+}
+
+VARIABLE _last_week
+{
+    LABEL           LBL_173_LAST_WEEK;
+    CLASS           CONTAINED;
+    TYPE            UNSIGNED_INTEGER (4) ;
+    HANDLING        READ ;
+}
+
+VARIABLE _previous_week
+{
+    LABEL           LBL_174_PREVIOUS_WEEK;
+    CLASS           CONTAINED;
+    TYPE            UNSIGNED_INTEGER (4) ;
+    HANDLING        READ ;
+}
+
+VARIABLE _three_weeks_ago
+{
+    LABEL           LBL_175_THREE_WEEKS_AGO;
+    CLASS           CONTAINED;
+    TYPE            UNSIGNED_INTEGER (4) ;
+    HANDLING        READ ;
+}
+
+VARIABLE _current_month
+{
+    LABEL           LBL_176_CURRENT_MONTH;
+    CLASS           CONTAINED;
+    TYPE            UNSIGNED_INTEGER (4) ;
+    HANDLING        READ ;
+}
+
+VARIABLE _last_month
+{
+    LABEL           LBL_177_LAST_MONTH;
+    CLASS           CONTAINED;
+    TYPE            UNSIGNED_INTEGER (4) ;
+    HANDLING        READ ;
+}
+
+VARIABLE _previous_month
+{
+    LABEL           LBL_178_PREVIOUS_MONTH;
+    CLASS           CONTAINED;
+    TYPE            UNSIGNED_INTEGER (4) ;
+    HANDLING        READ ;
+}
+
+VARIABLE _three_months_ago
+{
+    LABEL           LBL_179_THREE_MONTHS_AGO;
+    CLASS           CONTAINED;
+    TYPE            UNSIGNED_INTEGER (4) ;
+    HANDLING        READ ;
+}
+
+VARIABLE _current_12_months
+{
+    LABEL           LBL_180_CURRENT_12_MONTHS;
+    CLASS           CONTAINED;
+    TYPE            UNSIGNED_INTEGER (4) ;
+    HANDLING        READ ;
+}
+
+VARIABLE _last_12_months
+{
+    LABEL           LBL_181_LAST_12_MONTHS;
+    CLASS           CONTAINED;
+    TYPE            UNSIGNED_INTEGER (4) ;
+    HANDLING        READ ;
+}
+
+VARIABLE _previous_12_months
+{
+    LABEL           LBL_182_PREVIOUS_12_MONTHS;
+    CLASS           CONTAINED;
+    TYPE            UNSIGNED_INTEGER (4) ;
+    HANDLING        READ ;
+}
+
+VARIABLE _three_years_ago
+{
+    LABEL           LBL_183_THREE_YEARS_AGO;
+    CLASS           CONTAINED;
+    TYPE            UNSIGNED_INTEGER (4) ;
+    HANDLING        READ ;
+}
+
+VARIABLE    _float_currently_collected
+{
+    LABEL           "|en|Currently Collected";
+    CLASS           CONTAINED & OPERATE ;
+    TYPE            FLOAT ;
+    HANDLING        READ ;
+}
+
+VARIABLE _float_today
+{
+    LABEL           LBL_168_TODAY;
+    CLASS           CONTAINED & OPERATE ;
+    TYPE            FLOAT ;
+    HANDLING        READ ;
+}
+
+VARIABLE _float_last_day
+{
+    LABEL           LBL_169_LAST_DAY;
+    CLASS           CONTAINED & OPERATE ;
+    TYPE            FLOAT ;
+    HANDLING        READ ;
+}
+
+VARIABLE _float_previous_day
+{
+    LABEL           LBL_170_PREVIOUS_DAY;
+    CLASS           CONTAINED & OPERATE ;
+    TYPE            FLOAT ;
+    HANDLING        READ ;
+}
+
+VARIABLE _float_three_days_ago
+{
+    LABEL           LBL_171_THREE_DAYS_AGO;
+    CLASS           CONTAINED & OPERATE ;
+    TYPE            FLOAT ;
+    HANDLING        READ ;
+}
+
+VARIABLE _float_current_week
+{
+    LABEL           LBL_172_CURRENT_WEEK;
+    CLASS           CONTAINED & OPERATE ;
+    TYPE            FLOAT ;
+    HANDLING        READ ;
+}
+
+VARIABLE _float_last_week
+{
+    LABEL           LBL_173_LAST_WEEK;
+    CLASS           CONTAINED & OPERATE ;
+    TYPE            FLOAT ;
+    HANDLING        READ ;
+}
+
+VARIABLE _float_previous_week
+{
+    LABEL           LBL_174_PREVIOUS_WEEK;
+    CLASS           CONTAINED & OPERATE ;
+    TYPE            FLOAT ;
+    HANDLING        READ ;
+}
+
+VARIABLE _float_three_weeks_ago
+{
+    LABEL           LBL_175_THREE_WEEKS_AGO;
+    CLASS           CONTAINED & OPERATE ;
+    TYPE            FLOAT ;
+    HANDLING        READ ;
+}
+
+VARIABLE _float_current_month
+{
+    LABEL           LBL_176_CURRENT_MONTH;
+    CLASS           CONTAINED & OPERATE ;
+    TYPE            FLOAT ;
+    HANDLING        READ ;
+}
+
+VARIABLE _float_last_month
+{
+    LABEL           LBL_177_LAST_MONTH;
+    CLASS           CONTAINED & OPERATE ;
+    TYPE            FLOAT ;
+    HANDLING        READ ;
+}
+
+VARIABLE _float_previous_month
+{
+    LABEL           LBL_178_PREVIOUS_MONTH;
+    CLASS           CONTAINED & OPERATE ;
+    TYPE            FLOAT ;
+    HANDLING        READ ;
+}
+
+VARIABLE _float_three_months_ago
+{
+    LABEL           LBL_179_THREE_MONTHS_AGO;
+    CLASS           CONTAINED & OPERATE ;
+    TYPE            FLOAT ;
+    HANDLING        READ ;
+}
+
+VARIABLE _float_current_12_months
+{
+    LABEL           LBL_180_CURRENT_12_MONTHS;
+    CLASS           CONTAINED & OPERATE ;
+    TYPE            FLOAT ;
+    HANDLING        READ ;
+}
+
+VARIABLE _float_last_12_months
+{
+    LABEL           LBL_181_LAST_12_MONTHS;
+    CLASS           CONTAINED & OPERATE ;
+    TYPE            FLOAT ;
+    HANDLING        READ ;
+}
+
+VARIABLE _float_previous_12_months
+{
+    LABEL           LBL_182_PREVIOUS_12_MONTHS;
+    CLASS           CONTAINED & OPERATE ;
+    TYPE            FLOAT ;
+    HANDLING        READ ;
+}
+
+VARIABLE _float_three_years_ago
+{
+    LABEL           LBL_183_THREE_YEARS_AGO;
+    CLASS           CONTAINED & OPERATE ;
+    TYPE            FLOAT ;
+    HANDLING        READ ;
+}
+
+VARIABLE _travel_accumulation
+{
+    LABEL           "|en|Travel Accumulation" ;
+    CLASS           CONTAINED;
+    TYPE            UNSIGNED_INTEGER (4) ;
+}
+
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/
 *** Device status definitions for history
 /~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -1167,6 +1448,150 @@ device_status_11_h LIKE VARIABLE device_status_11_c
 {
     REDEFINE LABEL "|en|DEVICE_STATUS_11(H)";
 }
+
+/*
+VARIABLE device_status_0_h
+{
+    LABEL "|en|device status 0(H)";
+    HELP "|en|Device status 0";
+    CLASS CONTAINED & DYNAMIC;
+    HANDLING READ;
+    TYPE BIT_ENUMERATED (1)
+    {
+        FAULTS_ENUMS(0)
+    }
+}
+
+VARIABLE device_status_1_h
+{
+    LABEL "|en|device status 1(H)";
+    HELP "|en|Device status 1";
+    CLASS CONTAINED & DYNAMIC;
+    HANDLING READ;
+    TYPE BIT_ENUMERATED (1)
+    {
+        FAULTS_ENUMS(1)
+    }
+}
+
+VARIABLE device_status_2_h
+{
+    LABEL "|en|device status 2(H)";
+    HELP "|en|Device status 2";
+    CLASS CONTAINED & DYNAMIC;
+    HANDLING READ;
+    TYPE BIT_ENUMERATED (1)
+    {
+        FAULTS_ENUMS(2)
+    }
+}
+
+VARIABLE device_status_3_h
+{
+    LABEL "|en|device status 3(H)";
+    HELP "|en|Device status 3";
+    CLASS CONTAINED & DYNAMIC;
+    HANDLING READ;
+    TYPE BIT_ENUMERATED (1)
+    {
+        FAULTS_ENUMS(3)
+    }
+}
+
+VARIABLE device_status_4_h
+{
+    LABEL "|en|device status 4(H)";
+    HELP "|en|Device status 4";
+    CLASS CONTAINED & DYNAMIC;
+    HANDLING READ;
+    TYPE BIT_ENUMERATED (1)
+    {
+        FAULTS_ENUMS(4)
+    }
+}
+
+VARIABLE device_status_5_h
+{
+    LABEL "|en|device status 5(H)";
+    HELP "|en|Device status 5";
+    CLASS CONTAINED & DYNAMIC;
+    HANDLING READ;
+    TYPE BIT_ENUMERATED (1)
+    {
+        FAULTS_ENUMS(5)
+    }
+}
+
+VARIABLE device_status_6_h
+{
+    LABEL "|en|device status 6(H)";
+    HELP "|en|Device status 6";
+    CLASS CONTAINED & DYNAMIC;
+    HANDLING READ;
+    TYPE BIT_ENUMERATED (1)
+    {
+        FAULTS_ENUMS(6)
+    }
+}
+
+VARIABLE device_status_7_h
+{
+    LABEL "|en|device status 7(H)";
+    HELP "|en|Device status 7";
+    CLASS CONTAINED & DYNAMIC;
+    HANDLING READ;
+    TYPE BIT_ENUMERATED (1)
+    {
+        { FBIT4, "|en|UI_OFF" }
+        { FBIT7, "|en|SETPOINT_TIMEOUT" }
+    }
+}
+
+VARIABLE device_status_8_h
+{
+    LABEL "|en|device status 8(H)";
+    HELP "|en|Device status 8";
+    CLASS CONTAINED & DYNAMIC;
+    HANDLING READ;
+    TYPE BIT_ENUMERATED (1)
+    {
+        FAULTS_ENUMS(8)
+    }
+}
+
+VARIABLE device_status_9_h
+{
+    LABEL "|en|DEVICE_STATUS_9(H)" ;
+    HELP  "|en|TBD";
+    CLASS CONTAINED & DYNAMIC;
+    HANDLING READ;
+    TYPE BIT_ENUMERATED (1)
+    {
+        FAULTS_ENUMS_TBD
+    }
+}
+VARIABLE device_status_10_h
+{
+    LABEL "|en|DEVICE_STATUS_10(H)" ;
+    HELP  "|en|TBD";
+    CLASS CONTAINED & DYNAMIC;
+    HANDLING READ;
+    TYPE BIT_ENUMERATED (1)
+    {
+        FAULTS_ENUMS_TBD
+    }
+}
+VARIABLE device_status_11_h
+{
+    LABEL "|en|DEVICE_STATUS_11(H)" ;
+    HELP  "|en|TBD";
+    CLASS CONTAINED & DYNAMIC;
+    HANDLING READ;
+    TYPE BIT_ENUMERATED (1)
+    {
+        FAULTS_ENUMS_TBD
+    }
+}*/
 
 /*------------------------------------------/
 ** Related with developing test purpose(TMP)
@@ -1441,7 +1866,7 @@ RECORD travel_accumulation_a_alert
     HELP HLP5(HLP_153_TRAVEL_ACCUMULATION_A_ALERT);
     MEMBERS
     {
-        TRAVEL_ACCUMULATION,                     uint_4_element_nd;
+        TRAVEL_ACCUMULATION,                     _travel_accumulation;
         ALERT_POINT,                             trvl_accmltn_alert_point;
         DEADBAND_AB,                             _deadband_ab_float_nd;
         ALERT,                                   _alert;
@@ -1455,7 +1880,7 @@ RECORD travel_accumulation_b_alert
     HELP HLP5(HLP_160_TRAVEL_ACCUMULATION_B_ALERT);
     MEMBERS
     {
-        TRAVEL_ACCUMULATION,                     uint_4_element_nd;
+        TRAVEL_ACCUMULATION,                     _travel_accumulation;
         ALERT_POINT,                             trvl_accmltn_alert_point;
         DEADBAND_AB,                             _deadband_ab_float_nd;
         ALERT,                                   _alert;
@@ -1469,23 +1894,23 @@ RECORD travel_accumulation_trend
     HELP HLP5(HLP_167_TRAVEL_ACCUMULATION_TREND);
     MEMBERS
     {
-        CURRENTLY_COLLECTED,                     uint_4_element_r_nd; /*_currently_collected;*/ /*newer in verison 26/10*/
-        TODAY,                                   uint_4_element_r_nd;
-        LAST_DAY,                                uint_4_element_r_nd;
-        PREVIOUS_DAY,                            uint_4_element_r_nd;
-        THREE_DAYS_AGO,                          uint_4_element_r_nd;
-        CURRENT_WEEK,                            uint_4_element_r_nd;
-        LAST_WEEK,                               uint_4_element_r_nd;
-        PREVIOUS_WEEK,                           uint_4_element_r_nd;
-        THREE_WEEKS_AGO,                         uint_4_element_r_nd;
-        CURRENT_MONTH,                           uint_4_element_r_nd;
-        LAST_MONTH,                              uint_4_element_r_nd;
-        PREVIOUS_MONTH,                          uint_4_element_r_nd;
-        THREE_MONTHS_AGO,                        uint_4_element_r_nd;
-        CURRENT_12_MONTHS,                       uint_4_element_r_nd;
-        LAST_12_MONTHS,                          uint_4_element_r_nd;
-        PREVIOUS_12_MONTHS,                      uint_4_element_r_nd;
-        THREE_YEARS_AGO,                         uint_4_element_r_nd;
+        CURRENTLY_COLLECTED,                     _currently_collected;
+        TODAY,                                   _today;
+        LAST_DAY,                                _last_day;
+        PREVIOUS_DAY,                            _previous_day;
+        THREE_DAYS_AGO,                          _three_days_ago;
+        CURRENT_WEEK,                            _current_week;
+        LAST_WEEK,                               _last_week;
+        PREVIOUS_WEEK,                           _previous_week;
+        THREE_WEEKS_AGO,                         _three_weeks_ago;
+        CURRENT_MONTH,                           _current_month;
+        LAST_MONTH,                              _last_month;
+        PREVIOUS_MONTH,                          _previous_month;
+        THREE_MONTHS_AGO,                        _three_months_ago;
+        CURRENT_12_MONTHS,                       _current_12_months;
+        LAST_12_MONTHS,                          _last_12_months;
+        PREVIOUS_12_MONTHS,                      _previous_12_months;
+        THREE_YEARS_AGO,                         _three_years_ago;
         /*TOTAL_SVI2,                              uint_4_element_r_nd;*/ /*_184_total;*/
     }
 }
@@ -1523,23 +1948,23 @@ RECORD cycle_counter_trend
     HELP HLP5(HLP_199_CYCLE_COUNTER_TREND);
     MEMBERS
     {
-        CURRENTLY_COLLECTED,                     uint_4_element_r_nd; /*_currently_collected;*/ /*newer in verison 26/10*/
-        TODAY,                                   uint_4_element_r_nd;
-        LAST_DAY,                                uint_4_element_r_nd;
-        PREVIOUS_DAY,                            uint_4_element_r_nd;
-        THREE_DAYS_AGO,                          uint_4_element_r_nd;
-        CURRENT_WEEK,                            uint_4_element_r_nd;
-        LAST_WEEK,                               uint_4_element_r_nd;
-        PREVIOUS_WEEK,                           uint_4_element_r_nd;
-        THREE_WEEKS_AGO,                         uint_4_element_r_nd;
-        CURRENT_MONTH,                           uint_4_element_r_nd;
-        LAST_MONTH,                              uint_4_element_r_nd;
-        PREVIOUS_MONTH,                          uint_4_element_r_nd;
-        THREE_MONTHS_AGO,                        uint_4_element_r_nd;
-        CURRENT_12_MONTHS,                       uint_4_element_r_nd;
-        LAST_12_MONTHS,                          uint_4_element_r_nd;
-        PREVIOUS_12_MONTHS,                      uint_4_element_r_nd;
-        THREE_YEARS_AGO,                         uint_4_element_r_nd;
+        CURRENTLY_COLLECTED,                     _currently_collected;
+        TODAY,                                   _today;
+        LAST_DAY,                                _last_day;
+        PREVIOUS_DAY,                            _previous_day;
+        THREE_DAYS_AGO,                          _three_days_ago;
+        CURRENT_WEEK,                            _current_week;
+        LAST_WEEK,                               _last_week;
+        PREVIOUS_WEEK,                           _previous_week;
+        THREE_WEEKS_AGO,                         _three_weeks_ago;
+        CURRENT_MONTH,                           _current_month;
+        LAST_MONTH,                              _last_month;
+        PREVIOUS_MONTH,                          _previous_month;
+        THREE_MONTHS_AGO,                        _three_months_ago;
+        CURRENT_12_MONTHS,                       _current_12_months;
+        LAST_12_MONTHS,                          _last_12_months;
+        PREVIOUS_12_MONTHS,                      _previous_12_months;
+        THREE_YEARS_AGO,                         _three_years_ago;
     }
 }
 RECORD position_error_trend
@@ -1548,23 +1973,23 @@ RECORD position_error_trend
     HELP HLP5(HLP_217_POSITION_ERROR_TREND);
     MEMBERS
     {
-        CURRENTLY_COLLECTED,                     _float_contained_r_nd; /*_currently_collected;*/ /*newer in verison 26/10*/
-        TODAY,                                   _float_contained_r_nd;
-        LAST_DAY,                                _float_contained_r_nd;
-        PREVIOUS_DAY,                            _float_contained_r_nd;
-        THREE_DAYS_AGO,                          _float_contained_r_nd;
-        CURRENT_WEEK,                            _float_contained_r_nd;
-        LAST_WEEK,                               _float_contained_r_nd;
-        PREVIOUS_WEEK,                           _float_contained_r_nd;
-        THREE_WEEKS_AGO,                         _float_contained_r_nd;
-        CURRENT_MONTH,                           _float_contained_r_nd;
-        LAST_MONTH,                              _float_contained_r_nd;
-        PREVIOUS_MONTH,                          _float_contained_r_nd;
-        THREE_MONTHS_AGO,                        _float_contained_r_nd;
-        CURRENT_12_MONTHS,                       _float_contained_r_nd;
-        LAST_12_MONTHS,                          _float_contained_r_nd;
-        PREVIOUS_12_MONTHS,                      _float_contained_r_nd;
-        THREE_YEARS_AGO,                         _float_contained_r_nd;
+        CURRENTLY_COLLECTED,                     _float_currently_collected;
+        TODAY,                                   _float_today;
+        LAST_DAY,                                _float_last_day;
+        PREVIOUS_DAY,                            _float_previous_day;
+        THREE_DAYS_AGO,                          _float_three_days_ago;
+        CURRENT_WEEK,                            _float_current_week;
+        LAST_WEEK,                               _float_last_week;
+        PREVIOUS_WEEK,                           _float_previous_week;
+        THREE_WEEKS_AGO,                         _float_three_weeks_ago;
+        CURRENT_MONTH,                           _float_current_month;
+        LAST_MONTH,                              _float_last_month;
+        PREVIOUS_MONTH,                          _float_previous_month;
+        THREE_MONTHS_AGO,                        _float_three_months_ago;
+        CURRENT_12_MONTHS,                       _float_current_12_months;
+        LAST_12_MONTHS,                          _float_last_12_months;
+        PREVIOUS_12_MONTHS,                      _float_previous_12_months;
+        THREE_YEARS_AGO,                         _float_three_years_ago;
         /*TOTAL are removed in version 26/10*/
     }
 }
@@ -2229,7 +2654,7 @@ RECORD working_time_alert
     MEMBERS
     {
         ALERT_TOTAL_TIME,                        _alert_total_time_r; /*Bug #17523;*/
-        ALERT_POINT,                             uint_4_element_nd;
+        ALERT_POINT,                             trvl_accmltn_alert_point;
         ALERT,                                   _alert;
         HISTORIC_ALERT,                          _historic_alert;
         ENABLE,                                  _enable;
