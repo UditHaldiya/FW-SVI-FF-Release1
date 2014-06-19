@@ -48,7 +48,7 @@ INCLUDES
 
   /*@Dresser-Masoneilan project */
   #include <string.h>
-  
+
   #include "base.h"
   #include "osif.h"
   #include "except.h"
@@ -65,9 +65,10 @@ INCLUDES
 LOCAL_DEFINES
 
 /*--------------------- OUTPUT VALUE ----------------------*/
-#define MN_ONEHUNDRED              100u
-#define MN_ZERO                    0u
-#define MN_ONE                     1u
+#define MN_DO_DISCRETE_MIN                    0u
+#define MN_DO_DISCRETE_MAX                    100u
+#define MN_DO_BOOL_MIN                        0u
+#define MN_DO_BOOL_MAX                        1u
 
 LOCAL_TYPEDEFS
 
@@ -78,6 +79,8 @@ FUNCTION_DECLARATIONS
   FUNCTION LOCAL VOID Calc_block_mode_DOFB (T_DOFB *, T_DOFB_DATA *);
   FUNCTION LOCAL VOID Update_block_alarm_DOFB (const T_FBIF_BLOCK_DESCR *, T_DOFB *,T_DOFB_DATA *);
   FUNCTION LOCAL u16 mn_ConflictOtherDOChannels(const T_FBIF_BLOCK_DESCR *p_block_desc);
+  FUNCTION LOCAL void mn_Dofb_ApplyInvert(T_DOFB *,DISCRETE_S *);
+
 
 IMPORT_DATA
 
@@ -191,32 +194,8 @@ FUNCTION_BODY
 
 
     /* Apply IO option 'Invert' ------------------------------------------- */
-    if ((p_dofb->io_opts & IO_OPT_INVERT) != MN_ZERO)
-    {
-        if (p_dofb->channel == CH_POSITION_DISCRETE_POSITION)
-        {
-            if (raw_out_d.value >= MN_ONEHUNDRED)
-            {
-                raw_out_d.value = MN_ZERO;
-            }
-            else
-            {
-                raw_out_d.value = MN_ONEHUNDRED - raw_out_d.value;
-            }
-        }
-        else
-        {
-            if (raw_out_d.value)
-            {
-                raw_out_d.value = MN_ZERO;
-            }
-            else
-            {
-                raw_out_d.value = MN_ONE;
-            }
-        }
 
-    }
+    mn_Dofb_ApplyInvert(p_dofb, &raw_out_d);
 
     p_dofb->out_d.value = raw_out_d.value;
   }
@@ -438,7 +417,7 @@ FUNCTION_BODY
     {
       /*@Dresser-Masoneilan project: 32bit Alignment adaptation */
       USIGN16   u16value;
-      
+
       if (MODE_NOT_OS (p_dofb->mode_blk.target))
         return (E_FB_WRONG_MODE);
 
@@ -898,31 +877,7 @@ FUNCTION_BODY
 
     /* Apply IO option 'Invert' ------------------------------------------- */
 
-    if ((p_dofb->io_opts & IO_OPT_INVERT) != MN_ZERO)
-    {
-        if (p_dofb->channel == CH_POSITION_DISCRETE_POSITION)
-        {
-            if (raw_out_d.value >= MN_ONEHUNDRED)
-            {
-                raw_out_d.value = MN_ZERO;
-            }
-            else
-            {
-                raw_out_d.value = MN_ONEHUNDRED - raw_out_d.value;
-            }
-        }
-        else
-        {
-            if (raw_out_d.value)
-            {
-                raw_out_d.value = MN_ZERO;
-            }
-            else
-            {
-                raw_out_d.value = MN_ONE;
-            }
-        }
-    }
+    mn_Dofb_ApplyInvert(p_dofb, &raw_out_d);
 
     /* Map good cascade status to good non-cascade status ----------------- */
     if ((raw_out_d.status & QUALITY_MASK) == SQ_GOOD_CAS)
@@ -1065,32 +1020,8 @@ FUNCTION_BODY
   p_dofb->readback_d          = raw_rb_d;
 
   /* Apply IO option 'Invert' --------------------------------------------- */
-  if ((p_dofb->io_opts & IO_OPT_INVERT) != MN_ZERO)
-  {
-        if (p_dofb->channel == CH_POSITION_DISCRETE_POSITION)
-        {
-            if (raw_rb_d.value >= MN_ONEHUNDRED)
-            {
-                raw_rb_d.value = MN_ZERO;
-            }
-            else
-            {
-                raw_rb_d.value = MN_ONEHUNDRED - raw_rb_d.value;
-            }
-        }
-        else
-        {
-            if (raw_rb_d.value)
-            {
-                raw_rb_d.value = MN_ZERO;
-            }
-            else
-            {
-                raw_rb_d.value = MN_ONE;
-            }
-        }
-  }
 
+  mn_Dofb_ApplyInvert(p_dofb, &raw_rb_d);
 
   /* Update PV_D ---------------------------------------------------------- */
   if ((raw_rb_d.status & QUALITY_MASK) == SQ_BAD)
@@ -1605,3 +1536,42 @@ static u16 mn_ConflictOtherDOChannels(const T_FBIF_BLOCK_DESCR *p_block_desc)
 
     return check;
 }// ----- end of mn_CheckBlockChannels() -----
+
+/* \brief DOFB module set the IOPS to invert, the out put should be invert when the channel
+    is CH_POSITION_DISCRETE_POSITION.
+    param in:  p_dofb pointer to DO module
+        no
+    param out: p_raw_d  pointer to changed out put
+    return:
+        no
+*/
+FUNCTION LOCAL void mn_Dofb_ApplyInvert(T_DOFB * p_dofb, DISCRETE_S * p_raw_d)
+{
+
+    if (p_dofb->io_opts & IO_OPT_INVERT)
+    {
+        if (p_dofb->channel == CH_POSITION_DISCRETE_POSITION)
+        {
+            if (p_raw_d->value >= MN_DO_DISCRETE_MAX)
+            {
+                p_raw_d->value = MN_DO_DISCRETE_MIN;
+            }
+            else
+            {
+                p_raw_d->value = MN_DO_DISCRETE_MAX - p_raw_d->value;
+            }
+        }
+        else
+        {
+            if (p_raw_d->value)
+            {
+                p_raw_d->value = MN_DO_BOOL_MIN;
+            }
+            else
+            {
+                p_raw_d->value = MN_DO_BOOL_MAX;
+            }
+        }
+    }
+    return;
+}
