@@ -1328,7 +1328,8 @@ FUNCTION_BODY
   pv_status_quality  = in_status_quality;
 
 
-  if ((p_pidfb->out.status & (QUALITY_MASK|SUB_STATUS_MASK)) == (SQ_GOOD_CAS|SUB_IA))
+  if (((p_pidfb->out.status & (QUALITY_MASK|SUB_STATUS_MASK)) == (SQ_GOOD_CAS|SUB_IA)) ||
+      ((p_pidfb->out.status & (QUALITY_MASK|SUB_STATUS_MASK)) == (SQ_GOOD_CAS|SUB_IFS))    )
   {
     p_pidfb->out.status = SQ_GOOD_CAS;
   }
@@ -1976,18 +1977,6 @@ FUNCTION_BODY
           }
         }
       }
-
-      if ((p_pidfb->trk_in_d.status & QUALITY_MASK) == SQ_BAD)
-      {
-        if ((p_pidfb->out.status & QUALITY_MASK) == SQ_GOOD_CAS)
-        {
-          if (p_pidfb->status_opts & STATUS_OPT_IFS_IF_BAD_TRK_IN)
-          {
-            p_pidfb->out.status &= ~SUB_STATUS_MASK;
-            p_pidfb->out.status |= SUB_IFS;
-          }
-        }
-      }
     }
 
     else /* actual_mode == MODE_AUTO | MODE_CAS | MODE_RCAS */
@@ -2014,28 +2003,27 @@ FUNCTION_BODY
     }
   }
 
-  /* Fulfill requirements of ITK test case i0501_18 ----------------------- */
-  if ((p_pidfb->trk_in_d.status & QUALITY_MASK) == SQ_BAD)
-  {
-    /* Apply status option 'IFS if BAD TRK_IN_D' -------------------------- */
-    if (p_pidfb->status_opts & STATUS_OPT_IFS_IF_BAD_TRK_IN)
-    {
-      p_pidfb->out.status &= ~SUB_STATUS_MASK;
-      p_pidfb->out.status |= SUB_IFS;
-    }
-  }
 
-  /* Fulfill requirements of ITK test case i0501_19 ----------------------- */
-  if ((p_pidfb->trk_in_d.status & QUALITY_MASK) == SQ_BAD)
+  if (p_pidfb->control_opts & CNTRL_OPT_TRACK_ENABLE)
   {
-    /* Apply status option 'Target to Man if BAD TRK_IN_D' ---------------- */
-    if (p_pidfb->status_opts & STATUS_OPT_TARG_MAN_IF_BAD_TRK_IN)
+    if ((p_pidfb->trk_in_d.status & QUALITY_MASK) == SQ_BAD)
     {
-      if (!(p_pidfb->mode_blk.target & MODE_MAN))
+      /* Apply status option 'IFS if BAD TRK_IN_D' -------------------------- */
+      if (p_pidfb->status_opts & STATUS_OPT_IFS_IF_BAD_TRK_IN)
       {
-        if (!p_pidfb_data->new_target_mode)
+        p_pidfb->out.status &= ~SUB_STATUS_MASK;
+        p_pidfb->out.status |= SUB_IFS;
+      }
+
+      /* Apply status option 'Target to Man if BAD TRK_IN_D' ---------------- */
+      if (p_pidfb->status_opts & STATUS_OPT_TARG_MAN_IF_BAD_TRK_IN)
+      {
+        if (!(p_pidfb->mode_blk.target & MODE_MAN))
         {
-          p_pidfb_data->new_target_mode = MODE_MAN;
+          if (!p_pidfb_data->new_target_mode)
+          {
+            p_pidfb_data->new_target_mode = MODE_MAN;
+          }
         }
       }
     }
