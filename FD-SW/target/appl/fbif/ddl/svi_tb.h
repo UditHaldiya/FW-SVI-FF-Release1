@@ -598,12 +598,14 @@ MENU device_status_#x_tb                                \
   "\n 1 :: Map to RB (Default)"                                                         \
   "\n 2 :: Report in TB"                                                                \
 
-#define LBL_PROPAGATE_APFS_TO_RB  "|en|Propagate APFS To RB"
+#define LBL_PROPAGATE_MODE  "|en|Propagate Mode"
 
-#define HLP_PROPAGATE_APFS_TO_RB                        \
+#define HLP_PROPAGATE_MODE                        \
   "|en|Propagate Fail State to Resource Block"          \
-  "\n  0 – Do not propagate"                            \
-  "\n  1 – Propagate Failsafe state of AP to RB"        \
+  "\n  Propagate RB OOS mode to TB – Not propagate Failsafe state of AP to RB(but propagate RB OOS mode to TB)"          \
+  "\n  Propagate RB OOS mode to TB and TB failed state to RB – Propagate Failsafe state of AP to RB(also propagate RB OOS mode to TB)"             \
+  "\n  Do not propagate – Not propagate Failsafe state of AP to RB(also not propagate RB OOS mode to TB)"     \
+  "\n  Propagate TB failed state to RB – Propagate Failsafe state of AP to RB(but not propagate RB OOS mode to TB)"          \
 
 #define LBL_ALERT_LOG  "|en|Alert Log"
 
@@ -3128,7 +3130,7 @@ MENU device_status_#x_tb                                \
     TAG_DESC,               __tag_desc ;                    \
     STRATEGY,               __strategy ;                    \
     ALERT_KEY,              __alert_key ;                   \
-    MODE_BLK,               __mode_blk ;                    \
+    MODE_BLK,               svi2_tb_mode_blk ;              \
     BLOCK_ERR,              __block_err ;                   \
     UPDATE_EVT,             __update_evt ;                  \
     BLOCK_ALM,              __block_alm ;                   \
@@ -3322,9 +3324,11 @@ MENU device_status_#x_tb                                \
     { 0x10000000,  "|en|SP Source conflict" }, \
     { 0x08000000,  "|en|Find Stops Failed" } \
 
-#define ENUM_PROPAGATE_APFS_TO_RB                       \
-  {0, "|en|Do not propagate" },                         \
-  {1, "|en|Propagate Failsafe state of AP to RB" }      \
+#define ENUM_PROPAGATE_MODE                       \
+  {0, "|en|Propagate RB OOS mode to TB" },                         \
+  {1, "|en|Propagate TB failed state to RB and RB OOS mode to TB " }      \
+  {2, "|en|Do not propagate" }      \
+  {3, "|en|Propagate TB failed state to RB" }      \
 
 #define ENUM_MAPPED_TO_RB               \
   {1, "|en|Map to RB (Default)" },      \

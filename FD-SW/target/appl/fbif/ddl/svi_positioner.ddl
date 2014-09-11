@@ -694,7 +694,7 @@ DD_REVISION      SFT_RES_BLOCK_2_dd_rev
         {
             PARAMETERS
             {
-                /*REDEFINE MODE_BLK, svi2_rb_mode_blk ;*/
+                REDEFINE MODE_BLK, svi2_rb_mode_blk ;
                 __FD_PARAMS
                 ADD_SVI_ADDITION_PARA_RB
             }

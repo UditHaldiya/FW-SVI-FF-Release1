@@ -610,14 +610,14 @@ VARIABLE mapped_to_rb
     }
 }
 
-VARIABLE propagate_apfs_to_rb
+VARIABLE propagate_mode
 {
-    LABEL LBL_PROPAGATE_APFS_TO_RB;
-    HELP  HLP5(HLP_PROPAGATE_APFS_TO_RB);
+    LABEL LBL_PROPAGATE_MODE;
+    HELP  HLP5(HLP_PROPAGATE_MODE);
     CLASS CONTAINED;
     TYPE  ENUMERATED (1)
     {
-        ENUM_PROPAGATE_APFS_TO_RB
+        ENUM_PROPAGATE_MODE
     }
 }
 
@@ -2354,7 +2354,7 @@ RECORD failed_state
     {
         FF,                                      _ff_r;
         APP,                                     _app_r;
-        PROPAGATE_APFS_TO_RB,                    propagate_apfs_to_rb;
+        PROPAGATE_MODE,                          propagate_mode;
     }
 }
 RECORD final_value_d
