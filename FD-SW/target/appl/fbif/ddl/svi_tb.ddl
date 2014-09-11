@@ -339,7 +339,11 @@ VARIABLE _alert
     LABEL LBL_ALERT;
     HELP  HLP5(HLP_ALERT);
     CLASS CONTAINED & DYNAMIC;
-    TYPE BOOLEAN;
+    TYPE  ENUMERATED (1)
+    {
+        ENUM_ALERT_STATE
+    }
+    HANDLING READ;
 }
 
 VARIABLE _historic_alert_for_near_closed_alert
@@ -355,14 +359,21 @@ VARIABLE _historic_alert
     LABEL LBL_HISTORIC_ALERT;
     HELP  HLP5(HLP_HISTORIC_ALERT);
     CLASS CONTAINED;
-    TYPE BOOLEAN;
+    TYPE  ENUMERATED (1)
+    {
+        ENUM_ALERT_STATE
+    }
+    HANDLING READ;
 }
 VARIABLE _enable
 {
     LABEL LBL_ENABLE;
     HELP  HLP5(HLP_ENABLE);
     CLASS CONTAINED;
-    TYPE BOOLEAN;
+    TYPE  ENUMERATED (1)
+    {
+        ENUM_ENABLE_DISABLE
+    }
 }
 
 VARIABLE _direction
@@ -3549,11 +3560,11 @@ VARIABLE  _password_enabled
     LABEL LBL_PASSWORD_ENABLED;
     HELP  HLP5(HLP_PASSWORD_ENABLED);
     CLASS CONTAINED;
-    TYPE  BOOLEAN;
-    /* TYPE  ENUMERATED (1) */
-    /* { */
-    /*     ENUM_ENABLE_DISABLE */
-    /* } */
+    /* TYPE  BOOLEAN; */
+    TYPE  ENUMERATED (1)
+    {
+         ENUM_ENABLE_DISABLE
+    }
     
 }
 VARIABLE  _percent_complete_r
@@ -4280,14 +4291,14 @@ ARRAY current_char_points
 {
     LABEL LBL_CURRENT_CHAR_POINTS;
     HELP  HLP5(HLP_CURRENT_CHAR_POINTS);
-    TYPE int_2_element_scaled_r;
+    TYPE int_2_element_r;
     NUMBER_OF_ELEMENTS NBRS_CHAR_ARRAY;
 }
 ARRAY custom_char_points
 {
     LABEL LBL_287_CUSTOM_CHAR_POINTS;
     HELP HLP5(HLP_287_CUSTOM_CHAR_POINTS);
-    TYPE int_2_element_scaled;
+    TYPE int_2_element_r;
     NUMBER_OF_ELEMENTS NBRS_CHAR_ARRAY;
 }
 ARRAY advanced
