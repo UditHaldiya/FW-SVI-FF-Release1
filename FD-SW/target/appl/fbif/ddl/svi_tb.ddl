@@ -4298,7 +4298,7 @@ ARRAY custom_char_points
 {
     LABEL LBL_287_CUSTOM_CHAR_POINTS;
     HELP HLP5(HLP_287_CUSTOM_CHAR_POINTS);
-    TYPE int_2_element_r;
+    TYPE int_2_element;
     NUMBER_OF_ELEMENTS NBRS_CHAR_ARRAY;
 }
 ARRAY advanced
