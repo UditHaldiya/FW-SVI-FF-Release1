@@ -636,7 +636,7 @@ MENU mnu_strokevalve
 
 MENU mnu_mode_row
 {
-    LABEL "|en|TB Block Mode";
+    LABEL "|en|RB Block Mode";
     STYLE GROUP;
     ITEMS
     {
