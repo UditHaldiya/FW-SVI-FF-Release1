@@ -3130,7 +3130,7 @@ MENU device_status_#x_tb                                \
     TAG_DESC,               __tag_desc ;                    \
     STRATEGY,               __strategy ;                    \
     ALERT_KEY,              __alert_key ;                   \
-    MODE_BLK,               __mode_blk ;                    \
+    MODE_BLK,               svi2_tb_mode_blk ;              \
     BLOCK_ERR,              __block_err ;                   \
     UPDATE_EVT,             __update_evt ;                  \
     BLOCK_ALM,              __block_alm ;                   \
