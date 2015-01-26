@@ -81,7 +81,7 @@ OFFver :=T
 OFFuser :=GENPITFI01\502098661
 #   Password of the bogus user
 #OFFpass:=Dresser123
-OFFpass:=Sha2118a
+OFFpass:=Sha2118b
 #   Where modules are retrieved
 OFFmodroot:= C:\rbuilder\Core\FIRMWARE
 #   Template workspace
