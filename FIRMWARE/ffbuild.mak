@@ -152,8 +152,8 @@ tok: $(DDLINC) $(GW_DIR)\ids.gw
     -cmd /E /C mkdir $(manufacturer_ID)\$(type_ID)
     -rm -f -r $(SOURCE_BINARY_DD)
 	-cmd /E /C mkdir $(SOURCE_BINARY_DD)
-    $(MAKE) -f $(CURDIR)\$(firstword $(MAKEFILE_LIST)) -C $(releasepath) _tok DDLSRC=$(DDLSRC) pretok=$(TARGET_BINARY_DD)\_tmptok-4 dst=$(TARGET_BINARY_DD) option="-a -DDD4 -4"
-    $(MAKE) -f $(CURDIR)\$(firstword $(MAKEFILE_LIST)) -C $(releasepath) _tok DDLSRC=$(DDLSRC) pretok=$(TARGET_BINARY_DD)\_tmptok dst=$(TARGET_BINARY_DD) option=
+    $(MAKE) -f $(CURDIR)\$(firstword $(MAKEFILE_LIST)) -C $(releasepath) cp=$(subst /,\,$(CURDIR)\cp.exe) _tok DDLSRC=$(DDLSRC) pretok=$(TARGET_BINARY_DD)\_tmptok-4 dst=$(TARGET_BINARY_DD) option="-a -DDD4 -4"
+    $(MAKE) -f $(CURDIR)\$(firstword $(MAKEFILE_LIST)) -C $(releasepath) cp=$(subst /,\,$(CURDIR)\cp.exe) _tok DDLSRC=$(DDLSRC) pretok=$(TARGET_BINARY_DD)\_tmptok dst=$(TARGET_BINARY_DD) option=
 
 $(DDLINC) : $(MAKEFILE_LIST)
     @echo MAKEFILE_LIST = $(MAKEFILE_LIST)
