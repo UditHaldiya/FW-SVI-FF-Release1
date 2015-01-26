@@ -135,11 +135,11 @@ DDLINC:=$(DDLDIR)/svi_ids.h
 _tok: $(pretok)
     $(FFTokenizerpath)/ff_tok32.exe $(pretok)
 ifneq ($(option),)
-    cp $(SOURCE_BINARY_DD)/$(DEVICE_REV)$(DD_REV).ffo $(dst)/
-    cp $(SOURCE_BINARY_DD)/$(DEVICE_REV)$(DD_REV).sym $(dst)/
+    $(cp) $(SOURCE_BINARY_DD)/$(DEVICE_REV)$(DD_REV).ffo $(dst)/
+    $(cp) $(SOURCE_BINARY_DD)/$(DEVICE_REV)$(DD_REV).sym $(dst)/
 else
-    cp $(SOURCE_BINARY_DD)/$(DEVICE_REV)$(DD_REV).ff5 $(dst)/
-    cp $(SOURCE_BINARY_DD)/$(DEVICE_REV)$(DD_REV).sy5 $(dst)/
+    $(cp) $(SOURCE_BINARY_DD)/$(DEVICE_REV)$(DD_REV).ff5 $(dst)/
+    $(cp) $(SOURCE_BINARY_DD)/$(DEVICE_REV)$(DD_REV).sy5 $(dst)/
 endif
 
 $(pretok) : $(DDLSRC) force
