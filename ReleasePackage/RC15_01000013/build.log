@@ -4,10 +4,6 @@ MN_INSTRUM=ffprofiler
 MN_INSTRUM=ffprofiler
 gnumake[2]: Entering directory `C:/projects/Releases/FW_SVI_FF_Releases/Release1/FIRMWARE'
 gnumake OFFICIAL -f C:\projects\Releases\FW_SVI_FF_Releases\Release1\FIRMWARE\buildhelpers/miscexec.mak
-The system cannot find the file specified.
-The system cannot find the file specified.
-The system cannot find the file specified.
-The system cannot find the file specified.
 BTARGET=C:\tfsbuildR\SVIFF\Release1\FIRMWARE\cmdbuild\Rel\project_FFAP\FFAP_0.mns
 The system cannot find the file specified.
 WIT=
@@ -18,10 +14,6 @@ MN_INSTRUM=ffprofiler
 MN_INSTRUM=ffprofiler
 gnumake[4]: Entering directory `C:/projects/Releases/FW_SVI_FF_Releases/Release1/FIRMWARE'
 gnumake OFFREPARE -f C:\projects\Releases\FW_SVI_FF_Releases\Release1\FIRMWARE\buildhelpers/miscexec.mak
-The system cannot find the file specified.
-The system cannot find the file specified.
-The system cannot find the file specified.
-The system cannot find the file specified.
 BTARGET=C:\tfsbuildR\SVIFF\Release1\FIRMWARE\cmdbuild\Rel\project_FFAP\FFAP_0.mns
 The system cannot find the file specified.
 WIT=
@@ -34,18 +26,16 @@ gnumake[4]: *** [OFFREPARE] Error 2
 gnumake[4]: Leaving directory `C:/projects/Releases/FW_SVI_FF_Releases/Release1/FIRMWARE'
 gnumake[3]: [SS] Error 2 (ignored)
 C:\projects\Releases\FW_SVI_FF_Releases\Release1\FIRMWARE\tools\rm.exe -f -r C:\tfsbuildR\SVIFF\Release1\FIRMWARE
-rm: unable to remove directory C:\tfsbuildR\SVIFF\Release1\FIRMWARE
-gnumake[3]: [SS] Error 1 (ignored)
-C:\projects\Releases\FW_SVI_FF_Releases\Release1\FIRMWARE\tools\rm.exe -f -r C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48494
-rm: unable to remove file C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48494\build.log
-rm: unable to remove directory C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48494
+C:\projects\Releases\FW_SVI_FF_Releases\Release1\FIRMWARE\tools\rm.exe -f -r C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48797
+rm: unable to remove file C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48797\build.log
+rm: unable to remove directory C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48797
 gnumake[3]: [SS] Error 1 (ignored)
 echo %TIME% Prepare workspace >> C:\projects\Releases\FW_SVI_FF_Releases\Release1\FIRMWARE\buildtime.log
 "C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\tf.exe" workspace /new /noprompt /template:rbuilder;GENPITFI01\502098661 rbuilder_204061827 /login:GENPITFI01\502098661,Sha2118b
 "C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\tf.exe" workfold /map "$/FW SVI FF Releases/Release1/FIRMWARE" C:\tfsbuildR\SVIFF\Release1\FIRMWARE /workspace:rbuilder_204061827 /login:GENPITFI01\502098661,Sha2118b
 "C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\tf.exe" workfold /map "$/Core/FIRMWARE" C:\tfsbuildR\SVIFF\Release1\Core\FIRMWARE /workspace:rbuilder_204061827 /login:GENPITFI01\502098661,Sha2118b
 echo %TIME% Sync >> C:\projects\Releases\FW_SVI_FF_Releases\Release1\FIRMWARE\buildtime.log
-"C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\tf.exe" get C:\tfsbuildR\SVIFF\Release1\FIRMWARE;C48494 /recursive /force /login:GENPITFI01\502098661,Sha2118b
+"C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\tf.exe" get C:\tfsbuildR\SVIFF\Release1\FIRMWARE;C48797 /recursive /force /login:GENPITFI01\502098661,Sha2118b
 C:\tfsbuildR\SVIFF\Release1:
 Getting FIRMWARE
 
@@ -3663,7 +3653,7 @@ C:\projects\Releases\FW_SVI_FF_Releases\Release1\FIRMWARE\tools\rm.exe -f -r C:\
 Now getting FFP
 "C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\tf.exe" workfold /map "$/FW SVI FF Releases/Release1/FD-SW" C:\tfsbuildR\SVIFF\Release1\FIRMWARE\..\FD-SW /workspace:rbuilder_204061827 /login:GENPITFI01\502098661,Sha2118b
 echo %TIME% Sync FF >> C:\projects\Releases\FW_SVI_FF_Releases\Release1\FIRMWARE\buildtime.log
-"C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\tf.exe" get C:\tfsbuildR\SVIFF\Release1\FIRMWARE\..\FD-SW;C48494 /recursive /force /login:GENPITFI01\502098661,Sha2118b
+"C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\tf.exe" get C:\tfsbuildR\SVIFF\Release1\FIRMWARE\..\FD-SW;C48797 /recursive /force /login:GENPITFI01\502098661,Sha2118b
 C:\tfsbuildR\SVIFF\Release1:
 Getting FD-SW
 
@@ -17162,7 +17152,7 @@ FileType=MasoneilanBinary
 FileVersion=1.0
 FirmwareVer=010101
 FRAMVer=8
-FirmwareCRC=12291
+FirmwareCRC=40036
 FirmwareType=FFAP
 [END]
 gnumake[5]: Leaving directory `C:/tfsbuildR/SVIFF/Release1/FIRMWARE'
@@ -17183,7 +17173,7 @@ Unimal -Iincludes -O. gw_rb_helper.u
 
 
 -------------[123456789012345678901234567890123456]
-SOFTWARE_REV=[1.0.0.18                        ]
+SOFTWARE_REV=[1.0.0.19                        ]
 cp ids.gw ..\FD-SW\target\appl\fbif\script\ids.gw
 buildhelpers\cmpcpy.bat c:\ff\ddl\standard.sym c:\ff\release\standard.sym
 
@@ -17233,7 +17223,7 @@ echo C:/tfsbuildR/SVIFF/Release1/FD-SW/_embOS_CortexM_IAR/Start
 C:/tfsbuildR/SVIFF/Release1/FD-SW/_embOS_CortexM_IAR/Start
 echo C:/tfsbuildR/SVIFF/Release1/FD-SW
 C:/tfsbuildR/SVIFF/Release1/FD-SW
-make ff_svi_debug MAKEFLAGS=w -- DD_REV=02 DEVICE_REV=01 DEVICE_TYPE=0008 rombank=0 BFD_EXECUTABLE=fffp_0.out silent=1 MNS_OFFICIAL_DIR=C:\\FF_Auto_Builds\\FromReleasesBranch\\FromRelease1\\C48494 OFFmodroot=C:\\tfsbuildR\\SVIFF\\Release1\\Core\\FIRMWARE OFFroot=C:\\tfsbuildR\\SVIFF\\Release1\\FIRMWARE OFFver=C48494 buildname=C48494 notask=1 proj=FFAP plugin=C:/projects/Releases/FW_SVI_FF_Releases/Release1/FIRMWARE/ffplugin.mak TargetDir=FF_SVI_DBG TargetSuffix=debug fflint=fflint ffthreads=ffthreads DIR=Rel PROG=FFAP_0
+make ff_svi_debug MAKEFLAGS=w -- DD_REV=02 DEVICE_REV=01 DEVICE_TYPE=0008 rombank=0 BFD_EXECUTABLE=fffp_0.out silent=1 MNS_OFFICIAL_DIR=C:\\FF_Auto_Builds\\FromReleasesBranch\\FromRelease1\\C48797 OFFmodroot=C:\\tfsbuildR\\SVIFF\\Release1\\Core\\FIRMWARE OFFroot=C:\\tfsbuildR\\SVIFF\\Release1\\FIRMWARE OFFver=C48797 buildname=C48797 notask=1 proj=FFAP plugin=C:/projects/Releases/FW_SVI_FF_Releases/Release1/FIRMWARE/ffplugin.mak TargetDir=FF_SVI_DBG TargetSuffix=debug fflint=fflint ffthreads=ffthreads DIR=Rel PROG=FFAP_0
 make[6]: Entering directory `/c/tfsbuildR/SVIFF/Release1/FD-SW/target/mak'
 Makeconfig.mak:54: I am here: /c/tfsbuildR/SVIFF/Release1/FD-SW/target/mak/ff_svi_dbg
 ../std_makefile.mak:134: UTA_LIBS=lib/hw.a lib/eep.a lib/STM32F10x_StdPeriph_Driver.a lib/osif.emb.a ../FF_SVI_REL/lib/base.a ../FF_SVI_REL/lib/uta.a ../FF_SVI_REL/lib/stub.a
@@ -17664,7 +17654,7 @@ FileType=MasoneilanBinary
 FileVersion=1.0
 FirmwareVer=010101
 FRAMVer=8
-FirmwareCRC=45615
+FirmwareCRC=2723
 FirmwareType=svi_2
 [END]
 gnumake -f fflint.mak ffthreads IARver=6.30
@@ -19686,7 +19676,7 @@ MAINLIB=
 Errors: none
 Warnings: none
 
-Link time:   1.12 (CPU)   1.12 (elapsed)
+Link time:   1.06 (CPU)   1.07 (elapsed)
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 5.50\ARM\bin\ielftool C:\tfsbuildR\SVIFF\Release1\FIRMWARE\cmdbuild\Rel\project_FFAP\FFAP_1.out.tmp C:\tfsbuildR\SVIFF\Release1\FIRMWARE\cmdbuild\Rel\project_FFAP\FFAP_1.out
 
      IAR ielftool V1.7 [BUILT 2011-01-27 at IAR]
@@ -19709,7 +19699,7 @@ FileType=MasoneilanBinary
 FileVersion=1.0
 FirmwareVer=010101
 FRAMVer=8
-FirmwareCRC=23664
+FirmwareCRC=61463
 FirmwareType=FFAP
 [END]
 gnumake[5]: Leaving directory `C:/tfsbuildR/SVIFF/Release1/FIRMWARE'
@@ -19768,7 +19758,7 @@ echo C:/tfsbuildR/SVIFF/Release1/FD-SW/_embOS_CortexM_IAR/Start
 C:/tfsbuildR/SVIFF/Release1/FD-SW/_embOS_CortexM_IAR/Start
 echo C:/tfsbuildR/SVIFF/Release1/FD-SW
 C:/tfsbuildR/SVIFF/Release1/FD-SW
-make ff_svi_debug MAKEFLAGS=w -- DD_REV=02 DEVICE_REV=01 DEVICE_TYPE=0008 BFD_EXECUTABLE=fffp_1.out silent=1 MNS_OFFICIAL_DIR=C:\\FF_Auto_Builds\\FromReleasesBranch\\FromRelease1\\C48494 OFFmodroot=C:\\tfsbuildR\\SVIFF\\Release1\\Core\\FIRMWARE OFFroot=C:\\tfsbuildR\\SVIFF\\Release1\\FIRMWARE OFFver=C48494 buildname=C48494 notask=1 proj=FFAP plugin=C:/projects/Releases/FW_SVI_FF_Releases/Release1/FIRMWARE/ffplugin.mak TargetDir=FF_SVI_DBG TargetSuffix=debug fflint=fflint ffthreads=ffthreads DIR=Rel PROG=FFAP_0 rombank=1
+make ff_svi_debug MAKEFLAGS=w -- DD_REV=02 DEVICE_REV=01 DEVICE_TYPE=0008 BFD_EXECUTABLE=fffp_1.out silent=1 MNS_OFFICIAL_DIR=C:\\FF_Auto_Builds\\FromReleasesBranch\\FromRelease1\\C48797 OFFmodroot=C:\\tfsbuildR\\SVIFF\\Release1\\Core\\FIRMWARE OFFroot=C:\\tfsbuildR\\SVIFF\\Release1\\FIRMWARE OFFver=C48797 buildname=C48797 notask=1 proj=FFAP plugin=C:/projects/Releases/FW_SVI_FF_Releases/Release1/FIRMWARE/ffplugin.mak TargetDir=FF_SVI_DBG TargetSuffix=debug fflint=fflint ffthreads=ffthreads DIR=Rel PROG=FFAP_0 rombank=1
 make[6]: Entering directory `/c/tfsbuildR/SVIFF/Release1/FD-SW/target/mak'
 Makeconfig.mak:54: I am here: /c/tfsbuildR/SVIFF/Release1/FD-SW/target/mak/ff_svi_dbg
 ../std_makefile.mak:134: UTA_LIBS=lib/hw.a lib/eep.a lib/STM32F10x_StdPeriph_Driver.a lib/osif.emb.a ../FF_SVI_REL/lib/base.a ../FF_SVI_REL/lib/uta.a ../FF_SVI_REL/lib/stub.a
@@ -19815,7 +19805,7 @@ FileType=MasoneilanBinary
 FileVersion=1.0
 FirmwareVer=010101
 FRAMVer=8
-FirmwareCRC=64063
+FirmwareCRC=17075
 FirmwareType=svi_2
 [END]
 gnumake[4]: Leaving directory `C:/tfsbuildR/SVIFF/Release1/FIRMWARE'
@@ -19832,191 +19822,191 @@ BTARGET=C:\tfsbuildR\SVIFF\Release1\FIRMWARE\cmdbuild\Rel\project_FFAP\FFAP_0.mn
 The system cannot find the file specified.
 WIT=
 gnumake[5]: Entering directory `C:/projects/Releases/FW_SVI_FF_Releases/Release1/FIRMWARE'
-cmd /E /C mkdir C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48494
-A subdirectory or file C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48494 already exists.
+cmd /E /C mkdir C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48797
+A subdirectory or file C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48797 already exists.
 gnumake[5]: [SEND_part] Error 1 (ignored)
-cp.exe -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\cmdbuild\Rel\project_FFAP\FFAP_0.map C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48494\FFAP_0_Rel_C48494_010101_12291.map
-cp.exe -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\cmdbuild\Rel\project_FFAP\FFAP_0.html C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48494\FFAP_0_Rel_C48494_010101_12291.html
-cp.exe -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\cmdbuild\Rel\project_FFAP\FFAP_0.xml C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48494\FFAP_0_Rel_C48494_010101_12291.xml
+cp.exe -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\cmdbuild\Rel\project_FFAP\FFAP_0.map C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48797\FFAP_0_Rel_C48797_010101_40036.map
+cp.exe -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\cmdbuild\Rel\project_FFAP\FFAP_0.html C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48797\FFAP_0_Rel_C48797_010101_40036.html
+cp.exe -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\cmdbuild\Rel\project_FFAP\FFAP_0.xml C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48797\FFAP_0_Rel_C48797_010101_40036.xml
 Checking in APP bank 1 image
-echo Skipping  -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\cmdbuild\Rel\project_FFAP\FFAP_1.mns C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48494\FFAP_1_Rel_C48494_010101_12291.mns
-Skipping  -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\cmdbuild\Rel\project_FFAP\FFAP_1.mns C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48494\FFAP_1_Rel_C48494_010101_12291.mns
-echo Skipping  -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\cmdbuild\Rel\project_FFAP\FFAP_1.mns C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48494\FFAP_1_Rel_C48494_010101_12291.map
-Skipping  -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\cmdbuild\Rel\project_FFAP\FFAP_1.mns C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48494\FFAP_1_Rel_C48494_010101_12291.map
+echo Skipping  -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\cmdbuild\Rel\project_FFAP\FFAP_1.mns C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48797\FFAP_1_Rel_C48797_010101_40036.mns
+Skipping  -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\cmdbuild\Rel\project_FFAP\FFAP_1.mns C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48797\FFAP_1_Rel_C48797_010101_40036.mns
+echo Skipping  -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\cmdbuild\Rel\project_FFAP\FFAP_1.mns C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48797\FFAP_1_Rel_C48797_010101_40036.map
+Skipping  -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\cmdbuild\Rel\project_FFAP\FFAP_1.mns C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48797\FFAP_1_Rel_C48797_010101_40036.map
 Also checking in FFP image
 OFFroot=C:\tfsbuildR\SVIFF\Release1\FIRMWARE OFFDir=Rel FFP_BTARGET=
-echo Skipping  -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\..\FD-SW\target\mak\FF_SVI_DBG\exe\fffp_0.mns C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48494\FFFP_Rel_C48494_010101_45615_0.mns
-Skipping  -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\..\FD-SW\target\mak\FF_SVI_DBG\exe\fffp_0.mns C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48494\FFFP_Rel_C48494_010101_45615_0.mns
-echo Skipping  -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\..\FD-SW\target\mak\FF_SVI_DBG\exe\fffp_1.mns C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48494\FFFP_Rel_C48494_010101_64063_1.mns
-Skipping  -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\..\FD-SW\target\mak\FF_SVI_DBG\exe\fffp_1.mns C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48494\FFFP_Rel_C48494_010101_64063_1.mns
-cp.exe -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\..\FD-SW\target\mak\FF_SVI_DBG\exe\fffp_0.map C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48494\FFFP_Rel_C48494_010101_45615_0.map
-cp.exe -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\..\FD-SW\target\mak\FF_SVI_DBG\exe\fffp_1.map C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48494\FFFP_Rel_C48494_010101_64063_1.map
-cp.exe -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\..\FD-SW\target\appl\fbif\ddl\0008/*.cff C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48494
-cp.exe -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\..\FD-SW\target\appl\fbif\ddl\0008/*.ff5 C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48494
-cp.exe -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\..\FD-SW\target\appl\fbif\ddl\0008/*.sy5 C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48494
-cp.exe -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\..\FD-SW\target\appl\fbif\ddl\0008/*.ffo C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48494
-cp.exe -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\..\FD-SW\target\appl\fbif\ddl\0008/*.sym C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48494
+echo Skipping  -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\..\FD-SW\target\mak\FF_SVI_DBG\exe\fffp_0.mns C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48797\FFFP_Rel_C48797_010101_2723_0.mns
+Skipping  -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\..\FD-SW\target\mak\FF_SVI_DBG\exe\fffp_0.mns C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48797\FFFP_Rel_C48797_010101_2723_0.mns
+echo Skipping  -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\..\FD-SW\target\mak\FF_SVI_DBG\exe\fffp_1.mns C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48797\FFFP_Rel_C48797_010101_17075_1.mns
+Skipping  -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\..\FD-SW\target\mak\FF_SVI_DBG\exe\fffp_1.mns C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48797\FFFP_Rel_C48797_010101_17075_1.mns
+cp.exe -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\..\FD-SW\target\mak\FF_SVI_DBG\exe\fffp_0.map C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48797\FFFP_Rel_C48797_010101_2723_0.map
+cp.exe -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\..\FD-SW\target\mak\FF_SVI_DBG\exe\fffp_1.map C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48797\FFFP_Rel_C48797_010101_17075_1.map
+cp.exe -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\..\FD-SW\target\appl\fbif\ddl\0008/*.cff C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48797
+cp.exe -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\..\FD-SW\target\appl\fbif\ddl\0008/*.ff5 C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48797
+cp.exe -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\..\FD-SW\target\appl\fbif\ddl\0008/*.sy5 C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48797
+cp.exe -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\..\FD-SW\target\appl\fbif\ddl\0008/*.ffo C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48797
+cp.exe -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\..\FD-SW\target\appl\fbif\ddl\0008/*.sym C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48797
 Also checking in .ffd files
-cp.exe -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\cmdbuild\Rel\project_FFAP\FFAP_0.ffd C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48494\ALLFF_Rel_C48494_F010101_45615_A010101_12291.ffd
-cp.exe -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\cmdbuild\Rel\project_FFAP\FFAP_01.ffd C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48494\FFAP_Rel_C48494_010101_12291.ffd
-cp.exe -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\cmdbuild\Rel\project_FFAP\FFAP_00.ffd C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48494\FFFP_Rel_C48494_010101_45615.ffd
-cp.exe -f -p tools\partman* C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48494
+cp.exe -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\cmdbuild\Rel\project_FFAP\FFAP_0.ffd C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48797\ALLFF_Rel_C48797_F010101_2723_A010101_40036.ffd
+cp.exe -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\cmdbuild\Rel\project_FFAP\FFAP_01.ffd C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48797\FFAP_Rel_C48797_010101_40036.ffd
+cp.exe -f -p C:\tfsbuildR\SVIFF\Release1\FIRMWARE\cmdbuild\Rel\project_FFAP\FFAP_00.ffd C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48797\FFFP_Rel_C48797_010101_2723.ffd
+cp.exe -f -p tools\partman* C:\FF_Auto_Builds\FromReleasesBranch\FromRelease1\C48797
 Now creating FFP snapshot
-gnumake -C C:\tfsbuildR\SVIFF\Release1\FIRMWARE -f snapshot snapshot=snapshot_C48494
+gnumake -C C:\tfsbuildR\SVIFF\Release1\FIRMWARE -f snapshot snapshot=snapshot_C48797
 objlist=C:\tfsbuildR\SVIFF\Release1\FD-SW\target\mak\FF_SVI_DBG\exe\fffp_0.txt C:\tfsbuildR\SVIFF\Release1\FD-SW\target\mak\FF_SVI_DBG\exe\fffp_1.txt C:\tfsbuildR\SVIFF\Release1\FD-SW\target\mak\FF_SVI_DBG\exe\svi_ff_uta.txt C:\tfsbuildR\SVIFF\Release1\FD-SW\target\mak\FF_SVI_DBG\lib\eep.txt C:\tfsbuildR\SVIFF\Release1\FD-SW\target\mak\FF_SVI_DBG\lib\fdev.txt C:\tfsbuildR\SVIFF\Release1\FD-SW\target\mak\FF_SVI_DBG\lib\ffbl.txt C:\tfsbuildR\SVIFF\Release1\FD-SW\target\mak\FF_SVI_DBG\lib\fgen.txt C:\tfsbuildR\SVIFF\Release1\FD-SW\target\mak\FF_SVI_DBG\lib\hm.txt C:\tfsbuildR\SVIFF\Release1\FD-SW\target\mak\FF_SVI_DBG\lib\hw_krn.txt C:\tfsbuildR\SVIFF\Release1\FD-SW\target\mak\FF_SVI_DBG\lib\hw_main.txt C:\tfsbuildR\SVIFF\Release1\FD-SW\target\mak\FF_SVI_DBG\lib\osif.emb_main.txt C:\tfsbuildR\SVIFF\Release1\FD-SW\target\mak\FF_SVI_DBG\lib\osif_krn.emb.txt C:\tfsbuildR\SVIFF\Release1\FD-SW\target\mak\FF_SVI_DBG\lib\STM32F10x_StdPeriph_Driver.txt
 objfiles=aifb.o aofb.o app_mode.o appl_alert.o appl_dia.o appl_dlh.o appl_if.o appl_nrv.o appl_ptb.o appl_res.o appl_svi_swdl.o arfb.o bufutils.o controller_pid.o cortextrap.o cortextrapc.o crc.o csfb.o ctrl_param_set.o difb.o dofb.o eep_blk2.o eep_blk3.o eep_if.o endofimage.o fault2alert.o fbif_dsc.o ffactoryuse.o ffbl_ai.o ffbl_ao.o ffbl_ar.o ffbl_bas.o ffbl_cs.o ffbl_di.o ffbl_do.o ffbl_dom.o ffbl_fd.o ffbl_is.o ffbl_krn.o ffbl_mai.o ffbl_mo.o ffbl_os.o ffbl_pai.o ffbl_pao.o ffbl_pid.o ffbl_res.o histogram.o hm.o hm_dma.o hm_if.o hm_task.o hm_tools.o hw_hm.o hw_i2c.o hw_init.o hw_intr.o hw_io.o hw_os.o hw_periph_cfg.o hw_tim.o instance.o isfb.o lui_ipc_variables.o maifb.o misc.o mn_actuator_3.o mn_advanced.o mn_block_header.o mn_checkproc.o mn_clear_status.o mn_cycle_counter_alert.o mn_decomp.o mn_deviation_alert.o mn_diagnostic_configuration.o mn_errorbits.o mn_factory_defaults.o mn_fstate.o mn_fwdl.o mn_fwdl_hart.o mn_grant_deny.o mn_hdr_validate.o mn_ip_drive_current_alert.o mn_near_closed_alert.o mn_pressure_extremes.o mn_remote_sensor.o mn_supply_pressure_alert.o mn_temperature_alert.o mn_travel_accumulation.o mn_travel_units.o mn_trends.o mn_ui_access_control.o mn_working_time_alert.o mn_working_times.o mn_xd_errors.o mnassert.o mncbdefs.o mncharactff.o mncortexm.o mnctllimff.o mndiagprocff.o mndoswff.o mnfaultsimport.o mnfindstopsff.o mnhart2ff.o mnipcff.o mnptberrors.o mnptbexec.o mntbmspff.o osfb.o osif_cfg.o osif_dbl.o osif_mn.o osif_sem.o osif_tim.o osif_tsk.o pidfb.o poschrtab.o pressure_range.o ptb.o resb.o spec_ds.o startup_stm32f10x_xl.o stm32f10x_crc.o stm32f10x_exti.o stm32f10x_flash.o stm32f10x_fsmc.o stm32f10x_gpio.o stm32f10x_i2c.o stm32f10x_rcc.o stm32f10x_tim.o stm32f10x_usart.o stm_flash.o stubs_app.o ui_language.o verinfo.o xmtx.o
 filestems=aifb aofb app_mode appl_alert appl_dia appl_dlh appl_if appl_nrv appl_ptb appl_res appl_svi_swdl arfb bufutils controller_pid cortextrap cortextrapc crc csfb ctrl_param_set difb dofb eep_blk2 eep_blk3 eep_if endofimage fault2alert fbif_dsc ffactoryuse ffbl_ai ffbl_ao ffbl_ar ffbl_bas ffbl_cs ffbl_di ffbl_do ffbl_dom ffbl_fd ffbl_is ffbl_krn ffbl_mai ffbl_mo ffbl_os ffbl_pai ffbl_pao ffbl_pid ffbl_res histogram hm hm_dma hm_if hm_task hm_tools hw_hm hw_i2c hw_init hw_intr hw_io hw_os hw_periph_cfg hw_tim instance isfb lui_ipc_variables maifb misc mn_actuator_3 mn_advanced mn_block_header mn_checkproc mn_clear_status mn_cycle_counter_alert mn_decomp mn_deviation_alert mn_diagnostic_configuration mn_errorbits mn_factory_defaults mn_fstate mn_fwdl mn_fwdl_hart mn_grant_deny mn_hdr_validate mn_ip_drive_current_alert mn_near_closed_alert mn_pressure_extremes mn_remote_sensor mn_supply_pressure_alert mn_temperature_alert mn_travel_accumulation mn_travel_units mn_trends mn_ui_access_control mn_working_time_alert mn_working_times mn_xd_errors mnassert mncbdefs mncharactff mncortexm mnctllimff mndiagprocff mndoswff mnfaultsimport mnfindstopsff mnhart2ff mnipcff mnptberrors mnptbexec mntbmspff osfb osif_cfg osif_dbl osif_mn osif_sem osif_tim osif_tsk pidfb poschrtab pressure_range ptb resb spec_ds startup_stm32f10x_xl stm32f10x_crc stm32f10x_exti stm32f10x_flash stm32f10x_fsmc stm32f10x_gpio stm32f10x_i2c stm32f10x_rcc stm32f10x_tim stm32f10x_usart stm_flash stubs_app ui_language verinfo xmtx
 tocopy=                         utilities\bufutils.c    framework\cortextrap.s79  framework\cortextrapc.c  utilities\crc.c                framework\endofimage.s79  services\fault2alert.c                                                                                                                                          services\mnassert.c  framework\mncbdefs.c    framework\mncortexm.s79                                      sysio\poschrtab.c                              framework\bios\stm_flash.c      framework\verinfo.c  
-todirs=..\snapshot_C48494\FIRMWARE\framework\ ..\snapshot_C48494\FIRMWARE\framework\bios\ ..\snapshot_C48494\FIRMWARE\services\ ..\snapshot_C48494\FIRMWARE\sysio\ ..\snapshot_C48494\FIRMWARE\utilities\
+todirs=..\snapshot_C48797\FIRMWARE\framework\ ..\snapshot_C48797\FIRMWARE\framework\bios\ ..\snapshot_C48797\FIRMWARE\services\ ..\snapshot_C48797\FIRMWARE\sysio\ ..\snapshot_C48797\FIRMWARE\utilities\
 gnumake[6]: Entering directory `C:/tfsbuildR/SVIFF/Release1/FIRMWARE'
  framework/bios/stm_flash.c framework/cortextrap.h framework/cortextrapc.c framework/mncbdefs.c framework/verinfo.c hal/bios/inc/fram.h inc_FFAP/dimensions.h inc_FFAP/faultdef.h inc_FFAP/hartdef.h inc_FFAP/hcimport_enum.h inc_FFAP/mncbdefs_proj.h inc_FFAP/nvmemids.h inc_FFAP/timebase.h inc_FFAP/tmbase_proj.h includes/armtypemap.h includes/armtypes.h includes/asciicodes.h includes/bitutils.h includes/bufferhandler.h includes/bufutils.h includes/config.h includes/configure.h includes/crc.h includes/ctllimits.h includes/devicemode.h includes/diagnostics.h includes/doswitch.h includes/errcodes.h includes/faultpublic.h includes/ff_devicevars.h includes/ffdefs.h includes/hart.h includes/hartcmd.h includes/hartfunc.h includes/ifman.h includes/innerwrap.h includes/ipcdefs.h includes/ipcvarids.h includes/memmap_FFAP.h includes/mn_flash.h includes/mnassert.h includes/mncbdefs.h includes/mntrapdef.h includes/mnwrap.h includes/numutils.h includes/nvram.h includes/oswrap.h includes/param.h includes/percent.h includes/poscharact.h includes/posctlmode.h includes/position.h includes/pressuredef.h includes/process.h includes/project_FFAP.h includes/reset.h includes/resource.h includes/selftest.h includes/smoothing.h includes/stmcommon.h includes/sysio.h includes/taskids.h includes/timer.h includes/typestomp.h mn_instrum/noinstrum/mn_coinstrum.h mn_instrum/noinstrum/mn_instrum.h services/fault2alert.c services/mnassert.c sysio/poschrtab.c utilities/bufutils.c utilities/crc.c
-rm -f -r ..\snapshot_C48494
-rm: ..\snapshot_C48494 not found.
-cmd /E /C mkdir ..\snapshot_C48494\FIRMWARE\utilities\
-copy utilities\bufutils.c ..\snapshot_C48494\FIRMWARE\utilities\bufutils.c
+rm -f -r ..\snapshot_C48797
+rm: ..\snapshot_C48797 not found.
+cmd /E /C mkdir ..\snapshot_C48797\FIRMWARE\utilities\
+copy utilities\bufutils.c ..\snapshot_C48797\FIRMWARE\utilities\bufutils.c
         1 file(s) copied.
-cmd /E /C mkdir ..\snapshot_C48494\FIRMWARE\framework\
-copy framework\cortextrap.s79 ..\snapshot_C48494\FIRMWARE\framework\cortextrap.s79
+cmd /E /C mkdir ..\snapshot_C48797\FIRMWARE\framework\
+copy framework\cortextrap.s79 ..\snapshot_C48797\FIRMWARE\framework\cortextrap.s79
         1 file(s) copied.
-cmd /E /C mkdir ..\snapshot_C48494\FIRMWARE\framework\
-A subdirectory or file ..\snapshot_C48494\FIRMWARE\framework already exists.
+cmd /E /C mkdir ..\snapshot_C48797\FIRMWARE\framework\
+A subdirectory or file ..\snapshot_C48797\FIRMWARE\framework already exists.
 gnumake[6]: [framework\cortextrapc.c] Error 1 (ignored)
-copy framework\cortextrapc.c ..\snapshot_C48494\FIRMWARE\framework\cortextrapc.c
+copy framework\cortextrapc.c ..\snapshot_C48797\FIRMWARE\framework\cortextrapc.c
         1 file(s) copied.
-cmd /E /C mkdir ..\snapshot_C48494\FIRMWARE\utilities\
-A subdirectory or file ..\snapshot_C48494\FIRMWARE\utilities already exists.
+cmd /E /C mkdir ..\snapshot_C48797\FIRMWARE\utilities\
+A subdirectory or file ..\snapshot_C48797\FIRMWARE\utilities already exists.
 gnumake[6]: [utilities\crc.c] Error 1 (ignored)
-copy utilities\crc.c ..\snapshot_C48494\FIRMWARE\utilities\crc.c
+copy utilities\crc.c ..\snapshot_C48797\FIRMWARE\utilities\crc.c
         1 file(s) copied.
-cmd /E /C mkdir ..\snapshot_C48494\FIRMWARE\framework\
-A subdirectory or file ..\snapshot_C48494\FIRMWARE\framework already exists.
+cmd /E /C mkdir ..\snapshot_C48797\FIRMWARE\framework\
+A subdirectory or file ..\snapshot_C48797\FIRMWARE\framework already exists.
 gnumake[6]: [framework\endofimage.s79] Error 1 (ignored)
-copy framework\endofimage.s79 ..\snapshot_C48494\FIRMWARE\framework\endofimage.s79
+copy framework\endofimage.s79 ..\snapshot_C48797\FIRMWARE\framework\endofimage.s79
         1 file(s) copied.
-cmd /E /C mkdir ..\snapshot_C48494\FIRMWARE\services\
-copy services\fault2alert.c ..\snapshot_C48494\FIRMWARE\services\fault2alert.c
+cmd /E /C mkdir ..\snapshot_C48797\FIRMWARE\services\
+copy services\fault2alert.c ..\snapshot_C48797\FIRMWARE\services\fault2alert.c
         1 file(s) copied.
-cmd /E /C mkdir ..\snapshot_C48494\FIRMWARE\services\
-A subdirectory or file ..\snapshot_C48494\FIRMWARE\services already exists.
+cmd /E /C mkdir ..\snapshot_C48797\FIRMWARE\services\
+A subdirectory or file ..\snapshot_C48797\FIRMWARE\services already exists.
 gnumake[6]: [services\mnassert.c] Error 1 (ignored)
-copy services\mnassert.c ..\snapshot_C48494\FIRMWARE\services\mnassert.c
+copy services\mnassert.c ..\snapshot_C48797\FIRMWARE\services\mnassert.c
         1 file(s) copied.
-cmd /E /C mkdir ..\snapshot_C48494\FIRMWARE\framework\
-A subdirectory or file ..\snapshot_C48494\FIRMWARE\framework already exists.
+cmd /E /C mkdir ..\snapshot_C48797\FIRMWARE\framework\
+A subdirectory or file ..\snapshot_C48797\FIRMWARE\framework already exists.
 gnumake[6]: [framework\mncbdefs.c] Error 1 (ignored)
-copy framework\mncbdefs.c ..\snapshot_C48494\FIRMWARE\framework\mncbdefs.c
+copy framework\mncbdefs.c ..\snapshot_C48797\FIRMWARE\framework\mncbdefs.c
         1 file(s) copied.
-cmd /E /C mkdir ..\snapshot_C48494\FIRMWARE\framework\
-A subdirectory or file ..\snapshot_C48494\FIRMWARE\framework already exists.
+cmd /E /C mkdir ..\snapshot_C48797\FIRMWARE\framework\
+A subdirectory or file ..\snapshot_C48797\FIRMWARE\framework already exists.
 gnumake[6]: [framework\mncortexm.s79] Error 1 (ignored)
-copy framework\mncortexm.s79 ..\snapshot_C48494\FIRMWARE\framework\mncortexm.s79
+copy framework\mncortexm.s79 ..\snapshot_C48797\FIRMWARE\framework\mncortexm.s79
         1 file(s) copied.
-cmd /E /C mkdir ..\snapshot_C48494\FIRMWARE\sysio\
-copy sysio\poschrtab.c ..\snapshot_C48494\FIRMWARE\sysio\poschrtab.c
+cmd /E /C mkdir ..\snapshot_C48797\FIRMWARE\sysio\
+copy sysio\poschrtab.c ..\snapshot_C48797\FIRMWARE\sysio\poschrtab.c
         1 file(s) copied.
-cmd /E /C mkdir ..\snapshot_C48494\FIRMWARE\framework\bios\
-copy framework\bios\stm_flash.c ..\snapshot_C48494\FIRMWARE\framework\bios\stm_flash.c
+cmd /E /C mkdir ..\snapshot_C48797\FIRMWARE\framework\bios\
+copy framework\bios\stm_flash.c ..\snapshot_C48797\FIRMWARE\framework\bios\stm_flash.c
         1 file(s) copied.
-cmd /E /C mkdir ..\snapshot_C48494\FIRMWARE\framework\
-A subdirectory or file ..\snapshot_C48494\FIRMWARE\framework already exists.
+cmd /E /C mkdir ..\snapshot_C48797\FIRMWARE\framework\
+A subdirectory or file ..\snapshot_C48797\FIRMWARE\framework already exists.
 gnumake[6]: [framework\verinfo.c] Error 1 (ignored)
-copy framework\verinfo.c ..\snapshot_C48494\FIRMWARE\framework\verinfo.c
+copy framework\verinfo.c ..\snapshot_C48797\FIRMWARE\framework\verinfo.c
         1 file(s) copied.
-echo ..\snapshot_C48494\FIRMWARE\framework\ ..\snapshot_C48494\FIRMWARE\framework\bios\ ..\snapshot_C48494\FIRMWARE\services\ ..\snapshot_C48494\FIRMWARE\sysio\ ..\snapshot_C48494\FIRMWARE\utilities\
-..\snapshot_C48494\FIRMWARE\framework\ ..\snapshot_C48494\FIRMWARE\framework\bios\ ..\snapshot_C48494\FIRMWARE\services\ ..\snapshot_C48494\FIRMWARE\sysio\ ..\snapshot_C48494\FIRMWARE\utilities\
-cmd /E /C mkdir ..\snapshot_C48494\FIRMWARE\framework\bios\
-A subdirectory or file ..\snapshot_C48494\FIRMWARE\framework\bios already exists.
+echo ..\snapshot_C48797\FIRMWARE\framework\ ..\snapshot_C48797\FIRMWARE\framework\bios\ ..\snapshot_C48797\FIRMWARE\services\ ..\snapshot_C48797\FIRMWARE\sysio\ ..\snapshot_C48797\FIRMWARE\utilities\
+..\snapshot_C48797\FIRMWARE\framework\ ..\snapshot_C48797\FIRMWARE\framework\bios\ ..\snapshot_C48797\FIRMWARE\services\ ..\snapshot_C48797\FIRMWARE\sysio\ ..\snapshot_C48797\FIRMWARE\utilities\
+cmd /E /C mkdir ..\snapshot_C48797\FIRMWARE\framework\bios\
+A subdirectory or file ..\snapshot_C48797\FIRMWARE\framework\bios already exists.
 gnumake[6]: [framework/bios/] Error 1 (ignored)
-cmd /E /C mkdir ..\snapshot_C48494\FIRMWARE\framework\
-A subdirectory or file ..\snapshot_C48494\FIRMWARE\framework already exists.
+cmd /E /C mkdir ..\snapshot_C48797\FIRMWARE\framework\
+A subdirectory or file ..\snapshot_C48797\FIRMWARE\framework already exists.
 gnumake[6]: [framework/] Error 1 (ignored)
-cmd /E /C mkdir ..\snapshot_C48494\FIRMWARE\hal\bios\inc\
-cmd /E /C mkdir ..\snapshot_C48494\FIRMWARE\inc_FFAP\
-cmd /E /C mkdir ..\snapshot_C48494\FIRMWARE\includes\
-cmd /E /C mkdir ..\snapshot_C48494\FIRMWARE\mn_instrum\noinstrum\
-cmd /E /C mkdir ..\snapshot_C48494\FIRMWARE\services\
-A subdirectory or file ..\snapshot_C48494\FIRMWARE\services already exists.
+cmd /E /C mkdir ..\snapshot_C48797\FIRMWARE\hal\bios\inc\
+cmd /E /C mkdir ..\snapshot_C48797\FIRMWARE\inc_FFAP\
+cmd /E /C mkdir ..\snapshot_C48797\FIRMWARE\includes\
+cmd /E /C mkdir ..\snapshot_C48797\FIRMWARE\mn_instrum\noinstrum\
+cmd /E /C mkdir ..\snapshot_C48797\FIRMWARE\services\
+A subdirectory or file ..\snapshot_C48797\FIRMWARE\services already exists.
 gnumake[6]: [services/] Error 1 (ignored)
-cmd /E /C mkdir ..\snapshot_C48494\FIRMWARE\sysio\
-A subdirectory or file ..\snapshot_C48494\FIRMWARE\sysio already exists.
+cmd /E /C mkdir ..\snapshot_C48797\FIRMWARE\sysio\
+A subdirectory or file ..\snapshot_C48797\FIRMWARE\sysio already exists.
 gnumake[6]: [sysio/] Error 1 (ignored)
-cmd /E /C mkdir ..\snapshot_C48494\FIRMWARE\utilities\
-A subdirectory or file ..\snapshot_C48494\FIRMWARE\utilities already exists.
+cmd /E /C mkdir ..\snapshot_C48797\FIRMWARE\utilities\
+A subdirectory or file ..\snapshot_C48797\FIRMWARE\utilities already exists.
 gnumake[6]: [utilities/] Error 1 (ignored)
-cp -f framework/bios/stm_flash.c ..\snapshot_C48494\FIRMWARE\framework/bios/stm_flash.c
-cp -f framework/cortextrap.h ..\snapshot_C48494\FIRMWARE\framework/cortextrap.h
-cp -f framework/cortextrapc.c ..\snapshot_C48494\FIRMWARE\framework/cortextrapc.c
-cp -f framework/mncbdefs.c ..\snapshot_C48494\FIRMWARE\framework/mncbdefs.c
-cp -f framework/verinfo.c ..\snapshot_C48494\FIRMWARE\framework/verinfo.c
-cp -f hal/bios/inc/fram.h ..\snapshot_C48494\FIRMWARE\hal/bios/inc/fram.h
-cp -f inc_FFAP/dimensions.h ..\snapshot_C48494\FIRMWARE\inc_FFAP/dimensions.h
-cp -f inc_FFAP/faultdef.h ..\snapshot_C48494\FIRMWARE\inc_FFAP/faultdef.h
-cp -f inc_FFAP/hartdef.h ..\snapshot_C48494\FIRMWARE\inc_FFAP/hartdef.h
-cp -f inc_FFAP/hcimport_enum.h ..\snapshot_C48494\FIRMWARE\inc_FFAP/hcimport_enum.h
-cp -f inc_FFAP/mncbdefs_proj.h ..\snapshot_C48494\FIRMWARE\inc_FFAP/mncbdefs_proj.h
-cp -f inc_FFAP/nvmemids.h ..\snapshot_C48494\FIRMWARE\inc_FFAP/nvmemids.h
-cp -f inc_FFAP/timebase.h ..\snapshot_C48494\FIRMWARE\inc_FFAP/timebase.h
-cp -f inc_FFAP/tmbase_proj.h ..\snapshot_C48494\FIRMWARE\inc_FFAP/tmbase_proj.h
-cp -f includes/armtypemap.h ..\snapshot_C48494\FIRMWARE\includes/armtypemap.h
-cp -f includes/armtypes.h ..\snapshot_C48494\FIRMWARE\includes/armtypes.h
-cp -f includes/asciicodes.h ..\snapshot_C48494\FIRMWARE\includes/asciicodes.h
-cp -f includes/bitutils.h ..\snapshot_C48494\FIRMWARE\includes/bitutils.h
-cp -f includes/bufferhandler.h ..\snapshot_C48494\FIRMWARE\includes/bufferhandler.h
-cp -f includes/bufutils.h ..\snapshot_C48494\FIRMWARE\includes/bufutils.h
-cp -f includes/config.h ..\snapshot_C48494\FIRMWARE\includes/config.h
-cp -f includes/configure.h ..\snapshot_C48494\FIRMWARE\includes/configure.h
-cp -f includes/crc.h ..\snapshot_C48494\FIRMWARE\includes/crc.h
-cp -f includes/ctllimits.h ..\snapshot_C48494\FIRMWARE\includes/ctllimits.h
-cp -f includes/devicemode.h ..\snapshot_C48494\FIRMWARE\includes/devicemode.h
-cp -f includes/diagnostics.h ..\snapshot_C48494\FIRMWARE\includes/diagnostics.h
-cp -f includes/doswitch.h ..\snapshot_C48494\FIRMWARE\includes/doswitch.h
-cp -f includes/errcodes.h ..\snapshot_C48494\FIRMWARE\includes/errcodes.h
-cp -f includes/faultpublic.h ..\snapshot_C48494\FIRMWARE\includes/faultpublic.h
-cp -f includes/ff_devicevars.h ..\snapshot_C48494\FIRMWARE\includes/ff_devicevars.h
-cp -f includes/ffdefs.h ..\snapshot_C48494\FIRMWARE\includes/ffdefs.h
-cp -f includes/hart.h ..\snapshot_C48494\FIRMWARE\includes/hart.h
-cp -f includes/hartcmd.h ..\snapshot_C48494\FIRMWARE\includes/hartcmd.h
-cp -f includes/hartfunc.h ..\snapshot_C48494\FIRMWARE\includes/hartfunc.h
-cp -f includes/ifman.h ..\snapshot_C48494\FIRMWARE\includes/ifman.h
-cp -f includes/innerwrap.h ..\snapshot_C48494\FIRMWARE\includes/innerwrap.h
-cp -f includes/ipcdefs.h ..\snapshot_C48494\FIRMWARE\includes/ipcdefs.h
-cp -f includes/ipcvarids.h ..\snapshot_C48494\FIRMWARE\includes/ipcvarids.h
-cp -f includes/memmap_FFAP.h ..\snapshot_C48494\FIRMWARE\includes/memmap_FFAP.h
-cp -f includes/mn_flash.h ..\snapshot_C48494\FIRMWARE\includes/mn_flash.h
-cp -f includes/mnassert.h ..\snapshot_C48494\FIRMWARE\includes/mnassert.h
-cp -f includes/mncbdefs.h ..\snapshot_C48494\FIRMWARE\includes/mncbdefs.h
-cp -f includes/mntrapdef.h ..\snapshot_C48494\FIRMWARE\includes/mntrapdef.h
-cp -f includes/mnwrap.h ..\snapshot_C48494\FIRMWARE\includes/mnwrap.h
-cp -f includes/numutils.h ..\snapshot_C48494\FIRMWARE\includes/numutils.h
-cp -f includes/nvram.h ..\snapshot_C48494\FIRMWARE\includes/nvram.h
-cp -f includes/oswrap.h ..\snapshot_C48494\FIRMWARE\includes/oswrap.h
-cp -f includes/param.h ..\snapshot_C48494\FIRMWARE\includes/param.h
-cp -f includes/percent.h ..\snapshot_C48494\FIRMWARE\includes/percent.h
-cp -f includes/poscharact.h ..\snapshot_C48494\FIRMWARE\includes/poscharact.h
-cp -f includes/posctlmode.h ..\snapshot_C48494\FIRMWARE\includes/posctlmode.h
-cp -f includes/position.h ..\snapshot_C48494\FIRMWARE\includes/position.h
-cp -f includes/pressuredef.h ..\snapshot_C48494\FIRMWARE\includes/pressuredef.h
-cp -f includes/process.h ..\snapshot_C48494\FIRMWARE\includes/process.h
-cp -f includes/project_FFAP.h ..\snapshot_C48494\FIRMWARE\includes/project_FFAP.h
-cp -f includes/reset.h ..\snapshot_C48494\FIRMWARE\includes/reset.h
-cp -f includes/resource.h ..\snapshot_C48494\FIRMWARE\includes/resource.h
-cp -f includes/selftest.h ..\snapshot_C48494\FIRMWARE\includes/selftest.h
-cp -f includes/smoothing.h ..\snapshot_C48494\FIRMWARE\includes/smoothing.h
-cp -f includes/stmcommon.h ..\snapshot_C48494\FIRMWARE\includes/stmcommon.h
-cp -f includes/sysio.h ..\snapshot_C48494\FIRMWARE\includes/sysio.h
-cp -f includes/taskids.h ..\snapshot_C48494\FIRMWARE\includes/taskids.h
-cp -f includes/timer.h ..\snapshot_C48494\FIRMWARE\includes/timer.h
-cp -f includes/typestomp.h ..\snapshot_C48494\FIRMWARE\includes/typestomp.h
-cp -f mn_instrum/noinstrum/mn_coinstrum.h ..\snapshot_C48494\FIRMWARE\mn_instrum/noinstrum/mn_coinstrum.h
-cp -f mn_instrum/noinstrum/mn_instrum.h ..\snapshot_C48494\FIRMWARE\mn_instrum/noinstrum/mn_instrum.h
-cp -f services/fault2alert.c ..\snapshot_C48494\FIRMWARE\services/fault2alert.c
-cp -f services/mnassert.c ..\snapshot_C48494\FIRMWARE\services/mnassert.c
-cp -f sysio/poschrtab.c ..\snapshot_C48494\FIRMWARE\sysio/poschrtab.c
-cp -f utilities/bufutils.c ..\snapshot_C48494\FIRMWARE\utilities/bufutils.c
-cp -f utilities/crc.c ..\snapshot_C48494\FIRMWARE\utilities/crc.c
-cp -f ffbuild.mak ffplugin.mak handover.mak makefile ..\snapshot_C48494\FIRMWARE
-cmd /E/C mkdir ..\snapshot_C48494\FIRMWARE\buildhelpers
-xcopy /K/R/Y buildhelpers ..\snapshot_C48494\FIRMWARE\buildhelpers
+cp -f framework/bios/stm_flash.c ..\snapshot_C48797\FIRMWARE\framework/bios/stm_flash.c
+cp -f framework/cortextrap.h ..\snapshot_C48797\FIRMWARE\framework/cortextrap.h
+cp -f framework/cortextrapc.c ..\snapshot_C48797\FIRMWARE\framework/cortextrapc.c
+cp -f framework/mncbdefs.c ..\snapshot_C48797\FIRMWARE\framework/mncbdefs.c
+cp -f framework/verinfo.c ..\snapshot_C48797\FIRMWARE\framework/verinfo.c
+cp -f hal/bios/inc/fram.h ..\snapshot_C48797\FIRMWARE\hal/bios/inc/fram.h
+cp -f inc_FFAP/dimensions.h ..\snapshot_C48797\FIRMWARE\inc_FFAP/dimensions.h
+cp -f inc_FFAP/faultdef.h ..\snapshot_C48797\FIRMWARE\inc_FFAP/faultdef.h
+cp -f inc_FFAP/hartdef.h ..\snapshot_C48797\FIRMWARE\inc_FFAP/hartdef.h
+cp -f inc_FFAP/hcimport_enum.h ..\snapshot_C48797\FIRMWARE\inc_FFAP/hcimport_enum.h
+cp -f inc_FFAP/mncbdefs_proj.h ..\snapshot_C48797\FIRMWARE\inc_FFAP/mncbdefs_proj.h
+cp -f inc_FFAP/nvmemids.h ..\snapshot_C48797\FIRMWARE\inc_FFAP/nvmemids.h
+cp -f inc_FFAP/timebase.h ..\snapshot_C48797\FIRMWARE\inc_FFAP/timebase.h
+cp -f inc_FFAP/tmbase_proj.h ..\snapshot_C48797\FIRMWARE\inc_FFAP/tmbase_proj.h
+cp -f includes/armtypemap.h ..\snapshot_C48797\FIRMWARE\includes/armtypemap.h
+cp -f includes/armtypes.h ..\snapshot_C48797\FIRMWARE\includes/armtypes.h
+cp -f includes/asciicodes.h ..\snapshot_C48797\FIRMWARE\includes/asciicodes.h
+cp -f includes/bitutils.h ..\snapshot_C48797\FIRMWARE\includes/bitutils.h
+cp -f includes/bufferhandler.h ..\snapshot_C48797\FIRMWARE\includes/bufferhandler.h
+cp -f includes/bufutils.h ..\snapshot_C48797\FIRMWARE\includes/bufutils.h
+cp -f includes/config.h ..\snapshot_C48797\FIRMWARE\includes/config.h
+cp -f includes/configure.h ..\snapshot_C48797\FIRMWARE\includes/configure.h
+cp -f includes/crc.h ..\snapshot_C48797\FIRMWARE\includes/crc.h
+cp -f includes/ctllimits.h ..\snapshot_C48797\FIRMWARE\includes/ctllimits.h
+cp -f includes/devicemode.h ..\snapshot_C48797\FIRMWARE\includes/devicemode.h
+cp -f includes/diagnostics.h ..\snapshot_C48797\FIRMWARE\includes/diagnostics.h
+cp -f includes/doswitch.h ..\snapshot_C48797\FIRMWARE\includes/doswitch.h
+cp -f includes/errcodes.h ..\snapshot_C48797\FIRMWARE\includes/errcodes.h
+cp -f includes/faultpublic.h ..\snapshot_C48797\FIRMWARE\includes/faultpublic.h
+cp -f includes/ff_devicevars.h ..\snapshot_C48797\FIRMWARE\includes/ff_devicevars.h
+cp -f includes/ffdefs.h ..\snapshot_C48797\FIRMWARE\includes/ffdefs.h
+cp -f includes/hart.h ..\snapshot_C48797\FIRMWARE\includes/hart.h
+cp -f includes/hartcmd.h ..\snapshot_C48797\FIRMWARE\includes/hartcmd.h
+cp -f includes/hartfunc.h ..\snapshot_C48797\FIRMWARE\includes/hartfunc.h
+cp -f includes/ifman.h ..\snapshot_C48797\FIRMWARE\includes/ifman.h
+cp -f includes/innerwrap.h ..\snapshot_C48797\FIRMWARE\includes/innerwrap.h
+cp -f includes/ipcdefs.h ..\snapshot_C48797\FIRMWARE\includes/ipcdefs.h
+cp -f includes/ipcvarids.h ..\snapshot_C48797\FIRMWARE\includes/ipcvarids.h
+cp -f includes/memmap_FFAP.h ..\snapshot_C48797\FIRMWARE\includes/memmap_FFAP.h
+cp -f includes/mn_flash.h ..\snapshot_C48797\FIRMWARE\includes/mn_flash.h
+cp -f includes/mnassert.h ..\snapshot_C48797\FIRMWARE\includes/mnassert.h
+cp -f includes/mncbdefs.h ..\snapshot_C48797\FIRMWARE\includes/mncbdefs.h
+cp -f includes/mntrapdef.h ..\snapshot_C48797\FIRMWARE\includes/mntrapdef.h
+cp -f includes/mnwrap.h ..\snapshot_C48797\FIRMWARE\includes/mnwrap.h
+cp -f includes/numutils.h ..\snapshot_C48797\FIRMWARE\includes/numutils.h
+cp -f includes/nvram.h ..\snapshot_C48797\FIRMWARE\includes/nvram.h
+cp -f includes/oswrap.h ..\snapshot_C48797\FIRMWARE\includes/oswrap.h
+cp -f includes/param.h ..\snapshot_C48797\FIRMWARE\includes/param.h
+cp -f includes/percent.h ..\snapshot_C48797\FIRMWARE\includes/percent.h
+cp -f includes/poscharact.h ..\snapshot_C48797\FIRMWARE\includes/poscharact.h
+cp -f includes/posctlmode.h ..\snapshot_C48797\FIRMWARE\includes/posctlmode.h
+cp -f includes/position.h ..\snapshot_C48797\FIRMWARE\includes/position.h
+cp -f includes/pressuredef.h ..\snapshot_C48797\FIRMWARE\includes/pressuredef.h
+cp -f includes/process.h ..\snapshot_C48797\FIRMWARE\includes/process.h
+cp -f includes/project_FFAP.h ..\snapshot_C48797\FIRMWARE\includes/project_FFAP.h
+cp -f includes/reset.h ..\snapshot_C48797\FIRMWARE\includes/reset.h
+cp -f includes/resource.h ..\snapshot_C48797\FIRMWARE\includes/resource.h
+cp -f includes/selftest.h ..\snapshot_C48797\FIRMWARE\includes/selftest.h
+cp -f includes/smoothing.h ..\snapshot_C48797\FIRMWARE\includes/smoothing.h
+cp -f includes/stmcommon.h ..\snapshot_C48797\FIRMWARE\includes/stmcommon.h
+cp -f includes/sysio.h ..\snapshot_C48797\FIRMWARE\includes/sysio.h
+cp -f includes/taskids.h ..\snapshot_C48797\FIRMWARE\includes/taskids.h
+cp -f includes/timer.h ..\snapshot_C48797\FIRMWARE\includes/timer.h
+cp -f includes/typestomp.h ..\snapshot_C48797\FIRMWARE\includes/typestomp.h
+cp -f mn_instrum/noinstrum/mn_coinstrum.h ..\snapshot_C48797\FIRMWARE\mn_instrum/noinstrum/mn_coinstrum.h
+cp -f mn_instrum/noinstrum/mn_instrum.h ..\snapshot_C48797\FIRMWARE\mn_instrum/noinstrum/mn_instrum.h
+cp -f services/fault2alert.c ..\snapshot_C48797\FIRMWARE\services/fault2alert.c
+cp -f services/mnassert.c ..\snapshot_C48797\FIRMWARE\services/mnassert.c
+cp -f sysio/poschrtab.c ..\snapshot_C48797\FIRMWARE\sysio/poschrtab.c
+cp -f utilities/bufutils.c ..\snapshot_C48797\FIRMWARE\utilities/bufutils.c
+cp -f utilities/crc.c ..\snapshot_C48797\FIRMWARE\utilities/crc.c
+cp -f ffbuild.mak ffplugin.mak handover.mak makefile ..\snapshot_C48797\FIRMWARE
+cmd /E/C mkdir ..\snapshot_C48797\FIRMWARE\buildhelpers
+xcopy /K/R/Y buildhelpers ..\snapshot_C48797\FIRMWARE\buildhelpers
 buildhelpers\BUILD.txt
 buildhelpers\buildexec.mak
 buildhelpers\buildfile.mak
@@ -20066,8 +20056,8 @@ buildhelpers\UTREGRESS.txt
 buildhelpers\UTRUNS.txt
 buildhelpers\__gmsl
 48 File(s) copied
-cmd /E/C mkdir ..\snapshot_C48494\FIRMWARE\LintCfg
-xcopy /K/R/Y LintCfg ..\snapshot_C48494\FIRMWARE\LintCfg
+cmd /E/C mkdir ..\snapshot_C48797\FIRMWARE\LintCfg
+xcopy /K/R/Y LintCfg ..\snapshot_C48797\FIRMWARE\LintCfg
 LintCfg\aloa.lnt
 LintCfg\au-ds.lnt
 LintCfg\au-misra.lnt
@@ -20080,12 +20070,12 @@ LintCfg\lintbugs.lnt
 LintCfg\options.lnt
 LintCfg\std.lnt
 11 File(s) copied
-cp -f fflint.mak dummy.c ..\snapshot_C48494\FIRMWARE
-cmd /E/C mkdir ..\snapshot_C48494\FIRMWARE\cmdbuild\Rel\project_FFAP
+cp -f fflint.mak dummy.c ..\snapshot_C48797\FIRMWARE
+cmd /E/C mkdir ..\snapshot_C48797\FIRMWARE\cmdbuild\Rel\project_FFAP
 if not exist cmdbuild\Rel\project_FFAP\lintclude.lnt gnumake proj=FFAP LINT LINT=echo
-cp -f cmdbuild\Rel\project_FFAP\lintclude.lnt ..\snapshot_C48494\FIRMWARE\cmdbuild\Rel\project_FFAP
-cmd /E/C mkdir ..\snapshot_C48494\FIRMWARE\tools
-xcopy /K/R/Y tools ..\snapshot_C48494\FIRMWARE\tools
+cp -f cmdbuild\Rel\project_FFAP\lintclude.lnt ..\snapshot_C48797\FIRMWARE\cmdbuild\Rel\project_FFAP
+cmd /E/C mkdir ..\snapshot_C48797\FIRMWARE\tools
+xcopy /K/R/Y tools ..\snapshot_C48797\FIRMWARE\tools
 tools\7za.exe
 tools\aloa.exe
 tools\bd.bat
@@ -20131,181 +20121,181 @@ tools\uniq.exe
 tools\XLSperl.exe
 tools\XmlToStdout.exe
 44 File(s) copied
-cmd /E/C mkdir ..\snapshot_C48494\FIRMWARE\..\FD-SW
-cp -r -f -d ..\FD-SW\\* ..\snapshot_C48494\FIRMWARE\..\FD-SW
-cmd /E/C del /S/A-R ..\snapshot_C48494\FIRMWARE\..\FD-SW\mak
-cmd /E/C del /S/A-R ..\snapshot_C48494\FIRMWARE\..\FD-SW\\*.a
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\lib\eep.a
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\lib\fbif.a
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\lib\fdev.a
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\lib\ffbl.a
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\lib\fgen.a
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\lib\hm.a
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\lib\hw.a
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\lib\hw_krn.a
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\lib\hw_main.a
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\lib\osif.emb.a
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\lib\osif.emb_main.a
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\lib\osif_krn.emb.a
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\lib\STM32F10x_StdPeriph_Driver.a
-cmd /E/C del /S/A-R ..\snapshot_C48494\FIRMWARE\..\FD-SW\\*.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\aifb.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\aofb.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\appl_alert.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\appl_dia.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\appl_dlh.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\appl_if.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\appl_nrv.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\appl_ptb.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\appl_res.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\appl_svi_swdl.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\app_mode.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\arfb.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\bufutils.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\controller_pid.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\cortextrap.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\cortextrapc.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\crc.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\csfb.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\ctrl_param_set.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\difb.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\dofb.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\eep_blk2.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\eep_blk3.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\eep_if.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\endofimage.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\fault2alert.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\fbif_dsc.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\ffactoryuse.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_ai.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_ao.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_ar.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_bas.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_cs.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_di.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_do.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_dom.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_fd.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_is.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_krn.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_mai.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_mo.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_os.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_pai.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_pao.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_pid.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_res.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\histogram.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\hm.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\hm_dma.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\hm_if.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\hm_task.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\hm_tools.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\hw_hm.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\hw_i2c.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\hw_init.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\hw_intr.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\hw_io.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\hw_os.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\hw_periph_cfg.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\hw_tim.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\instance.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\isfb.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\lui_ipc_variables.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\maifb.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\misc.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mnassert.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mncbdefs.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mncharactff.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mncortexm.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mnctllimff.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mndiagprocff.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mndoswff.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mnfaultsimport.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mnfindstopsff.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mnhart2ff.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mnipcff.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mnptberrors.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mnptbexec.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mntbmspff.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_actuator_3.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_advanced.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_block_header.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_checkproc.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_clear_status.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_cycle_counter_alert.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_decomp.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_deviation_alert.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_diagnostic_configuration.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_errorbits.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_factory_defaults.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_fstate.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_fwdl.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_fwdl_hart.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_grant_deny.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_hdr_validate.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_ip_drive_current_alert.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_near_closed_alert.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_pressure_extremes.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_remote_sensor.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_supply_pressure_alert.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_temperature_alert.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_travel_accumulation.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_travel_units.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_trends.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_ui_access_control.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_working_times.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_working_time_alert.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\mn_xd_errors.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\osfb.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\osif_cfg.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\osif_dbl.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\osif_mn.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\osif_sem.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\osif_tim.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\osif_tsk.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\pidfb.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\poschrtab.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\pressure_range.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\ptb.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\resb.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\spec_ds.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\startup_stm32f10x_xl.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\stm32f10x_crc.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\stm32f10x_exti.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\stm32f10x_flash.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\stm32f10x_fsmc.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\stm32f10x_gpio.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\stm32f10x_i2c.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\stm32f10x_rcc.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\stm32f10x_tim.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\stm32f10x_usart.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\stm_flash.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\stubs_app.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\ui_language.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\verinfo.o
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\mak\FF_SVI_DBG\obj\xmtx.o
-rm -f ..\snapshot_C48494\FIRMWARE\tools\\*.bat
-rm -f ..\snapshot_C48494\FIRMWARE\tools\mnsign.exe
-rm -f ..\snapshot_C48494\FIRMWARE\tools\XLSperl.exe
-rm -f ..\snapshot_C48494\FIRMWARE\tools\XmlToStdout.exe
-rm -f ..\snapshot_C48494\FIRMWARE\tools\MnHartCmds.dll
-cmd /E/C del /S/A-R ..\snapshot_C48494\FIRMWARE\..\FD-SW\\*.dps
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\appl\fbif\mak\makefile.dps
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\appl\fdev\mak\makefile.dps
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\appl\hm\mak\makefile.dps
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\hw\mak\makefile.dps
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\STM32F10x_StdPeriph_Driver\mak\makefile.dps
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\sys\eep\mak\makefile.dps
-Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48494\FD-SW\target\sys\osif.emb\mak\makefile.dps
-rm -f ..\..\snapshot_C48494\snapshot_C48494.zip
-rm: ..\..\snapshot_C48494\snapshot_C48494.zip not found.
-7za a -r ..\..\snapshot_C48494\snapshot_C48494.zip ..\snapshot_C48494\FIRMWARE ..\snapshot_C48494\FIRMWARE\..\FD-SW
+cmd /E/C mkdir ..\snapshot_C48797\FIRMWARE\..\FD-SW
+cp -r -f -d ..\FD-SW\\* ..\snapshot_C48797\FIRMWARE\..\FD-SW
+cmd /E/C del /S/A-R ..\snapshot_C48797\FIRMWARE\..\FD-SW\mak
+cmd /E/C del /S/A-R ..\snapshot_C48797\FIRMWARE\..\FD-SW\\*.a
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\lib\eep.a
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\lib\fbif.a
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\lib\fdev.a
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\lib\ffbl.a
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\lib\fgen.a
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\lib\hm.a
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\lib\hw.a
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\lib\hw_krn.a
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\lib\hw_main.a
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\lib\osif.emb.a
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\lib\osif.emb_main.a
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\lib\osif_krn.emb.a
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\lib\STM32F10x_StdPeriph_Driver.a
+cmd /E/C del /S/A-R ..\snapshot_C48797\FIRMWARE\..\FD-SW\\*.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\aifb.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\aofb.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\appl_alert.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\appl_dia.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\appl_dlh.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\appl_if.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\appl_nrv.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\appl_ptb.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\appl_res.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\appl_svi_swdl.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\app_mode.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\arfb.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\bufutils.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\controller_pid.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\cortextrap.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\cortextrapc.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\crc.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\csfb.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\ctrl_param_set.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\difb.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\dofb.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\eep_blk2.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\eep_blk3.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\eep_if.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\endofimage.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\fault2alert.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\fbif_dsc.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\ffactoryuse.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_ai.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_ao.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_ar.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_bas.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_cs.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_di.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_do.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_dom.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_fd.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_is.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_krn.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_mai.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_mo.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_os.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_pai.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_pao.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_pid.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\ffbl_res.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\histogram.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\hm.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\hm_dma.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\hm_if.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\hm_task.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\hm_tools.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\hw_hm.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\hw_i2c.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\hw_init.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\hw_intr.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\hw_io.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\hw_os.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\hw_periph_cfg.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\hw_tim.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\instance.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\isfb.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\lui_ipc_variables.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\maifb.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\misc.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mnassert.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mncbdefs.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mncharactff.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mncortexm.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mnctllimff.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mndiagprocff.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mndoswff.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mnfaultsimport.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mnfindstopsff.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mnhart2ff.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mnipcff.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mnptberrors.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mnptbexec.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mntbmspff.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_actuator_3.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_advanced.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_block_header.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_checkproc.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_clear_status.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_cycle_counter_alert.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_decomp.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_deviation_alert.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_diagnostic_configuration.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_errorbits.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_factory_defaults.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_fstate.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_fwdl.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_fwdl_hart.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_grant_deny.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_hdr_validate.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_ip_drive_current_alert.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_near_closed_alert.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_pressure_extremes.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_remote_sensor.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_supply_pressure_alert.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_temperature_alert.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_travel_accumulation.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_travel_units.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_trends.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_ui_access_control.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_working_times.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_working_time_alert.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\mn_xd_errors.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\osfb.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\osif_cfg.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\osif_dbl.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\osif_mn.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\osif_sem.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\osif_tim.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\osif_tsk.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\pidfb.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\poschrtab.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\pressure_range.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\ptb.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\resb.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\spec_ds.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\startup_stm32f10x_xl.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\stm32f10x_crc.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\stm32f10x_exti.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\stm32f10x_flash.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\stm32f10x_fsmc.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\stm32f10x_gpio.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\stm32f10x_i2c.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\stm32f10x_rcc.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\stm32f10x_tim.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\stm32f10x_usart.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\stm_flash.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\stubs_app.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\ui_language.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\verinfo.o
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\mak\FF_SVI_DBG\obj\xmtx.o
+rm -f ..\snapshot_C48797\FIRMWARE\tools\\*.bat
+rm -f ..\snapshot_C48797\FIRMWARE\tools\mnsign.exe
+rm -f ..\snapshot_C48797\FIRMWARE\tools\XLSperl.exe
+rm -f ..\snapshot_C48797\FIRMWARE\tools\XmlToStdout.exe
+rm -f ..\snapshot_C48797\FIRMWARE\tools\MnHartCmds.dll
+cmd /E/C del /S/A-R ..\snapshot_C48797\FIRMWARE\..\FD-SW\\*.dps
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\appl\fbif\mak\makefile.dps
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\appl\fdev\mak\makefile.dps
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\appl\hm\mak\makefile.dps
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\hw\mak\makefile.dps
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\STM32F10x_StdPeriph_Driver\mak\makefile.dps
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\sys\eep\mak\makefile.dps
+Deleted file - C:\tfsbuildR\SVIFF\Release1\snapshot_C48797\FD-SW\target\sys\osif.emb\mak\makefile.dps
+rm -f ..\..\snapshot_C48797\snapshot_C48797.zip
+rm: ..\..\snapshot_C48797\snapshot_C48797.zip not found.
+7za a -r ..\..\snapshot_C48797\snapshot_C48797.zip ..\snapshot_C48797\FIRMWARE ..\snapshot_C48797\FIRMWARE\..\FD-SW
 
 7-Zip (A) 4.65  Copyright (c) 1999-2009 Igor Pavlov  2009-02-03
 Scanning
 
-Creating archive ..\..\snapshot_C48494\snapshot_C48494.zip
+Creating archive ..\..\snapshot_C48797\snapshot_C48797.zip
 
 Compressing  FD-SW\base\appl\ffbl\inc\ffbl_ai.h
 Compressing  FD-SW\base\appl\ffbl\inc\ffbl_ao.h
@@ -21132,15 +21122,15 @@ Compressing  FIRMWARE\utilities\bufutils.c
 Compressing  FIRMWARE\utilities\crc.c
 
 Everything is Ok
-dir ..\..\snapshot_C48494\snapshot_C48494.zip
+dir ..\..\snapshot_C48797\snapshot_C48797.zip
  Volume in drive C is Windows7
  Volume Serial Number is 4E54-8AF8
 
- Directory of C:\tfsbuildR\SVIFF\snapshot_C48494
+ Directory of C:\tfsbuildR\SVIFF\snapshot_C48797
 
-01/26/2015  02:34 AM        52,277,813 snapshot_C48494.zip
-               1 File(s)     52,277,813 bytes
-               0 Dir(s)  34,230,898,688 bytes free
+02/03/2015  12:21 PM        52,277,671 snapshot_C48797.zip
+               1 File(s)     52,277,671 bytes
+               0 Dir(s)  33,679,233,024 bytes free
 echo Find it there!
 Find it there!
 gnumake[6]: Leaving directory `C:/tfsbuildR/SVIFF/Release1/FIRMWARE'
