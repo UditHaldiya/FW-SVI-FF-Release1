@@ -159,6 +159,22 @@ FLOAT pid_algo(T_PIDFB_DATA * p_pidfb_data, const  T_PIDFB * p_pidfb, T_PIDFB_CO
 
     output_val = tfpid_val + kpvl_val + kpvc_val;
 
+    //AK added a hack
+    if(p_pidfb->mode_blk.actual == MODE_IMAN)
+    {
+        //Propagate readback if we can
+        if((p_pidfb->bkcal_in.status & SQ_GOOD) != 0U)
+        {
+            FLOAT new_output_val = p_pidfb->bkcal_in.value;
+            FLOAT bump = output_val - new_output_val;
+            if ((FLOAT)0.0 != p_pidfb_data->ki)/* bumpless transfer only useful with integral term */
+            {
+                p_pidfb_data->I_sum = p_pidfb_data->I_sum - bump;
+                output_val = new_output_val;/* output shall not change */
+            }
+        }
+    }
+
     /* was previous output value limited ? */
     if (output_val >= p_pidfb->out_hi_lim)
     {
@@ -368,7 +384,7 @@ static BOOL pid_check_convert_to_ideal(T_PIDFB_DATA * p_pidfb_data, T_PIDFB * p_
 
     if(ALGO_PARALLEL == p_pidfb_data->last_algorithm)
     {
-        /* Conversion from Parallel to Ideal */ 
+        /* Conversion from Parallel to Ideal */
         if (FLOATMINIMUM <= p_pidfb_data->kp_2)/* changed because of division V 0.02 */
         {
             p_pidfb_data->ki    = p_pidfb_data->ki / p_pidfb_data->kp_2;
@@ -399,7 +415,7 @@ static BOOL pid_check_convert_to_ideal(T_PIDFB_DATA * p_pidfb_data, T_PIDFB * p_
     {
         if (FLOATMINIMUM <= p_pidfb_data->kpvl)
         {
-            /* Conversion from I-PD to Ideal */ 
+            /* Conversion from I-PD to Ideal */
             p_pidfb_data->kp_1    = p_pidfb_data->kpvl;
             p_pidfb_data->ki    = p_pidfb_data->ki;
             p_pidfb_data->kd    = p_pidfb_data->kpvc / p_pidfb_data->kpvl;
@@ -428,7 +444,7 @@ static BOOL pid_check_convert_to_ideal(T_PIDFB_DATA * p_pidfb_data, T_PIDFB * p_
     {
         if (FLOATMINIMUM <= p_pidfb_data->kp_2)
         {
-            /* Conversion from IP-D to Ideal */  
+            /* Conversion from IP-D to Ideal */
             p_pidfb_data->kp_1  = p_pidfb_data->kp_2;
             p_pidfb_data->ki    = p_pidfb_data->ki / p_pidfb_data->kp_2;
             p_pidfb_data->kd    = p_pidfb_data->kpvc / p_pidfb_data->kp_2;
@@ -552,7 +568,7 @@ static BOOL pid_check_convert_to_series(T_PIDFB_DATA * p_pidfb_data, T_PIDFB * p
         {
             /* Conversion from IP-D to series */
             p_pidfb_data->kp_1 = p_pidfb_data->kp_2;
-            p_pidfb_data->ki = p_pidfb_data->ki / p_pidfb_data->kp_2; 
+            p_pidfb_data->ki = p_pidfb_data->ki / p_pidfb_data->kp_2;
             p_pidfb_data->kd = p_pidfb_data->kpvc / p_pidfb_data->kp_2;
 
             /* defaults for serial */
@@ -1060,7 +1076,7 @@ static void cond_bump(T_PIDFB_DATA * p_pidfb_data, const  T_PIDFB * p_pidfb)
                 p_pidfb_data->bump_flag |= CONDMANAUTO;
             }
         }
-		
+
         if (MODE_ROUT == p_pidfb_data->last_new_target_mode)
         {
             if (0 < (p_pidfb->mode_blk.actual & (MODE_AUTO | MODE_CAS | MODE_RCAS)))
