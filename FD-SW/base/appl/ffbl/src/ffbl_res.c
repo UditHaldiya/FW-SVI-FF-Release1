@@ -177,6 +177,14 @@ FUNCTION_BODY
 
       break;
     }
+	case RES_PAR_SOFTWARE_REV:
+	{
+		p_resource->software_rev_ff = (0x01000014);
+		p_resource->software_rev_app = (0x01000014);
+		strncpy(p_resource->software_rev, "1.0.0.20  ", 9); // to be changed with Size of 
+		break;
+	}
+
   }
 
   return E_OK;
