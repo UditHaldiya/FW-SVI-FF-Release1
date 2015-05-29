@@ -54,6 +54,8 @@ INCLUDES
   #include "fbs_api.h"
   #include "ffbl_int.h"
   #include "ffbl_res.h"
+  #include <fbif_dcl.h>
+  #include <fbif_idx.h>
 
   #include "except.h"
 
@@ -143,6 +145,9 @@ LOCAL_VARIABLES
 FUNCTION_BODY
 
   _UNREF_PARAM (p_block_instance);
+  p_resb_desc   = p_block_instance->p_block_desc;
+  T_FBIF_RESB *p_resource_full = (T_FBIF_RESB *)(void *)p_resource;
+
 
  /* Check and/or update parameter to be read ----------------------------- */
   switch (p_read->rel_idx)
@@ -177,6 +182,21 @@ FUNCTION_BODY
 
       break;
     }
+      case REL_IDX_RESB_SOFTWARE_REV:
+      {
+          memcpy(p_resource_full->software_rev, c_resb.software_rev, sizeof(p_resource_full->software_rev));
+          break;
+      }
+      case REL_IDX_RESB_SOFTWARE_REV_FF:
+      {
+          p_resource_full->software_rev_ff = c_resb.software_rev_ff;
+          break;
+      }
+      case REL_IDX_RESB_SOFTWARE_REV_APP:
+      {
+          p_resource_full->software_rev_app = c_resb.software_rev_app;
+          break;
+      }
   }
 
   return E_OK;
