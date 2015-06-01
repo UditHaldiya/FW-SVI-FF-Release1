@@ -212,11 +212,11 @@ FLOAT pid_algo(T_PIDFB_DATA * p_pidfb_data, const  T_PIDFB * p_pidfb, T_PIDFB_CO
 
     if (CONDMANAUTO == (p_pidfb_data->bump_flag & CONDMANAUTO))/* has the mode switched from MANUAL to anything  else ? */
     {    /* then a bump less transfer from last Manual output to actual output must be provided */
-        FLOAT bump = output_val - p_pidfb_data->out.value;
+        FLOAT bump = output_val - p_pidfb->out.value;
         if ((FLOAT)0.0 != p_pidfb_data->ki)/* bumpless transfer only useful with integral term */
         {
             p_pidfb_data->I_sum = p_pidfb_data->I_sum - bump;
-            output_val = p_pidfb_data->out.value;/* output shall not change */
+            output_val = p_pidfb->out.value;/* output shall not change */
         }
     }
 
