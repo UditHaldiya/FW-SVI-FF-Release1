@@ -1902,7 +1902,13 @@ FUNCTION_BODY
       p_pidfb->out.value   = p_pidfb->rout_in.value;
     }
 
-    else if ((actual_mode == MODE_MAN)||(actual_mode == MODE_IMAN))
+    //Ugly hack for viewing pleasure; no effect on actual behavior
+	if(actual_mode == MODE_IMAN)
+	{
+        p_pidfb->out  = p_pidfb->bkcal_in;
+	}
+	
+	if ((actual_mode == MODE_MAN)||(actual_mode == MODE_IMAN))
     {
       if (p_pidfb_data->downstream == PID_DOWNSTREAM_INIT)
       {
