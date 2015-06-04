@@ -1905,7 +1905,7 @@ FUNCTION_BODY
     //Ugly hack for viewing pleasure; no effect on actual behavior
 	if(actual_mode == MODE_IMAN)
 	{
-        p_pidfb->out  = p_pidfb->bkcal_in;
+        p_pidfb->out.value  = p_pidfb->bkcal_in.value;
 	}
 	
 	if ((actual_mode == MODE_MAN)||(actual_mode == MODE_IMAN))
