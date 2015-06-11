@@ -1886,6 +1886,7 @@ VARIABLE_LIST ptb_view_1
         /* PTB_VIEW_1_LIST */
         VL_ST_REV,                       PARAM.ST_REV;
         VL_MODE_BLK,                     PARAM.MODE_BLK;
+		VL_BLOCK_ERR,                    PARAM.BLOCK_ERR;
         VL_FINAL_VALUE,                  PARAM.FINAL_VALUE;
         VL_FINAL_POSITION_VALUE,         PARAM.FINAL_POSITION_VALUE;
         VL_WORKING_SP,                   PARAM.WORKING_SP;
