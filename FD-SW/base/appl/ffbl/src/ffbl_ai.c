@@ -58,7 +58,7 @@ INCLUDES
   #include "ffbl_int.h"
   #include "ffbl_ai.h"
 
-//lint -estring(457,working_scale) - this is probably wrong in general but good for what lint had in mind:
+//lint -estring(457,working_scale) this is probably wrong in general but good for what lint had in mind:
 /*
 Warning 457: Function 'Execute_AIFB(struct _T_FBIF_BLOCK_INSTANCE *)' of type
     'unsigned short (struct _T_FBIF_BLOCK_INSTANCE *)' of thread
