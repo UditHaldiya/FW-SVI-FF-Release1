@@ -1959,7 +1959,7 @@ VARIABLE_LIST ptb_view_3
         VL_DISCRETE_INPUT,               PARAM.DISCRETE_INPUT;
 
         VL_ST_REV_02,                    PARAM.ST_REV;
-        /* VL_MODE_BLK,                     PARAM.MODE_BLK;  */
+        VL_MODE_BLK,                     PARAM.MODE_BLK;
         VL_BLOCK_ERR,                    PARAM.BLOCK_ERR;
         VL_XD_ERROR_POS,                 PARAM.XD_ERROR_POS;
         VL_XD_ERROR_PRESSURE,            PARAM.XD_ERROR_PRESSURE;
