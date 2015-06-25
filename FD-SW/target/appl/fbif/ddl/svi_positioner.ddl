@@ -1929,7 +1929,6 @@ VARIABLE_LIST ptb_view_3
     {
         /* PTB_VIEW_3_LIST*/
         VL_ST_REV,                       PARAM.ST_REV;
-        VL_MODE_BLK,                     PARAM.MODE_BLK;
         VL_FINAL_VALUE,                  PARAM.FINAL_VALUE;
         VL_FINAL_POSITION_VALUE,         PARAM.FINAL_POSITION_VALUE;
         VL_WORKING_SP,                   PARAM.WORKING_SP;
