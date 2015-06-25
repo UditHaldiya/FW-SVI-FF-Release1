@@ -1,12 +1,12 @@
 #Do not change unless instructed
 manufacturer_ID:=004745
 export type_ID:=0008
-DEVICE_REV:=02
+DEVICE_REV:=01
 DD_REV:=01
 MIN_DD_REV:=01
 RES_DEV_MINOR_REV:=0
 RES_BUILD:=0
-RES_BUILD_REV:=2
+RES_BUILD_REV:=23
 
 #debug
 Hide:=@
