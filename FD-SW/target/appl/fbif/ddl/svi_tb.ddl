@@ -52,7 +52,10 @@ UNIT pressure_unit_relation
     PARAM.PRESSURE_EXTREMES.ACTUATOR_B_MAX,
     PARAM.PRESSURE_EXTREMES.ACTUATOR_B_MIN,
     PARAM.PRESSURE_EXTREMES.PILOT_MAX,
-    PARAM.PRESSURE_EXTREMES.PILOT_MIN
+    PARAM.PRESSURE_EXTREMES.PILOT_MIN,
+    PARAM.ACTUATOR_3.SUPPLY_PRS_MAX,
+    PARAM.ACTUATOR_3.PRS_CONTROL_HI,
+    PARAM.ACTUATOR_3.PRS_CONTROL_LO
 }
 
 UNIT working_sp_unit_relation
@@ -334,6 +337,7 @@ VARIABLE _deadband
     CONSTANT_UNIT [unit_code_1342];
 
 }
+
 VARIABLE _alert
 {
     LABEL LBL_ALERT;
@@ -343,7 +347,6 @@ VARIABLE _alert
     {
         ENUM_ALERT_STATE
     }
-    HANDLING READ;
 }
 
 VARIABLE _historic_alert_for_near_closed_alert
@@ -363,7 +366,6 @@ VARIABLE _historic_alert
     {
         ENUM_ALERT_STATE
     }
-    HANDLING READ;
 }
 VARIABLE _enable
 {
@@ -782,51 +784,51 @@ position_hihi_point LIKE VARIABLE float_nd_with_max_min
 {
     REDEFINE LABEL LBL_POSITION_HIHI_POINT;
     REDEFINE HELP  HLP5(HLP_POSITION_HIHI_POINT);
-    REDEFINE_DATA_LIMITS(FLOAT, 0.1, 200)
+    REDEFINE_DATA_LIMITS(FLOAT, 0, 12000)
 }
 position_hihi_deadband LIKE VARIABLE float_nd_with_max_min
 {
     REDEFINE LABEL LBL_POSITION_HIHI_DEADBAND;
     REDEFINE HELP  HLP5(HLP_POSITION_HIHI_DEADBAND);
-    REDEFINE_DATA_LIMITS(FLOAT, 0.1, 10)
+    REDEFINE_DATA_LIMITS(FLOAT, 0.1, 1000)
 }
 
 position_hi_point LIKE VARIABLE float_nd_with_max_min
 {
     REDEFINE LABEL LBL_POSITION_HI_POINT;
     REDEFINE HELP  HLP5(HLP_POSITION_HI_POINT);
-    REDEFINE_DATA_LIMITS(FLOAT, 0.1, 200)
+    REDEFINE_DATA_LIMITS(FLOAT, 0, 12000)
 }
 position_hi_deadband LIKE VARIABLE float_nd_with_max_min
 {
     REDEFINE LABEL LBL_POSITION_HI_DEADBAND;
     REDEFINE HELP  HLP5(HLP_POSITION_HI_DEADBAND);
-    REDEFINE_DATA_LIMITS(FLOAT, 0.1, 10)
+    REDEFINE_DATA_LIMITS(FLOAT, 0.1, 1000)
 }
 position_lo_point LIKE VARIABLE float_nd_with_max_min
 {
     REDEFINE LABEL LBL_POSITION_LO_POINT;
     REDEFINE HELP  HLP5(HLP_POSITION_LO_POINT);
-    REDEFINE_DATA_LIMITS(FLOAT, -51, 199)
+    REDEFINE_DATA_LIMITS(FLOAT, -5000, 10000)
 }
 position_lo_deadband LIKE VARIABLE float_nd_with_max_min
 {
     REDEFINE LABEL LBL_POSITION_LO_DEADBAND;
     REDEFINE HELP  HLP5(HLP_POSITION_LO_DEADBAND);
-    REDEFINE_DATA_LIMITS(FLOAT, 0.1, 10)
+    REDEFINE_DATA_LIMITS(FLOAT, 0.1, 1000)
 }
 
 position_lolo_point LIKE VARIABLE float_nd_with_max_min
 {
     REDEFINE LABEL LBL_POSITION_LOLO_POINT;
     REDEFINE HELP  HLP5(HLP_POSITION_LOLO_POINT);
-    REDEFINE_DATA_LIMITS(FLOAT, -51, 199)
+    REDEFINE_DATA_LIMITS(FLOAT, -5000, 10000)
 }
 position_lolo_deadband LIKE VARIABLE float_nd_with_max_min
 {
     REDEFINE LABEL LBL_POSITION_LOLO_DEADBAND;
     REDEFINE HELP  HLP5(HLP_POSITION_LOLO_DEADBAND);
-    REDEFINE_DATA_LIMITS(FLOAT, 0.1, 10)
+    REDEFINE_DATA_LIMITS(FLOAT, 0.1, 1000)
 }
 
 VARIABLE xd_fs_configuration
@@ -980,8 +982,7 @@ VARIABLE trvl_accmltn_alert_point
 {
     LABEL           "|en|Alert Point" ;
     CLASS           CONTAINED;
-    TYPE            UNSIGNED_INTEGER (4)
-	DATA_LIMITS(0, 0xFFFFFFFF)
+    TYPE            UNSIGNED_INTEGER (4);
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~/
@@ -1786,7 +1787,7 @@ RECORD working_sp
     HELP HLP5(HLP_111_WORKING_SP);
     MEMBERS
     {
-        STATUS,                                  __status_contained;
+        STATUS,                                  __status_contained_r;
         VALUE,                                   __float_contained;
     }
 }
@@ -1796,7 +1797,7 @@ RECORD working_pos
     HELP HLP5(HLP_114_WORKING_POS);
     MEMBERS
     {
-        STATUS,                                  __status_contained;
+        STATUS,                                  __status_contained_r;
         VALUE,                                   __float_contained;
     }
 }
@@ -2970,7 +2971,7 @@ VARIABLE  _actuator_a_max
     HELP  HLP5(HLP_ACTUATOR_A_MAX);
     CLASS CONTAINED;
     TYPE FLOAT
-    DATA_LIMITS_FOR_PRESS_UNITS(-25,1050)
+    DATA_LIMITS(-25,1050)
 }
 VARIABLE  _actuator_a_min
 {
@@ -2978,7 +2979,7 @@ VARIABLE  _actuator_a_min
     HELP  HLP5(HLP_ACTUATOR_A_MIN);
     CLASS CONTAINED;
     TYPE FLOAT
-    DATA_LIMITS_FOR_PRESS_UNITS(-25,1050)
+    DATA_LIMITS(-25,1050)
 }
 VARIABLE  _actuator_b_max
 {
@@ -2986,7 +2987,7 @@ VARIABLE  _actuator_b_max
     HELP  HLP5(HLP_ACTUATOR_B_MAX);
     CLASS CONTAINED;
     TYPE FLOAT
-    DATA_LIMITS_FOR_PRESS_UNITS(-25,1050)
+    DATA_LIMITS(-25,1050)
 }
 VARIABLE  _actuator_b_min
 {
@@ -2994,7 +2995,7 @@ VARIABLE  _actuator_b_min
     HELP  HLP5(HLP_ACTUATOR_B_MIN);
     CLASS CONTAINED;
     TYPE FLOAT
-    DATA_LIMITS_FOR_PRESS_UNITS(-25,1050)
+    DATA_LIMITS(-25,1050)
 }
 _air_supply_alert_r LIKE VARIABLE _deviation_alert_r
 {
@@ -3030,17 +3031,16 @@ VARIABLE  _alert_point_press_hi
     HELP  HLP5(HLP_ALERT_POINT_PRESS_HI);
     CLASS CONTAINED;
     TYPE FLOAT
-    DATA_LIMITS_FOR_PRESS_UNITS(0,1034.2)
-
+    DATA_LIMITS(0,1035)
 }
+
 VARIABLE  _alert_point_press_lo
 {
     LABEL LBL_ALERT_POINT_PRESS_LO;
     HELP  HLP5(HLP_ALERT_POINT_PRESS_LO);
     CLASS CONTAINED;
     TYPE FLOAT
-    DATA_LIMITS_FOR_PRESS_UNITS(0,1034.2)
-    /* DATA_LIMITS(0,150) */
+    DATA_LIMITS(0,1035)
 }
 VARIABLE  _alert_point_temp_hi
 {
@@ -3218,7 +3218,7 @@ VARIABLE  _deadband_press
     HELP  HLP5(HLP_DEADBAND_PRESS);
     CLASS CONTAINED;
     TYPE FLOAT
-    DATA_LIMITS_FOR_PRESS_UNITS(0,20)
+    DATA_LIMITS(0,20)
     /* DATA_LIMITS(0,2) */
 }
 VARIABLE  _deadband_temp
@@ -3588,7 +3588,7 @@ VARIABLE  _pilot_max
     HELP  HLP5(HLP_PILOT_MAX);
     CLASS CONTAINED;
     TYPE FLOAT
-    DATA_LIMITS_FOR_PRESS_UNITS(-25,1050)
+    DATA_LIMITS(-25,1050)
 }
 VARIABLE  _pilot_min
 {
@@ -3596,7 +3596,7 @@ VARIABLE  _pilot_min
     HELP  HLP5(HLP_PILOT_MIN);
     CLASS CONTAINED;
     TYPE FLOAT
-    DATA_LIMITS_FOR_PRESS_UNITS(-25,1050)
+    DATA_LIMITS(-25,1050)
 }
 VARIABLE  _plug_type
 {
@@ -3868,7 +3868,7 @@ VARIABLE  _supply_pressure_max
     HELP  HLP5(HLP_SUPPLY_PRESSURE_MAX);
     CLASS CONTAINED;
     TYPE FLOAT
-    DATA_LIMITS_FOR_PRESS_UNITS(-25,1050)
+    DATA_LIMITS(-25,1050)
 }
 VARIABLE  _supply_pressure_min
 {
@@ -3876,7 +3876,7 @@ VARIABLE  _supply_pressure_min
     HELP  HLP5(HLP_SUPPLY_PRESSURE_MIN);
     CLASS CONTAINED;
     TYPE FLOAT
-    DATA_LIMITS_FOR_PRESS_UNITS(-25,1050)
+    DATA_LIMITS(-25,1050)
 }
 _supporting_hardware_alert_r LIKE VARIABLE _deviation_alert_r
 {
@@ -4306,7 +4306,7 @@ ARRAY advanced
     LABEL LBL_ADVANCED;
     HELP HLP5(HLP_ADVANCED);
     TYPE uint_4_element_nd;
-    NUMBER_OF_ELEMENTS 10;
+    NUMBER_OF_ELEMENTS 14;
 }
 
 VARIABLE readback_select
@@ -4549,19 +4549,19 @@ _supply_pres_max LIKE VARIABLE float_nd_with_max_min
 {
     REDEFINE LABEL LBL_560_SUPPLY_PRS_MAX;
     REDEFINE HELP  HLP_560_SUPPLY_PRS_MAX;
-	REDEFINE_DATA_LIMITS_FOR_PRESS_UNITS(FLOAT, 0, 241.3)
+	REDEFINE_DATA_LIMITS(FLOAT, 0, 241.3)
 }
 _prs_control_hi LIKE VARIABLE float_nd_with_max_min
 {
     REDEFINE LABEL LBL_561_PRS_CONTROL_HI;
     REDEFINE HELP  HLP_561_PRS_CONTROL_HI;
-	REDEFINE_DATA_LIMITS_FOR_PRESS_UNITS(FLOAT, 0, 103.4)
+	REDEFINE_DATA_LIMITS(FLOAT, 0, 103.4)
 }
 _prs_control_lo  LIKE VARIABLE float_nd_with_max_min
 {
     REDEFINE LABEL LBL_562_PRS_CONTROL_LO;
     REDEFINE HELP  HLP_562_PRS_CONTROL_LO;
-	REDEFINE_DATA_LIMITS_FOR_PRESS_UNITS(FLOAT, 0, 20.6)
+	REDEFINE_DATA_LIMITS(FLOAT, 0, 20.6)
 }
 
 ARRAY factory_use_1
@@ -4834,6 +4834,8 @@ METHOD  do_find_stops
             
         } while(us8_buf == FINDSTOPS_START || us8_buf == FINDSTOPS_RUNNING ) /* Continue */;
 
+        delayfor(3, "|en|Checking fins stops status ...\n", dummy, dummy, 0);
+
         /* report find stops success/faild */
         id = ITEM_ID(PARAM.COMPLETE_STATUS);
         mb = MEMBER_ID(CURRENT_STATUS_1_C);
@@ -5083,7 +5085,7 @@ METHOD do_autotune
         chk_cnt = 0;
         do {
 
-            delayfor( 3, "|en|The auto tune running(%[d]{chk_cnt})......", dummy, dummy, 0);
+            delayfor( 3, "|en|The auto tune is running(%[d]{chk_cnt})...", dummy, dummy, 0);
 
             /* check the status for find stops in the device status*/
             id = ITEM_ID(PARAM.AUTOTUNE);
@@ -5107,7 +5109,7 @@ METHOD do_autotune
             }
         } while ( us8_buf == AUTOTUNE_START || us8_buf == AUTOTUNE_RUNNING );
 
-        delayfor( 5, "|en|The auto tune running(%[d]{chk_cnt})......", dummy, dummy, 0);
+        delayfor( 5, "|en|The auto tune is running(%[d]{chk_cnt})...", dummy, dummy, 0);
 
         /* report auto tune success/faild */
         id = ITEM_ID(PARAM.COMPLETE_STATUS);

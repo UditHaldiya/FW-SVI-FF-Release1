@@ -179,6 +179,7 @@ MENU hdevice_ptb
     /* STYLE MENU; */
     ITEMS
     {
+        mnu_startup
         mnu_manualsetpoint
         mnu_manualsetup
         mnu_config
@@ -221,6 +222,7 @@ MENU device_root_menu_ptb
     STYLE MENU;
     ITEMS
     {
+        mnu_startup
         mnu_manualsetpoint
         mnu_manualsetup
         mnu_config
@@ -521,29 +523,189 @@ CHART mnu_act_press_gauge
     }
 }
 
+MENU mnu_final_value
+{
+    LABEL "|en|Final Value";
+    STYLE GROUP;
+    ITEMS
+    {
+        PARAM.FINAL_VALUE.STATUS
+        EDD(COLUMNBREAK)
+        PARAM.FINAL_VALUE.VALUE
+        EDD(ROWBREAK)
+    }
+}
+
+MENU mnu_finalposition_value
+{
+    LABEL "|en|Final Position Value";
+    STYLE GROUP;
+    ITEMS
+    {
+        PARAM.FINAL_POSITION_VALUE.STATUS
+        EDD(COLUMNBREAK)
+        PARAM.FINAL_POSITION_VALUE.VALUE
+        EDD(ROWBREAK)
+    }
+}
+
+MENU mnu_workingsp_value
+{
+    LABEL "|en|Working SP";
+    STYLE GROUP;
+    ITEMS
+    {
+        PARAM.WORKING_SP.STATUS
+        EDD(COLUMNBREAK)
+        PARAM.WORKING_SP.VALUE
+        EDD(ROWBREAK)
+    }
+}
+
+MENU mnu_workingpos_value
+{
+    LABEL "|en|Working Pos";
+    STYLE GROUP;
+    ITEMS
+    {
+        PARAM.WORKING_POS.STATUS
+        EDD(COLUMNBREAK)
+        PARAM.WORKING_POS.VALUE
+        EDD(ROWBREAK)
+    }
+}
+
+MENU mnu_position_group
+{
+    LABEL "|en|Position";
+    STYLE GROUP;
+    ITEMS
+    {
+        mnu_final_value
+        mnu_finalposition_value
+        mnu_workingsp_value
+        mnu_workingpos_value
+    }
+}
+
+MENU mnu_supply_pressure
+{
+    LABEL "|en|Supply Pressure";
+    STYLE GROUP;
+    ITEMS
+    {
+        PARAM.SUPPLY_PRESSURE.STATUS
+        EDD(COLUMNBREAK)
+        PARAM.SUPPLY_PRESSURE.VALUE
+        EDD(ROWBREAK)
+    }
+}
+
+MENU mnu_actuator_a_pressure
+{
+    LABEL "|en|Actuator A Pressure";
+    STYLE GROUP;
+    ITEMS
+    {
+        PARAM.ACTUATOR_A_PRESSURE.STATUS
+        EDD(COLUMNBREAK)
+        PARAM.ACTUATOR_A_PRESSURE.VALUE
+        EDD(ROWBREAK)
+    }
+}
+
+MENU mnu_actuator_b_pressure
+{
+    LABEL "|en|Actuator B Pressure";
+    STYLE GROUP;
+    ITEMS
+    {
+        PARAM.ACTUATOR_B_PRESSURE.STATUS
+        EDD(COLUMNBREAK)
+        PARAM.ACTUATOR_B_PRESSURE.VALUE
+        EDD(ROWBREAK)
+    }
+}
+
+MENU mnu_atmospheric_pressure
+{
+    LABEL "|en|Atmospheric Pressure";
+    STYLE GROUP;
+    ITEMS
+    {
+        PARAM.ATMOSPHERIC_PRESSURE.STATUS
+        EDD(COLUMNBREAK)
+        PARAM.ATMOSPHERIC_PRESSURE.VALUE
+        EDD(ROWBREAK)
+    }
+}
+
+MENU mnu_pilot_pressure
+{
+    LABEL "|en|Pilot Pressure";
+    STYLE GROUP;
+    ITEMS
+    {
+        PARAM.PILOT_PRESSURE.STATUS
+        EDD(COLUMNBREAK)
+        PARAM.PILOT_PRESSURE.VALUE
+        EDD(ROWBREAK)
+    }
+}
+
+MENU mnu_pressure_group
+{
+    LABEL "|en|Pressure";
+    STYLE GROUP;
+    ITEMS
+    {
+        mnu_supply_pressure
+        mnu_actuator_a_pressure
+        mnu_actuator_b_pressure
+        mnu_atmospheric_pressure
+        mnu_pilot_pressure
+    }
+}
+
+MENU mnu_current_group
+{
+    LABEL "|en|I/P";
+    STYLE GROUP;
+    ITEMS
+    {
+        PARAM.IP_DRIVE_CURRENT.STATUS
+        EDD(COLUMNBREAK)
+        PARAM.IP_DRIVE_CURRENT.VALUE
+        EDD(ROWBREAK)
+    }
+}
+
+MENU mnu_temperature_group
+{
+    LABEL "|en|I/P";
+    STYLE GROUP;
+    ITEMS
+    {
+        PARAM.TEMPERATURE.STATUS
+        EDD(COLUMNBREAK)
+        PARAM.TEMPERATURE.VALUE
+        EDD(COLUMNBREAK)
+        PARAM.XD_ERROR_TEMPERATURE
+        EDD(ROWBREAK)
+    }
+}
+
 MENU mnu_ao_control
 {
     LABEL "|en|AO Control";
     STYLE WINDOW;
     ITEMS
     {
-        PARAM.FINAL_VALUE.STATUS
-        EDD(COLUMNBREAK)
-        PARAM.FINAL_VALUE.VALUE
-        EDD(COLUMNBREAK)
-        PARAM.FINAL_POSITION_VALUE.STATUS
-        EDD(COLUMNBREAK)
-        PARAM.FINAL_POSITION_VALUE.VALUE
-        EDD(ROWBREAK)
-        mnu_final_value_trend
-        EDD(ROWBREAK)
-        PARAM.WORKING_SP.STATUS
-        EDD(COLUMNBREAK)
-        PARAM.WORKING_SP.VALUE
-        EDD(COLUMNBREAK)
-        PARAM.WORKING_POS.STATUS
-        EDD(COLUMNBREAK)
-        PARAM.WORKING_POS.VALUE
+        mnu_tbmode_mode
+        mnu_position_group
+        mnu_pressure_group
+        mnu_current_group
+        mnu_temperature_group
     }
 }
 
@@ -647,6 +809,115 @@ MENU mnu_mode_row
         PARAM.MODE_BLK.PERMITTED
         EDD(COLUMNBREAK)
         change_app_mode
+    }
+}
+
+MENU  mnu_tbmode_mode
+{
+    LABEL "|en|Block Mode";
+    STYLE GROUP;
+    ITEMS
+    {
+        PARAM.MODE_BLK.TARGET
+        EDD(COLUMNBREAK)
+        PARAM.MODE_BLK.ACTUAL
+        EDD(ROWBREAK)
+    }
+}
+
+MENU mnu_tuningdata
+{
+    LABEL "|en|Tuning Data";
+    STYLE GROUP;
+    ITEMS
+    {
+        PARAM.ACTIVATE_CONTROL_SET
+        EDD(ROWBREAK)
+        PARAM.ACTIVE_CONTROL_SET.P
+        PARAM.ACTIVE_CONTROL_SET.I
+        PARAM.ACTIVE_CONTROL_SET.D
+        PARAM.ACTIVE_CONTROL_SET.PADJ
+        PARAM.ACTIVE_CONTROL_SET.BETA
+        PARAM.ACTIVE_CONTROL_SET.POSCOMP
+        PARAM.ACTIVE_CONTROL_SET.DEADZONE
+        PARAM.ACTIVE_CONTROL_SET.NONLIN
+        EDD(COLUMNBREAK)
+        PARAM.CUSTOM_CONTROL_SET.P
+        PARAM.CUSTOM_CONTROL_SET.I
+        PARAM.CUSTOM_CONTROL_SET.D
+        PARAM.CUSTOM_CONTROL_SET.PADJ
+        PARAM.CUSTOM_CONTROL_SET.BETA
+        PARAM.CUSTOM_CONTROL_SET.POSCOMP
+        PARAM.CUSTOM_CONTROL_SET.DEADZONE
+        PARAM.CUSTOM_CONTROL_SET.NONLIN
+    }
+}
+
+MENU mnu_characterization
+{
+    LABEL "|en|Characterization";
+    STYLE GROUP;
+    ITEMS
+    {
+        PARAM.CHAR_SELECTION.TYPE_1 /*_svi2*/
+        EDD(COLUMNBREAK)
+        PARAM.CHAR_SELECTION.NUMBER_OF_POINTS_1 /*_svi2*/
+        EDD(COLUMNBREAK)
+        mnu_characterPoints
+    }
+}
+
+MENU mnu_characterPoints
+{
+    LABEL "|en|Characterization Points";
+    STYLE WINDOW;
+    ITEMS
+    {
+        /*mnu_custom_char_points*/
+        /*EDD(ROWBREAK)*/
+        /*mnu_current_char_points*/
+
+        PARAM.CUSTOM_CHAR_POINTS
+        EDD(ROWBREAK)
+        PARAM.CURRENT_CHAR_POINTS
+    }
+}
+
+MENU mnu_travelrange
+{
+    LABEL "|en|Travel";
+    STYLE GROUP;
+    ITEMS
+    {
+        PARAM.TRAVEL.RANGE
+        EDD(COLUMNBREAK)
+        PARAM.TRAVEL.UNITS_INDEX
+        EDD(COLUMNBREAK)
+        PARAM.OPEN_STOP_ADJUSTMENT
+    }
+}
+
+MENU mnu_startup
+{
+    LABEL "|en|Startup";
+    ITEMS
+    {
+        mnu_tbmode_mode
+        PARAM.ACTUATOR_3.ACT_FAIL_ACTION_1
+        EDD(COLUMNBREAK)
+        PARAM.ACCESSORY.REMOTE_SENSOR
+        EDD(ROWBREAK)
+        mnu_tuningdata
+        EDD(ROWBREAK)
+        mnu_characterization
+        EDD(ROWBREAK)
+        mnu_travelrange
+        EDD(ROWBREAK)
+        do_find_stops
+        EDD(COLUMNBREAK)
+        do_manual_hi_low_stops
+        EDD(COLUMNBREAK)
+        do_autotune
     }
 }
 
@@ -1553,24 +1824,6 @@ MENU mnu_positioning
         /* mnu_custom_char_points */
     }
 }
-
-/* MENU mnu_current_char_points */
-/* { */
-/*     LABEL "|en|Current Char. Points"; */
-/*     ITEMS */
-/*     { */
-/*         PARAM.CURRENT_CHAR_POINTS */
-/*     } */
-/* } */
-
-/* MENU mnu_custom_char_points */
-/* { */
-/*     LABEL "|en|Custom Char. Points"; */
-/*     ITEMS */
-/*     { */
-/*         PARAM.CUSTOM_CHAR_POINTS */
-/*     } */
-/* } */
 
 MENU mnu_limits
 {

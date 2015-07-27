@@ -816,49 +816,49 @@ MENU device_status_#x_tb                                \
 
 #define HLP_POSITION_HIHI_POINT  \
   "|en|POSITION Value, above which the ALERT will be set to True.  Should be set" \
-  " above POSITION_HI_ALERT.ALERT_POINT. The range is [0.1, 200]" \
+  " above POSITION_HI_ALERT.ALERT_POINT. The range is [0, 12000]" \
 
 #define LBL_POSITION_HIHI_DEADBAND "|en|Deadband" \
 
 #define HLP_POSITION_HIHI_DEADBAND  \
   "|en|POSITION change, required to clear the ALERT, once it was set to True" \
-  " The range is [0.01, 10]" \
+  " The range is [0.1, 1000]" \
 
 #define LBL_POSITION_HI_POINT   "|en|Alert HI Point" \
 
 #define HLP_POSITION_HI_POINT \
   "|en|POSITION Value, above which the ALERT will be set to True.  Should be set" \
-  " above POSITION_LO_ALERT.ALERT_POINT. The range is [0.1, 200]" \
+  " above POSITION_LO_ALERT.ALERT_POINT. The range is [0, 12000]" \
 
 #define LBL_POSITION_HI_DEADBAND "|en|Deadband" \
 
 #define HLP_POSITION_HI_DEADBAND  \
   "|en|POSITION change, required to clear the ALERT, once it was set to True" \
-  " The range is [0.01, 10]" \
+  " The range is [0.1, 1000]" \
 
 #define LBL_POSITION_LO_POINT   "|en|Alert LO Point" \
 
 #define HLP_POSITION_LO_POINT \
   "|en|POSITION Value, below which the ALERT will be set to True.  Should be set" \
-  " below POSITION_HI_ALERT.ALERT_POINT. The range is [-51, 199]" \
+  " below POSITION_HI_ALERT.ALERT_POINT. The range is [-5000, 10000]" \
 
 #define LBL_POSITION_LO_DEADBAND "|en|Deadband" \
 
 #define HLP_POSITION_LO_DEADBAND  \
   "|en|POSITION change, required to clear the ALERT, once it was set to True" \
-  " The range is [0.01, 10]" \
+  " The range is [0.1, 1000]" \
 
 #define LBL_POSITION_LOLO_POINT   "|en|Alert LOLO Point" \
 
 #define HLP_POSITION_LOLO_POINT \
   "|en|POSITION Value, below which the ALERT will be set to True.  Should be set" \
-  " below POSITION_LO_ALERT.ALERT_POINT. The range is [-51, 199]" \
+  " below POSITION_LO_ALERT.ALERT_POINT. The range is [-5000, 10000]" \
 
 #define LBL_POSITION_LOLO_DEADBAND "|en|Deadband" \
 
 #define HLP_POSITION_LOLO_DEADBAND  \
   "|en|POSITION change, required to clear the ALERT, once it was set to True" \
-  " The range is [0.01, 10]" \
+  " The range is [0.1, 1000]" \
 
 #define HLP_FINAL_VALUE                                                                   \
   "|en| The requested valve position, written by the AO FB"                             \
@@ -1058,7 +1058,7 @@ MENU device_status_#x_tb                                \
 #define LBL_LIMITS_PROTECTED             "|en|Limits Protected"
 #define LBL_LIMIT_HI                     "|en|Limit HI"
 #define LBL_LIMIT_LO                     "|en|Limit LO"
-#define LBL_LIMIT_RATE                   "|en|Limit Rate"
+#define LBL_LIMIT_RATE                   "|en|Setpoint Limit Rate"
 #define LBL_LOCK_LEVEL                   "|en|Lock Level"
 #define LBL_MANUFACTURER                 "|en|Manufacturer"
 #define LBL_MESSAGE                      "|en|Message"
@@ -1290,10 +1290,10 @@ MENU device_status_#x_tb                                \
   "|en| Position Limit LO enabled"                                                \
 
 #define HLP_ENABLE_RATE_HI                                                        \
-  "|en| Position Rate Limit enabled, when setpoint is higher"                     \
+  "|en| Setpoint Rate Limit enabled, when setpoint is higher"                     \
 
 #define HLP_ENABLE_RATE_LO                                                        \
-  "|en| Position Rate Limit enabled, when setpoint is lower"                      \
+  "|en| Setpoint Rate Limit enabled, when setpoint is lower"                      \
 
 #define HLP_FF                                                                    \
   "|en| FF related failed State"                                                  \
@@ -1351,7 +1351,7 @@ MENU device_status_#x_tb                                \
   "|en| Position Limit LO Point"                                                  \
 
 #define HLP_LIMIT_RATE                                                            \
-  "|en| Position Rate Limit "                                                     \
+  "|en| Setpoint Rate Limit "                                                     \
 
 #define HLP_LOCK_LEVEL                      "|en|"                                \
 
@@ -3321,7 +3321,7 @@ MENU device_status_#x_tb                                \
     { 0x80000000,  "|en|No Error" }, \
     { 0x40000000,  "|en|Mode Switch Error" }, \
     { 0x20000000,  "|en|HART Response Time out" }, \
-    { 0x10000000,  "|en|SP Source conflict" }, \
+    { 0x10000000,  "|en|Channel Configuration Conflict" }, \
     { 0x08000000,  "|en|Find Stops Failed" } \
 
 #define ENUM_PROPAGATE_MODE                       \
@@ -3484,8 +3484,8 @@ MENU device_status_#x_tb                                \
   {255, "|en|Activate Custom (Defined in CUSTOM_CHAR.CUSTOM_CHAR_POINTS)", "|en|Activate Custom (Defined in CUSTOM_CHAR.CUSTOM_CHAR_POINTS)"}\
 
 #define ENUM_RELAY_TYPE                                                                                                                      \
-  {1,   "|en|Standard Relay"},                                                                   \
-  {2,   "|en|High Capacity Relay"}
+  {1,   "|en|Standard Flow"},                                                                   \
+  {2,   "|en|High Capacity"}
 
 #define ENUM_VALVE_TYPE                                                                                                                      \
   {0,   "|en|Undefined", "|en|Undefined"},                                                                                                   \
@@ -3657,7 +3657,8 @@ MENU device_status_#x_tb                                \
   {1,  "|en|1 - Active"   }                             \
 
 #define ENUM_IO_FAILURE  \
-  {22,  "|en|I/O Failure" }                               \
+  {0,  "|en|No Error" }                               \
+  {22,  "|en|22 I/O Failure" }                               \
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~/
 *** Following will be removed
