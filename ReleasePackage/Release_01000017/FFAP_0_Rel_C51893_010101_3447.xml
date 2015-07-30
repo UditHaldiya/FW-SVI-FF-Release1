@@ -1,0 +1,2791 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HART Title="FF AP HART Commands Definition" Version="1.0">
+	<Commands>
+		<!--Sample commands; params are ordered-->
+	</Commands>
+	<FutureCommands>
+		<Command Name="Read Primary Variable" CmdType="Read" CmdNum="1" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read primary: level or interface in its engineering units">
+			<ResponseParams>
+				<Struct>Univ Position</Struct>
+			</ResponseParams>
+		</Command>
+		<Command Name="Read Current" CmdType="Read" CmdNum="2" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read PV: current and percentage of range">
+			<ResponseParams>
+				<Param>Signal</Param>
+				<Param>Signal Percent</Param>
+			</ResponseParams>
+		</Command>
+		<Command Name="Reset Configuration Changed Flag" CmdNum="38" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND" Description="Resets the &quot;configuration changed&quot; flag for the HART master that sent the command. Doesn not affect the flag for the alternative master."></Command>
+		<Command Name="Clear Faults" CmdNum="138" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND | HC_WRITE_PROTECT" Description="Clears all faults that can be cleared">
+			<RequestParams>
+				<Param>Fault Flag</Param>
+				<Param>Device Password</Param>
+			</RequestParams>
+			<ResponseParams></ResponseParams>
+		</Command>
+		<Command Name="Clear Event" CmdNum="197" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND | HC_WRITE_PROTECT" Description="Clears the specified event (fault) if it can be cleared">
+			<RequestParams>
+				<Param>Fault Number</Param>
+				<Param>Device Password</Param>
+			</RequestParams>
+			<ResponseParams></ResponseParams>
+		</Command>
+		<Command Name="Cancel Process" CmdNum="253" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Abort the running process.\n&#xA;NOTE: It is a COMMAND command by its idea, but it is allowed even if a process is running (which is the purpose)">
+			<RequestParams></RequestParams>
+			<ResponseParams></ResponseParams>
+		</Command>
+	</FutureCommands>
+	<Structs>
+		<Struct Name="Temperatures">
+			<Param>Current Temperature</Param>
+			<Param>Min Temperature</Param>
+			<Param>Max Temperature</Param>
+		</Struct>
+		<Struct Name="Full Device Mode">
+			<Param>Device Mode</Param>
+			<Param>Device Submode</Param>
+		</Struct>
+	</Structs>
+	<Variables>
+		<Variable Name="Min Temperature" DataType="H_FLOAT" Printf="%.2f" Description=""/>
+		<Variable Name="Current Temperature" DataType="H_FLOAT" Printf="%.2f" Description=""/>
+		<Variable Name="Max Temperature" DataType="H_FLOAT" Printf="%.2f" Description=""/>
+		<Variable Name="Number Of Temperature Sensors" DataType="H_UINT" Printf="%d" Description="Constant" Default="1"/>
+		<Variable Name="Tempr Units" DataType="H_UCHAR" Printf="%u" Description="Temperature Units">
+			<EnumValues v32="DegC" v33="DegF"/>
+		</Variable>
+		<Variable Name="Process Id" DataType="H_UCHAR" Printf="%u" Description="Id of the running process. 0 is reserved to indicate no process running"></Variable>
+		<Variable Name="Percent Complete" DataType="H_UCHAR" Printf="%u" Description="Completion degree of a running process. Not all processes report a meaningful number"></Variable>
+		<Variable Name="Buffer Id" DataType="H_UCHAR" Printf="%u" Description="An id of the buffer to read. Should be 0 (or 0x80|0) except special cases agreed with an application function"/>
+		<Variable Name="Buffer Read Tag" DataType="H_UCHAR" Printf="%u" Description="A &quot;handshake&quot; value between request and response to synchronize response with requests"/>
+		<Variable Name="Buffer Data" DataType="H_UINT" Printf="%04X" Description="Data read from the buffer. You need to know the meaning of the data which is specific to the context filling the buffer." MaxSize="11"/>
+		<Variable Name="Raw Data Samples" DataType="H_UCHAR" Printf="%02X" Description="Byte stream read from the buffer. You need to know the meaning of the data which is specific to the context filling the buffer." MaxSize="48"/>
+		<Variable Name="Buffer Read Length" DataType="H_UCHAR" Printf="%u" Description="The actual number of valid 16-bit items read in Buffer Data"/>
+		<Variable Name="Data Sample Count" DataType="H_UCHAR" Printf="%u" Description="The actual number of valid samples read in Buffer Data"/>
+		<Variable Name="Data Sample Skip Count" DataType="H_UCHAR" Printf="%u" Description="Number of samples to skip (0 means consecutive read)"/>
+		<Variable Name="Data Sample Size" DataType="H_UCHAR" Printf="%u" Description="Size of a sample in bytes"/>
+		<Variable Name="Data Offset" DataType="H_UINT" Printf="%u" Description="Read offset into the raw buffer (auto-incerementing)"/>
+		<Variable Name="Buffer Data Long" DataType="H_UINT" Printf="%04X" Description="Data read from the buffer. You need to know the meaning of the data which is specific to the context filling the buffer." MaxSize="16"/>
+		<Variable Name="Device Submode" DataType="H_UCHAR" Printf="%02x" Description="Device submode is a bitwise OR of zero or more of the following:&#xA;NORMAL 00&#xA;Low Power 10&#xA;Marginal Power 40&#xA;Fail high 80&#xA;Trip state 20 - Trip means that the device is not necessarily in failsafe but outputs failsafe output because it is so configured to annunciate certain external conditions."></Variable>
+		<Variable Name="Device Mode" DataType="H_UCHAR" Printf="0x%02X" Description="Device mode" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues v00="H Setup | Setup" v01="H Manual | Manual" v02="H Failsafe | Failsafe" v03="H Normal | Normal"/>
+		</Variable>
+	</Variables>
+	<FutureVariables>
+		<Variable Name="Device InvMode" DataType="H_UCHAR" Printf="0x%02X" Description="Inverted device mode for transmission redundancy" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues v0xFF="H ISetup|Inv Setup" v0xFE="H IManual|Inv Manual" v0xFD="H IFailsafe|Inv Failsafe" v0xFC="H INormal|Inv Normal"/>
+		</Variable>
+		<Variable Name="Device Password" DataType="H_UINT4" Printf="%08x" MaxSize="2" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+		</Variable>
+		<Variable Name="Tempr M Curr" DataType="H_FLOAT" Printf="%.2f" Description=""/>
+		<Variable Name="Tempr M Min" DataType="H_FLOAT" Printf="%.2f" Description=""/>
+		<Variable Name="Tempr S Min" DataType="H_FLOAT" Printf="%.2f" Description=""/>
+		<Variable Name="Tempr M Max" DataType="H_FLOAT" Printf="%.2f" Description=""/>
+		<Variable Name="Tempr S Max" DataType="H_FLOAT" Printf="%.2f" Description=""/>
+		<Variable Name="Tempr S Curr" DataType="H_FLOAT" Printf="%.2f" Description=""/>
+		<Variable Name="Position" DataType="H_FLOAT" Printf="%.3f" Description="Device-specific position, like valve position in AP or interface or level in DLT" DisplayName="Level"/>
+		<Variable Name="Signal" DataType="H_FLOAT" Printf="%.3f" Description="Loop current (in positioners - measured; in transmitters - commanded)"/>
+		<Variable Name="Signal Percent" DataType="H_FLOAT" Printf="%.3f" Description="Signal Percent"/>
+	</FutureVariables>
+	<Commands>
+		<Command Name="Read Data Buffer Raw" CmdNum="193" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND" Description="Reads raw data from a linear buffer">
+			<RequestParams>
+				<Param>Buffer Id</Param>
+				<Param>Data Offset</Param>
+				<Param>Data Sample Size</Param>
+				<Param>Data Sample Skip Count</Param>
+			</RequestParams>
+			<ResponseParams>
+				<Param>Buffer Id</Param>
+				<Param>Data Offset</Param>
+				<Param>Data Sample Size</Param>
+				<Param>Data Sample Skip Count</Param>
+				<Param>Data Sample Count</Param>
+				<Param>Raw Data Samples</Param>
+			</ResponseParams>
+		</Command>
+		<Command Name="Reset" CmdNum="42" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND" Description="Resets the device after sending the response"></Command>
+		<Command Name="Read Settings" CmdNum="170" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Reads settings selected by the subcommand">
+			<ResponseParams>
+				<Param>SubCmdNum</Param>
+			</ResponseParams>
+			<RequestParams>
+				<Param>SubCmdNum</Param>
+			</RequestParams>
+			<SubCommands></SubCommands>
+			<FutureSubCommands>
+				<Command Name="Read Advanced Output Switch Config" CmdNum="0" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read Output Switch Configuration">
+					<RequestParams>
+						<Param>DO Under Config</Param>
+					</RequestParams>
+					<ResponseParams>
+						<Struct>HART DO Configuration</Struct>
+					</ResponseParams>
+				</Command>
+				<Command Name="Read Output Switch Config" CmdNum="100" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_READ_COMMAND" Description="Read Output Switch Configuration">
+					<RequestParams>
+						<Param>DO Under Config</Param>
+					</RequestParams>
+					<ResponseParams>
+						<Struct>HART Simple DO Configuration</Struct>
+					</ResponseParams>
+				</Command>
+				<Command Name="Read UI language" CmdNum="1" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read UI language">
+					<ResponseParams>
+						<Param>UI Language</Param>
+					</ResponseParams>
+				</Command>
+				<Command Name="Read UI Access Control" CmdNum="2" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read buttons lock and override password">
+					<ResponseParams>
+						<Struct>UI Access Control</Struct>
+					</ResponseParams>
+				</Command>
+				<Command Name="Read Level Alarm Settings" CmdNum="4" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read settings of the specified Level Alarm">
+					<RequestParams>
+						<Param>Alarm Selector</Param>
+					</RequestParams>
+					<ResponseParams>
+						<Struct>Level Alarm Settings</Struct>
+					</ResponseParams>
+				</Command>
+				<Command Name="Read Level Alarm Hysteresis" CmdNum="5" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read Hysteresis for the Level Alarms">
+					<RequestParams></RequestParams>
+					<ResponseParams>
+						<Struct>Level Alarm Hysteresis</Struct>
+					</ResponseParams>
+				</Command>
+			</FutureSubCommands>
+		</Command>
+		<Command Name="Write Settings" CmdNum="171" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND" Description="Writes settings selected by the subcommand - Allowed modes must be selected by corresponding subcommand">
+			<RequestParams>
+				<Param>SubCmdNum</Param>
+			</RequestParams>
+			<ResponseParams>
+				<Param>SubCmdNum</Param>
+			</ResponseParams>
+			<FutureSubCommands>
+				<Command Name="Write Advanced Output Switch Config" CmdNum="0" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Write Output Switch Configuration">
+					<RequestParams>
+						<Struct>HART DO Configuration</Struct>
+					</RequestParams>
+					<ResponseParams>
+						<Struct>HART DO Configuration</Struct>
+					</ResponseParams>
+				</Command>
+				<Command Name="Write Output Switch Config" CmdNum="100" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Write Output Switch Configuration">
+					<RequestParams>
+						<Struct>HART Simple DO Configuration</Struct>
+					</RequestParams>
+					<ResponseParams>
+						<Struct>HART Simple DO Configuration</Struct>
+					</ResponseParams>
+				</Command>
+				<Command Name="Write UI language" CmdNum="1" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Write UI language">
+					<RequestParams>
+						<Param>UI Language</Param>
+					</RequestParams>
+					<ResponseParams>
+						<Param>UI Language</Param>
+					</ResponseParams>
+				</Command>
+				<Command Name="Write UI Access Control" CmdNum="2" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Write buttons lock and override password">
+					<RequestParams>
+						<Struct>UI Access Control</Struct>
+					</RequestParams>
+					<ResponseParams>
+						<Struct>UI Access Control</Struct>
+					</ResponseParams>
+				</Command>
+				<Command Name="Write Level Alarm Settings" CmdNum="4" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Write settings of the specified Level Alarm">
+					<RequestParams>
+						<Struct>Level Alarm Settings</Struct>
+					</RequestParams>
+					<ResponseParams>
+						<Struct>Level Alarm Settings</Struct>
+					</ResponseParams>
+				</Command>
+				<Command Name="Write Level Alarm Hysteresis" CmdNum="5" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Write Hysteresis setting for the Level Alarms">
+					<RequestParams>
+						<Struct>Level Alarm Hysteresis</Struct>
+					</RequestParams>
+					<ResponseParams>
+						<Struct>Level Alarm Hysteresis</Struct>
+					</ResponseParams>
+				</Command>
+			</FutureSubCommands>
+			<SubCommands/>
+		</Command>
+		<Command Name="Losslessly Read Data Buffer" CmdNum="176" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Reads data from a circular buffer (in 16-bit quantities)\n&#xA;-          Additional flag in Buffer Id (MSB set means the following tag is the start tag of the read session\n&#xA;-          Additional byte (tag) which is an arbitrary value if MSB is set, or (previous_value+1)%256 otherwise\n\n&#xA;&#xA;If MSB is set, the device will (by convention) reply &quot;transmitter-specific error&quot; to save on transmission time.&#xA;&#xA;Otherwise, if MSB is cleared, the device will compare the byte with the previous value. &#xA;&#xA;If the value is the same, the device will assume a retry and repeat the previous response&#xA;&#xA;If the value is (previous_value+1)%256, the device will send a new batch of data&#xA;&#xA;In either case the device will mirror the tag.&#xA;&#xA;In all other cases the device will assume the session is wrong and return &quot;invalid selection&quot;&#xA;&#xA;Command would read from the same buffer until the buffer is changed with MSB set.&#xA;&#xA;">
+			<RequestParams>
+				<Param>Buffer Id</Param>
+				<Param>Buffer Read Tag</Param>
+			</RequestParams>
+			<ResponseParams>
+				<Param>Buffer Read Tag</Param>
+				<Param>Buffer Read Length</Param>
+				<Param>Buffer Data Long</Param>
+			</ResponseParams>
+		</Command>
+		<Command Name="Check Process" CmdNum="251" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Get information on the running process">
+			<RequestParams></RequestParams>
+			<ResponseParams>
+				<Param>Process Id</Param>
+				<Param>Percent Complete</Param>
+			</ResponseParams>
+		</Command>
+		<Command Name="Change Device Mode" CmdNum="135" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND | HC_WRITE_PROTECT" Description="Change device mode">
+			<RequestParams>
+				<Param>Device Mode</Param>
+				<XParam>Device InvMode</XParam>
+				<XParam>Device Password</XParam>
+			</RequestParams>
+			<ResponseParams>
+				<Param>Device Mode</Param>
+				<XParam>Device InvMode</XParam>
+				<XParam>Device Password</XParam>
+			</ResponseParams>
+		</Command>
+		<Command Name="Read Device Mode" CmdNum="249" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read device mode and submode">
+			<RequestParams></RequestParams>
+			<ResponseParams>
+				<Struct>Full Device Mode</Struct>
+			</ResponseParams>
+		</Command>
+		<Command Name="Reset To Factory Calibrations" CmdNum="230" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Reset a calibration item specified by a subcommand">
+			<RequestParams>
+				<Param>SubCmdNum</Param>
+			</RequestParams>
+			<ResponseParams>
+				<Param>SubCmdNum</Param>
+			</ResponseParams>
+			<SubCommands></SubCommands>
+		</Command>
+		<Command Name="Read User Trim" CmdNum="229" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read user trim values specified by a subcommand\n&#xA;NOTE: None of the parameters are device variables: they have to pull around to stick.">
+			<RequestParams>
+				<Param>SubCmdNum</Param>
+			</RequestParams>
+			<ResponseParams>
+				<Param>SubCmdNum</Param>
+			</ResponseParams>
+			<SubCommands></SubCommands>
+		</Command>
+		<Command Name="Run a Process" CmdNum="190" CmdType="Process" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND | HC_PROCESS_COMMAND | HC_WRITE_PROTECT" Description="Executes the requested process">
+			<RequestParams>
+				<Param>SubCmdNum</Param>
+			</RequestParams>
+			<ResponseParams>
+				<Param>SubCmdNum</Param>
+			</ResponseParams>
+			<SubCommands></SubCommands>
+		</Command>
+	</Commands>
+	<FutureVariables>
+		<Variable Name="DO Under Config" DataType="H_UCHAR" Printf="%u" Description="0-based DO number (0-DO1, 1-DO2). Not all DO in all projects are configurable." DisplayName="DO Number" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues v0="DO1" v1="DO2"/>
+		</Variable>
+		<Variable Name="DO Normal State" DataType="H_UCHAR" Printf="%u" Description="Normal (not asserted) state of the DO. 0-normal closed, 1-normal open" DisplayName="Normal State" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues v0="Normal Closed" v1="Normal Open"/>
+		</Variable>
+		<Variable Name="DO Modes map" DataType="H_UCHAR" Printf="%u" Description="When the device mode is m, the DO is asserted if bit # m is set in this byte (mask 1&lt;&lt;m)." DisplayName="Device Modes map"/>
+		<Variable Name="DO Fault attributes map" DataType="H_UCHAR" Printf="%u" Description="When there is any fault (status) with an attribute a, the DO is asserted if bit # a is set in this byte (mask 1&lt;&lt;a)." DisplayName="Fault Attribs map"></Variable>
+		<Variable Name="Detailed Faults Map" DataType="H_UCHAR" Printf="%02X" Description="Bit array of Status (Event/Alarm/Fault) bits that assert the associated output switch (DO)" MaxSize="16"/>
+		<Variable Name="UI Language" DataType="H_UCHAR" Description="UI Language code" Default="English" EnRangeCheck="1" DisplayName="Local UI Language">
+			<Range Model="TypeRange"/>
+			<EnumValues v0="UI_English | English" v1="UI_French | French" v2="UI_Spanish | Spanish" v3="UI_Portuguese | Portuguese" v4="UI_Japanese | Japanese" v5="UI_Italian | Italian" v6="UI_German | German"/>
+		</Variable>
+		<Variable Name="UI Lock Level" DataType="H_UCHAR" Description="From all enabled to all disabled. NOTE: No useful decoding until common enums are shared."/>
+		<Variable Name="UI Password Enabled Flag" DataType="H_UCHAR" Description="0 disabled, 1 enabled, others invalid" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues v0="UIPassDisabled | Disabled" v1="UIPassEnabled | Enabled"/>
+		</Variable>
+		<Variable Name="UI password" DataType="H_INT" Description="Any number can be a password"/>
+		<Variable Name="Alarm Selector" DataType="H_UCHAR" Description="0 to number-of-alarms - 1.\n&#xA;NOTE: Same variables are populated for different values of selector so they should be pulled around programmatically" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues v0="AlmSel0 | 0" v1="AlmSel1 | 1" v2="AlmSel2 | 2" v3="AlmSel3 | 3"/>
+		</Variable>
+		<Variable Name="Alarm Enabled" DataType="H_UCHAR" Description="0-disabled, non-0-enambled" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues v0="Disabled" v1="Enabled"/>
+		</Variable>
+		<Variable Name="Alarm Threshold" DataType="H_FLOAT" Description="Alarm threshold in the current units of level/position"></Variable>
+		<Variable Name="Alarm Hysteresis" DataType="H_FLOAT" Units="% of level range" Printf="%.2f" Description="Alarm treshold hysteresis in the current units of level/position">
+			<Range Model="Standard" MinValue="0.49" MaxValue="50"/>
+		</Variable>
+		<Variable Name="Alarm Time" DataType="H_FLOAT" Units="s" Printf="%.2f" Description="Time outside thresholds before alarm is set; or inside the thresholds before the alarm is cleared">
+			<Range Model="Standard" MinValue="1" MaxValue="600"/>
+		</Variable>
+		<Variable Name="DO Function" DataType="H_UCHAR" Description="One of the predefined functions for a DO simplified configurations.\n&#xA;NOTE: Not all values apply to all projects" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues v0="SWITCH_DISABLE | Disable" v1="SWITCH_FAIL | FailSafe" v2="SWITCH_RESET | Reset" v3="SWITCH_POS_ERROR | | Not for DLT" v4="SWITCH_TIGHT | | AP only" v5="SWITCH_POS_LOW_1 | Alarm Low1 | Tied to Alarm 1" v6="SWITCH_POS_HIGH_1 | Alarm High1| Tied to Alarm 3" v7="SWITCH_MANUAL | Manual" v8="SWITCH_FAULT_ANN | Annunciate" v9="SWITCH_ESD_TRIG | | ESD only" v10="SWITCH_OFFLINE | Not Normal Mode | Not in normal mode" v11="SWITCH_PST_RUNNING | |ESD only" v12="SWITCH_POS_LOW_2 | Alarm Low2 | Tied to Alarm 2" v13="SWITCH_POS_HIGH_2 | Alarm High2 | Tied to Alarm 4" v14="SWITCH_ADVANCED_CONFIG | | Configured with advanced settings" v15="SWITCH_UI_OFF | Local UI off | UI off because of low temperature (or disconnect)" v16="SWITCH_TIMEWRK | Time Working "/>
+		</Variable>
+	</FutureVariables>
+	<FutureStructs>
+		<Struct Name="HART DO Configuration">
+			<Param>DO Under Config</Param>
+			<Param>DO Normal State</Param>
+			<Param>DO Modes map</Param>
+			<Param>DO Fault attributes map</Param>
+			<Param>Detailed Faults Map</Param>
+		</Struct>
+		<Struct Name="HART Simple DO Configuration">
+			<Param>DO Under Config</Param>
+			<Param>DO Normal State</Param>
+			<Param>DO Function</Param>
+		</Struct>
+		<Struct Name="UI Access Control">
+			<Param>UI Lock Level</Param>
+			<Param>UI Password Enabled Flag</Param>
+			<Param>UI password</Param>
+		</Struct>
+		<Struct Name="Level Alarm Settings">
+			<Param>Alarm Selector</Param>
+			<Param>Alarm Enabled</Param>
+			<Param>Alarm Threshold</Param>
+			<Param>Alarm Time</Param>
+		</Struct>
+		<Struct Name="Level Alarm Hysteresis">
+			<Param>Alarm Hysteresis</Param>
+		</Struct>
+	</FutureStructs>
+	<CannedCommands>
+		<Command Name="CheckProcess" CmdNum="251">
+			<!--Alias to ensure commonality-->
+		</Command>
+	</CannedCommands>
+	<Commands>
+		<Command Name="Autotune" CmdNum="189" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_OOS" CmdFlags="HC_WRITE_COMMAND | HC_PROCESS_COMMAND | HC_WRITE_PROTECT" Description="Autimatically tune the control algorithm">
+			<RequestParams>
+				<Struct>Autotune Params</Struct>
+			</RequestParams>
+			<ResponseParams>
+				<Struct>Autotune Params</Struct>
+			</ResponseParams>
+		</Command>
+		<Command Name="Write Control Parameters" CmdNum="173" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND" Description="Write Control Parameters in the selected slot">
+			<RequestParams>
+				<Param>PIDData Selector</Param>
+				<Struct>Control Params</Struct>
+			</RequestParams>
+			<ResponseParams>
+				<Param>PIDData Selector</Param>
+				<Struct>Control Params</Struct>
+			</ResponseParams>
+		</Command>
+		<Command Name="Read Current Control Parameters Set" CmdNum="216" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read Control Parameters Set">
+			<RequestParams></RequestParams>
+			<ResponseParams>
+				<Struct>Control Params</Struct>
+			</ResponseParams>
+		</Command>
+		<Command CmdNum="170" SubCmdOnly="1">
+			<RequestParams/>
+			<SubCommands>
+				<Command Name="Read Control Parameters Ext" CmdNum="217" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read Control Parameters Set">
+					<RequestParams>
+						<Param>PIDData Selector</Param>
+					</RequestParams>
+					<ResponseParams>
+						<Param>PIDData Selector</Param>
+						<Struct>Control Params</Struct>
+					</ResponseParams>
+				</Command>
+				<Command CmdNum="216" Name="Read Control Parameters Selector" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+					<ResponseParams>
+						<Param>PIDData Selector</Param>
+					</ResponseParams>
+				</Command>
+				<Command CmdNum="189" Name="Read Tuning Parameters" Description="Retrieves settings for the tuning algorithm" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+					<ResponseParams>
+						<Struct>Autotune Params</Struct>
+						<Param>Tune Completion Code</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+		<Command CmdNum="171" SubCmdOnly="1">
+			<SubCommands>
+				<Command CmdNum="189" Name="Write Tuning Parameters" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_OOS" CmdFlags="HC_WRITE_COMMAND | HC_PROCESS_COMMAND | HC_WRITE_PROTECT" Description="Sets the tuning parameters and optionally runs the tuning algorithm">
+					<RequestParams>
+						<Struct>Autotune Params</Struct>
+					</RequestParams>
+					<ResponseParams>
+						<Struct>Autotune Params</Struct>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+	</Commands>
+	<Variables>
+		<Variable Name="Default Supply Pressure" DataType="H_FLOAT" Description="" Units="Pres Units"></Variable>
+		<Variable Name="Tune Aggressiveness" DataType="H_CHAR" Printf="%d" Description=""></Variable>
+		<Variable Name="Tune Flags" DataType="H_UCHAR" Printf="%u" Description="For SVi1000 the flag has no effect.\n&#xA;Future plans:\n&#xA;Bit 0 if set skips step 3 of tune algorithm\n&#xA;Bit 1 if set starts tuning from default settings"/>
+		<Variable Name="Tune Completion Code" DataType="H_INT" Description="0 if not run or success, other TBD">
+			<EnumValues v0="TCCNot Run or Success | Not Run or Success" v1="TCCRunAutotune" v31="TCCFAIL_ACTUATION | Failed actuation" v32="TCCFAIL_PROTECTED | Control limits protected" v33="TCCFAIL_OPEN_LOOP | Failed open loop tuning" v45="TCCFAIL_P_TOO_SMALL | P gain below limit" v46="TCCFAIL_PADJ_TOO_BIG | P gain adjustment above limit" v55="TCCBIAS_OUT_RANGE | Bias out of range" v66="TCCOVER_TIME_FILL | Fill time exceeded" v77="TCCOVER_TIME_EXHA | Exhaust time exceeded" v88="TCCOVER_PARAM_OUTOFRANGE | Parameter out of range" v32767="TCCSizer | Do not use; for guaranteed enum size only"/>
+		</Variable>
+	</Variables>
+	<Variables>
+		<Variable Name="PIDData P" DataType="H_INT" Description="PIDData P"/>
+		<Variable Name="PIDData I" DataType="H_INT" Description="PIDData I"/>
+		<Variable Name="PIDData D" DataType="H_INT" Description="PIDData D"/>
+		<Variable Name="PIDData PADJ" DataType="H_INT" Description="PIDData PADJ"/>
+		<Variable Name="PIDData BETA" DataType="H_INT" Description="PIDData BETA"/>
+		<Variable Name="PIDData DAMPING" DataType="H_INT" Description="PIDData DAMPING"/>
+		<Variable Name="PIDData POS_COMP" DataType="H_INT" Description="PIDData POS_COMP"/>
+		<Variable Name="PIDData DEADZONE" DataType="H_INT" Description="PIDData DEADZONE"/>
+		<Variable Name="PIDData NONLIN1" DataType="H_INT" Description="PIDData NONLIN1"/>
+		<Variable Name="PIDData NONLIN2" DataType="H_INT" Description="PIDData NONLIN2"/>
+		<Variable Name="PIDData RES1" DataType="H_INT" Description="PIDData RES1"/>
+		<Variable Name="PIDData RES2" DataType="H_INT" Description="PIDData RES2"/>
+		<Variable Name="PIDData Selector" DataType="H_UCHAR" Description="A selector of active PID parameters"/>
+		<Variable Name="ATO Selector" DataType="H_UCHAR" Description="A selector of active ATO / ATC parameter">
+			<EnumValues v0="ATC" v1="ATO"/>
+		</Variable>
+	</Variables>
+	<Structs>
+		<Struct Name="Autotune Params">
+			<Param>Default Supply Pressure</Param>
+			<Param>Tune Aggressiveness</Param>
+			<Param>Tune Flags</Param>
+		</Struct>
+		<Struct Name="Control Params">
+			<Param>PIDData P</Param>
+			<Param>PIDData I</Param>
+			<Param>PIDData D</Param>
+			<Param>PIDData PADJ</Param>
+			<Param>PIDData BETA</Param>
+			<Param>PIDData POS_COMP</Param>
+			<Param>PIDData DEADZONE</Param>
+			<Param>PIDData NONLIN1</Param>
+			<NonParam>PIDData NONLIN2</NonParam>
+			<NonParam>PIDData RES1</NonParam>
+			<NonParam>PIDData RES2</NonParam>
+		</Struct>
+	</Structs>
+	<Commands>
+		<Command CmdNum="171" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Write Position Control Limits" CmdNum="166" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Write Position Control Limits">
+					<RequestParams>
+						<Struct>Control Limits Conf</Struct>
+					</RequestParams>
+					<ResponseParams>
+						<Struct>Control Limits Conf</Struct>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+		<Command CmdNum="170" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Read Position Control Limits" CmdNum="166" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_READ_COMMAND" Description="Read Position Control Limits">
+					<ResponseParams>
+						<Struct>Control Limits Conf</Struct>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+	</Commands>
+	<Structs>
+		<Struct Name="Control Limits Conf">
+			<Param>Position Limits Protected</Param>
+			<Param>Tight Shutoff Enabled</Param>
+			<Param>Tight Cutoff Enabled</Param>
+			<Param>Tight Shut Off</Param>
+			<Param>Tight Cut Off</Param>
+			<Param>Position Limits Enabled</Param>
+			<Param>Position Limits</Param>
+			<Param>Position Rate Limits Enabled</Param>
+			<Param>Position Rate Limits</Param>
+		</Struct>
+	</Structs>
+	<Variables>
+		<Variable Name="Position Limits Protected" DataType="H_UCHAR" Description="0 means unprotected, non-0 protected">
+			<EnumValues v0="PLPUnprotected | Unprotected" v1="PLPProtected | Protected"/>
+		</Variable>
+		<Variable Name="Position Rate Limits Enabled" DataType="H_UCHAR" Description="non-0 enables limit: [0]-lower; [1]-upper" MaxSize="2">
+			<EnumValues v0="PRLEDisabled | Disabled" v1="PRLEEnabled | Enabled"/>
+		</Variable>
+		<Variable Name="Position Limits Enabled" DataType="H_UCHAR" Description="non-0 enables limit: [0]-lower; [1]-upper" MaxSize="2">
+			<EnumValues v0="PLEDisabled | Disabled" v1="PLEEnabled | Enabled"/>
+		</Variable>
+		<Variable Name="Position Rate Limits" DataType="H_FLOAT" Units="%/s" Printf="%.2f" Description="Position Rate Limit; in effect only if enabled\n&#xA;Units are % of adjusted position range per second">
+			<Range Model="Standard" MinValue="0.8" MaxValue="100.1"/>
+		</Variable>
+		<Variable Name="Position Limits" DataType="H_FLOAT" Units="%" Printf="%.2f" Description="Position Limit [0]-lower; [1]-upper; in effect only if enabled\n&#xA;Units are % of adjusted position range" MaxSize="2">
+			<Range Model="StandardArray" MinValue="-10 10" MaxValue="50 110"/>
+		</Variable>
+		<Variable Name="Tight Shut Off" DataType="H_FLOAT" Printf="%.2f" Description="Tight Shut Off Threshold\n&#xA;Units are % of adjusted position range">
+			<Range Model="Standard" MinValue="-1.0" MaxValue="20.0"/>
+		</Variable>
+		<Variable Name="Tight Cut Off" DataType="H_FLOAT" Printf="%.2f" Description="Tight Cut Off Threshold\n&#xA;Units are % of adjusted position range">
+			<Range Model="Standard" MinValue="80.0" MaxValue="101.0"/>
+		</Variable>
+		<Variable Name="Tight Shutoff Enabled" DataType="H_UCHAR" Description="Non-0 enables tight shutoff">
+			<EnumValues v0="TSEDisabled | Disabled" v1="TSEEnabled | Enabled"/>
+		</Variable>
+		<Variable Name="Tight Cutoff Enabled" DataType="H_UCHAR" Description="Non-0 enables tight shutoff">
+			<EnumValues v0="TCEDisabled | Disabled" v1="TCEEnabled | Enabled"/>
+		</Variable>
+	</Variables>
+	<Commands>
+		<Command CmdNum="171" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Write Pneumatic Parameters" CmdNum="167" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND | HC_FACTORY_COMMAND" Description="Parameters related to pneumatic relay">
+					<RequestParams>
+						<Struct>Pneumatic Parameters</Struct>
+					</RequestParams>
+					<ResponseParams>
+						<Struct>Pneumatic Parameters</Struct>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+		<Command CmdNum="171" SubCmdOnly="1">
+			<SubCommands>
+				<FutureCommand Name="Write Pneumatic Parameters in FP" CmdNum="168" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND | HC_FACTORY_COMMAND" Description="Parameters related to pneumatic relay (in floating point)">
+					<RequestParams>
+						<Struct>FP Pneumatic Parameters</Struct>
+					</RequestParams>
+					<ResponseParams>
+						<Struct>FP Pneumatic Parameters</Struct>
+					</ResponseParams>
+				</FutureCommand>
+			</SubCommands>
+		</Command>
+		<Command CmdNum="170" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Read Pneumatic Parameters" CmdNum="167" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_READ_COMMAND" Description="Parameters related to pneumatic relay">
+					<ResponseParams>
+						<Struct>Pneumatic Parameters</Struct>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+		<Command CmdNum="170" SubCmdOnly="1">
+			<SubCommands>
+				<FutureCommand Name="Read Pneumatic Parameters FP" CmdNum="168" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_READ_COMMAND" Description="Parameters related to pneumatic relay (in floating point)">
+					<ResponseParams>
+						<Struct>FP Pneumatic Parameters</Struct>
+					</ResponseParams>
+				</FutureCommand>
+			</SubCommands>
+		</Command>
+	</Commands>
+	<Structs>
+		<Struct Name="Pneumatic Parameters">
+			<Param>Boost Threshold</Param>
+			<Param>Boost Offset</Param>
+			<Param>Pilot Pressure Saturation Limits</Param>
+			<Param>Low Supply Pressure Pilot Threshold</Param>
+			<Param>Low Supply Pressure Supply Threshold</Param>
+			<Param>Single Acting Flag</Param>
+			<Param>Pressure Sensor Map </Param>
+		</Struct>
+		<FutureStruct Name="FP Pneumatic Parameters">
+			<Param>Control Output Units</Param>
+			<Param>FP Boost Threshold</Param>
+			<Param>FP Boost Offset</Param>
+			<Param>Pressure Units</Param>
+			<Param>FP Pilot Pressure Saturation Limits</Param>
+			<Param>FP Low Supply Pressure Pilot Threshold</Param>
+			<Param>FP Low Supply Pressure Supply Threshold</Param>
+			<Param>Single Acting Flag</Param>
+			<Param>Pressure Sensor Map </Param>
+		</FutureStruct>
+	</Structs>
+	<Variables>
+		<Variable Name="Boost Threshold" DataType="H_UCHAR" MaxSize="2" Description="[0] - lower, [1] - upper compensation for pneumatic relay &quot;flat spot&quot;"/>
+		<XVariable Name="FP Boost Threshold" DataType="H_FLOAT" MaxSize="2" Description="[0] - lower, [1] - upper compensation for pneumatic relay &quot;flat spot&quot;" Printf="%.5f"/>
+		<Variable Name="Boost Offset" DataType="H_CHAR" Description="beginning of &quot;flat spot&quot;"/>
+		<XVariable Name="FP Boost Offset" DataType="H_FLOAT" Description="beginning of &quot;flat spot&quot;" Printf="%.5f"/>
+		<Variable Name="Pilot Pressure Saturation Limits" DataType="H_INT" MaxSize="2" Description="[0]-lower; [1]-upper - pilot pressure limits indicationg actuator saturation (in internal representation)"/>
+		<XVariable Name="FP Pilot Pressure Saturation Limits" DataType="H_FLOAT" MaxSize="2" Description="[0]-lower; [1]-upper - pilot pressure limits indicationg actuator saturation (in internal representation)"/>
+		<Variable Name="Low Supply Pressure Pilot Threshold" DataType="H_INT" Description="Low supply indicator by pilot pressure "/>
+		<XVariable Name="FP Low Supply Pressure Pilot Threshold" DataType="H_FLOAT" Description="Low supply indicator by pilot pressure "/>
+		<Variable Name="Low Supply Pressure Supply Threshold" DataType="H_INT" Description="Low supply indicator by supply pressure "/>
+		<XVariable Name="FP Low Supply Pressure Supply Threshold" DataType="H_FLOAT" Description="Low supply indicator by supply pressure "/>
+		<Variable Name="Control Output Units" DataType="H_UCHAR" Description="Units code for boost"></Variable>
+		<Variable Name="Single Acting Flag" DataType="H_UCHAR" Description="0-Double-Acting, non-0 - Single Acting">
+			<EnumValues v0="SAFDouble Acting | Double Acting" v1="SAFSingle Acting | Single Acting"/>
+		</Variable>
+		<Variable Name="Pressure Sensor Map" DataType="H_CHAR" MaxSize="5" Description="A relay-specific map of pressure sensors to the predefined set of A/D channels\n&#xA;[0] - Actuator 1\n&#xA;[1] - Actuator 2\n&#xA;[2] - Supply\n&#xA;[3] - Pilot\n&#xA;[4] - Atmospheric\n&#xA;">
+			<EnumValues v-1="PSMNot Installed | Not Installed"/>
+		</Variable>
+	</Variables>
+	<Commands>
+		<Command CmdNum="170" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Read Air Action" CmdNum="210" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_READ_COMMAND" Description="Read ATO/ATC">
+					<ResponseParams>
+						<Param>Air Action</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+	</Commands>
+	<Variables>
+		<Variable Name="Air Action" DataType="H_UCHAR" Printf="%u" Description="ATO or ATC (meaning of de-energized position stop)">
+			<EnumValues v0="H Air To Close | Air to Close (ATC)" v1="H Air To Open | Air to Open (ATO)"></EnumValues>
+		</Variable>
+	</Variables>
+	<Structs></Structs>
+	<Commands>
+		<Command Name="ExtendedAnalysis" CmdNum="242" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="TBD">
+			<RequestParams>
+				<Param>SubCmdNum</Param>
+			</RequestParams>
+			<ResponseParams>
+				<Param>SubCmdNum</Param>
+			</ResponseParams>
+			<SubCommands></SubCommands>
+		</Command>
+	</Commands>
+	<Commands>
+		<Command CmdNum="242" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="ExtendedAnalysisVersion" CmdNum="0" CmdType="Read" CmdFlags="HC_READ_COMMAND|HC_UNPUBLISHED_COMMAND" AllowedModes="HC_ALLOWED_MODE_ALL" Description="Provides a version of the Extended Analysis command">
+					<RequestParams/>
+					<ResponseParams>
+						<Param>eav_Version</Param>
+					</ResponseParams>
+				</Command>
+				<Command Name="ExtendedAnalysisDataCollector" CmdNum="1" CmdType="Read" CmdFlags="HC_READ_COMMAND|HC_UNPUBLISHED_COMMAND" AllowedModes="HC_ALLOWED_MODE_ALL" Description="Provides values of internal control variables at run-time.">
+					<RequestParams/>
+					<ResponseParams>
+						<Param>Control Algorithm Mode</Param>
+						<Param>eadc_UserSetpoint</Param>
+						<Param>eadc_RateLimitedSetpoint</Param>
+						<Param>eadc_PositionScaled</Param>
+						<Param>eadc_PWM</Param>
+						<Param>eadc_CtlOutput</Param>
+						<Param>eadc_P_pilot</Param>
+						<Param>eadc_P_1</Param>
+						<Param>eadc_P_2</Param>
+						<Param>eadc_P_supply</Param>
+						<Param>eadc_AvgErr</Param>
+						<Param>eadc_MinErr</Param>
+						<Param>eadc_MaxErr</Param>
+						<Param>eadc_PosComp</Param>
+						<Param>eadc_P_element</Param>
+						<Param>eadc_D_element</Param>
+						<Param>eadc_Boost_element</Param>
+						<Param>eadc_Fast_elements</Param>
+						<Param>eadc_Integral</Param>
+						<Param>eadc_Bias</Param>
+						<Param>eadc_Overshoots</Param>
+						<Param>eadc_JigglesPassed</Param>
+						<Param>eadc_CalcPeriod</Param>
+						<Param>eadc_IntegalCount</Param>
+						<Param>eadc_CtrlByte</Param>
+						<Param>eadc_BitPack</Param>
+					</ResponseParams>
+				</Command>
+				<Command Name="ExtendedAnalysisPosPropagation" CmdNum="2" CmdType="Read" CmdFlags="HC_READ_COMMAND|HC_UNPUBLISHED_COMMAND" AllowedModes="HC_ALLOWED_MODE_ALL" Description="Provides values of position as it propagates from raw A/D to scaled position.">
+					<RequestParams/>
+					<ResponseParams>
+						<Param>eapp_posADraw</Param>
+						<Param>eapp_posTCcalibrated</Param>
+						<Param>eapp_posLinearized</Param>
+						<Param>eapp_posScaled</Param>
+						<Param>eapp_temperRaw</Param>
+						<Param>eapp_temperTCcomp</Param>
+						<Param>eapp_posTCspan</Param>
+						<Param>eapp_posTCoffset</Param>
+						<Param>eapp_P_pilot</Param>
+						<Param>eapp_PWM</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+	</Commands>
+	<Variables>
+		<Variable Name="eadc_UserSetpoint" DataType="H_INT" DisplayName="User Setpoint" Description="Signal or Manual setpoint as requested by a user (not rate-limited), counts"/>
+		<Variable Name="eadc_RateLimitedSetpoint" DataType="H_INT" DisplayName="Rate Limited Setpoint" Description="Momentary value of setpoint with rate limit applied, counts"/>
+		<Variable Name="eadc_PositionScaled" DataType="H_INT" DisplayName="Scaled Position" Description="Normalized position in counts"/>
+		<Variable Name="eadc_PWM" DataType="H_UINT" DisplayName="PWM" Description="Actual (possibly normalized) PWM output of the FW"/>
+		<Variable Name="eadc_CtlOutput" DataType="H_UINT" DisplayName="Control Output" Description="Output in counts, computed by control program (prior to normalizing, which converts it to PWM output)."/>
+		<Variable Name="eadc_P_pilot" DataType="H_INT" DisplayName="Pilot Pressure" Description="Pilot pressure, counts"/>
+		<Variable Name="eadc_P_main" DataType="H_INT" DisplayName="Main Pressure" Description="Pressure P1 – P2 for double acting and P1 for single acting, counts"/>
+		<Variable Name="eadc_P_1" DataType="H_INT" DisplayName="P1" Description="Pressure P1, counts"/>
+		<Variable Name="eadc_P_2" DataType="H_INT" DisplayName="P2" Description="Pressure P2 (counts) if double acting, 0 if single acting"/>
+		<Variable Name="eadc_P_supply" DataType="H_INT" DisplayName="Supply Pressure" Description="Supply presssure, counts"/>
+		<Variable Name="eadc_AvgErr" DataType="H_INT" DisplayName="Average Error" Description="Average of 8 sequential errors (from a moving window) in counts"/>
+		<Variable Name="eadc_MinErr" DataType="H_INT" DisplayName="Min Error" Description="Min error of 8 sequential errors (from a moving window) in counts"/>
+		<Variable Name="eadc_MaxErr" DataType="H_INT" DisplayName="Max Error" Description="Max error of 8 sequential errors (from a moving window) in counts"/>
+		<Variable Name="eadc_PosComp" DataType="H_UINT" DisplayName="PosComp" Description="Last computed PosComp"/>
+		<Variable Name="eadc_P_element" DataType="H_INT" DisplayName="P term" Description="P (Proportional)term of PID control"/>
+		<Variable Name="eadc_D_element" DataType="H_INT" DisplayName="D term" Description="D (Derivative) term of PID control"/>
+		<Variable Name="eadc_Boost_element" DataType="H_INT" DisplayName="Boost term" Description="Boost component of the control algorithm"/>
+		<Variable Name="eadc_Fast_elements" DataType="H_INT" DisplayName="Fast terms" Description="Total of fast-acting components of the control algorithm.\nThe sum of P, D -terms and Boost; Integral is excluded."/>
+		<Variable Name="eadc_Integral" DataType="H_INT4" DisplayName="Integral" Description="Momentary value of Integral component"/>
+		<Variable Name="eadc_Bias" DataType="H_UINT" DisplayName="Bias" Description="Momentary value of Bias"/>
+		<Variable Name="eadc_Overshoots" DataType="H_UINT" DisplayName="Number of Overshoots" Description="Number of overshoots"/>
+		<Variable Name="eadc_JigglesPassed" DataType="H_UINT" DisplayName="Number of Jiggle Tests" Description="Number of passed jiggle tests"/>
+		<Variable Name="eadc_CalcPeriod" DataType="H_UINT" DisplayName="Calc Period" Description="Period of adding Integral to Bias (counted in control periods)."/>
+		<Variable Name="eadc_IntegalCount" DataType="H_UCHAR" DisplayName="Integral Count" Description="Number of cycles since last addition integral to bias (reset to 0 when added)"/>
+		<Variable Name="eadc_CtrlByte" DataType="H_UCHAR" DisplayName="Control Byte" MaxSize="1" Description="A single-byte bit pattern, reflecting a number of control parameters"/>
+		<Variable Name="eadc_BitPack" DataType="H_UCHAR" MaxSize="2" DisplayName="BitPack" Description="A two-byte bit pattern, reflecting a number of process parameters"/>
+		<Variable Name="eav_Version" DataType="H_UINT" MaxSize="2" DisplayName="CmdVersion" Description="A 2-UINT long version of the command Extended Analysis.\nFirst word - FW version (example: B-5 for beta-5);\n2nd word - the command version within FW version, or zero."/>
+		<Variable Name="eapp_posADraw" DataType="H_INT4" DisplayName="AD Raw Pos" Description="Raw position value obtained from A/D converter"/>
+		<Variable Name="eapp_posTCcalibrated" DataType="H_INT4" DisplayName="TC Calib Pos" Description="TC calibrated position value before magnetic correction"/>
+		<Variable Name="eapp_posMagnCorrected" DataType="H_INT" DisplayName="Magn Corr Pos" Description="Position value after temperature magnetic correction"/>
+		<Variable Name="eapp_posLinearized" DataType="H_INT" DisplayName="Linearized Pos" Description="Linearized (from ASIN table) position value"/>
+		<Variable Name="eapp_posScaled" DataType="H_INT4" DisplayName="Std Scaled Pos" Description="Position scaled to 0 to 100%"/>
+		<Variable Name="eapp_temperRaw" DataType="H_INT4" DisplayName="Raw brd temper" Description="Raw board temperature."/>
+		<Variable Name="eapp_temperTCcomp" DataType="H_INT4" DisplayName="TempComped temper" Description="TC compensated temperature (divide by 100 to obtain value in degrees C)"/>
+		<Variable Name="eapp_posTCspan" DataType="H_INT4" DisplayName="Real pos span" Description="Real TC compensated position span."/>
+		<Variable Name="eapp_posTCoffset" DataType="H_INT4" DisplayName="Real pos offset" Description="Real TC compensated position offset."/>
+		<Variable Name="eapp_P_pilot" DataType="H_INT" DisplayName="Pilot Pressure" Description="Pilot pressure (TC compensated, divide by 250 to obtain psi value)"/>
+		<Variable Name="eapp_PWM" DataType="H_UINT" DisplayName="PWM" Description="Real PWM - value sent to the hardware PWM controller."/>
+	</Variables>
+	<Commands>
+		<Command CmdNum="129" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Read Low Power IP limiting Factory Coef" CmdNum="140" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_READ_COMMAND">
+					<ResponseParams>
+						<Struct>H IP Limiting Factory Coef</Struct>
+					</ResponseParams>
+				</Command>
+				<Command Name="Read Low Power Thresholds Factory Coef" CmdNum="250" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_READ_COMMAND">
+					<ResponseParams>
+						<Struct>H Low Power Thresholds Factory Coef</Struct>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+		<Command CmdNum="130" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Write Low Power IP limiting Factory Coef" CmdNum="140" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND | HC_FACTORY_COMMAND">
+					<RequestParams>
+						<Struct>H IP Limiting Factory Coef</Struct>
+					</RequestParams>
+				</Command>
+				<Command Name="Write Low Power Thresholds Factory Coef" CmdNum="250" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND | HC_FACTORY_COMMAND">
+					<RequestParams>
+						<Struct>H Low Power Thresholds Factory Coef</Struct>
+					</RequestParams>
+				</Command>
+			</SubCommands>
+		</Command>
+	</Commands>
+	<Variables>
+		<Variable Name="LPFC Hysteresis" DataType="H_UINT" Description="Marginal Power Data"></Variable>
+		<Variable Name="LPFC IP Limiting Threshold" DataType="H_UINT" Description="IP Limiting Threshold"></Variable>
+		<Variable Name="LPFC Marginal Power Threshold" DataType="H_UINT" Description="Marginal Power Data"></Variable>
+		<Variable Name="LPFC Low Power Threshold" DataType="H_UINT" Description="Low Power Data"></Variable>
+		<Variable Name="LPFC Power Coef" DataType="H_INT" Description="Low Power Data"></Variable>
+		<Variable Name="LPFC Pressure Coef" DataType="H_INT" Description="Low Power Data"></Variable>
+	</Variables>
+	<Structs>
+		<Struct Name="H IP Limiting Factory Coef">
+			<Param>LPFC IP Limiting Threshold</Param>
+			<Param>LPFC Power Coef</Param>
+			<Param>LPFC Pressure Coef</Param>
+		</Struct>
+		<Struct Name="H Low Power Thresholds Factory Coef">
+			<Param>LPFC Hysteresis</Param>
+			<Param>LPFC Low Power Threshold</Param>
+			<Param>LPFC Marginal Power Threshold</Param>
+		</Struct>
+	</Structs>
+	<Commands>
+		<Command Name="WriteStopAdjust" CmdNum="167" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Subcommands set open and close stop adjustment values and open stop overrun correction value.\nSet close stop is not implemented for SVi 1000.">
+			<RequestParams>
+				<Param>SubCmdNum</Param>
+			</RequestParams>
+			<ResponseParams>
+				<Param>SubCmdNum</Param>
+			</ResponseParams>
+			<SubCommands>
+				<Command Name="Set Open Stop Adjust" CmdNum="0" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Set open stop adjustment value (floating point).">
+					<RequestParams>
+						<Param>adj_OpenStopAdj</Param>
+					</RequestParams>
+					<ResponseParams>
+						<Param>adj_OpenStopAdj</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+		<Command Name="ReadStopAdjust" CmdNum="169" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Subcommands read open and close stop adjustment values and open stop overrun correction value.\nRead close stop is not implemented for SVi 1000.">
+			<RequestParams>
+				<Param>SubCmdNum</Param>
+			</RequestParams>
+			<ResponseParams>
+				<Param>SubCmdNum</Param>
+			</ResponseParams>
+			<SubCommands>
+				<Command Name="Read Open Stop Adjust" CmdNum="0" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read open stop adjustment value (floating point).">
+					<RequestParams/>
+					<ResponseParams>
+						<Param>adj_OpenStopAdj</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+	</Commands>
+	<Variables>
+		<Variable Name="adj_OpenStopAdj" DataType="H_FLOAT" DisplayName="OS Adjust" Description="Open Stop Adjustment value">
+			<Range Model="Standard" MinValue="60.0" MaxValue="100.0"/>
+		</Variable>
+	</Variables>
+	<Commands>
+		<Command CmdNum="130" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Assert Engine Test" CmdNum="253" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND | HC_FACTORY_COMMAND" Description="Assert Engine Test. A test must be supplemented by inspecting faults and trap records.">
+					<RequestParams>
+						<Param>Test Trap ID</Param>
+					</RequestParams>
+					<ResponseParams></ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+	</Commands>
+	<Variables>
+		<Variable Name="Test Trap ID" DataType="H_INT" Description="Will cause a trap (if negative) or assert of ==42 if non-negative"/>
+	</Variables>
+	<Commands>
+		<Command Name="Read All Pressures" CmdNum="201" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read all configured pressure inputs&#xA;[0]=Actuator 1&#xA;[1]=Actuator 2&#xA;[2]=Supply&#xA;[3]=Pilot&#xA;[4]=Atmospheric">
+			<ResponseParams>
+				<Param MaxSize="5">Pressure Array</Param>
+				<Param>Pres Units</Param>
+			</ResponseParams>
+		</Command>
+	</Commands>
+	<Variables>
+		<Variable Name="Pres Units" DataType="H_UCHAR" Printf="%u" Description="Effective pressure units">
+			<EnumValues v06="HART Unit PSI | psi" v07="HART Unit Bar | Bar" v12="HART Unit KPa | KPa"/>
+		</Variable>
+		<Variable Name="Pressure Array" MaxSize="5" DataType="H_FLOAT" Printf="%.3f" Units="PresUnits" Description="Pressures array &#xA;[0]=Actuator 1&#xA;[1]=Actuator 2&#xA;[2]=Supply&#xA;[3]=Pilot&#xA;[4]=Atmospheric"/>
+	</Variables>
+	<Structs></Structs>
+	<Commands>
+		<Command CmdNum="129" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Read Conversion Coefficients" CmdNum="40" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read parameters for converting from external representation (floating point) to internal (integer) and back.\n&#xA;Let x be internal number and X external. The conversion formulas are as follows:\n&#xA;X = (i2f_slope*(x - Xintercept)*2**(-i2f_shift) + Yintercept)/(10**order)\n&#xA;y = round(X*10**order)\n&#xA;If y does not fit 32-bit integer, reject\n&#xA;x = round(f2i_slope*(y-Yintercept)*2**(-f2i_shift) + Xintercept)">
+					<RequestParams>
+						<Param>HFP_Dimension</Param>
+					</RequestParams>
+					<ResponseParams>
+						<Param>HFP_Dimension</Param>
+						<Param>HFP_UnitsCode</Param>
+						<Param>HFP_i2f_slope</Param>
+						<Param>HFP_Xintercept</Param>
+						<Param>HFP_Yintercept</Param>
+						<Param>HFP_i2f_shift</Param>
+						<Param>HFP_order</Param>
+						<Param>HFP_f2i_slope</Param>
+						<Param>HFP_f2i_shift</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+	</Commands>
+	<Variables>
+		<Variable Name="HFP_i2f_slope" DataType="H_INT4" Description="Scaling coefficeient (see command description)"/>
+		<Variable Name="HFP_Xintercept" DataType="H_INT4" Description="Scaling coefficeient (see command description)"/>
+		<Variable Name="HFP_Yintercept" DataType="H_INT4" Description="Scaling coefficeient (see command description)"/>
+		<Variable Name="HFP_i2f_shift" DataType="H_UCHAR" Description="Scaling coefficeient (see command description)"/>
+		<Variable Name="HFP_order" DataType="H_UCHAR" Description="Scaling coefficeient (see command description)"/>
+		<Variable Name="HFP_f2i_slope" DataType="H_UINT4" Description="Scaling coefficeient (see command description)"/>
+		<Variable Name="HFP_f2i_shift" DataType="H_UCHAR" Description="Scaling coefficeient (see command description)"/>
+		<Variable Name="HFP_UnitsCode" DataType="H_UCHAR" Description="HART units code"/>
+		<Variable Name="HFP_Dimension" DataType="H_UCHAR" Description="Id of a physical quantity (position, signal, pressure etc.)">
+			<EnumValues v0="HPF_Id_Pressure" v1="HPF_Id_Signal" v2="HPF_Id_Position" v3="HPF_Id_PV" v4="HPF_Id_Dummy" v5="HPF_Id_PosSpeed" v6="HPF_Id_Percent" v7="HPF_Id_MNTime" v8="HPF_Id_Tempr" v9="HPF_Id_Time" v10="HPF_Id_CtlOut" v11="HPF_Id_ShedTime"/>
+		</Variable>
+	</Variables>
+	<Structs></Structs>
+	<Commands>
+		<Command Name="Read Temperatures" CmdNum="143" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Reads current, min and max temperatures of all the sensors">
+			<ResponseParams>
+				<StructArray MaxSize="1">Temperatures</StructArray>
+				<Param>Tempr Units</Param>
+			</ResponseParams>
+		</Command>
+	</Commands>
+	<Variables></Variables>
+	<Structs></Structs>
+	<Commands>
+		<Command Name="Manual Find Stops" CmdNum="179" CmdType="Process" AllowedModes="HC_ALLOWED_MODE_OOS" CmdFlags="HC_COMMAND_COMMAND | HC_WRITE_PROTECT">
+			<RequestParams>
+				<Param>Manual Find Stops Step</Param>
+			</RequestParams>
+		</Command>
+		<XCommand CmdNum="190" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Step Test" CmdNum="3" CmdType="Process" AllowedModes="HC_ALLOWED_MODE_OOS" CmdFlags="HC_PROCESS_COMMAND">
+					<RequestParams>
+						<Struct>Diagnostic Parameters</Struct>
+					</RequestParams>
+				</Command>
+			</SubCommands>
+		</XCommand>
+	</Commands>
+	<Variables>
+		<Variable Name="Manual Find Stops Step" DataType="H_UCHAR" Description="Sequence step in manual find stops">
+			<EnumValues v0="HFindStops Cancel | Cancel" v1="HFindStops Start | Start" v3="HFindStops Accept | Accept " v6="HFindStops Commit | Commit"/>
+		</Variable>
+	</Variables>
+	<Structs></Structs>
+	<Commands>
+		<Command Name="Read TempComp Points" CmdNum="237" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read temperature cal points at which measurements/calculations were made">
+			<RequestParams>
+				<Param>Board Number<!--Same param as in other temperature stuff (see raw/tempcomp data)--></Param>
+			</RequestParams>
+			<ResponseParams>
+				<Param>Board Number</Param>
+				<Param>Number of Points</Param>
+				<Param>TempPoint</Param>
+			</ResponseParams>
+		</Command>
+		<Command Name="Read TempComp Row" CmdNum="236" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read temperature cal OffsetSpan cells (as 16- or 32-bit entries)">
+			<RequestParams>
+				<Param>SubCmdNum</Param>
+			</RequestParams>
+			<ResponseParams>
+				<Param>SubCmdNum</Param>
+			</ResponseParams>
+			<SubCommands></SubCommands>
+		</Command>
+		<Command Name="Write TempComp Row" CmdNum="233" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND | HC_FACTORY_COMMAND" Description="Write temperature cal OffsetSpan cells (as 16- or 32-bit entries)&#xA;NOTE: No tempcomp is not written to NVMEM automatically. Instead, when you have written all channels (and only you know what all means), you should commit RAM to NVMEM for the NVMEM volume(s) affected.">
+			<RequestParams>
+				<Param>SubCmdNum</Param>
+			</RequestParams>
+			<ResponseParams>
+				<Param>SubCmdNum</Param>
+			</ResponseParams>
+			<SubCommands></SubCommands>
+		</Command>
+		<Command Name="Write TempComp Points" CmdNum="234" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND | HC_FACTORY_COMMAND" Description="Write temperature cal points at which measurements/calculations were made.&#xA;NOTE: No tempcomp is not written to NVMEM automatically. Instead, when you have written all channels (and only you know what all means), you should commit RAM to NVMEM for the NVMEM volume(s) affected.">
+			<RequestParams>
+				<Param>Board Number</Param>
+				<Param>Number of Points</Param>
+				<Param>TempPoint</Param>
+			</RequestParams>
+		</Command>
+		<Command CmdNum="130" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Enable All AD Channels" CmdNum="45" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND | HC_FACTORY_COMMAND" Description="Used for board calibration only"></Command>
+			</SubCommands>
+		</Command>
+	</Commands>
+	<Variables>
+		<Variable Name="Number of Points" DataType="H_UCHAR" Printf="%u" EnRangeCheck="1" Description="Number of temperature calibration points (common to all channels on the selected board)">
+			<Range Model="Standard" MinValue="2" MaxValue="8"/>
+		</Variable>
+		<Variable Name="TempPoint" DataType="H_UINT" Printf="%u" Description="Temperature at the temperature cal point in the &quot;raw&quot; sensor representation.&#xA;For DLT, a measurement offset by some number TBD to make it unsigned." MaxSize="8" EnRangeCheck="1" DisplayName="Temp Points">
+			<Range Model="Standard" MinValue="0" MaxValue="65535"/>
+		</Variable>
+		<Variable Name="Tempr Offset" DataType="H_INT" Printf="%d" EnRangeCheck="1" Description="An artificial offset to make temperature an unsigned value. Absolutely must match the firmware value (or the write will fail)">
+			<Range Model="Standard" MinValue="-32768" MaxValue="32767" EnRangeCheck="1"/>
+		</Variable>
+		<Variable Name="Board Number" DataType="H_UCHAR" Printf="%u" Description="0-Main board, 1-Sensor board" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues v0="BN_MainBoard | Main Board" v1="BN_SensorBoard | Sensor Board"/>
+		</Variable>
+		<Variable Name="TC Offset16" DisplayName="Offset" DataType="H_INT" Printf="%d" EnRangeCheck="1" Description="offset in 16-bit tempcomp calculation">
+			<Range Model="Standard" MinValue="-32768" MaxValue="32767"/>
+		</Variable>
+		<Variable Name="TC Span16" DisplayName="Span" DataType="H_INT" Printf="%d" EnRangeCheck="1" Description="span (slope) in 16-bit tempcomp calculation">
+			<Range Model="Standard" MinValue="-32768" MaxValue="32767"/>
+		</Variable>
+		<Variable Name="TC Offset32" DisplayName="Offset" DataType="H_INT4" Printf="%d" EnRangeCheck="1" Description="offset in 32-bit tempcomp calculation">
+			<Range Model="Standard" MinValue="-2147483648" MaxValue="2147483647"/>
+		</Variable>
+		<Variable Name="TC Span32" DisplayName="Span" DataType="H_INT4" Printf="%d" EnRangeCheck="1" Description="span (slope) in 32-bit tempcomp calculation">
+			<Range Model="Standard" MinValue="-2147483648" MaxValue="2147483647"/>
+		</Variable>
+		<Variable Name="Channel Shift" DataType="H_UCHAR" EnRangeCheck="1" Description="Common right-shift value for a tempcomp row">
+			<Range Model="Standard" MinValue="0" MaxValue="255"/>
+		</Variable>
+		<Variable Name="TempComp16 tag" DataType="H_UCHAR" Description="A tag of a 16-bit tempcomp channel" Printf="%u" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues v0="Loop Current Feedback TC" v1="Procces Var TC" v2="AO 0 (Retransmit) TC" v3="AO 1 (Loop Current) TC"/>
+		</Variable>
+		<Variable Name="TempComp32 tag" DataType="H_UCHAR" Description="A tag of a 32-bit tempcomp channel" Printf="%u" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues v0="Level Main Board TC" v1="Level Sensor Board TC"/>
+		</Variable>
+	</Variables>
+	<Structs>
+		<Struct Name="TC OffsetSpan16">
+			<Param>TC Offset16</Param>
+			<Param>TC Span16</Param>
+		</Struct>
+		<Struct Name="TC OffsetSpan32">
+			<Param>TC Offset32</Param>
+			<Param>TC Span32</Param>
+		</Struct>
+	</Structs>
+	<Commands>
+		<Command CmdNum="236" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Read PV TCRow" CmdNum="1" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+					<ResponseParams>
+						<Param>Channel Shift</Param>
+						<StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+					</ResponseParams>
+				</Command>
+				<Command Name="Read Tempr TCRow" CmdNum="3" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+					<ResponseParams>
+						<Param>Channel Shift</Param>
+						<StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+					</ResponseParams>
+				</Command>
+				<Command Name="Read Pres Atm TCRow" CmdNum="4" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+					<ResponseParams>
+						<Param>Channel Shift</Param>
+						<StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+					</ResponseParams>
+				</Command>
+				<Command Name="Read Pres Pilot TCRow" CmdNum="5" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+					<ResponseParams>
+						<Param>Channel Shift</Param>
+						<StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+					</ResponseParams>
+				</Command>
+				<Command Name="Read Pres 1 TCRow" CmdNum="6" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+					<ResponseParams>
+						<Param>Channel Shift</Param>
+						<StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+					</ResponseParams>
+				</Command>
+				<Command Name="Read Pres 2 TCRow" CmdNum="7" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+					<ResponseParams>
+						<Param>Channel Shift</Param>
+						<StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+					</ResponseParams>
+				</Command>
+				<Command Name="Read Pres 3 TCRow" CmdNum="8" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+					<ResponseParams>
+						<Param>Channel Shift</Param>
+						<StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+					</ResponseParams>
+				</Command>
+				<Command Name="Read PosInt TCRow" CmdNum="9" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+					<ResponseParams>
+						<Param>Channel Shift</Param>
+						<StructArray MaxSize="8">TC OffsetSpan32</StructArray>
+					</ResponseParams>
+				</Command>
+				<Command Name="Read PosExt TCRow" CmdNum="10" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+					<ResponseParams>
+						<Param>Channel Shift</Param>
+						<StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+					</ResponseParams>
+				</Command>
+				<Command Name="Read IP Current TCRow" CmdNum="11" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+					<ResponseParams>
+						<Param>Channel Shift</Param>
+						<StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+					</ResponseParams>
+				</Command>
+				<Command Name="Read Control Output TCRow" CmdNum="13" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+					<ResponseParams>
+						<Param>Channel Shift</Param>
+						<StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+		<Command CmdNum="233" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Write PV TCRow" CmdNum="1" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND">
+					<RequestParams>
+						<Param>Channel Shift</Param>
+						<StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+					</RequestParams>
+				</Command>
+				<Command Name="Write Tempr TCRow" CmdNum="3" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND">
+					<RequestParams>
+						<Param>Channel Shift</Param>
+						<StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+					</RequestParams>
+				</Command>
+				<Command Name="Write Pres Atm TCRow" CmdNum="4" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+					<RequestParams>
+						<Param>Channel Shift</Param>
+						<StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+					</RequestParams>
+				</Command>
+				<Command Name="Write Pres Pilot TCRow" CmdNum="5" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND">
+					<RequestParams>
+						<Param>Channel Shift</Param>
+						<StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+					</RequestParams>
+				</Command>
+				<Command Name="Write Pres 1 TCRow" CmdNum="6" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND">
+					<RequestParams>
+						<Param>Channel Shift</Param>
+						<StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+					</RequestParams>
+				</Command>
+				<Command Name="Write Pres 2 TCRow" CmdNum="7" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND">
+					<RequestParams>
+						<Param>Channel Shift</Param>
+						<StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+					</RequestParams>
+				</Command>
+				<Command Name="Write Pres 3 TCRow" CmdNum="8" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND">
+					<RequestParams>
+						<Param>Channel Shift</Param>
+						<StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+					</RequestParams>
+				</Command>
+				<Command Name="Write PosInt TCRow" CmdNum="9" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND">
+					<RequestParams>
+						<Param>Channel Shift</Param>
+						<StructArray MaxSize="8">TC OffsetSpan32</StructArray>
+					</RequestParams>
+				</Command>
+				<Command Name="Write PosExt TCRow" CmdNum="10" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND">
+					<RequestParams>
+						<Param>Channel Shift</Param>
+						<StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+					</RequestParams>
+				</Command>
+				<Command Name="Write IP Current TCRow" CmdNum="11" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND">
+					<RequestParams>
+						<Param>Channel Shift</Param>
+						<StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+					</RequestParams>
+				</Command>
+				<Command Name="Write Control Output TCRow" CmdNum="13" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND">
+					<RequestParams>
+						<Param>Channel Shift</Param>
+						<StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+					</RequestParams>
+				</Command>
+			</SubCommands>
+		</Command>
+		<FutureCommand Name="Read Temperatures" CmdNum="143" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Reads current, min and max temperatures of all the sensors">
+			<ResponseParams>
+				<StructArray MaxSize="1">Temperatures</StructArray>
+			</ResponseParams>
+		</FutureCommand>
+	</Commands>
+	<Variables></Variables>
+	<Structs></Structs>
+	<Commands>
+		<Command Name="Read Raw Values" CmdNum="220" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+			<!--Read all raw values-->
+			<ResponseParams>
+				<Struct>Raw Values</Struct>
+			</ResponseParams>
+		</Command>
+		<Command Name="Read TCorrected Values" CmdNum="221" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+			<!--Read all temperature-corrected values-->
+			<ResponseParams>
+				<Struct>Temperature Corrected Values</Struct>
+			</ResponseParams>
+		</Command>
+	</Commands>
+	<Variables>
+		<Variable Name="AD sp" DataType="H_UINT"/>
+		<Variable Name="AD pv" DataType="H_UINT"/>
+		<Variable Name="AD tempr" DataType="H_UINT"/>
+		<Variable Name="AD presAtm" DataType="H_UINT"/>
+		<Variable Name="AD pos rem" DataType="H_UINT"/>
+		<Variable Name="AD pres1" DataType="H_UINT"/>
+		<Variable Name="AD pos int" DataType="H_UINT"/>
+		<Variable Name="AD pres3" DataType="H_UINT"/>
+		<Variable Name="AD pres2" DataType="H_UINT"/>
+		<Variable Name="AD presPilot" DataType="H_UINT"/>
+		<Variable Name="AD IP" DataType="H_UINT"/>
+		<Variable Name="AD refV" DataType="H_UINT"/>
+	</Variables>
+	<Variables>
+		<Variable Name="TC sp" DataType="H_INT"/>
+		<Variable Name="TC pv" DataType="H_INT"/>
+		<Variable Name="TC tempr" DataType="H_INT"/>
+		<Variable Name="TC presAtm" DataType="H_INT"/>
+		<Variable Name="TC pos rem" DataType="H_INT"/>
+		<Variable Name="TC pres1" DataType="H_INT"/>
+		<Variable Name="TC pos int" DataType="H_INT"/>
+		<Variable Name="TC pres3" DataType="H_INT"/>
+		<Variable Name="TC pres2" DataType="H_INT"/>
+		<Variable Name="TC presPilot" DataType="H_INT"/>
+		<Variable Name="TC IP" DataType="H_INT"/>
+	</Variables>
+	<Structs>
+		<Struct Name="Raw Values">
+			<Param>AD sp</Param>
+			<Param>AD pv</Param>
+			<Param>AD tempr</Param>
+			<Param>AD presAtm</Param>
+			<Param>AD pos rem</Param>
+			<Param>AD pres1</Param>
+			<Param>AD pos int</Param>
+			<Param>AD pres3</Param>
+			<Param>AD pres2</Param>
+			<Param>AD presPilot</Param>
+			<Param>AD IP</Param>
+			<Param>AD refV</Param>
+		</Struct>
+		<Struct Name="Temperature Corrected Values">
+			<Param>TC sp</Param>
+			<Param>TC pv</Param>
+			<Param>TC tempr</Param>
+			<Param>TC presAtm</Param>
+			<Param>TC pos rem</Param>
+			<Param>TC pres1</Param>
+			<Param>TC pos int</Param>
+			<Param>TC pres3</Param>
+			<Param>TC pres2</Param>
+			<Param>TC presPilot</Param>
+			<Param>TC IP</Param>
+			<Param>AD refV<!--Not temperature-corrected--></Param>
+		</Struct>
+	</Structs>
+	<Commands>
+		<Command Name="Read Variable Address" CmdType="Read" CmdNum="128" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read variable address">
+			<RequestParams>
+				<Param>Variable Number</Param>
+			</RequestParams>
+			<ResponseParams>
+				<Param>Variable Address</Param>
+				<Param>Variable Type</Param>
+				<Param>Variable Size</Param>
+			</ResponseParams>
+		</Command>
+	</Commands>
+	<Variables>
+		<Variable Name="Variable Number" DataType="H_UINT" Printf="%u" Description="requested variable number. Beginning with 10000, special stuff. Beginning with 32768, RAM variables"/>
+		<Variable Name="Variable Address" DataType="H_UINT" Printf="%u" Description="response variable address"/>
+		<Variable Name="Variable Type" DataType="H_UCHAR" Printf="%u" DisplayName="type" Description="response variable type (not all types applicable to all projects)">
+			<EnumValues v129="HC_VarTypeRAM | RAM" v130="HC_VarTypeNVMEM | FRAM" v132="HC_VarTypeROM | ROM" v161="LUI" v172="Serialization Chip"></EnumValues>
+		</Variable>
+		<Variable Name="Variable Size" DataType="H_UINT" Printf="%u" Description="response variable size"/>
+	</Variables>
+	<Commands>
+		<Command CmdNum="171" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Write Error Limits" CmdNum="175" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Write Error Limits">
+					<RequestParams>
+						<Struct>Position Error Limits</Struct>
+					</RequestParams>
+					<ResponseParams>
+						<Struct>Position Error Limits</Struct>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+		<Command CmdNum="170" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Read Error Limits" CmdNum="175" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_READ_COMMAND" Description="Read Error Limits">
+					<ResponseParams>
+						<Struct>Position Error Limits</Struct>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+	</Commands>
+	<Structs>
+		<Struct Name="Position Error Limits">
+			<Param>Position Error Band</Param>
+			<Param>Position Error1 Enable</Param>
+			<Param>Position Time1</Param>
+			<Param>Near Position</Param>
+		</Struct>
+	</Structs>
+	<Variables>
+		<Variable Name="Position Error Band" DataType="H_FLOAT" Printf="%.5f" Description="Position Error Band"/>
+		<Variable Name="Position Time1" DataType="H_FLOAT" Printf="%.5f" Description="Position Time1"/>
+		<Variable Name="Position Error1 Enable" DataType="H_UCHAR" Printf="%u" Description="Position Error1 Enable"/>
+		<Variable Name="Near Position" DataType="H_FLOAT" Printf="%.5f" Description="Near Position"/>
+	</Variables>
+	<Commands>
+		<Command CmdNum="171" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Write Air Action" CmdNum="210" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Write ATO/ATC">
+					<RequestParams>
+						<Param>Air Action</Param>
+					</RequestParams>
+					<ResponseParams>
+						<Param>Air Action</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+	</Commands>
+	<Variables></Variables>
+	<Structs></Structs>
+	<Commands>
+		<Command CmdNum="171" SubCmdOnly="1">
+			<RequestParams/>
+			<SubCommands>
+				<Command CmdNum="216" Name="Write Control Parameters Selector" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND">
+					<RequestParams>
+						<Param>PIDData Selector</Param>
+					</RequestParams>
+					<ResponseParams>
+						<Param>PIDData Selector</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+	</Commands>
+	<Commands>
+		<Command CmdNum="171" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Write Activation Code" CmdNum="159" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND | HC_FACTORY_COMMAND" Description="Write device-unique activation data">
+					<RequestParams>
+						<Param>Device Activation Signature 1</Param>
+						<Param>Device Activation Code 1</Param>
+						<Param>Device Activation Signature 2</Param>
+						<Param>Device Activation Code 2</Param>
+					</RequestParams>
+					<ResponseParams></ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+		<Command CmdNum="170" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Read Activation Data" CmdNum="159" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_READ_COMMAND | HC_FACTORY_COMMAND" Description="Read Activation Data">
+					<ResponseParams>
+						<Param>Device Activation Data 1</Param>
+						<Param>Device Activation Data 2</Param>
+						<Param>Device Activation Data 3</Param>
+						<Param>Device Activation Data 4</Param>
+						<Param>Device Activation Data 5</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+	</Commands>
+	<Variables>
+		<Variable Name="Device Activation Data 1" MaxSize="8" DataType="H_UCHAR" Printf="%02X" DisplayName="Activation Data 1"></Variable>
+		<Variable Name="Device Activation Data 2" MaxSize="8" DataType="H_UCHAR" Printf="%02X" DisplayName="Activation Data 2"></Variable>
+		<Variable Name="Device Activation Data 3" DataType="H_UINT" Printf="%04X" DisplayName="Activation Data 3"></Variable>
+		<Variable Name="Device Activation Signature 1" MaxSize="8" DataType="H_UCHAR" Printf="%02X" DisplayName="Activation Signature 1"></Variable>
+		<Variable Name="Device Activation Signature 2" MaxSize="8" DataType="H_UCHAR" Printf="%02X" DisplayName="Activation Signature 2"></Variable>
+		<Variable Name="Device Activation Code 1" DataType="H_UCHAR" Printf="%02X" DisplayName="Activation Code 1"></Variable>
+		<Variable Name="Device Activation Code 2" DataType="H_UCHAR" Printf="%02X" DisplayName="Activation Code 2"></Variable>
+		<Variable Name="Device Activation Data 4" DataType="H_UINT3" Printf="%u" DisplayName="Elapsed Time"></Variable>
+		<Variable Name="Device Activation Data 5" DataType="H_UCHAR" Printf="%u" DisplayName="Busy Time"></Variable>
+	</Variables>
+	<CannedCommands>
+		<Command CmdNum="170" Name="Read Activation Data">
+			<!--This canned command is just an alias for the hart command.  It is otherwise unnecessary.-->
+			<SubCommand CmdNum="159" Name=""></SubCommand>
+		</Command>
+		<Command CmdNum="171" Name="Write Activation Code">
+			<!--This canned command is just an alias for the hart command.  It is otherwise unnecessary.-->
+			<SubCommand CmdNum="159" Name=""></SubCommand>
+		</Command>
+	</CannedCommands>
+	<!--  $Archive: /MNCB/Dev/AP_Release_3.1.x/LCX_devel/FIRMWARE/interface/hart/commonxml/write_ctlout.xml $
+      $Date: 4/13/11 5:36p $
+      $Revision: 1 $
+      $Author: Sergey Kruss $
+-->
+	<Commands>
+		<Command Name="Write IP Value" CmdNum="160" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS" CmdFlags="HC_COMMAND_COMMAND" Description="Command writes raw PWM counts, with no normalization">
+			<RequestParams>
+				<Param>ipValue_IPOut</Param>
+			</RequestParams>
+			<ResponseParams/>
+		</Command>
+		<Command CmdNum="130" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Write Control Output" CmdNum="160" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_COMMAND_COMMAND | HC_FACTORY_COMMAND" Description="Command writes control counts, which are translated to PWM counts via standard normalization algorithm and sent to PWM chip.">
+					<RequestParams>
+						<Param>Control Output</Param>
+					</RequestParams>
+					<ResponseParams/>
+				</Command>
+			</SubCommands>
+		</Command>
+	</Commands>
+	<Variables>
+		<Variable Name="Control Output" DataType="H_UINT" Description="Number of counts, to be translated to PWM counts via standard normalization algorithm before sending to PWM chip." EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+		</Variable>
+		<Variable DisplayName="I/P Value" Name="ipValue_IPOut" DataType="H_UINT" Description="Raw PWM counts to drive I/P. 0 has a special meaning of returning to closed-loop control." EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+		</Variable>
+	</Variables>
+	<Sequences>
+		<Sequence Name="Read Board ID">
+			<!--This is a dummy sequence that does nothing.  It is intended to be used where a derived class wasts to reuse methods of its parent where the derived class does not support a command of its parent.-->
+			<Steps/>
+		</Sequence>
+		<Sequence Name="Write Board ID">
+			<!--This is a dummy sequence that does nothing.  It is intended to be used where a derived class wasts to reuse methods of its parent where the derived class does not support a command of its parent.-->
+			<Steps/>
+		</Sequence>
+	</Sequences>
+	<Variables>
+		<Variable Name="Final Assembly Number" DataType="H_UINT3" Description="final assembly number" EnRangeCheck="1" MaxSize="1" DisplayName="Board ID" Default="0">
+			<!--Dummy Variable for compatibility with DLT Factory Page-->
+			<Range Model="TypeRange"/>
+		</Variable>
+	</Variables>
+	<Commands>
+		<Command Name="IPC Dynamic Parameters Exchange" CmdNum="177" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="IPC - Dynamic Parameters Exchange Command">
+			<RequestParams>
+				<Param>IPC Target Mode</Param>
+				<Param>IPC SP Status</Param>
+				<Param>IPC SP Float</Param>
+				<Param>IPC IP Action Status</Param>
+				<Param>IPC IP Action</Param>
+				<Param>IPC Variable ID 1</Param>
+				<Param>IPC Variable ID 2</Param>
+				<Param>IPC Unused 2 byte Buffer</Param>
+			</RequestParams>
+			<ResponseParams>
+				<Param>IPC Actual Mode</Param>
+				<Param>IPC POS Status</Param>
+				<Param>IPC POS Float</Param>
+				<Param>IPC Variable ID 1</Param>
+				<Param>IPC Var 1 Status</Param>
+				<Param>IPC Var 1 Buffer</Param>
+				<Param>IPC Variable ID 2</Param>
+				<Param>IPC Var 2 Status</Param>
+				<Param>IPC Var 2 Buffer</Param>
+			</ResponseParams>
+		</Command>
+		<Command Name="IPC Read Short Variables" CmdNum="188" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="IPC - Read three short variables">
+			<RequestParams>
+				<Param>IPC Variable ID 1</Param>
+				<Param>IPC Variable ID 2</Param>
+				<Param>IPC Unused 4 byte BufferA</Param>
+				<Param>IPC Unused 4 byte BufferB</Param>
+				<Param>IPC Unused 2 byte Buffer</Param>
+			</RequestParams>
+			<ResponseParams>
+				<Param>IPC Variable ID 1</Param>
+				<Param>IPC Var 1 Status</Param>
+				<Param>IPC Var 1 Buffer</Param>
+				<Param>IPC Variable ID 2</Param>
+				<Param>IPC Var 2 Status</Param>
+				<Param>IPC Var 2 Buffer</Param>
+			</ResponseParams>
+		</Command>
+		<Command Name="IPC Write Short Variables" CmdNum="186" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND" Description="IPC - Write two short variables">
+			<RequestParams>
+				<Param>IPC Variable ID 1</Param>
+				<Param>IPC Var 1 Status</Param>
+				<Param>IPC Var 1 Buffer</Param>
+				<Param>IPC Variable ID 2</Param>
+				<Param>IPC Var 2 Status</Param>
+				<Param>IPC Var 2 Buffer</Param>
+			</RequestParams>
+			<ResponseParams>
+				<Param>IPC Variable ID 1</Param>
+				<Param>IPC Var 1 Status</Param>
+				<Param>IPC Var 1 Buffer</Param>
+				<Param>IPC Variable ID 2</Param>
+				<Param>IPC Var 2 Status</Param>
+				<Param>IPC Var 2 Buffer</Param>
+			</ResponseParams>
+		</Command>
+		<Command Name="IPC Read Array" CmdNum="178" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND" Description="IPC - Read array variables">
+			<RequestParams>
+				<Param>IPC Variable ID 1</Param>
+				<Param>IPC Data Block Num</Param>
+				<Param>IPC Data Block</Param>
+			</RequestParams>
+			<ResponseParams>
+				<Param>IPC Variable ID 1</Param>
+				<Param>IPC Data Block Num</Param>
+				<Param>IPC Array Status</Param>
+				<Param>IPC Array Data</Param>
+			</ResponseParams>
+		</Command>
+		<Command Name="IPC Write Array" CmdNum="187" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND" Description="IPC - Write data block up to 11 bytes">
+			<RequestParams>
+				<Param>IPC Variable ID 1</Param>
+				<Param>IPC Data Block Num</Param>
+				<Param>IPC Data Block</Param>
+			</RequestParams>
+			<ResponseParams>
+				<Param>IPC Variable ID 1</Param>
+				<Param>IPC Data Block Num</Param>
+				<Param>IPC Array Status</Param>
+			</ResponseParams>
+		</Command>
+	</Commands>
+	<Variables>
+		<Variable Name="IPC Target Mode" DataType="H_UCHAR" Description="Device Target Mode"/>
+		<Variable Name="IPC SP Status" DataType="H_UCHAR" Description="Device SP Status"/>
+		<Variable Name="IPC SP Float" DataType="H_FLOAT" Description="Device SP Float Buffer"/>
+		<Variable Name="IPC IP Action Status" DataType="H_UCHAR" Description="Device IP Action Status"/>
+		<Variable Name="IPC IP Action" DataType="H_UCHAR" Description="Device IP Action"/>
+		<Variable Name="IPC Variable ID 1" DataType="H_UINT" Description="Device Variable 1 ID Index"/>
+		<Variable Name="IPC Variable ID 2" DataType="H_UINT" Description="Device Variable 2 ID Index"/>
+		<Variable Name="IPC Actual Mode" DataType="H_UCHAR" Description="Device Actual Mode"/>
+		<Variable Name="IPC POS Status" DataType="H_UCHAR" Description="Device Position Status"/>
+		<Variable Name="IPC POS Float" DataType="H_FLOAT" Description="Device Position"/>
+		<Variable Name="IPC Var 1 Status" DataType="H_UCHAR" Description="Device Variable 1 Status"/>
+		<Variable Name="IPC Var 1 Buffer" DataType="H_UINT4" Description="Device Variable 1 Buffer"/>
+		<Variable Name="IPC Var 2 Status" DataType="H_UCHAR" Description="Device Variable 2 Status"/>
+		<Variable Name="IPC Var 2 Buffer" DataType="H_UINT4" Description="Device Variable 2 Buffer"/>
+		<Variable Name="IPC Unused 4 byte BufferA" DataType="H_UINT4" Description="Unused 4 byte buffer"/>
+		<Variable Name="IPC Unused 4 byte BufferB" DataType="H_UINT4" Description="Unused 4 byte buffer"/>
+		<Variable Name="IPC Unused 2 byte Buffer" DataType="H_UINT" Description="Unused 2 byte buffer"/>
+		<Variable Name="IPC Data Block Num" DataType="H_UCHAR" Description="Data block Number for Array Variables"/>
+		<Variable Name="IPC Array Status" DataType="H_UCHAR" Description="Arrray Variable Status"/>
+		<Variable Name="IPC Array Data" DataType="H_UCHAR" MinSize="32" MaxSize="32" Description="Data for Array Variable"/>
+		<Variable Name="IPC Data Block" DataType="H_UCHAR" MaxSize="11" DisplayName="Data Block" Default="0" Description="Data Buffer When Reading or Writing Array"></Variable>
+	</Variables>
+	<Commands>
+		<Command Name="IPC Firmware Download Data Transfer" CmdNum="245" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND" Description="IPC - F/W Download Data Transfer Command">
+			<RequestParams>
+				<Param>FW Send Data Block</Param>
+			</RequestParams>
+			<ResponseParams>
+				<Param>FW Receive Data Block</Param>
+			</ResponseParams>
+		</Command>
+		<SubCmdOnly CmdNum="129">
+			<SubCommands>
+				<Command Name="Read APP Active Flash Bank" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" CmdNum="41">
+					<RequestParams></RequestParams>
+					<ResponseParams>
+						<Param>APP Flash Bank</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</SubCmdOnly>
+	</Commands>
+	<Variables>
+		<Variable Name="FW Send Data Block" DataType="H_UCHAR" MaxSize="6" DisplayName="FW Send Data Block" Default="0" Description="FW Download Data Buffer sent to the device"></Variable>
+		<Variable Name="FW Receive Data Block" DataType="H_UCHAR" MaxSize="6" DisplayName="FW Receive Data Block" Default="0" Description="FW Download Data Buffer sent to the device"></Variable>
+		<Variable Name="APP Flash Bank" DataType="H_UCHAR" Description="Active Flash Bank (0 or 1)"/>
+	</Variables>
+	<Variables>
+		<Variable Name="Position Setpoint" DataType="H_FLOAT" Printf="%.3f" DisplayName="Setpoint Value" Units="%" Description="setpoint in position domain; doesn't need characterization">
+			<Range Model="Standard" MinValue="-5" MaxValue="160"/>
+		</Variable>
+		<Variable Name="Digital Setpoint" DataType="H_FLOAT" Printf="%.3f" DisplayName="Digital Setpoint" Units="%" Description="setpoint in setpoint domain; needs characterization to convert to position">
+			<Range Model="Standard" MinValue="-5" MaxValue="160"/>
+		</Variable>
+		<Variable Name="Control Algorithm Mode" DataType="H_UCHAR" Printf="%u" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues v1="MODE_ipDiag | IPDiag" v2="MODE_manual | Manual" v3="MODE_ipLow | IPLow" v4="MODE_ipLowFail | IPLowFail" v5="MODE_ipHigh | IPHigh" v6="MODE_ipHighFactory | IPHighFactory" v7="MODE_ipHighFail | IPHighFail" v8="MODE_off | Off" v9="MODE_ipLowProc | IPLowProc" v10="MODE_ipHighProc | IPHighProc"/>
+		</Variable>
+		<Variable Name="Charact Segment Selector" DataType="H_UCHAR" Printf="%u" Description="One of the coarse segments"></Variable>
+		<Variable Name="SP Characterization" DataType="H_UCHAR" Printf="%u" Description="One of the predefined types of SP characterization">
+			<EnumValues v0="HART_SP_CHARACT_LINEAR | Linear" v1="HART_SP_CHARACT_EQUAL_30 | Eq 30%" v2="HART_SP_CHARACT_EQUAL_50 | Eq 50%" v3="HART_SP_CHARACT_QUICK_OPEN | Quick open" v4="HART_SP_CHARACT_CUSTOM | Custom" v5="HART_SP_CHARACT_CAMFLEX_EQ30 | Camflex Eq 30%"/>
+		</Variable>
+		<Variable Name="XorY" DataType="H_UCHAR" Printf="%u" Description="0-X, 1-Y selector">
+			<EnumValues v0="HART_SP_CHARACT_X | X" v1="HART_SP_CHARACT_Y | Y"/>
+		</Variable>
+		<Variable Name="SP Characterization Index" DataType="H_UCHAR" Printf="%u" Description="One of the predefined types of SP characterization; same enumeration as &quot;SP Characterization&quot;">
+			<EnumValues/>
+		</Variable>
+		<Variable Name="Num Charact Points" DataType="H_UCHAR" Printf="%u" Description="Number of internal points in characterization curve" EnRangeCheck="1">
+			<Range Model="Standard" MinValue="0" MaxValue="19"/>
+		</Variable>
+		<Variable Name="Num Custom Charact Segments" DataType="H_UCHAR" Printf="%u" Description="1-20"></Variable>
+		<Variable Name="Custom Charact Magic" DataType="H_UINT" Printf="%04x" Description="A magic number for quick consistency verification"></Variable>
+		<XVariable Name="SP Characterization Fine Segment Numpoints" DataType="H_UCHAR" Printf="%u" Description="Number of points in a segment"/>
+		<XVariable Name="Stored Fine Segment Numpoints" DataType="H_UCHAR" Printf="%u" Description="Number of points in a fine segment" MaxSize="4"/>
+		<Variable Name="Charact Ypoint" DataType="H_INT" Description="A Y point in mapping [0-100]% (0-16384) on itself" EnRangeCheck="1">
+			<Range Model="Standard" MinValue="0" MaxValue="16384"/>
+		</Variable>
+		<XVariable Name="Fine Charact Ypoint" DataType="H_FLOAT" Description="A Y point in mapping [0-100]% (0-16384) on itself for fine segments"/>
+		<Variable Name="Charact Xpoint" DataType="H_INT" Description="An X point in mapping [0-100]% (0-16384) on itself" EnRangeCheck="1">
+			<Range Model="Standard" MinValue="0" MaxValue="16384"/>
+		</Variable>
+		<Variable Name="Charact Point" DataType="H_INT" Description="An X or Y (depending on XorY) point in mapping [0-100]% (0-16384) on itself" EnRangeCheck="1" MaxSize="19">
+			<Range Model="Standard" MinValue="0" MaxValue="16384"/>
+		</Variable>
+		<XVariable Name="Fine Charact Xpoint" DataType="H_INT" Description="An X point in mapping [0-100]% (0-16384) on inself for fine segments"/>
+	</Variables>
+	<Structs>
+		<Struct Name="Characterization Point">
+			<Param>Charact Xpoint</Param>
+			<Param>Charact Ypoint</Param>
+		</Struct>
+		<XStruct Name="Fine Characterization Point">
+			<Param>Fine Charact Xpoint</Param>
+			<Param>Fine Charact Ypoint</Param>
+		</XStruct>
+	</Structs>
+	<Commands>
+		<Command Name="Read Setpoint" CmdNum="154" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Reads setpoint">
+			<ResponseParams>
+				<Param>Position Setpoint</Param>
+				<Param>Digital Setpoint</Param>
+				<Param>Control Algorithm Mode</Param>
+			</ResponseParams>
+		</Command>
+		<Command Name="Write Setpoint" CmdNum="155" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_COMMAND_COMMAND" Description="Writes settings selected by the subcommand">
+			<RequestParams>
+				<Param>SubCmdNum</Param>
+			</RequestParams>
+			<ResponseParams>
+				<Param>SubCmdNum</Param>
+			</ResponseParams>
+			<SubCommands>
+				<Command CmdNum="1" Name="Write Position Setpoint" AllowedModes="HC_ALLOWED_MODE_MAN | HC_ALLOWED_MODE_OOS" CmdFlags="HC_COMMAND_COMMAND">
+					<RequestParams>
+						<Param>Position Setpoint</Param>
+					</RequestParams>
+					<ResponseParams>
+						<Param>Position Setpoint</Param>
+					</ResponseParams>
+				</Command>
+				<Command CmdNum="2" Name="Set Full Closed" AllowedModes="HC_ALLOWED_MODE_MAN | HC_ALLOWED_MODE_OOS" CmdFlags="HC_COMMAND_COMMAND"></Command>
+				<Command CmdNum="3" Name="Set Full Open" AllowedModes="HC_ALLOWED_MODE_MAN | HC_ALLOWED_MODE_OOS" CmdFlags="HC_COMMAND_COMMAND"></Command>
+				<Command CmdNum="4" Name="DeEnergize" AllowedModes="HC_ALLOWED_MODE_MAN | HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_COMMAND_COMMAND"></Command>
+			</SubCommands>
+		</Command>
+		<Command CmdNum="171" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Write Custom Characterization" CmdNum="178" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_COMMAND_COMMAND | HC_WRITE_PROTECT" Description="Write custom Characterization. Endpoints (0%,0%) and (100%, 100%) are implied">
+					<RequestParams>
+						<Param>Num Charact Points</Param>
+						<StructArray MaxSize="19">Characterization Point</StructArray>
+					</RequestParams>
+					<ResponseParams></ResponseParams>
+				</Command>
+				<Command Name="Select SP Characterization" CmdNum="179" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Select Setpoint/Position Characterization">
+					<RequestParams>
+						<Param>SP Characterization</Param>
+					</RequestParams>
+					<ResponseParams>
+						<Param>SP Characterization</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+		<Command CmdNum="170" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Read SP Characterization Selection" CmdNum="179" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_READ_COMMAND" Description="Read SP and Position Characterization Selection">
+					<ResponseParams>
+						<Param>SP Characterization</Param>
+						<Param>Num Custom Charact Segments</Param>
+						<Param>Custom Charact Magic</Param>
+					</ResponseParams>
+				</Command>
+				<Command Name="Read SP Characterization" CmdNum="178" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read coarse reference points of Custom Characterization">
+					<RequestParams>
+						<Param>SP Characterization Index</Param>
+					</RequestParams>
+					<ResponseParams>
+						<Param>SP Characterization Index</Param>
+						<Param>Num Charact Points</Param>
+						<StructArray MaxSize="19">Characterization Point</StructArray>
+					</ResponseParams>
+				</Command>
+				<Command Name="Read SP Characterization X or Y" CmdNum="177" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read coarse reference points of Custom Characterization">
+					<RequestParams>
+						<Param>SP Characterization Index</Param>
+						<Param>XorY</Param>
+					</RequestParams>
+					<ResponseParams>
+						<Param>SP Characterization Index</Param>
+						<Param>XorY</Param>
+						<Param>Num Charact Points</Param>
+						<Param>Charact Point</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+		<XCommand Name="Commit Custom Characterization" CmdNum="172" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_COMMAND_COMMAND | HC_WRITE_PROTECT" Description="Commit previously written Custom SP Characterization to NVMEM">
+			<RequestParams></RequestParams>
+			<ResponseParams></ResponseParams>
+		</XCommand>
+	</Commands>
+	<UpdateVariables>
+		<UpdateVariable Name="SP Characterization Index" EnumFromVarName="SP Characterization"/>
+	</UpdateVariables>
+	<Variables>
+		<Variable Name="Target Block Mode" DataType="H_UCHAR" Printf="%u" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues v0="BMODE_NoChange | No change" v1="BMODE_OOS | OOS" v4="BMODE_Local | LOCAL" v8="BMODE_Man | MAN" v16="BMODE_Auto | AUTO"/>
+		</Variable>
+		<Variable Name="TB SP Failure Target Mode" DataType="H_UCHAR" Printf="%u" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues v0="TB Target to OOS" v1="TB Target to Manual"/>
+		</Variable>
+		<Variable Name="TB SP option" DataType="H_UCHAR" Printf="%u" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues v0="SP Start With Current Position" v1="SP Start With Default Setpoint"/>
+		</Variable>
+		<Variable Name="Effective Block Mode" DataType="H_UCHAR" Printf="%u" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues/>
+		</Variable>
+		<Variable Name="Set Effective Block Mode As Target" DataType="H_UCHAR" Printf="%u" EnRangeCheck="1">
+			<Range Model="Standard" MinValue="0" MaxValue="1"/>
+		</Variable>
+		<Variable Name="Failed State Flag" DataType="H_UCHAR" Printf="%u" EnRangeCheck="0" Description="0 if not failed, 1 if failed"></Variable>
+		<Variable Name="Inversely Characterized Position" DataType="H_FLOAT" Printf="%.3f" EnRangeCheck="0" Description="Valve position in digital setpoint domain" Units="%"></Variable>
+		<Variable Name="Characterized Digital Setpoint" DataType="H_FLOAT" Printf="%.3f" EnRangeCheck="0" Description="Effective digital setpoint in position domain" Units="%"></Variable>
+		<Variable Name="TB FixedSetpoint" DataType="H_FLOAT" Printf="%.3f" EnRangeCheck="0" Description="Effective default digital setpoint" Units="%"></Variable>
+		<Variable Name="TB ShedTime" DataType="H_FLOAT" Printf="%.3f" EnRangeCheck="0" Description="Shed Time of default digital setpoint" Units="s"></Variable>
+		<Variable Name="TB InitTime" DataType="H_FLOAT" Printf="%.3f" EnRangeCheck="0" Description="Initial Shed Time of default digital setpoint" Units="s"></Variable>
+	</Variables>
+	<Commands>
+		<SubCmdOnly CmdNum="155">
+			<SubCommands>
+				<Command CmdNum="5" Name="Write Digital Setpoint" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND">
+					<RequestParams>
+						<Param>Digital Setpoint</Param>
+						<Param>Target Block Mode</Param>
+					</RequestParams>
+					<ResponseParams>
+						<Param>Digital Setpoint</Param>
+						<Param>Target Block Mode</Param>
+						<Param>Effective Block Mode</Param>
+						<Param>Set Effective Block Mode As Target</Param>
+						<Param>Inversely Characterized Position</Param>
+						<Param>Characterized Digital Setpoint</Param>
+					</ResponseParams>
+				</Command>
+				<Command CmdNum="6" Name="Set Failed State" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND"></Command>
+				<Command CmdNum="7" Name="Clear Failed State" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND"></Command>
+			</SubCommands>
+		</SubCmdOnly>
+		<SubCmdOnly CmdNum="171">
+			<SubCommands>
+				<Command CmdNum="220" Name="Write Block Mode Configuration" AllowedModes="HC_ALLOWED_MODE_OOS" CmdFlags="HC_WRITE_COMMAND">
+					<RequestParams>
+						<Param>TB FixedSetpoint</Param>
+						<Param>TB ShedTime</Param>
+						<Param>TB InitTime</Param>
+						<Param>TB SP Failure Target Mode</Param>
+						<Param>TB SP option</Param>
+					</RequestParams>
+					<ResponseParams>
+						<Param>TB FixedSetpoint</Param>
+						<Param>TB ShedTime</Param>
+						<Param>TB InitTime</Param>
+						<Param>TB SP Failure Target Mode</Param>
+						<Param>TB SP option</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</SubCmdOnly>
+		<SubCmdOnly CmdNum="170">
+			<SubCommands>
+				<Command CmdNum="220" Name="Read Block Mode Configuration" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+					<ResponseParams>
+						<Param>TB FixedSetpoint</Param>
+						<Param>TB ShedTime</Param>
+						<Param>TB InitTime</Param>
+						<Param>TB SP Failure Target Mode</Param>
+						<Param>TB SP option</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</SubCmdOnly>
+	</Commands>
+	<UpdateVariables>
+		<UpdateVariable Name="Effective Block Mode" EnumFromVarName="Target Block Mode"/>
+	</UpdateVariables>
+	<Commands>
+		<Command CmdNum="130" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Reset Log File System" CmdNum="198" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_FACTORY_COMMAND" Description="Removes all log file data"></Command>
+			</SubCommands>
+		</Command>
+		<Command Name="Read Log File" CmdNum="198" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Reads up to 40 bytes from a log file">
+			<RequestParams>
+				<Struct>File Request</Struct>
+			</RequestParams>
+			<ResponseParams>
+				<Struct>File Request</Struct>
+				<Param>File Read Length</Param>
+				<Param>File Data</Param>
+			</ResponseParams>
+		</Command>
+	</Commands>
+	<Variables>
+		<Variable Name="File Id" DataType="H_UCHAR" Printf="%u" Description="File Id is specific to the device and is documented elsewhere"/>
+		<Variable Name="File Version" DataType="H_UCHAR" Printf="%u" Description="&quot;Age&quot; of the file, 0 being the newest, 1 next to newest etc. The number of versions kept in the device is specific to the file."/>
+		<Variable Name="File Position" DataType="H_UINT" Printf="%u" Description="Offset from the beginning of the file where the read begins"/>
+		<Variable Name="File Read Length" DataType="H_UCHAR" Printf="%u" Description="The actual number of valid bytes read in File Data"/>
+		<Variable Name="File Data" DataType="H_UCHAR" Printf="%02X" Description="Data read from the file. You need to know the meaning of the data which is specific to the file id." MaxSize="40"/>
+	</Variables>
+	<Structs>
+		<Struct Name="File Request">
+			<Param>File Id</Param>
+			<Param>File Version</Param>
+			<Param>File Position</Param>
+		</Struct>
+	</Structs>
+	<Commands>
+		<Command Name="Find Stops" CmdNum="180" CmdType="Process" AllowedModes="HC_ALLOWED_MODE_OOS" CmdFlags="HC_PROCESS_COMMAND | HC_WRITE_PROTECT">
+			<RequestParams></RequestParams>
+		</Command>
+	</Commands>
+	<Structs>
+		<XStruct Name="Diagnostic Parameters">
+			<Param>Stroke Speed</Param>
+			<Param>Start Position</Param>
+			<Param>End Position</Param>
+			<Param>Diag Param 1</Param>
+			<Param>Diag Param 2</Param>
+			<Param>Diag Param 3</Param>
+		</XStruct>
+	</Structs>
+	<Commands>
+		<Command CmdNum="190" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Extended Actuator Diagnostics" CmdNum="2" CmdType="Process" AllowedModes="HC_ALLOWED_MODE_OOS" CmdFlags="HC_PROCESS_COMMAND">
+					<RequestParams>
+						<Param>Start Position</Param>
+						<Param>End Position</Param>
+						<Param>Setpoint Ramp Speed</Param>
+						<Param>Diag Direction</Param>
+						<Param>Diag Control Option</Param>
+					</RequestParams>
+				</Command>
+				<Command Name="Step Test" CmdNum="3" CmdType="Process" AllowedModes="HC_ALLOWED_MODE_OOS" CmdFlags="HC_PROCESS_COMMAND">
+					<RequestParams>
+						<Param>Start Position</Param>
+						<Param>End Position</Param>
+						<Param>Sampling Time</Param>
+					</RequestParams>
+				</Command>
+				<Command Name="Ramp Test" CmdNum="4" CmdType="Process" AllowedModes="HC_ALLOWED_MODE_OOS" CmdFlags="HC_PROCESS_COMMAND">
+					<RequestParams>
+						<Param>Start Position</Param>
+						<Param>End Position</Param>
+						<Param>Setpoint Ramp Speed</Param>
+						<Param>Diag Direction</Param>
+					</RequestParams>
+				</Command>
+				<Command Name="Save Diagnostic Signature" CmdNum="20" CmdType="Process" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_PROCESS_COMMAND">
+					<RequestParams>
+						<Param>Signature Type</Param>
+						<Param>Signature Assignment</Param>
+					</RequestParams>
+				</Command>
+				<Command Name="Read Diagnostic Signature Into Diagnostic Buffer" CmdNum="21" CmdType="Process" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_PROCESS_COMMAND">
+					<RequestParams>
+						<Param>Signature Type</Param>
+						<Param>Signature Assignment</Param>
+						<Param>File Version</Param>
+						<Param>Buffer Id</Param>
+					</RequestParams>
+				</Command>
+			</SubCommands>
+		</Command>
+	</Commands>
+	<Variables>
+		<Variable Name="Setpoint Ramp Speed" DataType="H_FLOAT" Printf="%.3f" Description="Setpoint Ramp Speed in %/s"/>
+		<Variable Name="Diag Direction" DataType="H_UCHAR" Description="Direction of signature - up, down or both">
+			<EnumValues v0="HC_DIAGDIR_UPDOWN" v1="HC_DIAGDIR_ONEWAY"/>
+		</Variable>
+		<Variable Name="Diag Control Option" DataType="H_UCHAR" Description="Open or closed loop">
+			<EnumValues v0="HC_DIAGCTL_OPENLOOP" v1="HC_DIAGCTL_CLOSEDLOOP"/>
+		</Variable>
+		<Variable Name="Signature Type" DataType="H_UCHAR" Description="(For future expansion)">
+			<EnumValues v0="HC_DIAGRW_EXT_SIGNATURE"/>
+		</Variable>
+		<Variable Name="Signature Assignment" DataType="H_UCHAR" Description="Save As... parameter">
+			<EnumValues v0="HC_DIAGRW_CURRENT" v1="HC_DIAGRW_BASELINE" v2="HC_DIAGRW_USER"/>
+		</Variable>
+		<Variable Name="Stroke Speed" DataType="H_UCHAR" Printf="%u" Description="Speed in %/4s"/>
+		<Variable Name="Start Position" DataType="H_FLOAT" Printf="%.3f" Description="Where the test begins"/>
+		<Variable Name="End Position" DataType="H_FLOAT" Printf="%.3f" Description="Where the test ends"/>
+		<Variable Name="Diag Param 1" DataType="H_UINT" Printf="%u" Description="A test-specific parameter"/>
+		<Variable Name="Sampling Time" DataType="H_UINT" Printf="%u" Description="Sampling Time in s"/>
+		<Variable Name="Diag Param 2" DataType="H_UCHAR" Printf="%u" Description="A test-specific parameter"/>
+		<Variable Name="Diag Param 3" DataType="H_FLOAT" Printf="%.3f" Description="A test-specific parameter"/>
+	</Variables>
+	<Structs></Structs>
+	<Commands>
+		<Command Name="Read Factory Values" CmdNum="129" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+			<!--Read factory values selectively by a subcommand-->
+			<RequestParams>
+				<Param>SubCmdNum</Param>
+			</RequestParams>
+			<ResponseParams>
+				<Param>SubCmdNum</Param>
+			</ResponseParams>
+			<SubCommands>
+				<Command Name="Read reference voltage" CmdNum="110" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read the high limit and low limit of reference voltage">
+					<ResponseParams>
+						<Param>refvHiLimit</Param>
+						<Param>refvLoLimit</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+		<Command Name="Write Factory Values" CmdNum="130" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND" Description="Write factory values and establish and cancel factory mode. All the work done by subcommands.">
+			<!--Write factory values selectively by a subcommand-->
+			<RequestParams>
+				<Param>SubCmdNum</Param>
+			</RequestParams>
+			<ResponseParams>
+				<Param>SubCmdNum</Param>
+			</ResponseParams>
+			<SubCommands>
+				<Command Name="Write reference voltage" CmdNum="110" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_FACTORY_COMMAND" Description="Write the high limit and low limit of reference voltage">
+					<RequestParams>
+						<Param>refvHiLimit</Param>
+						<Param>refvLoLimit</Param>
+					</RequestParams>
+				</Command>
+			</SubCommands>
+		</Command>
+	</Commands>
+	<Variables>
+		<Variable Name="refvHiLimit" DataType="H_UINT4" Printf="%u" Description="High limit for reference voltage" DisplayName="Vref HighLimit"></Variable>
+		<Variable Name="refvLoLimit" DataType="H_UINT4" Printf="%u" Description="Low limit for reference voltage" DisplayName="Vref LowLimit"></Variable>
+	</Variables>
+	<Commands>
+		<SubCmdOnly CmdNum="170">
+			<SubCommands>
+				<Command CmdNum="248" Name="Read Sensor Type" CmdFlags="HC_READ_COMMAND" AllowedModes="HC_ALLOWED_MODE_ALL">
+					<RequestParams/>
+					<ResponseParams>
+						<Param>Position Sensor Type</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</SubCmdOnly>
+		<SubCmdOnly CmdNum="171">
+			<SubCommands>
+				<Command CmdNum="248" Name="Write Sensor Type" CmdFlags="HC_READ_COMMAND" AllowedModes="HC_ALLOWED_MODE_FS">
+					<RequestParams>
+						<Param>Position Sensor Type</Param>
+					</RequestParams>
+					<ResponseParams>
+						<Param>Position Sensor Type</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</SubCmdOnly>
+	</Commands>
+	<Variables>
+		<Variable Name="Position Sensor Type" DataType="H_UCHAR" Description="Position Sensor Internal/External">
+			<EnumValues v0="HC Internal Position Sensor | Internal" v1="HC External Position Sensor | External"/>
+		</Variable>
+	</Variables>
+	<Variables>
+		<Variable Name="Sampling Interval" DataType="H_UINT" Printf="%u" Description="Downsampling interval" EnRangeCheck="0"></Variable>
+		<Variable Name="Reserved samples" DataType="H_UCHAR" Printf="%u" Description="2X numbers to keep must be stuffed into the buffer before start sampling" EnRangeCheck="1">
+			<Range Model="Standard" MinValue="0" MaxValue="10"/>
+		</Variable>
+		<Variable Name="Number Of Initial Points" DataType="H_UCHAR" Printf="%u" Description="Pre-stuffed points; must match what was on susccessful &quot;Start Sampling&quot;" EnRangeCheck="0"></Variable>
+		<Variable Name="Number Of Sampled Points" DataType="H_UINT" Printf="%u" Description="Sampled points stored in the buffer" EnRangeCheck="0"></Variable>
+		<Variable Name="Max Number Of Points To Keep" DataType="H_UINT" Printf="%u" Description="Sampled points stored in the buffer" EnRangeCheck="0"></Variable>
+		<Variable Name="Buffer Fill" DataType="H_INT" Printf="%d" Description="A value to write to a buffer" EnRangeCheck="1" DisplayName="DiagBuf fill">
+			<Range Model="Standard" MinValue="-32768" MaxValue="32767"/>
+		</Variable>
+		<Variable Name="Buffer Fill 2" DataType="H_INT" Printf="%d" Description="A value to write to a buffer" EnRangeCheck="1" DisplayName="DiagBuf fill 2" MaxSize="2">
+			<Range Model="Standard" MinValue="-32768" MaxValue="32767"/>
+		</Variable>
+	</Variables>
+	<Commands>
+		<SubCmdOnly CmdNum="130">
+			<SubCommands>
+				<Command Name="Write Data To Diag Buffer" CmdNum="187" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_FACTORY_COMMAND" Description="Fill an entry in the requested diagnostic buffer (for testing purposes)">
+					<RequestParams>
+						<Param>Buffer Id</Param>
+						<Param>Buffer Fill</Param>
+					</RequestParams>
+				</Command>
+				<Command Name="Write Sample To Diag Buffer" CmdNum="186" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_FACTORY_COMMAND" Description="Fill a 2-entry sample in the requested diagnostic buffer (for testing purposes)">
+					<RequestParams>
+						<Param>Buffer Id</Param>
+						<Param>Buffer Fill 2</Param>
+					</RequestParams>
+				</Command>
+				<Command Name="Start Sampling Into Diag Buffer " CmdNum="190" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_FACTORY_COMMAND | HC_COMMAND_COMMAND" Description="Initialize the buffer for sampling. Previously written samples are preserved up to Reserved samples">
+					<RequestParams>
+						<Param>Buffer Id</Param>
+						<Param>Reserved samples</Param>
+						<Param>Max Number Of Points To Keep</Param>
+					</RequestParams>
+				</Command>
+				<Command Name="Stop Sampling Into Diag Buffer " CmdNum="189" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_FACTORY_COMMAND | HC_READ_COMMAND" Description="End sampling">
+					<RequestParams>
+						<Param>Buffer Id</Param>
+					</RequestParams>
+				</Command>
+			</SubCommands>
+		</SubCmdOnly>
+		<SubCmdOnly CmdNum="129">
+			<SubCommands>
+				<Command Name="Read Diag Buffer Sampling Info" CmdNum="188" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read Diag Buffer Sampling Info">
+					<RequestParams>
+						<Param>Buffer Id</Param>
+					</RequestParams>
+					<ResponseParams>
+						<Param>Buffer Id</Param>
+						<Param>Sampling Interval</Param>
+						<Param>Number Of Initial Points</Param>
+						<Param>Number Of Sampled Points</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</SubCmdOnly>
+	</Commands>
+	<Commands>
+		<Command Name="Read DO switches" CmdNum="142" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read DO switch: [0]=DO1, [1]=DO2">
+			<RequestParams></RequestParams>
+			<ResponseParams>
+				<Param>DO Switch State</Param>
+				<Param>DO Switch Logical State</Param>
+			</ResponseParams>
+		</Command>
+		<Command Name="Write DO switches" CmdNum="145" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND" Description="Write DO switch: [0]=DO1, [1]=DO2">
+			<RequestParams>
+				<Param>DO Switch Logical State</Param>
+			</RequestParams>
+			<ResponseParams></ResponseParams>
+		</Command>
+		<Command Name="Write Output Switches Configuration" CmdNum="134" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND">
+			<RequestParams>
+				<StructArray MaxSize="2">DOSWConf</StructArray>
+			</RequestParams>
+			<ResponseParams>
+				<StructArray MaxSize="2">DOSWConf</StructArray>
+			</ResponseParams>
+		</Command>
+		<Command Name="Read Output Switches Configuration" CmdNum="137" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+			<ResponseParams>
+				<StructArray MaxSize="2">DOSWConf</StructArray>
+			</ResponseParams>
+		</Command>
+	</Commands>
+	<Variables>
+		<Variable Name="DO Switch State" DataType="H_UCHAR" Printf="%u" Description="DO Switch physical state (0 - closed; 1 - open)" MaxSize="2" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues v0="DSS_Closed | Closed" v1="DSS_Opened | Opened" v2="DSS_NA | Not Avalibale"/>
+		</Variable>
+		<Variable Name="DO Switch Logical State" DataType="H_UCHAR" Printf="%u" Description="DO Switch logical state (0 - inactive; 1 - active). Whether it is the same or opposite of physical state depends on &quot;normal state&quot; configuration" MaxSize="2" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues v0="DSS_Inactive | Inactive" v1="DSS_Active | Active" v2="DSS_LNA | Not Avalibale"/>
+		</Variable>
+		<Variable Name="DO Normal State" DataType="H_UCHAR" Printf="%u" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues v0="SWITCH_normallyClosed | Normally Closed" v1="SWITCH_normallyOpen | Normally Open"/>
+		</Variable>
+		<Variable Name="DO Function" DataType="H_UCHAR" Printf="%u" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues v0="HSWITCH_DISABLE | Disable" v1="HSWITCH_FAIL | FailSafe" v2="HSWITCH_RESET | Reset" v3="HSWITCH_POS_ERROR | Position Error" v4="HSWITCH_TIGHT | Tight Shutoff" v5="HSWITCH_POS_LOW | Alarm Low" v6="HSWITCH_POS_HIGH | Alarm High" v7="HSWITCH_MANUAL | Manual" v8="HSWITCH_PASSTHROUGH | Controlled by HART" v9="HSWITCH_ALWAYSON | Always On" v10="HSWITCH_ALWAYSOFF | Always Off" v11="HSWITCH_CUTOFF_HI | Cutoff HI" v12="HSWITCH_CUTOFF_LO | Cutoff LO"/>
+		</Variable>
+	</Variables>
+	<Structs>
+		<Struct Name="DOSWConf">
+			<Param>DO Normal State</Param>
+			<Param>DO Function</Param>
+		</Struct>
+	</Structs>
+	<Commands>
+		<Command CmdNum="190" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Save Nvmem As Factory Default" CmdNum="130" CmdType="Process" AllowedModes="HC_ALLOWED_MODE_FS" CmdFlags="HC_PROCESS_COMMAND" Description="Starts a process to copy NVMEM standard image to a NVMEM log file"></Command>
+				<Command Name="Restore Factory Default Nvmem" CmdNum="129" CmdType="Process" AllowedModes="HC_ALLOWED_MODE_FS" CmdFlags="HC_PROCESS_COMMAND" Description="Starts a process to restore NVMEM standard image from a previously created NVMEM log file">
+					<RequestParams>
+						<Param>Nvmem Volume Id</Param>
+						<Param>Nvmem Defaults Mask Flags</Param>
+						<Param>Nvmem Defaults Match Flags</Param>
+						<Param>Nvmem Defaults Test Only</Param>
+					</RequestParams>
+					<ResponseParams>
+						<Param>Nvmem Volume Id</Param>
+						<Param>Nvmem Defaults Mask Flags</Param>
+						<Param>Nvmem Defaults Match Flags</Param>
+						<Param>Nvmem Defaults Test Only</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+	</Commands>
+	<Variables>
+		<Variable Name="Nvmem Volume Id" DataType="H_UCHAR" Description="Volume id; 0 is always present, others project-dependent"/>
+		<Variable Name="Nvmem Defaults Mask Flags" DataType="H_UCHAR" Printf="%02X" Description="Works together with Match Flags (see description); intended value is 0x04"></Variable>
+		<Variable Name="Nvmem Defaults Match Flags" DataType="H_UCHAR" Printf="%02X" Description="Works together with Mask Flags. Both 0's will restore everything. Other sensible values are for internal use. The logic is that the item is resored iff its (flags &amp; mask) == match. The intended use is with value 0x04 (only NVMEM records designed to be restored)"></Variable>
+		<Variable Name="Nvmem Defaults Test Only" DataType="H_UCHAR" Description="0 executes requested defaults; !=0 tests the defaults integrity">
+			<EnumValues v0="HC_RESTORE_DEFAULTS " v1="HC_DRY_RUN"/>
+		</Variable>
+	</Variables>
+	<Structs></Structs>
+	<Commands>
+		<Command CmdNum="190" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Clone Nvmem To Opposite Bank" CmdNum="131" CmdType="Process" AllowedModes="HC_ALLOWED_MODE_FS | HC_ALLOWED_MODE_ALL" CmdFlags="HC_PROCESS_COMMAND" Description="Debug command to support NVMEM cloning for firmware download"></Command>
+			</SubCommands>
+		</Command>
+		<Command CmdNum="170" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Complete Cloning Nvmem To Opposite Bank" CmdNum="131" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_FS | HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Debug command to support NVMEM cloning for firmware download">
+					<ResponseParams>
+						<Param>Cloning Completion Code</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+	</Commands>
+	<Variables>
+		<Variable Name="Cloning Completion Code" DataType="H_UCHAR" Description="0 indicates success; non-0 failure"/>
+	</Variables>
+	<Structs></Structs>
+	<Commands>
+		<Command CmdNum="129" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Read Profiling Data" CmdNum="255" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read free CPU time and ticks spent in various places">
+					<ResponseParams>
+						<Param>Free CPU time H</Param>
+						<Param>Longest crit sect</Param>
+						<Param>Address of crit sect</Param>
+						<Param>Longest control task</Param>
+						<Param>Longest cycle task</Param>
+						<Param>Longest HART task</Param>
+						<Param>Longest ISP task</Param>
+						<Param>Longest IPC task</Param>
+						<Param>Longest process segment</Param>
+						<Struct>Profiler Configuration</Struct>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+		<Command CmdNum="130" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Write Profiler Configuration" CmdNum="255" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND | HC_FACTORY_COMMAND" Description="Configure extra load in a task">
+					<RequestParams>
+						<Struct>Profiler Configuration</Struct>
+					</RequestParams>
+					<ResponseParams>
+						<Struct>Profiler Configuration</Struct>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+	</Commands>
+	<Variables>
+		<Variable Name="Free CPU time H" DataType="H_UCHAR" Description="Rough estimate in %"/>
+		<Variable Name="Longest crit sect" DataType="H_UINT4" Description="In CPU clock ticks"></Variable>
+		<Variable Name="Address of crit sect" DataType="H_UINT4" Printf="%08X"></Variable>
+		<Variable Name="Longest control task" DataType="H_UINT4" Description="In CPU clock ticks"></Variable>
+		<Variable Name="Longest cycle task" DataType="H_UINT4" Description="In CPU clock ticks"></Variable>
+		<Variable Name="Longest HART task" DataType="H_UINT4" Description="In CPU clock ticks"></Variable>
+		<Variable Name="Longest ISP task" DataType="H_UINT4" Description="In CPU clock ticks"></Variable>
+		<Variable Name="Longest IPC task" DataType="H_UINT4" Description="In CPU clock ticks"></Variable>
+		<Variable Name="Longest process segment" DataType="H_UINT4" Description="In CPU clock ticks"></Variable>
+		<Variable Name="Profiler Extra time load" DataType="H_UINT4" Description="Extra load of a selected task, In CPU clock ticks"></Variable>
+		<Variable Name="Profiler Task ID" DataType="H_UCHAR" Description="0-turn off, 1-control, 2-cycle, 3-HART, 4-process"></Variable>
+	</Variables>
+	<Structs>
+		<Struct Name="Profiler Configuration">
+			<Param>Profiler Task ID</Param>
+			<Param>Profiler Extra time load</Param>
+		</Struct>
+	</Structs>
+	<Commands>
+		<SubCmdOnly CmdNum="129">
+			<SubCommands>
+				<Command Name="Read Key States" CmdNum="150" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read states of all 3 device buttons.">
+					<RequestParams/>
+					<ResponseParams>
+						<Param>KeyStar</Param>
+						<Param>KeyMinus</Param>
+						<Param>KeyPlus</Param>
+					</ResponseParams>
+				</Command>
+				<Command Name="Control local UI" CmdNum="151" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_FACTORY_COMMAND" Description="Use to emulate local UI via HART">
+					<RequestParams>
+						<Param>EmulatedPushbuttons</Param>
+					</RequestParams>
+					<ResponseParams>
+						<Param>LCD line 1</Param>
+						<Param>LCD line 2</Param>
+						<Param>LCD line 3</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</SubCmdOnly>
+		<SubCmdOnly CmdNum="170">
+			<SubCommands>
+				<Command Name="Read UI language" CmdNum="1" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read UI language">
+					<ResponseParams>
+						<Param>UI Language</Param>
+					</ResponseParams>
+				</Command>
+				<Command Name="Read UI Access Control" CmdNum="2" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read buttons lock and override password">
+					<ResponseParams>
+						<Struct>UI Access Control</Struct>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</SubCmdOnly>
+		<SubCmdOnly CmdNum="171">
+			<SubCommands>
+				<Command Name="Write UI language" CmdNum="1" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Write UI language">
+					<RequestParams>
+						<Param>UI Language</Param>
+					</RequestParams>
+					<ResponseParams>
+						<Param>UI Language</Param>
+					</ResponseParams>
+				</Command>
+				<Command Name="Write UI Access Control" CmdNum="2" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Write buttons lock and override password">
+					<RequestParams>
+						<Struct>UI Access Control</Struct>
+					</RequestParams>
+					<ResponseParams>
+						<Struct>UI Access Control</Struct>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</SubCmdOnly>
+	</Commands>
+	<Variables>
+		<Variable Name="KeyStar" DataType="H_UCHAR" Printf="0x%02X" Description="State of the Select button">
+			<EnumValues v00="S_KEY_UP" v01="S_KEY_DOWN"/>
+		</Variable>
+		<Variable Name="KeyMinus" DataType="H_UCHAR" Printf="0x%02X" Description="State of the Minus button">
+			<EnumValues v00="M_KEY_UP" v01="M_KEY_DOWN"/>
+		</Variable>
+		<Variable Name="KeyPlus" DataType="H_UCHAR" Printf="0x%02X" Description="State of the Plus button">
+			<EnumValues v00="P_KEY_UP" v01="P_KEY_DOWN"/>
+		</Variable>
+		<Variable Name="EmulatedPushbuttons" DataType="H_UINT" Printf="%04X" Description="Bitmask of emulated keypad patterns" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+		</Variable>
+		<Variable Name="LCD line 1" DataType="H_UCHAR" NoCompressAscii="1" Description="An image of the LCD line" Printf="%02X" MaxSize="9"></Variable>
+		<Variable Name="LCD line 2" DataType="H_UCHAR" NoCompressAscii="1" MaxSize="9" Printf="%02X" Description="An image of the LCD line"></Variable>
+		<Variable Name="LCD line 3" DataType="H_UCHAR" MaxSize="9" NoCompressAscii="1" Printf="%02X" Description="An image of the LCD line"></Variable>
+		<Variable Name="UI Language" DataType="H_UCHAR" Description="UI Language code" Default="English" EnRangeCheck="1" DisplayName="Local UI Language">
+			<Range Model="TypeRange"/>
+			<EnumValues v0="UI_English | English" v1="UI_French | French" v2="UI_Spanish | Spanish" v3="UI_Portuguese | Portuguese" v4="UI_Japanese | Japanese" v5="UI_Italian | Italian" v6="UI_German | German"/>
+		</Variable>
+		<Variable Name="UI Password Enabled Flag" DataType="H_UCHAR" Description="0 disabled, 1 enabled, others invalid" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues v0="UIPassDisabled | Disabled" v1="UIPassEnabled | Enabled"/>
+		</Variable>
+		<Variable Name="UI Lock Level" DataType="H_UCHAR" Description="From all enabled to all disabled. NOTE: No useful decoding until common enums are shared."/>
+		<Variable Name="UI password" DataType="H_INT" Description="Any number can be a password"/>
+	</Variables>
+	<Structs>
+		<Struct Name="UI Access Control">
+			<Param>UI Lock Level</Param>
+			<Param>UI Password Enabled Flag</Param>
+			<Param>UI password</Param>
+		</Struct>
+	</Structs>
+	<CannedCommands>
+		<Command Name="UI no buttons" CmdNum="129">
+			<SubCommand CmdNum="151" Name="UI no buttons">
+				<RequestParams>
+					<Param Value="0x0000">EmulatedPushbuttons</Param>
+				</RequestParams>
+			</SubCommand>
+		</Command>
+		<Command Name="UI Star press" CmdNum="129">
+			<SubCommand CmdNum="151" Name="UI no buttons">
+				<RequestParams>
+					<Param Value="0x0101">EmulatedPushbuttons</Param>
+				</RequestParams>
+			</SubCommand>
+		</Command>
+		<Command Name="UI Minus press" CmdNum="129">
+			<SubCommand CmdNum="151" Name="UI no buttons">
+				<RequestParams>
+					<Param Value="0x0202">EmulatedPushbuttons</Param>
+				</RequestParams>
+			</SubCommand>
+		</Command>
+		<Command Name="UI Plus press" CmdNum="129">
+			<SubCommand CmdNum="151" Name="UI no buttons">
+				<RequestParams>
+					<Param Value="0x0404">EmulatedPushbuttons</Param>
+				</RequestParams>
+			</SubCommand>
+		</Command>
+		<Command Name="UI Star hold" CmdNum="129">
+			<SubCommand CmdNum="151" Name="UI no buttons">
+				<RequestParams>
+					<Param Value="0x0001">EmulatedPushbuttons</Param>
+				</RequestParams>
+			</SubCommand>
+		</Command>
+		<Command Name="UI Minus hold" CmdNum="129">
+			<SubCommand CmdNum="151" Name="UI no buttons">
+				<RequestParams>
+					<Param Value="0x0002">EmulatedPushbuttons</Param>
+				</RequestParams>
+			</SubCommand>
+		</Command>
+		<Command Name="UI Plus hold" CmdNum="129">
+			<SubCommand CmdNum="151" Name="UI no buttons">
+				<RequestParams>
+					<Param Value="0x0004">EmulatedPushbuttons</Param>
+				</RequestParams>
+			</SubCommand>
+		</Command>
+	</CannedCommands>
+	<Commands>
+		<Command Name="Read Factory Values" CmdNum="129" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+			<!--Read factory values selectively by a subcommand-->
+			<RequestParams>
+				<Param>SubCmdNum</Param>
+			</RequestParams>
+			<ResponseParams>
+				<Param>SubCmdNum</Param>
+			</ResponseParams>
+			<SubCommands>
+				<Command Name="Read Position Smoothing Coefficient" CmdNum="100" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read position/level smoothing coefficient (exponential forgetting value)">
+					<ResponseParams>
+						<Param>SmoothCoefPosition</Param>
+					</ResponseParams>
+				</Command>
+				<Command Name="Read Expected NVMEM Signature" CmdNum="126" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read Expected NVMEM Signature">
+					<RequestParams>
+						<Param>NVMEM Volume Id</Param>
+					</RequestParams>
+					<ResponseParams>
+						<Param>NVMEM Signature</Param>
+					</ResponseParams>
+				</Command>
+				<Command Name="Read RAM area" CmdNum="129" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+					<!--Read a block of RAM-->
+					<RequestParams>
+						<Param>MemoryAddress</Param>
+					</RequestParams>
+					<ResponseParams>
+						<Param>ReadBlock</Param>
+					</ResponseParams>
+				</Command>
+				<Command Name="Read NVMEM area" CmdNum="130" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read a block of NVMEM. 2 MSB of &quot;MemoryAddress&quot; represent the volume number to read from (0-Main board, 1-Sensor board)">
+					<!--Read a block of NVMEM-->
+					<RequestParams>
+						<Param>MemoryAddress</Param>
+					</RequestParams>
+					<ResponseParams>
+						<Param>ReadBlock</Param>
+					</ResponseParams>
+				</Command>
+				<Command Name="Read Firmware Version" CmdNum="131" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Firmware CRC and build info">
+					<ResponseParams>
+						<Param>Firmware CRC</Param>
+						<Param>BuildDate</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+		<Command Name="Write Factory Values" CmdNum="130" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND" Description="Write factory values and establish and cancel factory mode. All the work done by subcommands.">
+			<!--Write factory values selectively by a subcommand-->
+			<RequestParams>
+				<Param>SubCmdNum</Param>
+			</RequestParams>
+			<ResponseParams>
+				<Param>SubCmdNum</Param>
+			</ResponseParams>
+			<SubCommands>
+				<Command Name="Write Position Smoothing Coefficient" CmdNum="100" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_FACTORY_COMMAND" Description="Write position/level smoothing coefficient (exponential forgetting value)">
+					<RequestParams>
+						<Param>SmoothCoefPosition</Param>
+					</RequestParams>
+				</Command>
+				<Command Name="Enable Factory Mode" CmdNum="128" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Establishes factory mode if keys match; cancels it otherwise. Note: not subject to write locks">
+					<RequestParams>
+						<Param>Factory Key 1</Param>
+						<Param>Factory Key 2</Param>
+					</RequestParams>
+					<ResponseParams></ResponseParams>
+				</Command>
+				<Command Name="Write RAM area" CmdNum="129" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_FACTORY_COMMAND" Description="Write a block of RAM">
+					<RequestParams>
+						<Param>MemoryAddress</Param>
+						<Param>ByteCount</Param>
+						<Param>WriteBlock</Param>
+					</RequestParams>
+				</Command>
+				<Command Name="Write NVMEM area" CmdNum="130" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_FACTORY_COMMAND" Description="Low-level write a block of NVMEM. 2 MSB of &quot;MemoryAddress&quot; represent the volume number to read from (0-Main board, 1-Sensor board)">
+					<RequestParams>
+						<Param>MemoryAddress</Param>
+						<Param>ByteCount</Param>
+						<Param>WriteBlock</Param>
+					</RequestParams>
+				</Command>
+				<Command Name="Write Device Id" CmdNum="131" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_FACTORY_COMMAND" Description="Factory Device Id">
+					<RequestParams>
+						<Param>DeviceID</Param>
+					</RequestParams>
+				</Command>
+				<Command Name="Commit RAM to NVMEM" CmdNum="132" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_FACTORY_COMMAND" Description="Forces initialization of NVMEM from RAM image. Automatically repairs NVMEM signature.&#xA;An NVMEM record is committed if its flags are such that&#xA;((flags ^ &quot;Ram Commit Flip&quot;) &amp; &quot;RAM Commit Suppress&quot;) == 0.&#xA;E.g. Suppress==0 commits all regardless of Flip; Suppress==0x02 commits calibrations if Flip==0x02 or everything except calibrations if Flip==0.">
+					<!--Formerly known as hart_FactoryCommand_132_SetVersion-->
+					<RequestParams>
+						<Param>NVMEM Volume Id</Param>
+						<Param>RAM Commit Flip</Param>
+						<Param>RAM Commit Suppress</Param>
+					</RequestParams>
+				</Command>
+				<Command Name="Clear NVMEM Signature" CmdNum="133" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_FACTORY_COMMAND" Description="This (logically) destroys the NVMEM image thus producing a virgin unit">
+					<RequestParams>
+						<Param>NVMEM Volume Id</Param>
+					</RequestParams>
+				</Command>
+				<Command Name="Clear Board Temperature" CmdNum="134" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_FACTORY_COMMAND" Description="Clears min/max temperature record">
+					<RequestParams>
+						<Param>Tempr Sensor Id</Param>
+					</RequestParams>
+				</Command>
+				<Command Name="Saturate Main Output" CmdNum="135" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_MAN|HC_ALLOWED_MODE_OOS|HC_ALLOWED_MODE_FS" CmdFlags="HC_FACTORY_COMMAND" Description="Sets main output (I/P or loop current) to min or max">
+					<RequestParams>
+						<Param>Output Flag</Param>
+					</RequestParams>
+				</Command>
+				<Command Name="Test Watchdog" CmdNum="137" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_FACTORY_COMMAND" Description="Forces freezing the execution and watchdog expiration. Used for diagnosing the intended behavior of the watchdogs.">
+					<RequestParams>
+						<Param>Watchdog Id</Param>
+					</RequestParams>
+				</Command>
+			</SubCommands>
+		</Command>
+	</Commands>
+	<Variables>
+		<Variable Name="AO channel number" DataType="H_UCHAR" Printf="%u" Description="0 - Retransmit Channel, 1 - Main Channel, others invalid" DisplayName="AO Channel Number" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues v0="AORetransmit Channel | Retransmit Channel" v1="AOMain Channel | Main Channel"/>
+		</Variable>
+		<Variable Name="Enable flag" DataType="H_UCHAR" Printf="%u" Description="0 - disabled, all others - enabled" DisplayName="AO Channel Number" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues v0="AOCtrlDisable | Disable" v1="AOCtrlEnable | Enable"/>
+		</Variable>
+		<Variable Name="Direct Control Value" DataType="H_UINT" Printf="%u" Description="Value in raw counts to send to AO" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+		</Variable>
+		<Variable Name="ByteCount" DataType="H_UCHAR" Printf="%u" Description="The number of raw bytes to write or read" EnRangeCheck="1" DisplayName="Byte Count">
+			<Range Model="TypeRange"/>
+		</Variable>
+		<Variable Name="Output Flag" DataType="H_UCHAR" Printf="%u" Description="Direction of output saturation:&#xA;0 - min&#xA;non-0 - max" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues v0="OFmin| min" v1="OFmax | max"/>
+		</Variable>
+		<Variable Name="Watchdog Id" DataType="H_UCHAR" Printf="%u" Description="0 - external watchdog&#xA;non-0 - internal watchdog." EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues v0="WDext| external" v1="WDint | internal"/>
+		</Variable>
+		<Variable Name="RAM Commit Flip" DataType="H_UCHAR" Printf="%02X" Description="A bit set in this byte toggles the corresponding mark of an NVMEM record (see &quot;RAM Commit Suppress&quot;." EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+		</Variable>
+		<Variable Name="RAM Commit Suppress" DataType="H_UCHAR" Printf="%02X" Description="A bit set in this byte prevents commiting to NVMEM records marked with this bit. The corresponsing bit of &quot;RAM Commit Flip&quot; if set toggles the NVMEM record's mark. Currently supported bits: 0 (0x01) Configuration Changed and 1 (0x02) Calibration (common). More may be added." EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+		</Variable>
+		<Variable Name="MemoryAddress" DataType="H_UINT" Printf="%04X" Description="Address of a memory block written to or read from the device" EnRangeCheck="1" DisplayName="Memory Address">
+			<Range Model="TypeRange"/>
+		</Variable>
+		<Variable Name="ReadBlock" DataType="H_UCHAR" Printf="%02X" MaxSize="24" DisplayName="Read Block" Description="Read buffer to hold the requested bytes"/>
+		<Variable Name="WriteBlock" DataType="H_UCHAR" Printf="%02X" MaxSize="20" Description="Write buffer to hold the bytes to write" EnRangeCheck="1" DisplayName="Write Block">
+			<Range Model="TypeRange"/>
+		</Variable>
+		<Variable Name="BuildDate" DataType="H_ARRAY+6" MaxSize="6" Printf="%c" Description="Build date string (for info only)"/>
+		<Variable Name="Firmware CRC" DataType="H_UINT" Printf="%05u" Description="For information only"/>
+		<Variable Name="NVMEM Volume Id" DataType="H_UCHAR" Description="NVMEM volume id (0-main board, 1-sensor board)" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues v0="MainBoard | Main Board" v1="SensorBoard | Sensor Board"/>
+		</Variable>
+		<Variable Name="Tempr Sensor Id" DataType="H_UCHAR" Description="Temperature Sensor Id: 0-main board, 1-sensor board (similar to NVMEM volume id)" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues v0="TempMainBoard | Main Board" v1="TempSensorBoard | Sensor Board"/>
+		</Variable>
+		<Variable Name="Final Assembly Date" DataType="H_UINT" Description="week-year\nyear = value%100+2000; week = value/100 \nNot used internally; just stored" Printf="%d" DisplayName="Final Assy Date" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+		</Variable>
+		<Variable Name="Factory Key 1" DataType="H_UINT4" Printf="%08X" Description="A factory mode key" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+		</Variable>
+		<Variable Name="Factory Key 2" DataType="H_UINT4" Printf="%08X" Description="A factory mode key" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+		</Variable>
+		<Variable Name="SmoothCoefPosition" DataType="H_UCHAR" Printf="%u" Description="Exponent of forgetting coefficient" EnRangeCheck="1" DisplayName="Smooth Coef Position">
+			<Range Model="Standard" MinValue="0" MaxValue="6"/>
+		</Variable>
+		<Variable Name="NVMEM Signature" DataType="H_UINT4" Printf="%08X" Description="Signature with layout number" EnRangeCheck="0"></Variable>
+	</Variables>
+	<CannedCommands>
+		<Command Name="Enable Factory Mode" CmdNum="130">
+			<SubCommand CmdNum="128" Name="">
+				<RequestParams>
+					<Param Value="0xfeedf0a1">Factory Key 1</Param>
+					<Param Value="0xdeadbeef">Factory Key 2</Param>
+				</RequestParams>
+			</SubCommand>
+		</Command>
+		<Command Name="Cancel Factory Mode" CmdNum="130">
+			<SubCommand Name="Cancel Factory Mode" CmdNum="128">
+				<RequestParams>
+					<Param Value="0">Factory Key 1</Param>
+					<Param Value="0">Factory Key 2</Param>
+				</RequestParams>
+			</SubCommand>
+		</Command>
+		<Command Name="Commit All Main NVMEM" CmdNum="130">
+			<SubCommand CmdNum="132" Name="Commit All Main NVMEM">
+				<RequestParams>
+					<Param Value="0">NVMEM Volume Id</Param>
+					<Param Value="0">RAM Commit Flip</Param>
+					<Param Value="0">RAM Commit Suppress</Param>
+				</RequestParams>
+			</SubCommand>
+		</Command>
+		<Command Name="Commit Tempcomp Main NVMEM" CmdNum="130">
+			<SubCommand CmdNum="132" Name="Commit Tempcomp Main NVMEM">
+				<RequestParams>
+					<Param Value="0">NVMEM Volume Id</Param>
+					<Param Value="0x02">RAM Commit Flip</Param>
+					<Param Value="0x02">RAM Commit Suppress</Param>
+				</RequestParams>
+			</SubCommand>
+		</Command>
+		<Command Name="Commit Non-Tempcomp Main NVMEM" CmdNum="130">
+			<SubCommand CmdNum="132" Name="Commit Non-Tempcomp Main NVMEM">
+				<RequestParams>
+					<Param Value="0">NVMEM Volume Id</Param>
+					<Param Value="0x00">RAM Commit Flip</Param>
+					<Param Value="0x02">RAM Commit Suppress</Param>
+				</RequestParams>
+			</SubCommand>
+		</Command>
+		<Command Name="Commit All Sensor NVMEM" CmdNum="130">
+			<SubCommand CmdNum="132" Name="Commit All Main NVMEM">
+				<RequestParams>
+					<Param Value="1">NVMEM Volume Id</Param>
+					<Param Value="0">RAM Commit Flip</Param>
+					<Param Value="0">RAM Commit Suppress</Param>
+				</RequestParams>
+			</SubCommand>
+		</Command>
+		<Command Name="Commit Non-Tempcomp SensorNVMEM" CmdNum="130">
+			<SubCommand CmdNum="132" Name="Commit Non-Tempcomp Sensor NVMEM">
+				<RequestParams>
+					<Param Value="1">NVMEM Volume Id</Param>
+					<Param Value="0x00">RAM Commit Flip</Param>
+					<Param Value="0x02">RAM Commit Suppress</Param>
+				</RequestParams>
+			</SubCommand>
+		</Command>
+	</CannedCommands>
+	<Variables>
+		<Variable Name="DeviceID" DataType="H_UINT3" Printf="%07u" DisplayName="Device ID" EnRangeCheck="1">
+			<Range Model="DeviceID"/>
+		</Variable>
+	</Variables>
+	<Variables>
+		<Variable Name="Analog Saturated" DataType="H_INT3" Printf="%d" Description="Placeholder"/>
+		<Variable Name="Analog Fixed" DataType="H_INT3" Printf="%d" Description="Placeholder"/>
+	</Variables>
+	<Commands></Commands>
+	<Variables>
+		<Variable Name="SubCmdNum" DataType="H_UCHAR" Description="Set to the value of this sub command number"/>
+		<Variable Name="SubCmdNumEx" DataType="H_UINT" Description="Extended SubCmdNum">
+			<!--To define Device Family extended commands use this variable in place of SubCmdNum where SubCmdNum is normally used in sub command definitions.-->
+		</Variable>
+		<Variable Name="SubCmdPacketLength" DataType="H_UCHAR"/>
+		<Variable Name="RqstPadding" DataType="H_UCHAR" DisplayName="Padding" Description="Meaningless padding required by the format of the command" MaxSize="20" Default="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0"/>
+		<Variable Name="RspPadding" DataType="H_UCHAR" DisplayName="Padding" Description="Meaningless padding required by the format of the command"/>
+	</Variables>
+	<Commands>
+		<Command CmdNum="129" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Read Fault Code Masks" CmdNum="141" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read masks affecting &quot;additional status available&quot; in a HART response and command 48 response">
+					<ResponseParams>
+						<Param>Fault Code Mask In Status</Param>
+						<Param>Fault Code Mask In Report</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+		<Command CmdNum="130" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Inject Fault" CmdNum="139" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_FACTORY_COMMAND" Description="Forces the specified fault set as if it was detected.&#xA;Used for testing the intended system behavior.">
+					<RequestParams>
+						<Param>Fault Number</Param>
+					</RequestParams>
+				</Command>
+				<Command Name="Write Fault Code Masks" CmdNum="141" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_FACTORY_COMMAND" Description="Write masks affecting &quot;additional status available&quot; in a HART response and command 48 response">
+					<RequestParams>
+						<Param>Fault Code Mask In Status</Param>
+						<Param>Fault Code Mask In Report</Param>
+					</RequestParams>
+				</Command>
+			</SubCommands>
+		</Command>
+		<Command Name="Read Addl Status" CmdNum="48" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Reports current status information">
+			<ResponseParams>
+				<Param>StatusArray1</Param>
+				<Param>Ext Device Status</Param>
+				<Param>H Operating Mode</Param>
+				<Param>Analog Saturated</Param>
+				<Param>Analog Fixed</Param>
+				<Param>StatusArray2</Param>
+			</ResponseParams>
+		</Command>
+		<Command Name="Read Full Status" CmdNum="136" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Reports unfiltered status information, current and history">
+			<RequestParams></RequestParams>
+			<ResponseParams>
+				<Param>CurrentStatus</Param>
+				<Param>HistoryStatus</Param>
+			</ResponseParams>
+		</Command>
+	</Commands>
+	<Variables>
+		<Variable Name="StatusArray1" DataType="H_UCHAR" Printf="%02X" Description="Public Status (Event/Alarm/Fault) bit array" MaxSize="6"/>
+		<Variable Name="StatusArray2" DataType="H_UCHAR" Printf="%02X" Description="Public Status (Event/Alarm/Fault) bit array" MaxSize="10"/>
+		<Variable Name="Ext Device Status" DataType="H_UCHAR" Printf="%u" Description="0 in HART 5" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+		</Variable>
+		<Variable Name="H Operating Mode" DataType="H_UCHAR" Printf="%u" Description="0 in HART 5" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+		</Variable>
+		<Variable Name="Fault Number" DataType="H_UCHAR" Printf="%u" Description="0 - no effect&#xA;non-0 - a fault number (specific to the project's faults definitions)." EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+		</Variable>
+		<Variable Name="Fault Flag" DataType="H_UCHAR" Printf="%u" Description="1 - include history faults&#xA;non-1 - exclude history faults" EnRangeCheck="1">
+			<Range Model="TypeRange"/>
+			<EnumValues v0="FF_excldHistory | Excld History" v1="FF_incldHistory | Incld History"/>
+		</Variable>
+		<Variable Name="CurrentStatus" DataType="H_UCHAR" Printf="%02X" Description="Status (Event/Alarm/Fault) bit array" MaxSize="16"/>
+		<Variable Name="HistoryStatus" DataType="H_UCHAR" Printf="%02X" Description="Status (Event/Alarm/Fault) bit array" MaxSize="16"/>
+		<Variable Name="Fault Code Mask In Status" DataType="H_UCHAR" Printf="%02X" Description="A fault bit corresponding to a set bit in this bit array affects the device status in HART response." DisplayName="Fault Mask In Status" EnRangeCheck="1" MaxSize="16">
+			<Range Model="TypeRange"/>
+		</Variable>
+		<Variable Name="Fault Code Mask In Report" DataType="H_UCHAR" Printf="%02X" Description="A fault bit corresponding to a set bit in this bit array is enabled in command 48 response." DisplayName="Fault Mask In Report" EnRangeCheck="1" MaxSize="16">
+			<Range Model="TypeRange"/>
+		</Variable>
+	</Variables>
+	<Structs></Structs>
+	<Commands>
+		<Command CmdNum="129" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Read Temperature Smoothing Coefficient" CmdNum="102" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read Temperature smoothing coefficient (exponential forgetting value)">
+					<ResponseParams>
+						<Param>SmoothCoefTempr</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+	</Commands>
+	<Commands>
+		<Command CmdNum="130" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Write Temperature Smoothing Coefficient" CmdNum="102" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_FACTORY_COMMAND" Description="Write Temperture smoothing coefficient (exponential forgetting value)">
+					<RequestParams>
+						<Param>SmoothCoefTempr</Param>
+					</RequestParams>
+				</Command>
+			</SubCommands>
+		</Command>
+	</Commands>
+	<Variables>
+		<Variable Name="SmoothCoefTempr" DataType="H_UCHAR" Printf="%u" Description="Exponent of forgetting coefficient">
+			<Range Model="Standard" MinValue="0" MaxValue="6"/>
+		</Variable>
+	</Variables>
+	<Structs></Structs>
+	<CannedCommands></CannedCommands>
+	<Commands>
+		<Command Name="Set Pressure Controller Switch" CmdNum="133" CmdType="Write" AllowedModes=" HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_COMMAND_COMMAND | HC_FACTORY_COMMAND" Description="Enable or disable (bypass) the analog Pressure Feedback Controller on I/P output path">
+			<RequestParams>
+				<Param>Bypass Request Flag</Param>
+			</RequestParams>
+			<ResponseParams>
+				<Param>Bypass Request Flag</Param>
+			</ResponseParams>
+		</Command>
+		<Command CmdNum="144" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Read Pressure Controller Bypass Switch state" CmdNum="0" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read Pressure Controller Bypass Switch state">
+					<ResponseParams>
+						<Param>Bypass Switch State</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+	</Commands>
+	<Variables>
+		<Variable Name="Bypass Request Flag" DataType="H_UCHAR" Printf="%u" Description=" 0-feedback (controller on), 1-no feedback (controller bypassed).  0 is the only value used during operation.  1 is used during calibration since no feedback is possible when the sensors are not connected to real valves.">
+			<EnumValues v0="H BRF Feedback | Feedback" v1="H BRF No Feedback | No Feedback"/>
+		</Variable>
+		<Variable Name="Bypass Switch State" DataType="H_UCHAR" Printf="%u" Description=" 0-feedback (controller on), 1-no feedback (controller bypassed). This should match Bypass Request Flag if HW operates properly and the firmware doesn't override the request">
+			<EnumValues v0="H BSS Feedback | Feedback" v1="H BSS No Feedback | No Feedback"/>
+		</Variable>
+	</Variables>
+	<Structs></Structs>
+	<Commands>
+		<Command Name="Read Actual States of Switches" CmdNum="144" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read hardare switches">
+			<RequestParams>
+				<Param>SubCmdNum</Param>
+			</RequestParams>
+			<ResponseParams>
+				<Param>SubCmdNum</Param>
+			</ResponseParams>
+			<SubCommands/>
+		</Command>
+	</Commands>
+	<Variables></Variables>
+	<Structs></Structs>
+	<Commands>
+		<Command CmdNum="171" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Write Pressure Units" CmdNum="176" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Write Pressure Units Selection">
+					<RequestParams>
+						<Param>Pressure Units</Param>
+					</RequestParams>
+					<ResponseParams>
+						<Param>Pressure Units</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+		<Command CmdNum="170" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Read Pressure Units" CmdNum="176" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_READ_COMMAND" Description="Read Pressure Units Selection">
+					<ResponseParams>
+						<Param>Pressure Units</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+		<Command CmdNum="230" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Reset Pressures Calibrations To Factory" CmdNum="232" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_COMMAND_COMMAND | HC_WRITE_PROTECT">
+					<RequestParams></RequestParams>
+					<ResponseParams></ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+		<Command Name="Calibrate Pressures" CmdNum="185" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_COMMAND_COMMAND | HC_WRITE_PROTECT" Description="I/O Channel calibration. All pressures are compensated for atmospheric pressure. Will turn into a subcommand as soon as support becomes available">
+			<RequestParams></RequestParams>
+			<ResponseParams></ResponseParams>
+		</Command>
+	</Commands>
+	<Variables>
+		<Variable Name="Pressure Units" DataType="H_UCHAR" Printf="%u" Description="Pressure Units"/>
+		<Variable Name="Pressure Zero Cal" DataType="H_FLOAT" MaxSize="4" Printf="%.2f" Description="Result of pressures zero trim.\n&#xA;[0] = Actuator 1\n&#xA;[1] = Actuator 2\n&#xA;[2] = Supply\n&#xA;[3] = Pilot\n&#xA;Not all data may be applicable if channels are missing"/>
+	</Variables>
+	<Commands>
+		<SubCmdOnly CmdNum="229">
+			<SubCommands>
+				<Command Name="Read Pressure Zero Trim" CmdNum="232" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" CmdType="Read" Description="Reads parameters automatically computed during user calibration of pressures (see parameters)">
+					<ResponseParams>
+						<Param>Pressure Zero Cal</Param>
+						<Param>Pressure Units</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</SubCmdOnly>
+	</Commands>
+	<Commands>
+		<Command CmdNum="144" SubCmdOnly="1">
+			<SubCommands>
+				<Command Name="Read DI Switch state" CmdNum="1" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read DI state">
+					<ResponseParams>
+						<Param>Input Switch State</Param>
+					</ResponseParams>
+				</Command>
+			</SubCommands>
+		</Command>
+	</Commands>
+	<Variables>
+		<Variable Name="Input Switch State" DataType="H_UCHAR" Printf="%u" Description="DI Switch physical state (0 - closed; 1 - open, 2 - not available)"/>
+	</Variables>
+	<Structs></Structs>
+</HART>
