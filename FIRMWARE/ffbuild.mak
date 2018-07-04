@@ -2,7 +2,7 @@
 manufacturer_ID:=004745
 export type_ID:=0008
 DEVICE_REV:=01
-DD_REV:=01
+DD_REV:=03
 MIN_DD_REV:=01
 RES_DEV_MINOR_REV:=0
 RES_BUILD:=0
@@ -117,7 +117,7 @@ endif
 # -------------------------------------------------------------------------
 
 #Do not change unless you know what you are doing
-TokenizerDir:=c:\ff
+TokenizerDir:=..\..\Release2\FFTokenizer
 FFTokenizerpath:=$(TokenizerDir)\tok\bin
 dictfile:=$(TokenizerDir)\ddl\standard.dct
 SurpressWarning:=718
@@ -133,27 +133,55 @@ DDLSRC:=$(DDLDIR)/svi_positioner.ddl
 DDLINC:=$(DDLDIR)/svi_ids.h
 
 _tok: $(pretok)
-    $(FFTokenizerpath)/ff_tok32.exe $(pretok)
-ifneq ($(option),)
-    $(cp) $(SOURCE_BINARY_DD)/$(DEVICE_REV)$(DD_REV).ffo $(dst)/
-    $(cp) $(SOURCE_BINARY_DD)/$(DEVICE_REV)$(DD_REV).sym $(dst)/
+    $(FFTokenizerpath)/ff_tok32.exe -s $(releasepath) $(pretok)
+ifneq ($(filter -DDD4,$(option)),)
+    $(cp) $(basename).ffo $(dst)/
+    $(cp) $(basename).sym $(dst)/
 else
-    $(cp) $(SOURCE_BINARY_DD)/$(DEVICE_REV)$(DD_REV).ff5 $(dst)/
-    $(cp) $(SOURCE_BINARY_DD)/$(DEVICE_REV)$(DD_REV).sy5 $(dst)/
+    $(cp) $(basename).ff5 $(dst)/
+    $(cp) $(basename).sy5 $(dst)/
 endif
 
 $(pretok) : $(DDLSRC) force
     @echo option=$(option)
-    $(FFTokenizerpath)/ffpretok.exe $(option) -d $(dictfile) -w $(SurpressWarning) -I$(includepath) -R $(releasepath) -p "$(imagepath)" $< $@
+    $(FFTokenizerpath)\ffpretok.exe $(option) -d $(dictfile) -w $(SurpressWarning) -I$(includepath) -R $(releasepath) -p "$(imagepath)" $< $@
 	$(pause)
+
+# -----------------------------------------------------------------
+#For DD compatibility test only
+_tok5: $(pretok5)
+    $(FFTokenizerpath)\ff5_tok32.exe -s $(releasepath) $(pretok5)
+
+$(pretok5) : $(DDLSRC) force
+    @echo option=$(option)
+    $(FFTokenizerpath)\ff5pretok.exe $(option) -d $(dictfile) -w $(SurpressWarning) -I$(includepath) -R $(releasepath) -p "$(imagepath)" $< $@
+	$(pause)
+
+test: $(DDLINC) $(GW_DIR)\ids.gw
+    buildhelpers\cmpcpy.bat $(includepath)\standard.sym $(releasepath)\standard.sym
+    -cmd /E /C mkdir $(manufacturer_ID)\$(type_ID)
+    -rm -f -r $(SOURCE_BINARY_DD)
+	-cmd /E /C mkdir $(SOURCE_BINARY_DD)
+    $(MAKE) -f $(CURDIR)\$(firstword $(MAKEFILE_LIST))  cp=$(subst /,\,$(CURDIR)\cp.exe) _tok5 DDLSRC=$(DDLSRC) pretok5=$(TARGET_BINARY_DD)\_tmptok-4 dst=$(TARGET_BINARY_DD) option="-a -DDD4 -4" basename=$(SOURCE_BINARY_DD)/$(DEVICE_REV)$(DD_REV)
+    $(MAKE) -f $(CURDIR)\$(firstword $(MAKEFILE_LIST))  cp=$(subst /,\,$(CURDIR)\cp.exe) _tok5 DDLSRC=$(DDLSRC) pretok5=$(TARGET_BINARY_DD)\_tmptok dst=$(TARGET_BINARY_DD) option=-a basename=$(SOURCE_BINARY_DD)/$(DEVICE_REV)$(DD_REV)
+# ---------------------------------------------------------------
 
 tok: $(DDLINC) $(GW_DIR)\ids.gw
     buildhelpers\cmpcpy.bat $(includepath)\standard.sym $(releasepath)\standard.sym
     -cmd /E /C mkdir $(manufacturer_ID)\$(type_ID)
     -rm -f -r $(SOURCE_BINARY_DD)
 	-cmd /E /C mkdir $(SOURCE_BINARY_DD)
-    $(MAKE) -f $(CURDIR)\$(firstword $(MAKEFILE_LIST)) -C $(releasepath) cp=$(subst /,\,$(CURDIR)\cp.exe) _tok DDLSRC=$(DDLSRC) pretok=$(TARGET_BINARY_DD)\_tmptok-4 dst=$(TARGET_BINARY_DD) option="-a -DDD4 -4"
-    $(MAKE) -f $(CURDIR)\$(firstword $(MAKEFILE_LIST)) -C $(releasepath) cp=$(subst /,\,$(CURDIR)\cp.exe) _tok DDLSRC=$(DDLSRC) pretok=$(TARGET_BINARY_DD)\_tmptok dst=$(TARGET_BINARY_DD) option=
+    copy $(TARGET_BINARY_DD)\symbols4.txt $(SOURCE_BINARY_DD)\symbols.txt
+    attrib -R $(SOURCE_BINARY_DD)\symbols.txt
+    $(MAKE) -f $(CURDIR)\$(firstword $(MAKEFILE_LIST))  cp=$(subst /,\,$(CURDIR)\cp.exe) _tok DDLSRC=$(DDLSRC) pretok=$(TARGET_BINARY_DD)\_tmptok-4 dst=$(TARGET_BINARY_DD) option="-a -DDD4 -4" basename=$(SOURCE_BINARY_DD)/$(DEVICE_REV)$(DD_REV)
+    ren $(SOURCE_BINARY_DD)\symbols.txt symbols4.txt
+    sort $(SOURCE_BINARY_DD)\$(DEVICE_REV)$(DD_REV).sym > $(SOURCE_BINARY_DD)\$(DEVICE_REV)$(DD_REV).sym.ref
+    fc $(SOURCE_BINARY_DD)\$(DEVICE_REV)$(DD_REV).sym.ref $(TARGET_BINARY_DD)\$(DEVICE_REV)$(DD_REV).sym.ref
+    copy $(TARGET_BINARY_DD)\symbols.txt $(SOURCE_BINARY_DD)\symbols.txt
+    attrib -R $(SOURCE_BINARY_DD)\symbols.txt
+    $(MAKE) -f $(CURDIR)\$(firstword $(MAKEFILE_LIST))  cp=$(subst /,\,$(CURDIR)\cp.exe) _tok DDLSRC=$(DDLSRC) pretok=$(TARGET_BINARY_DD)\_tmptok dst=$(TARGET_BINARY_DD) option= basename=$(SOURCE_BINARY_DD)/$(DEVICE_REV)$(DD_REV)
+    sort $(SOURCE_BINARY_DD)\$(DEVICE_REV)$(DD_REV).sy5 > $(SOURCE_BINARY_DD)\$(DEVICE_REV)$(DD_REV).sy5.ref
+    fc $(SOURCE_BINARY_DD)\$(DEVICE_REV)$(DD_REV).sy5.ref $(TARGET_BINARY_DD)\$(DEVICE_REV)$(DD_REV).sy5.ref
 
 $(DDLINC) : $(MAKEFILE_LIST)
     @echo MAKEFILE_LIST = $(MAKEFILE_LIST)
