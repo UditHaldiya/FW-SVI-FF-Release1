@@ -287,7 +287,7 @@ This file contains DD labels and DD help strings for Field Diagnositics paramete
 /* -------------------------------------------------------------------- */
 
 #define FD_CURR_SUMM_ENUM \
-    { 0x0001, "|en|Discrete Alarm",    "|en|Discrete Alarm active"                               }, \
+    { 0x0001, "|en|Write Alarm",    "|en|Write Alarm active"                               }, \
     { 0x0080, "|en|Block Alarm",    "|en|Block Alarm Active"                               }, \
     { 0x0100, "|en|Fail Alarm",     "|en|Field Diagnostics Failed Alarm Active"            }, \
     { 0x0200, "|en|OffSpec Alarm",  "|en|Field Diagnostics Off Specification Alarm Active" }, \
@@ -295,28 +295,28 @@ This file contains DD labels and DD help strings for Field Diagnositics paramete
     { 0x0800, "|en|Check Alarm",    "|en|Field Diagnostics Check Function Alarm Active"    }
 
 #define FD_UNACK_SUMM_ENUM \
-    { 0x0001, "|en|Discrete Alarm Unack",   "|en|Discrete Alarm not acknowledged by operator"                               }, \
-    { 0x0080, "|en|Block Alarm Unack",   "|en|Block Alarm not acknowledged by operator"                               }, \
-    { 0x0100, "|en|Fail Alarm Unack",    "|en|Field Diagnostics Failed Alarm not acknowledged by operator"            }, \
-    { 0x0200, "|en|OffSpec Alarm Unack", "|en|Field Diagnostics Off Specification Alarm not acknowledged by operator" }, \
-    { 0x0400, "|en|Maint Alarm Unack",   "|en|Field Diagnostics Maintenance Alarm not acknowledged by operator"       }, \
-    { 0x0800, "|en|Check Alarm Unack",   "|en|Field Diagnostics Check Function Alarm not acknowledged by operator"    }
+    { 0x0001, "|en|Write Alm Unack",   "|en|Write Alarm not acknowledged by operator"                               }, \
+    { 0x0080, "|en|Block Alm Unack",   "|en|Block Alarm not acknowledged by operator"                               }, \
+    { 0x0100, "|en|Fail Alm Unack",    "|en|Field Diagnostics Failed Alarm not acknowledged by operator"            }, \
+    { 0x0200, "|en|OffSpec Alm Unack", "|en|Field Diagnostics Off Specification Alarm not acknowledged by operator" }, \
+    { 0x0400, "|en|Maint Alm Unack",   "|en|Field Diagnostics Maintenance Alarm not acknowledged by operator"       }, \
+    { 0x0800, "|en|Check Alm Unack",   "|en|Field Diagnostics Check Function Alarm not acknowledged by operator"    }
 
 #define FD_UNREP_SUMM_ENUM \
-    { 0x0001, "|en|Discrete Alarm Unrep",   "|en|Write Alarm not reported"                               }, \
-    { 0x0080, "|en|Block Alarm Unrep",   "|en|Block Alarm not reported"                               }, \
-    { 0x0100, "|en|Fail Alarm Unrep",    "|en|Field Diagnostics Failed Alarm not reported"            }, \
-    { 0x0200, "|en|OffSpec Alarm Unrep", "|en|Field Diagnostics Off Specification Alarm not reported" }, \
-    { 0x0400, "|en|Maint Alarm Unrep",   "|en|Field Diagnostics Maintenance Alarm not reported"       }, \
-    { 0x0800, "|en|Check Alarm Unrep",   "|en|Field Diagnostics Check Function Alarm not reported"    }
+    { 0x0001, "|en|Write Alm Unrep",   "|en|Write Alarm not reported"                               }, \
+    { 0x0080, "|en|Block Alm Unrep",   "|en|Block Alarm not reported"                               }, \
+    { 0x0100, "|en|Fail Alm Unrep",    "|en|Field Diagnostics Failed Alarm not reported"            }, \
+    { 0x0200, "|en|OffSpec Alm Unrep", "|en|Field Diagnostics Off Specification Alarm not reported" }, \
+    { 0x0400, "|en|Maint Alm Unrep",   "|en|Field Diagnostics Maintenance Alarm not reported"       }, \
+    { 0x0800, "|en|Check Alm Unrep",   "|en|Field Diagnostics Check Function Alarm not reported"    }
 
 #define FD_DISAB_SUMM_ENUM \
-    { 0x0001, "|en|Discrete Alarm Disabled",   "|en|Write Alarm disabled"                               }, \
-    { 0x0080, "|en|Block Alarm Disabled",   "|en|Block Alarm disabled"                               }, \
-    { 0x0100, "|en|Fail Alarm Disabled",    "|en|Field Diagnostics Failed Alarm disabled"            }, \
-    { 0x0200, "|en|OffSpec Alarm Disabled", "|en|Field Diagnostics Off Specification Alarm disabled" }, \
-    { 0x0400, "|en|Maint Alarm Disabled",   "|en|Field Diagnostics Maintenance Alarm disabled"       }, \
-    { 0x0800, "|en|Check Alarm Disabled",   "|en|Field Diagnostics Check Function Alarm disabled"    }
+    { 0x0001, "|en|Write Alm Disabled",   "|en|Write Alarm disabled"                               }, \
+    { 0x0080, "|en|Block Alm Disabled",   "|en|Block Alarm disabled"                               }, \
+    { 0x0100, "|en|Fail Alm Disabled",    "|en|Field Diagnostics Failed Alarm disabled"            }, \
+    { 0x0200, "|en|OffSpec Alm Disabled", "|en|Field Diagnostics Off Specification Alarm disabled" }, \
+    { 0x0400, "|en|Maint Alm Disabled",   "|en|Field Diagnostics Maintenance Alarm disabled"       }, \
+    { 0x0800, "|en|Check Alm Disabled",   "|en|Field Diagnostics Check Function Alarm disabled"    }
 
 #define ACK_OPTIONS_RES2 \
     { 0x0001, "|en|Write Alm AutoAck Enabled",   "|en|Write Alarm automatic acknowledge enabled"                               }, \

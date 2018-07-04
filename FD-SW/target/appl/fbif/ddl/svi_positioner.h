@@ -334,15 +334,20 @@ resource block
 **********************************************************************
 */
 
-#define FEATURES_RES2 { 0x0002,  [feature_report],       [feature_report_help]                     }, \
+#define FEATURES_RES2 { 0x0001,  [feature_unicode],      [feature_unicode_help]                    }, \
+                      { 0x0002,  [feature_report],       [feature_report_help]                     }, \
                       { 0x0004,  [feature_faultstate],   [feature_faultstate_help]                 }, \
                       { 0x0008,  [feature_soft_write],   [feature_soft_write_help]                 }, \
                       { 0x0010,  [feature_hard_write],   [feature_hard_write_help]                 }, \
                       { 0x0020,  [feature_out_readback], [feature_out_readback_help]               }, \
+                      { 0x0040,  [feature_direct_write], [feature_direct_write_help]               }, \
+                      { 0x0080,  [feature_bypass_auto],  [feature_bypass_auto_help]                }, \
+                      { 0x0100,  "|en|MVC Reports",      "|en|MVC Report Distribution supported"   }, \
+                      { 0x0200,  "|en|MVC Publ/Subscr",  "|en|MVC Publishing/Subscribing supported"}, \
                       { 0x0400,  "|en|Mbit Alarm",       "|en|Multi-bit Alarm supported"           }
 
-#define RESTART_FACTORY_DEFAULT       "|en|Restore TB to Factory"
-#define RESTART_FACTORY_DEFAULT_HELP  "|en|Restart device and reset all transducer block parameters to the values before any configuration was done by the user"
+#define RESTART_FACTORY_DEFAULT       "|en|Factory Defaults"
+#define RESTART_FACTORY_DEFAULT_HELP  "|en|Restart device and reset all configurable device parameters to the values before any configuration was done by the user"
 
 /*
 **********************************************************************
