@@ -218,7 +218,7 @@ MENU hprocess_variables_ptb
 MENU device_root_menu_ptb
 {
     LABEL "|en|Device Setup";
-    STYLE MENU;
+    EDD(STYLE MENU;)
     ITEMS
     {
         mnu_manualsetpoint
@@ -236,7 +236,7 @@ MENU device_root_menu_ptb
 MENU diagnostic_root_menu_ptb
 {
     LABEL "|en|Status/Diagnostics";
-    STYLE MENU;
+    EDD(STYLE MENU;)
     ITEMS
     {
         mnu_devicestatusfaults
@@ -253,7 +253,7 @@ MENU diagnostic_root_menu_ptb
 MENU  mnu_block_mode
 {
     LABEL "|en|Block Mode";
-    STYLE GROUP;
+    EDD(STYLE GROUP;)
     ITEMS
     {
         PARAM.MODE_BLK.ACTUAL
@@ -270,7 +270,7 @@ MENU  mnu_block_mode
 MENU process_variables_root_menu_ptb
 {
     LABEL "|en|Process Variables";
-    STYLE MENU;
+    EDD(STYLE MENU;)
     ITEMS
     {
         mnu_ao_control
@@ -282,7 +282,7 @@ MENU process_variables_root_menu_ptb
 MENU mnu_sensor_state
 {
     LABEL "|en|Sensors State";
-    STYLE WINDOW;
+    EDD(STYLE WINDOW;)
     ITEMS
     {
         PARAM.IP_DRIVE_CURRENT.STATUS
@@ -303,16 +303,16 @@ MENU mnu_sensor_state
         PARAM.ACTUATOR_B_PRESSURE.STATUS
         PARAM.ACTUATOR_B_PRESSURE.VALUE
         EDD(ROWBREAK)
-        mnu_pressure_gauge
+        EDD(mnu_pressure_gauge)
         EDD(COLUMNBREAK)
-        mnu_act_press_gauge
+        EDD(mnu_act_press_gauge)
     }
 }
 
 MENU mnu_do_control
 {
     LABEL "|en|Discrete Control";
-    STYLE WINDOW;
+    EDD(STYLE WINDOW;)
     ITEMS
     {
         PARAM.FINAL_VALUE_D.STATUS
@@ -347,6 +347,7 @@ MENU mnu_do_control
     }
 }
 
+#ifndef DD4
 AXIS y_axis_position
 {
     LABEL   "Position(%)";
@@ -520,11 +521,12 @@ CHART mnu_act_press_gauge
         STRIP2, src_actuators_b_press;
     }
 }
+#endif
 
 MENU mnu_ao_control
 {
     LABEL "|en|AO Control";
-    STYLE WINDOW;
+    EDD(STYLE WINDOW;)
     ITEMS
     {
         PARAM.FINAL_VALUE.STATUS
@@ -535,7 +537,7 @@ MENU mnu_ao_control
         EDD(COLUMNBREAK)
         PARAM.FINAL_POSITION_VALUE.VALUE
         EDD(ROWBREAK)
-        mnu_final_value_trend
+        EDD(mnu_final_value_trend)
         EDD(ROWBREAK)
         PARAM.WORKING_SP.STATUS
         EDD(COLUMNBREAK)
@@ -550,7 +552,7 @@ MENU mnu_ao_control
 MENU mnu_calibrate
 {
     LABEL "|en|Calibration";
-    STYLE WINDOW;
+    EDD(STYLE WINDOW;)
     ITEMS
     {
         mnu_strokevalve
@@ -562,7 +564,7 @@ MENU mnu_calibrate
 MENU mnu_commissioning
 {
     LABEL "|en|Commissioning Services";
-    STYLE WINDOW;
+    EDD(STYLE WINDOW;)
     ITEMS
     {
         mnu_commconfigure
@@ -575,7 +577,7 @@ MENU mnu_commissioning
 MENU mnu_commconfigure
 {
     LABEL "|en|Basic Info.";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         mnu_block_mode
@@ -593,7 +595,7 @@ MENU mnu_posretransmit
 MENU mnu_cal_positions
 {
     LABEL "|en|Valve Position";
-    STYLE GROUP;
+    EDD(STYLE GROUP;)
     ITEMS
     {
         PARAM.SUPPLY_PRESSURE.STATUS
@@ -619,7 +621,7 @@ MENU mnu_cal_positions
 MENU mnu_strokevalve
 {
     LABEL "|en|Valve Travel";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         mnu_mode_row
@@ -637,7 +639,7 @@ MENU mnu_strokevalve
 MENU mnu_mode_row
 {
     LABEL "|en|RB Block Mode";
-    STYLE GROUP;
+    EDD(STYLE GROUP;)
     ITEMS
     {
         PARAM.MODE_BLK.TARGET
@@ -677,7 +679,7 @@ MENU mnu_manualsetpoint
 MENU mnu_manualsetup
 {
     LABEL "|en|Manual Setup";
-    STYLE WINDOW;
+    EDD(STYLE WINDOW;)
     ITEMS
     {
         mnu_block_mode
@@ -689,7 +691,7 @@ MENU mnu_manualsetup
 MENU mnu_actuatorvalve
 {
     LABEL "|en|Actuator Type";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         PARAM.ACTUATOR_3.ACT_FAIL_ACTION_1 /*_svi2*/
@@ -700,7 +702,7 @@ MENU mnu_actuatorvalve
 MENU mnu_inputs
 {
     LABEL "|en|Sensors";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         mnu_block_mode
@@ -710,7 +712,7 @@ MENU mnu_inputs
 MENU mnu_devicestatusfaults
 {
     LABEL "|en|Status/Faults";
-    STYLE WINDOW;
+    EDD(STYLE WINDOW;)
     ITEMS
     {
         mnu_block_mode
@@ -724,7 +726,7 @@ MENU mnu_devicestatusfaults
 MENU mnu_currentfaultlist
 {
     LABEL "|en|Current Faults";
-    STYLE GROUP;
+    EDD(STYLE GROUP;)
     ITEMS
     {
         PARAM.COMPLETE_STATUS.CURRENT_STATUS_0_C
@@ -741,7 +743,7 @@ MENU mnu_currentfaultlist
 MENU mnu_historyfaultlist
 {
     LABEL "|en|History Faults";
-    STYLE GROUP;
+    EDD(STYLE GROUP;)
     ITEMS
     {
         PARAM.COMPLETE_STATUS.HISTORY_STATUS_0_H
@@ -758,7 +760,7 @@ MENU mnu_historyfaultlist
 MENU mnu_positionhistogram
 {
     LABEL "|en|Position Histogram";
-    STYLE GROUP;
+    EDD(STYLE GROUP;)
     ITEMS
     {
         PARAM.POSITION_HISTOGRAM.TOTAL_TIME
@@ -780,7 +782,7 @@ MENU mnu_positionhistogram
 MENU mnu_positionErrorhistogram
 {
     LABEL "|en|Position Error Histogram";
-    STYLE GROUP;
+    EDD(STYLE GROUP;)
     ITEMS
     {
         PARAM.POSITION_ERROR_HISTOGRAM.POS_5_PERCENT_CLOSED
@@ -801,7 +803,7 @@ MENU mnu_positionErrorhistogram
 MENU mnu_nearclosedalert
 {
     LABEL "|en|Near Closed Alert";
-    STYLE GROUP;
+    EDD(STYLE GROUP;)
     ITEMS
     {
         PARAM.NEAR_CLOSED_ALERT.POINT_CLOSED
@@ -816,7 +818,7 @@ MENU mnu_nearclosedalert
 MENU mnu_positionerrortrend
 {
     LABEL "|en|Position Error Trend";
-    STYLE GROUP;
+    EDD(STYLE GROUP;)
     ITEMS
     {
         PARAM.POSITION_ERROR_TREND.CURRENTLY_COLLECTED
@@ -842,7 +844,7 @@ MENU mnu_positionerrortrend
 MENU mnu_historian_position
 {
     LABEL "|en|Position";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         mnu_positionhistogram
@@ -858,7 +860,7 @@ MENU mnu_historian_position
 MENU mnu_working_time
 {
     LABEL "|en|Working Time";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         PARAM.WORKING_TIMES.SINCE_RESET
@@ -875,7 +877,7 @@ MENU mnu_working_time
 MENU mnu_travelalertA
 {
     LABEL "|en|Travel Accumulation Alert A";
-    STYLE GROUP;
+    EDD(STYLE GROUP;)
     ITEMS
     {
         PARAM.TRAVEL_ACCUMULATION_A_ALERT.TRAVEL_ACCUMULATION
@@ -890,7 +892,7 @@ MENU mnu_travelalertA
 MENU mnu_travelalertB
 {
     LABEL "|en|Travel Accumulation Alert B";
-    STYLE GROUP;
+    EDD(STYLE GROUP;)
     ITEMS
     {
         PARAM.TRAVEL_ACCUMULATION_B_ALERT.TRAVEL_ACCUMULATION
@@ -905,7 +907,7 @@ MENU mnu_travelalertB
 MENU mnu_travel
 {
     LABEL "|en|Travel";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         PARAM.TRAVEL_ACCUMULATION_TREND.CURRENTLY_COLLECTED
@@ -935,7 +937,7 @@ MENU mnu_travel
 MENU mnu_cyclealertA
 {
     LABEL "|en|Cycle Counter Alert A";
-    STYLE GROUP;
+    EDD(STYLE GROUP;)
     ITEMS
     {
         PARAM.CYCLE_COUNTER_A_ALERT.CYCLE_COUNTER
@@ -950,7 +952,7 @@ MENU mnu_cyclealertA
 MENU mnu_cyclealertB
 {
     LABEL "|en|Cycle Counter Alert B";
-    STYLE GROUP;
+    EDD(STYLE GROUP;)
     ITEMS
     {
         PARAM.CYCLE_COUNTER_B_ALERT.CYCLE_COUNTER
@@ -965,7 +967,7 @@ MENU mnu_cyclealertB
 MENU mnu_cycle
 {
     LABEL "|en|Cycle";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         PARAM.CYCLE_COUNTER_TREND.CURRENTLY_COLLECTED
@@ -995,7 +997,7 @@ MENU mnu_cycle
 MENU mnu_historian
 {
     LABEL "|en|Valve Historian";
-    STYLE WINDOW;
+    EDD(STYLE WINDOW;)
     ITEMS
     {
         mnu_historian_position
@@ -1008,7 +1010,7 @@ MENU mnu_historian
 MENU mnu_signature
 {
     LABEL "|en|Signature";
-    STYLE WINDOW;
+    EDD(STYLE WINDOW;)
     ITEMS
     {
         mnu_block_mode
@@ -1018,7 +1020,7 @@ MENU mnu_signature
 MENU mnu_sensormeasurements
 {
     LABEL "|en|Sensor Measurements";
-    STYLE WINDOW;
+    EDD(STYLE WINDOW;)
     ITEMS
     {
         mnu_itop
@@ -1032,7 +1034,7 @@ MENU mnu_sensormeasurements
 MENU mnu_itop
 {
     LABEL "|en|I/P";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         PARAM.IP_CURRENT_EXTREMES.IP_CURRENT_MIN
@@ -1064,7 +1066,7 @@ MENU mnu_itop
 MENU mnu_readpressures
 {
     LABEL "|en|Pressures";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         PARAM.XD_ERROR_PRESSURE
@@ -1095,7 +1097,7 @@ MENU mnu_readpressures
 MENU mnu_temperature
 {
     LABEL "|en|Temperature";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         PARAM.XD_ERROR_TEMPERATURE
@@ -1126,7 +1128,7 @@ MENU mnu_temperature
 MENU mnu_rawdata
 {
     LABEL "|en|Raw Sensor Data";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         mnu_block_mode
@@ -1137,7 +1139,7 @@ MENU mnu_rawdata
 MENU mnu_pidinfo
 {
     LABEL "|en|Valve Tuning Data";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         PARAM.ACTIVATE_CONTROL_SET
@@ -1166,7 +1168,7 @@ MENU mnu_pidinfo
 MENU mnu_errorlimits
 {
     LABEL "|en|Alert/Alarms Setup";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         mnu_position_alert
@@ -1310,7 +1312,7 @@ MENU mnu_ip_current_alert
 MENU mnu_switches
 {
     LABEL "|en|I/O's";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         PARAM.DISCRETE_OUTPUT_1_STATE.STATUS
@@ -1333,7 +1335,7 @@ MENU mnu_switches
 MENU mnu_switchconfiguration
 {
     LABEL "|en|Switches";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         mnu_discrete_output
@@ -1346,7 +1348,7 @@ MENU mnu_switchconfiguration
 MENU mnu_discrete_output
 {
     LABEL "|en|Discrete Output";
-    STYLE GROUP;
+    EDD(STYLE GROUP;)
     ITEMS
     {
         PARAM.DISCRETE_OUTPUT_1_STATE.STATUS
@@ -1360,7 +1362,7 @@ MENU mnu_discrete_output
 MENU mnu_discrete_switch_configure
 {
     LABEL "|en|Discrete Switch Configure";
-    STYLE GROUP;
+    EDD(STYLE GROUP;)
     ITEMS
     {
         PARAM.DISCRETE_SWITCH_1_CONF.DIRECTION
@@ -1374,7 +1376,7 @@ MENU mnu_discrete_switch_configure
 MENU mnu_general
 {
     LABEL "|en|General";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         PARAM.FINAL_VALUE_RANGE.EU_100
@@ -1395,7 +1397,7 @@ MENU mnu_general
 MENU mnu_deviceinfo
 {
     LABEL "|en|Valve Info";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         mnu_actuator
@@ -1523,7 +1525,7 @@ MENU mnu_other
 MENU mnu_config
 {
     LABEL "|en|Configuration";
-    STYLE WINDOW;
+    EDD(STYLE WINDOW;)
     ITEMS
     {
         mnu_general
@@ -1540,7 +1542,7 @@ MENU mnu_config
 MENU mnu_positioning
 {
     LABEL "|en|Positioning";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         PARAM.CHAR_SELECTION.TYPE_1 /*_svi2*/
@@ -1575,7 +1577,7 @@ MENU mnu_positioning
 MENU mnu_limits
 {
     LABEL "|en|Limits/Shutoff";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         PARAM.POSITION_LIMITS.LIMITS_PROTECTED
@@ -1597,7 +1599,7 @@ MENU mnu_limits
 MENU mnu_block
 {
     LABEL "|en|Block";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         PARAM.ST_REV
@@ -1688,7 +1690,7 @@ MENU process_variables_root_menu_rb
 MENU mnu_features
 {
     LABEL "|en|Features";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         PARAM.FEATURES
@@ -1699,7 +1701,7 @@ MENU mnu_features
 MENU mnu_cycles
 {
     LABEL "|en|Cycles";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         PARAM.CYCLE_TYPE
@@ -1712,7 +1714,7 @@ MENU mnu_cycles
 MENU mnu_notify
 {
     LABEL "|en|Alerts Notify Setting";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         PARAM.MAX_NOTIFY
@@ -1723,7 +1725,7 @@ MENU mnu_notify
 MENU mnu_communication_setting
 {
     LABEL "|en|Communication Setting";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         PARAM.SHED_RCAS
@@ -1735,7 +1737,7 @@ MENU mnu_communication_setting
 MENU mnu_lock
 {
     LABEL "|en|Write Lock";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         PARAM.WRITE_LOCK
@@ -1746,7 +1748,7 @@ MENU mnu_lock
 MENU mnu_alarm
 {
     LABEL "|en|Alarm";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         mnu_update_evt
@@ -1765,7 +1767,7 @@ MENU mnu_alarm
 MENU mnu_write_alm
 {
     LABEL "|en|Write Alm";
-    STYLE GROUP;
+    EDD(STYLE GROUP;)
     ITEMS
     {
         PARAM.WRITE_ALM
@@ -1775,7 +1777,7 @@ MENU mnu_write_alm
 MENU mnu_alarm_sum
 {
     LABEL "|en|Alarm Sum";
-    STYLE GROUP;
+    EDD(STYLE GROUP;)
     ITEMS
     {
         PARAM.ALARM_SUM
@@ -1785,7 +1787,7 @@ MENU mnu_alarm_sum
 MENU mnu_block_alm
 {
     LABEL "|en|Block Alarm";
-    STYLE GROUP;
+    EDD(STYLE GROUP;)
     ITEMS
     {
         PARAM.BLOCK_ALM.UNACKNOWLEDGED
@@ -1799,7 +1801,7 @@ MENU mnu_block_alm
 MENU mnu_update_evt
 {
     LABEL "|en|Update Evt";
-    STYLE GROUP;
+    EDD(STYLE GROUP;)
     ITEMS
     {
         PARAM.UPDATE_EVT
@@ -1828,7 +1830,7 @@ MENU device_root_menu_rb
 MENU mnu_device
 {
     LABEL "|en|Device";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         PARAM.TAG_DESC
@@ -1854,7 +1856,7 @@ MENU mnu_device
 MENU mnu_identification
 {
     LABEL "|en|Identification";
-    STYLE PAGE;
+    EDD(STYLE PAGE;)
     ITEMS
     {
         PARAM.MANUFAC_ID

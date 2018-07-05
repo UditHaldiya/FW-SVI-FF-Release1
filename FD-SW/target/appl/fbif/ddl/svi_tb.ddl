@@ -2192,7 +2192,7 @@ RECORD actuator_b_pressure
         STATUS,                                  __status_contained_r;
         VALUE,                                   __float_contained_r;
     }
-    VALIDITY FALSE;
+    EDD(VALIDITY FALSE;)
 }
 RECORD atmospheric_pressure
 {

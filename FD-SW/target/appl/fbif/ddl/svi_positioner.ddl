@@ -1842,20 +1842,20 @@ BLOCK PTB
     {
         TB_METHOD_LIST
     }
-    
+#ifndef DD4    
     COLLECTION_ITEMS
     {
         no_download_ptb,
         upload_wanted_ptb
     }
-    
+#endif    
     /* LOCAL_PARAMETERS */
     /* { */
     /*     LOCAL_PARAMETER_LIST */
     /* } */
 }
 
-
+#ifndef DD4
 COLLECTION no_download_ptb
 {
     LABEL [no_download_label] ;
@@ -1869,7 +1869,7 @@ COLLECTION upload_wanted_ptb
     HELP  [upload_wanted_help] ;
     MEMBERS {}
 }
-
+#endif
 
 /*
 **********************************************************************
