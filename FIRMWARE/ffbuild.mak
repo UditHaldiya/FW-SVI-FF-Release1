@@ -163,7 +163,8 @@ test: $(DDLINC) $(GW_DIR)\ids.gw
     -rm -f -r $(SOURCE_BINARY_DD)
 	-cmd /E /C mkdir $(SOURCE_BINARY_DD)
     $(MAKE) -f $(CURDIR)\$(firstword $(MAKEFILE_LIST))  cp=$(subst /,\,$(CURDIR)\cp.exe) _tok5 DDLSRC=$(DDLSRC) pretok5=$(TARGET_BINARY_DD)\_tmptok-4 dst=$(TARGET_BINARY_DD) option="-a -DDD4 -4" basename=$(SOURCE_BINARY_DD)/$(DEVICE_REV)$(DD_REV)
-    $(MAKE) -f $(CURDIR)\$(firstword $(MAKEFILE_LIST))  cp=$(subst /,\,$(CURDIR)\cp.exe) _tok5 DDLSRC=$(DDLSRC) pretok5=$(TARGET_BINARY_DD)\_tmptok dst=$(TARGET_BINARY_DD) option=-a basename=$(SOURCE_BINARY_DD)/$(DEVICE_REV)$(DD_REV)
+    del $(SOURCE_BINARY_DD)\symbols.txt
+	$(MAKE) -f $(CURDIR)\$(firstword $(MAKEFILE_LIST))  cp=$(subst /,\,$(CURDIR)\cp.exe) _tok5 DDLSRC=$(DDLSRC) pretok5=$(TARGET_BINARY_DD)\_tmptok dst=$(TARGET_BINARY_DD) option=-a basename=$(SOURCE_BINARY_DD)/$(DEVICE_REV)$(DD_REV)
 # ---------------------------------------------------------------
 
 tok: $(DDLINC) $(GW_DIR)\ids.gw
