@@ -49,13 +49,13 @@ array           custom_char_points                        0x20041
 array           diagnostic_data                           0x20059 
 array           factory_use_1                             0x20077 
 array           factory_use_2                             0x20078 
-axis            y_axis_final_pos                          0x200B0 
-axis            y_axis_final_value                        0x200AF 
-axis            y_axis_position                           0x200AE 
-axis            y_axis_pressure                           0x200B3 
-axis            y_axis_temperature                        0x200B4 
-axis            y_axis_working_pos                        0x200B2 
-axis            y_axis_working_sp                         0x200B1 
+axis            y_axis_final_pos                          0x200BB 
+axis            y_axis_final_value                        0x200BA 
+axis            y_axis_position                           0x200B9 
+axis            y_axis_pressure                           0x200BE 
+axis            y_axis_temperature                        0x200BF 
+axis            y_axis_working_pos                        0x200BD 
+axis            y_axis_working_sp                         0x200BC 
 block           __advanced_pv_basic                       0x800205BA 
 block           __analog_alarm                            0x800208F0 
 block           __analog_human_interface                  0x80020930 
@@ -128,9 +128,9 @@ block           __temperature_cal_basic_2_sensor2                 0x80024100
 block           __temperature_cal_basic2                  0x80024200 
 block           __timer                                   0x800208D0 
 block           PTB                                       0x2001B 
-chart           mnu_act_press_gauge                       0x200AD 
-chart           mnu_final_value_trend                     0x200BC 
-chart           mnu_pressure_gauge                        0x200AC 
+chart           mnu_act_press_gauge                       0x200B2 
+chart           mnu_final_value_trend                     0x200B0 
+chart           mnu_pressure_gauge                        0x200B1 
 collection      no_download_aal           RESERVED        0x8002090E 
 collection      no_download_ab            RESERVED        0x800231FE 
 collection      no_download_ahi           RESERVED        0x8002094E 
@@ -280,19 +280,19 @@ member          ACCEPT_D                  parameter       0xC0010D25
 member          ACCEPT_PRI                parameter       0xC0010D16 
 member          ACCESSORY                 parameter       0x40020062 
 member          ACK_OPTION                parameter       0xC0010090 
-member          ACT_EFFECTIVE_AREA        record          0x40020111 
+member          ACT_EFFECTIVE_AREA        record          0x4002016F 
 member          ACT_FAIL_ACTION           parameter       0xC0010330 
-member          ACT_FAIL_ACTION_1         record          0x400200B3 
+member          ACT_FAIL_ACTION_1         record          0x400200BE 
 member          ACT_MAN_ID                parameter       0xC0010332 
-member          ACT_MAN_ID_1              record          0x40020107 
+member          ACT_MAN_ID_1              record          0x40020165 
 member          ACT_MODEL_NUM             parameter       0xC0010334 
-member          ACT_MODEL_NUM_1           record          0x40020108 
-member          ACT_ROTARY_MOMENT_ARM     record          0x40020110 
-member          ACT_SIZE                  record          0x4002010F 
+member          ACT_MODEL_NUM_1           record          0x40020166 
+member          ACT_ROTARY_MOMENT_ARM     record          0x4002016E 
+member          ACT_SIZE                  record          0x4002016D 
 member          ACT_SN                    parameter       0xC0010336 
-member          ACT_SN_1                  record          0x40020109 
-member          ACT_STYLE                 record          0x400200B4 
-member          ACT_TYPE                  record          0x4002010E 
+member          ACT_SN_1                  record          0x40020167 
+member          ACT_STYLE                 record          0x400200B2 
+member          ACT_TYPE                  record          0x4002016C 
 member          ACTION                    record          0xC001008A 
 member          ACTIVATE_CONTROL_SET      parameter       0x40020009 
 member          ACTIVE_CONTROL_SET        parameter       0x4002000A 
@@ -301,31 +301,31 @@ member          ACTUAL_POSITION           parameter       0x4002004D
 member          ACTUATOR_1                parameter       0x40020057 
 member          ACTUATOR_2                parameter       0x40020058 
 member          ACTUATOR_3                parameter       0x40020059 
-member          ACTUATOR_A_MAX            record          0x4002012B 
-member          ACTUATOR_A_MIN            record          0x4002012C 
+member          ACTUATOR_A_MAX            record          0x40020189 
+member          ACTUATOR_A_MIN            record          0x4002018A 
 member          ACTUATOR_A_PRESSURE       parameter       0x4002002A 
-member          ACTUATOR_B_MAX            record          0x4002012D 
-member          ACTUATOR_B_MIN            record          0x4002012E 
+member          ACTUATOR_B_MAX            record          0x4002018B 
+member          ACTUATOR_B_MIN            record          0x4002018C 
 member          ACTUATOR_B_PRESSURE       parameter       0x4002002B 
 member          ACTUATOR_INFO             parameter       0x4002005A 
 member          ADVANCED                  parameter       0x40020067 
-member          AGGRESSIVENESS            record          0x40020151 
-member          AIR_SUPPLY_ALERT_ACT      record          0x40020173 
-member          AIR_SUPPLY_ALERT_CNT      record          0x400201A5 
-member          AIR_SUPPLY_ALERT_STATE    record          0x4002018C 
+member          AGGRESSIVENESS            record          0x400201A2 
+member          AIR_SUPPLY_ALERT_ACT      record          0x4002015B 
+member          AIR_SUPPLY_ALERT_CNT      record          0x40020127 
+member          AIR_SUPPLY_ALERT_STATE    record          0x4002010E 
 member          ALARM_HYS                 parameter       0xC0010092 
 member          ALARM_STATE               record          0xC0010027 
 member          ALARM_SUM                 parameter       0xC0010094 
-member          ALERT                     record          0x400200D5 
+member          ALERT                     record          0x400200E0 
 member          ALERT_ACTION              parameter       0x4002004F 
 member          ALERT_COUNTERS            parameter       0x40020051 
-member          ALERT_DATA                record          0x400201A9 
+member          ALERT_DATA                record          0x400201AC 
 member          ALERT_KEY                 parameter       0xC0010096 
 member          ALERT_LOG                 parameter       0x40020052 
-member          ALERT_POINT               record          0x400200D4 
+member          ALERT_POINT               record          0x400200DF 
 member          ALERT_STATE               parameter       0x40020050 
-member          ALERT_TIME                record          0x400201A8 
-member          ALERT_TOTAL_TIME          record          0x400200EA 
+member          ALERT_TIME                record          0x400201AB 
+member          ALERT_TOTAL_TIME          record          0x400201AE 
 member          ALGORITHM                 parameter       0x40020003 
 member          ALGORITHM_SEL             parameter       0xC0010B44 
 member          ALM_RATE_DN               parameter       0xC0010E07 
@@ -338,7 +338,7 @@ member          AUTO_CYCLE                parameter       0xC0010DA7
 member          AUTOTUNE                  parameter       0x4002003A 
 member          BACKUP_CONTROL_SET        parameter       0x4002000C 
 member          BAL_TIME                  parameter       0xC0010098 
-member          BETA                      record          0x400200FA 
+member          BETA                      record          0x400200B8 
 member          BIAS                      parameter       0xC001009A 
 member          BIAS_IN_1                 parameter       0xC0010DCD 
 member          BIAS_IN_2                 parameter       0xC0010DD1 
@@ -362,11 +362,11 @@ member          BLOCK_ERR                 parameter       0xC00100AC
 member          BLOCK_ERR_DESC_1          parameter       0xC0011782 
 member          BLOCK_INDEX               record          0xC0010036 
 member          BLOCK_TAG                 record          0xC0010001 
-member          BODY_SIZE                 record          0x4002011D 
+member          BODY_SIZE                 record          0x4002017B 
 member          BOOSTER                   parameter       0x40020061 
 member          BYPASS                    parameter       0xC00100AE 
-member          CAL_DATE                  record          0x40020143 
-member          CAL_LOCATION              record          0x40020142 
+member          CAL_DATE                  record          0x40020199 
+member          CAL_LOCATION              record          0x40020198 
 member          CAL_MIN_SPAN              parameter       0xC0010342 
 member          CAL_MIN_SPAN_1            parameter       0xC0010446 
 member          CAL_MIN_SPAN_2            parameter       0xC0010464 
@@ -377,16 +377,16 @@ member          CAL_POINT_LO              parameter       0xC0010346
 member          CAL_POINT_LO_1            parameter       0xC001044A 
 member          CAL_POINT_LO_2            parameter       0xC0010468 
 member          CAL_PROPAGATION_VEL       parameter       0xC0010348 
-member          CAL_STOP_HI_POS           record          0x40020145 
-member          CAL_STOP_LO_POS           record          0x40020146 
-member          CAL_TYPE                  record          0x40020147 
+member          CAL_STOP_HI_POS           record          0x4002019B 
+member          CAL_STOP_LO_POS           record          0x4002019C 
+member          CAL_TYPE                  record          0x4002019D 
 member          CAL_UNIT                  parameter       0xC0010350 
 member          CAL_UNIT_1                parameter       0xC001044C 
 member          CAL_UNIT_2                parameter       0xC001046A 
 member          CAL_VALUE                 parameter       0xC0011778 
 member          CAL_VALUE_1               parameter       0xC001177E 
 member          CAL_VALUE_2               parameter       0xC001177F 
-member          CAL_WHO                   record          0x40020144 
+member          CAL_WHO                   record          0x4002019A 
 member          CALC_ERRS                 parameter       0xC0010E3B 
 member          CAPABILITY_LEV            parameter       0xC0020846 
 member          CAS_IN                    parameter       0xC00100B0 
@@ -403,7 +403,7 @@ member          CHANNEL_TAG_16            parameter       0xC0013A02
 member          CHANNEL_TAG_64A           parameter       0xC0013A0C 
 member          CHANNEL_TAG_64B           parameter       0xC0013A0D 
 member          CHAR_SELECTION            parameter       0x40020020 
-member          CHARACTERISTIC            record          0x40020118 
+member          CHARACTERISTIC            record          0x40020176 
 member          CHARACTERIZATION          parameter       0xC0010482 
 member          CHECK_PROCESS             parameter       0x4002003B 
 member          CHECKBACK                 parameter       0xC0010E59 
@@ -417,74 +417,74 @@ member          CLR_FSTATE                parameter       0xC00100B6
 member          COLLECTION_DIRECTORY      parameter       0xC0010356 
 member          COLLECTION_DIRECTORY_ENTRY parameter       0xC0010357 
 member          COMB_TYPE                 parameter       0xC0010DE3 
-member          COMMAND                   record          0x400201A7 
-member          COMMISSIONING_ALERT_ACT   record          0x40020172 
-member          COMMISSIONING_ALERT_CNT   record          0x400201A4 
-member          COMMISSIONING_ALERT_STATE record          0x4002018B 
+member          COMMAND                   record          0x400201AA 
+member          COMMISSIONING_ALERT_ACT   record          0x4002015A 
+member          COMMISSIONING_ALERT_CNT   record          0x40020126 
+member          COMMISSIONING_ALERT_STATE record          0x4002010D 
 member          COMP_HI_LIM               parameter       0xC0010DD9 
 member          COMP_LO_LIM               parameter       0xC0010DDB 
 member          COMPATABILITY_REV         parameter       0xC0020863 
 member          COMPATIBILITY_REV         parameter       0x40020000 
 member          COMPLETE_STATUS           parameter       0x40020048 
-member          COMPLETION                record          0x40020153 
+member          COMPLETION                record          0x400201A4 
 member          COND_TIME                 parameter       0xC0010E69 
 member          COND_TYPE                 parameter       0xC0010E67 
 member          CONFIG_SIG                parameter       0xC0011D08 
 member          CONFIG_SIG_CALC           parameter       0xC0011D09 
-member          CONFIGURATION             record          0x4002014C 
+member          CONFIGURATION             record          0x4002013F 
 member          CONFIRM_TIME              parameter       0xC00100B8 
 member          CONTENTS_REV              parameter       0xC0020841 
 member          CONTROL_OPTS              parameter       0xC00100BA 
 member          CRACK_TIME                parameter       0xC0010D3D 
 member          CRACK_TIMER               parameter       0xC0010D37 
 member          CURRENT                   record          0xC0010031 
-member          CURRENT_12_MONTHS         record          0x400200E5 
+member          CURRENT_12_MONTHS         record          0x400200F0 
 member          CURRENT_CHAR_POINTS       parameter       0x40020021 
-member          CURRENT_MONTH             record          0x400200E1 
-member          CURRENT_STATUS_0_C        record          0x400200B5 
-member          CURRENT_STATUS_1_C        record          0x400200B6 
+member          CURRENT_MONTH             record          0x400200EC 
+member          CURRENT_STATUS_0_C        record          0x400200C0 
+member          CURRENT_STATUS_1_C        record          0x400200C1 
 member          CURRENT_STATUS_10_C       record          0x400201B1 
 member          CURRENT_STATUS_11_C       record          0x400201B2 
-member          CURRENT_STATUS_2_C        record          0x400200B7 
-member          CURRENT_STATUS_3_C        record          0x400200B8 
-member          CURRENT_STATUS_4_C        record          0x400200B9 
-member          CURRENT_STATUS_5_C        record          0x400200BA 
+member          CURRENT_STATUS_2_C        record          0x400200C2 
+member          CURRENT_STATUS_3_C        record          0x400200C3 
+member          CURRENT_STATUS_4_C        record          0x400200C4 
+member          CURRENT_STATUS_5_C        record          0x400200C5 
 member          CURRENT_STATUS_6_C        record          0x400201AF 
-member          CURRENT_STATUS_7_C        record          0x400200BB 
-member          CURRENT_STATUS_8_C        record          0x400200BC 
+member          CURRENT_STATUS_7_C        record          0x400200C6 
+member          CURRENT_STATUS_8_C        record          0x400200C7 
 member          CURRENT_STATUS_9_C        record          0x400201B0 
-member          CURRENT_WEEK              record          0x400200DD 
-member          CURRENTLY_COLLECTED       record          0x400200D8 
+member          CURRENT_WEEK              record          0x400200E8 
+member          CURRENTLY_COLLECTED       record          0x400200E3 
 member          CURVE_X                   parameter       0xC0010D59 
 member          CURVE_Y                   parameter       0xC0010D5A 
-member          CUSTOM_1_CONFIGURATION    record          0x40020156 
-member          CUSTOM_2_CONFIGURATION    record          0x40020157 
+member          CUSTOM_1_CONFIGURATION    record          0x4002015D 
+member          CUSTOM_2_CONFIGURATION    record          0x4002015E 
 member          CUSTOM_CHAR               parameter       0x40020022 
 member          CUSTOM_CHAR_POINTS        parameter       0x40020023 
 member          CUSTOM_CONTROL_SET        parameter       0x4002000B 
 member          CUSTOM_CURVE_DESCRIPTION  parameter       0xC0011732 
 member          CUSTOM_CURVE_XY           parameter       0xC00104BA 
 member          CUSTOM_CURVE_XY_FLOAT     parameter       0xC0011734 
-member          CUTOFF_POINT_HI           record          0x40020140 
-member          CUTOFF_POINT_LO           record          0x40020141 
+member          CUTOFF_POINT_HI           record          0x4002013D 
+member          CUTOFF_POINT_LO           record          0x4002013E 
 member          CYCLE_CNTR                parameter       0xC0010485 
 member          CYCLE_CNTR_DEADBAND       parameter       0xC0010486 
 member          CYCLE_CNTR_LIM            parameter       0xC0010487 
-member          CYCLE_COUNTER             record          0x400200ED 
+member          CYCLE_COUNTER             record          0x400200F6 
 member          CYCLE_COUNTER_A_ALERT     parameter       0x40020017 
-member          CYCLE_COUNTER_A_ALERT_ACT record          0x40020165 
-member          CYCLE_COUNTER_A_ALERT_CNT record          0x40020197 
-member          CYCLE_COUNTER_A_ALERT_STATE record          0x4002017E 
+member          CYCLE_COUNTER_A_ALERT_ACT record          0x4002014D 
+member          CYCLE_COUNTER_A_ALERT_CNT record          0x40020119 
+member          CYCLE_COUNTER_A_ALERT_STATE record          0x40020100 
 member          CYCLE_COUNTER_B_ALERT     parameter       0x40020018 
-member          CYCLE_COUNTER_B_ALERT_ACT record          0x40020166 
-member          CYCLE_COUNTER_B_ALERT_CNT record          0x40020198 
-member          CYCLE_COUNTER_B_ALERT_STATE record          0x4002017F 
+member          CYCLE_COUNTER_B_ALERT_ACT record          0x4002014E 
+member          CYCLE_COUNTER_B_ALERT_CNT record          0x4002011A 
+member          CYCLE_COUNTER_B_ALERT_STATE record          0x40020101 
 member          CYCLE_COUNTER_TREND       parameter       0x40020019 
 member          CYCLE_SEL                 parameter       0xC00100BC 
 member          CYCLE_TYPE                parameter       0xC00100BE 
-member          D                         record          0x400200F8 
+member          D                         record          0x400200B6 
 member          DAMPING_CONSTANT          parameter       0xC00104C3 
-member          DATE_INFO                 record          0x4002010C 
+member          DATE_INFO                 record          0x4002016A 
 member          DC_STATE                  parameter       0xC0010D27 
 member          DD_ITEM                   record          0xC0010003 
 member          DD_MEMBER                 record          0xC0010002 
@@ -494,9 +494,9 @@ member          DD_REVIS                  record          0xC0010004
 member          DD_REVISION_DS_175        record          0xC0013D22 
 member          DEAD_BAND                 parameter       0xC0010E63 
 member          DEAD_TIME                 parameter       0xC0010D65 
-member          DEADBAND                  record          0x400200F0 
-member          DEADBAND_AB               record          0x400200EC 
-member          DEADZONE                  record          0x400200FC 
+member          DEADBAND                  record          0x40020130 
+member          DEADBAND_AB               record          0x400200F5 
+member          DEADZONE                  record          0x400200BA 
 member          DECIMAL                   record          0xC001001E 
 member          DELAY_TIME                parameter       0xC0010D3F 
 member          DELAY_TIMER               parameter       0xC0010D39 
@@ -504,17 +504,17 @@ member          DENSITY_CONSTANT          parameter       0xC00104CB
 member          DENSITY_CONSTANT_UNITS    parameter       0xC00104CC 
 member          DENY                      record          0xC0010024 
 member          DESCRIPTION               record          0x400201B9 
-member          DESCRIPTOR                record          0x4002010A 
+member          DESCRIPTOR                record          0x40020168 
 member          DEV_REV                   parameter       0xC00100C4 
 member          DEV_TYPE                  parameter       0xC00100C6 
 member          DEVIATION_ALERT           parameter       0x4002000F 
-member          DEVIATION_ALERT_ACT       record          0x4002015C 
-member          DEVIATION_ALERT_CNT       record          0x4002018E 
-member          DEVIATION_ALERT_STATE     record          0x40020175 
+member          DEVIATION_ALERT_ACT       record          0x40020144 
+member          DEVIATION_ALERT_CNT       record          0x40020110 
+member          DEVIATION_ALERT_STATE     record          0x400200F7 
 member          DEVIATION_DEADBAND        parameter       0xC0010488 
 member          DEVIATION_TIME            parameter       0xC0010489 
 member          DEVIATION_VALUE           parameter       0xC001048A 
-member          DEVIATION_VALUE_1         record          0x40020149 
+member          DEVIATION_VALUE_1         record          0x40020132 
 member          DEVICE_OPTS               parameter       0xC0010D10 
 member          DEVICE_REVISION_DS_175    record          0xC0013D23 
 member          DEVICE_TYPE_DS_175        record          0xC0013D24 
@@ -531,7 +531,7 @@ member          DIAGNOSTIC_CONFIGURATION  parameter       0x40020038
 member          DIAGNOSTIC_DATA           parameter       0x40020039 
 member          DIAGNOSTIC_SIMULATE_VALUE record          0xC0010B51 
 member          DIAGNOSTIC_VALUE          record          0xC0010B52 
-member          DIRECTION                 record          0x40020100 
+member          DIRECTION                 record          0x4002012D 
 member          DISABLE_1                 parameter       0xC0010DB5 
 member          DISABLE_2                 parameter       0xC0010DB7 
 member          DISABLE_3                 parameter       0xC0010DB9 
@@ -547,7 +547,7 @@ member          DISCRETE_OUTPUT_2_STATE   parameter       0x40020041
 member          DISCRETE_SWITCH_1_CONF    parameter       0x40020043 
 member          DISCRETE_SWITCH_2_CONF    parameter       0x40020044 
 member          DUP_VAR_NAME_DEF_9        parameter       0xC0013D7D 
-member          DURATION_TIME             record          0x400200F1 
+member          DURATION_TIME             record          0x40020131 
 member          DV_HI_ALM                 parameter       0xC00100CE 
 member          DV_HI_LIM                 parameter       0xC00100D0 
 member          DV_HI_PRI                 parameter       0xC00100D2 
@@ -559,13 +559,13 @@ member          ELEM_MISMAT_BS_1          parameter       0xC0013A3C
 member          ELEM_MISMAT_NUM           parameter       0xC0013A3B 
 member          EN_CLOSE                  parameter       0xC0010E57 
 member          EN_OPEN                   parameter       0xC0010E55 
-member          ENABLE                    record          0x400200D7 
+member          ENABLE                    record          0x400200E2 
 member          ENABLE_DISABLE            record          0xC0010076 
-member          ENABLE_HI                 record          0x40020139 
-member          ENABLE_LO                 record          0x4002013A 
-member          ENABLE_RATE_HI            record          0x4002013D 
-member          ENABLE_RATE_LO            record          0x4002013E 
-member          END_POSITION              record          0x400201AB 
+member          ENABLE_HI                 record          0x40020136 
+member          ENABLE_LO                 record          0x40020137 
+member          ENABLE_RATE_HI            record          0x4002013A 
+member          ENABLE_RATE_LO            record          0x4002013B 
+member          END_POSITION              record          0x4002012A 
 member          ERR_LATCH                 parameter       0xC0010E3F 
 member          EU_0                      record          0xC001001C 
 member          EU_100                    record          0xC001001B 
@@ -625,8 +625,8 @@ member          FIELD_VAL                 parameter       0xC00100E6
 member          FIELD_VAL_D               parameter       0xC00100E8 
 member          FILE_LOCATOR              parameter       0xC0010B46 
 member          FILE_REV                  parameter       0xC0010B48 
-member          FINAL_POS_VALUE_MAX       record          0x40020123 
-member          FINAL_POS_VALUE_MIN       record          0x40020124 
+member          FINAL_POS_VALUE_MAX       record          0x40020181 
+member          FINAL_POS_VALUE_MIN       record          0x40020182 
 member          FINAL_POSITION_VALUE      parameter       0xC0010362 
 member          FINAL_POSITION_VALUE_D    parameter       0xC00104C2 
 member          FINAL_POSITION_VALUE_DINT parameter       0x4002003F 
@@ -635,12 +635,12 @@ member          FINAL_VALUE_CUTOFF_HI     parameter       0xC0010430
 member          FINAL_VALUE_CUTOFF_LO     parameter       0xC0010432 
 member          FINAL_VALUE_D             parameter       0xC0010366 
 member          FINAL_VALUE_DINT          parameter       0x4002003E 
-member          FINAL_VALUE_MAX           record          0x40020121 
-member          FINAL_VALUE_MIN           record          0x40020122 
+member          FINAL_VALUE_MAX           record          0x4002017F 
+member          FINAL_VALUE_MIN           record          0x40020180 
 member          FINAL_VALUE_RANGE         parameter       0xC0010368 
 member          FIND_STOPS                parameter       0x40020036 
 member          FIRMWARE_SIG              parameter       0xC0011D0A 
-member          FLOW_ACTION               record          0x4002011A 
+member          FLOW_ACTION               record          0x40020178 
 member          FLOW_DIRECTION            parameter       0xC00104C6 
 member          FOLLOW                    parameter       0xC0010D5D 
 member          FORCE_ENB_16              parameter       0xC0013A01 
@@ -665,7 +665,7 @@ member          FSTATE_ST_16              parameter       0xC0013A09
 member          FSTATE_ST_64              parameter       0xC0013A14 
 member          FSTATE_STATUS             parameter       0xC00109F0 
 member          FSTATE_TIME               parameter       0xC00100EE 
-member          FSTATE_TIME_1             record          0x4002014F 
+member          FSTATE_TIME_1             record          0x40020142 
 member          FSTATE_VAL                parameter       0xC00100F0 
 member          FSTATE_VAL_16             parameter       0xC0013A08 
 member          FSTATE_VAL_B64            parameter       0xC0013A13 
@@ -686,7 +686,7 @@ member          FSTATE_VAL5               parameter       0xC00109FD
 member          FSTATE_VAL6               parameter       0xC00109FE 
 member          FSTATE_VAL7               parameter       0xC00109FF 
 member          FSTATE_VAL8               parameter       0xC0010A00 
-member          FSTATE_VALUE_1            record          0x4002014E 
+member          FSTATE_VALUE_1            record          0x40020141 
 member          FUNCTION                  record          0xC001008B 
 member          GAIN                      parameter       0xC00100F4 
 member          GAIN_IN_1                 parameter       0xC0010DCF 
@@ -699,7 +699,7 @@ member          H1_VFD_ID_1               parameter       0xC0013B0B
 member          H1_VFD_ID_2               parameter       0xC0013B0C 
 member          H1_VFD_ID_3               parameter       0xC0013B0D 
 member          H1_VFD_ID_4               parameter       0xC0013B0E 
-member          HAND_WHEEL                record          0x40020102 
+member          HAND_WHEEL                record          0x40020160 
 member          HARD_TYPES                parameter       0xC00100F8 
 member          HARDWARE_REV              parameter       0xC0020866 
 member          HART_5V                   parameter       0xC0013D47 
@@ -752,23 +752,23 @@ member          HI_HI_PRI                 parameter       0xC0010100
 member          HI_LIM                    parameter       0xC0010102 
 member          HI_LIMX                   parameter       0xC0010E11 
 member          HI_PRI                    parameter       0xC0010104 
-member          HISTORIC_ALERT            record          0x400200D6 
-member          HISTORY_STATUS_0_H        record          0x400200BD 
-member          HISTORY_STATUS_1_H        record          0x400200BE 
+member          HISTORIC_ALERT            record          0x400200E1 
+member          HISTORY_STATUS_0_H        record          0x400200C8 
+member          HISTORY_STATUS_1_H        record          0x400200C9 
 member          HISTORY_STATUS_10_H       record          0x400201B5 
 member          HISTORY_STATUS_11_H       record          0x400201B6 
-member          HISTORY_STATUS_2_H        record          0x400200BF 
-member          HISTORY_STATUS_3_H        record          0x400200C0 
-member          HISTORY_STATUS_4_H        record          0x400200C1 
-member          HISTORY_STATUS_5_H        record          0x400200C2 
+member          HISTORY_STATUS_2_H        record          0x400200CA 
+member          HISTORY_STATUS_3_H        record          0x400200CB 
+member          HISTORY_STATUS_4_H        record          0x400200CC 
+member          HISTORY_STATUS_5_H        record          0x400200CD 
 member          HISTORY_STATUS_6_H        record          0x400201B3 
-member          HISTORY_STATUS_7_H        record          0x400200C3 
-member          HISTORY_STATUS_8_H        record          0x400200C4 
+member          HISTORY_STATUS_7_H        record          0x400200CE 
+member          HISTORY_STATUS_8_H        record          0x400200CF 
 member          HISTORY_STATUS_9_H        record          0x400201B4 
 member          HYSTERESIS                parameter       0xC0010E65 
 member          HYSTERISIS                parameter       0xC0010490 
 member          HYSTVAL                   parameter       0xC0010D51 
-member          I                         record          0x400200F7 
+member          I                         record          0x400200B5 
 member          IGNORE                    parameter       0xC0010D31 
 member          IGNORE_ALM                parameter       0xC0010D1C 
 member          IGNORE_PRI                parameter       0xC0010D18 
@@ -841,15 +841,15 @@ member          IO_THRESHOLD_A_7          parameter       0xC0013B8D
 member          IO_THRESHOLD_A_8          parameter       0xC0013B8E 
 member          IO_THRESHOLD_A_9          parameter       0xC0013B8F 
 member          IP_CURRENT_EXTREMES       parameter       0x40020066 
-member          IP_CURRENT_MAX            record          0x400200EF 
-member          IP_CURRENT_MIN            record          0x400200EE 
+member          IP_CURRENT_MAX            record          0x40020191 
+member          IP_CURRENT_MIN            record          0x40020192 
 member          IP_DRIVE_CURRENT          parameter       0x40020033 
-member          IP_DRIVE_CURRENT_ALERT_HI_ACT record          0x4002016D 
-member          IP_DRIVE_CURRENT_ALERT_HI_CNT record          0x4002019F 
-member          IP_DRIVE_CURRENT_ALERT_HI_STATE record          0x40020186 
-member          IP_DRIVE_CURRENT_ALERT_LO_ACT record          0x4002016E 
-member          IP_DRIVE_CURRENT_ALERT_LO_CNT record          0x400201A0 
-member          IP_DRIVE_CURRENT_ALERT_LO_STATE record          0x40020187 
+member          IP_DRIVE_CURRENT_ALERT_HI_ACT record          0x40020155 
+member          IP_DRIVE_CURRENT_ALERT_HI_CNT record          0x40020121 
+member          IP_DRIVE_CURRENT_ALERT_HI_STATE record          0x40020108 
+member          IP_DRIVE_CURRENT_ALERT_LO_ACT record          0x40020156 
+member          IP_DRIVE_CURRENT_ALERT_LO_CNT record          0x40020122 
+member          IP_DRIVE_CURRENT_ALERT_LO_STATE record          0x40020109 
 member          IP_DRIVE_CURRENT_HI_ALERT parameter       0x40020034 
 member          IP_DRIVE_CURRENT_LO_ALERT parameter       0x40020035 
 member          ITK_VER                   parameter       0xC00101C7 
@@ -877,22 +877,22 @@ member          JOG_TIME                  parameter       0xC0010E5D
 member          KEY                       record          0xC0010037 
 member          L_TYPE                    parameter       0xC001010C 
 member          LAG_TIME                  parameter       0xC0010D5F 
-member          LAST_12_MONTHS            record          0x400200E6 
-member          LAST_DAY                  record          0x400200DA 
-member          LAST_MONTH                record          0x400200E2 
-member          LAST_RESULT               record          0x40020148 
+member          LAST_12_MONTHS            record          0x400200F1 
+member          LAST_DAY                  record          0x400200E5 
+member          LAST_MONTH                record          0x400200ED 
+member          LAST_RESULT               record          0x4002019E 
 member          LAST_UPDATE               record          0xC0010042 
-member          LAST_WEEK                 record          0x400200DE 
+member          LAST_WEEK                 record          0x400200E9 
 member          LEAD_TIME                 parameter       0xC0010D61 
-member          LEAKAGE_CLASS             record          0x40020119 
+member          LEAKAGE_CLASS             record          0x40020177 
 member          LEVEL_OFFSET              parameter       0xC0010370 
 member          LIM_NOTIFY                parameter       0xC001010E 
 member          LIM_STROKE_TIME_CLOSE     parameter       0xC0010492 
 member          LIM_STROKE_TIME_OPEN      parameter       0xC0010493 
-member          LIMIT_HI                  record          0x4002013B 
-member          LIMIT_LO                  record          0x4002013C 
-member          LIMIT_RATE                record          0x4002013F 
-member          LIMITS_PROTECTED          record          0x40020138 
+member          LIMIT_HI                  record          0x40020138 
+member          LIMIT_LO                  record          0x40020139 
+member          LIMIT_RATE                record          0x4002013C 
+member          LIMITS_PROTECTED          record          0x40020135 
 member          LIN_TYPE                  parameter       0xC0010372 
 member          LO_ALM                    parameter       0xC0010112 
 member          LO_BIAS                   parameter       0xC0010DFB 
@@ -906,26 +906,26 @@ member          LO_LO_LIMX                parameter       0xC0010E15
 member          LO_LO_PRI                 parameter       0xC001011C 
 member          LO_PRI                    parameter       0xC0010116 
 member          LOCAL_INDEX               record          0xC0010071 
-member          LOCK_LEVEL                record          0x40020158 
+member          LOCK_LEVEL                record          0x400201A7 
 member          LOCKVAL                   parameter       0xC0010D4B 
 member          LOW_CUT                   parameter       0xC0010110 
 member          MACRO_CYCLE_T             parameter       0xC0011D01 
 member          MAGMETER_COIL_FREQUENCY   parameter       0xC00104D1 
 member          MANUFAC_ID                parameter       0xC001011E 
 member          MANUFACTURER_ID           record          0xC0013D25 
-member          MANUFACTURER_INFO         record          0x40020131 
+member          MANUFACTURER_INFO         record          0x40020193 
 member          MAP_MM_16                 parameter       0xC0013A04 
 member          MAP_MM_64                 parameter       0xC0013A0F 
-member          MAPPED_TO_RB              record          0x4002015B 
+member          MAPPED_TO_RB              record          0x40020143 
 member          MAX_INTERNAL_TEMP         parameter       0xC00104BF 
 member          MAX_NOTIFY                parameter       0xC0010120 
 member          MAX_NUM_POINTS            record          0xC00104D8 
 member          MAX_NUM_POSNS             parameter       0xC0013A3F 
 member          MAX_PUBLISH_COUNT         record          0xC0013D5D 
-member          MAX_TIME                  record          0x4002014B 
+member          MAX_TIME                  record          0x40020134 
 member          MAXIMUM_UPDATE_PERIOD     record          0xC0013D61 
 member          MEMORY_SIZE               parameter       0xC0010122 
-member          MESSAGE                   record          0x4002010B 
+member          MESSAGE                   record          0x40020169 
 member          MESSAGE_TYPE              record          0xC001003A 
 member          MFGR_TYPE                 record          0xC0010039 
 member          MIN_CYCLE_T               parameter       0xC0010124 
@@ -939,23 +939,23 @@ member          MO_POWERUP_OPTS_16        parameter       0xC0013A4A
 member          MO_POWERUP_OPTS_64        parameter       0xC0013A4C 
 member          MO_STATUS_OPTS            parameter       0xC0010A11 
 member          MODE_BLK                  parameter       0xC0010126 
-member          MODEL                     record          0x40020132 
+member          MODEL                     record          0x40020194 
 member          MODULE_SN                 parameter       0xC0010374 
 member          N_RESET                   parameter       0xC0010D8D 
 member          N_START                   parameter       0xC0010DE9 
-member          NEAR_CLOSE_ALERT_ACT      record          0x40020162 
-member          NEAR_CLOSE_ALERT_CNT      record          0x40020194 
-member          NEAR_CLOSE_ALERT_STATE    record          0x4002017B 
-member          NEAR_CLOSED               record          0x400200D3 
+member          NEAR_CLOSE_ALERT_ACT      record          0x4002014A 
+member          NEAR_CLOSE_ALERT_CNT      record          0x40020116 
+member          NEAR_CLOSE_ALERT_STATE    record          0x400200FD 
+member          NEAR_CLOSED               record          0x400200DE 
 member          NEAR_CLOSED_ALERT         parameter       0x4002001C 
 member          NEXT_FB_TO_EXECUTE        record          0xC001000A 
-member          NONLIN                    record          0x400200FD 
+member          NONLIN                    record          0x400200BB 
 member          NORMAL                    record          0xC0010021 
 member          NUM_OF_PARAMS             record          0xC0010009 
 member          NUM_OF_PROCESS_VARIABLES  record          0xC0013D21 
 member          NUM_POINTS_SUPPORTED      record          0xC00104D6 
 member          NUM_POSNS                 parameter       0xC0013A3E 
-member          NUMBER_OF_POINTS_1        record          0x40020137 
+member          NUMBER_OF_POINTS_1        record          0x400200BD 
 member          NUMBER_VIEW_3             record          0xC001000C 
 member          NUMBER_VIEW_4             record          0xC001000D 
 member          NV_CYCLE_T                parameter       0xC0010128 
@@ -966,7 +966,7 @@ member          OP_CMD_INT                parameter       0xC0010D95
 member          OP_CMD_SPG                parameter       0xC0010DAF 
 member          OP_SELECT                 parameter       0xC0010DC3 
 member          OPEN_STOP_ADJUSTMENT      parameter       0x4002004A 
-member          OPTION                    record          0x400201AE 
+member          OPTION                    record          0x4002012E 
 member          OUT                       parameter       0xC001012A 
 member          OUT_1                     parameter       0xC0010A12 
 member          OUT_1_RANGE               parameter       0xC0010D43 
@@ -1013,65 +1013,65 @@ member          OVERALL_STATUS            record          0xC0013A17
 member          OVERRNG_BAD               record          0xC0013B13 
 member          OVERRNG_LIM               record          0xC0013B17 
 member          OVERRNG_UNC               record          0xC0013B14 
-member          P                         record          0x400200F6 
-member          PACKING                   record          0x4002011E 
+member          P                         record          0x400200B4 
+member          PACKING                   record          0x4002017C 
 member          PAD                       record          0xC0013D7A 
-member          PADJ                      record          0x400200F9 
+member          PADJ                      record          0x400200B7 
 member          PARAMETER_INDEX           record          0xC001003F 
-member          PASSWORD_1                record          0x4002015A 
-member          PASSWORD_ENABLED          record          0x40020159 
+member          PASSWORD_1                record          0x400201A9 
+member          PASSWORD_ENABLED          record          0x400201A8 
 member          PAUSE                     parameter       0xC0010DA3 
 member          PAUSE_CAUSE               parameter       0xC0010DA5 
 member          PCT_INCL                  parameter       0xC0010D8F 
-member          PERCENT_COMPLETE          record          0x40020155 
+member          PERCENT_COMPLETE          record          0x400201A6 
 member          PERMISSIVE_D              parameter       0xC0010D21 
 member          PERMITTED                 record          0xC00101A4 
 member          PI_POINTER                parameter       0xC0020840 
-member          PID_NO                    record          0x40020117 
-member          PILOT_MAX                 record          0x4002012F 
-member          PILOT_MIN                 record          0x40020130 
+member          PID_NO                    record          0x40020175 
+member          PILOT_MAX                 record          0x4002018D 
+member          PILOT_MIN                 record          0x4002018E 
 member          PILOT_PRESSURE            parameter       0x4002002D 
-member          PLUG_TYPE                 record          0x4002011F 
-member          POINT_CLOSED              record          0x400200D2 
-member          POS_10_PERCENT            record          0x400200C7 
-member          POS_20_PERCENT            record          0x400200C8 
-member          POS_30_PERCENT            record          0x400200C9 
-member          POS_40_PERCENT            record          0x400200CA 
-member          POS_5_PERCENT_CLOSED      record          0x400200C6 
-member          POS_50_PERCENT            record          0x400200CB 
-member          POS_60_PERCENT            record          0x400200CC 
-member          POS_70_PERCENT            record          0x400200CD 
-member          POS_80_PERCENT            record          0x400200CE 
-member          POS_90_PERCENT            record          0x400200CF 
-member          POS_95_PERCENT            record          0x400200D0 
-member          POS_95_PERCENT_OPEN       record          0x400200D1 
+member          PLUG_TYPE                 record          0x4002017D 
+member          POINT_CLOSED              record          0x400200DD 
+member          POS_10_PERCENT            record          0x400200D2 
+member          POS_20_PERCENT            record          0x400200D3 
+member          POS_30_PERCENT            record          0x400200D4 
+member          POS_40_PERCENT            record          0x400200D5 
+member          POS_5_PERCENT_CLOSED      record          0x400200D1 
+member          POS_50_PERCENT            record          0x400200D6 
+member          POS_60_PERCENT            record          0x400200D7 
+member          POS_70_PERCENT            record          0x400200D8 
+member          POS_80_PERCENT            record          0x400200D9 
+member          POS_90_PERCENT            record          0x400200DA 
+member          POS_95_PERCENT            record          0x400200DB 
+member          POS_95_PERCENT_OPEN       record          0x400200DC 
 member          POS_ALERT_HI              parameter       0xC0010494 
 member          POS_ALERT_LO              parameter       0xC0010495 
 member          POS_DEADBAND              parameter       0xC0010496 
 member          POS_FEATURES              parameter       0xC0011726 
-member          POSCOMP                   record          0x400200FB 
-member          POSITION                  record          0x400200FE 
+member          POSCOMP                   record          0x400200B9 
+member          POSITION                  record          0x4002012F 
 member          POSITION_ERROR_HISTOGRAM  parameter       0x4002001D 
 member          POSITION_ERROR_TREND      parameter       0x4002001A 
 member          POSITION_EXTREMES         parameter       0x40020063 
 member          POSITION_HI_ALERT         parameter       0x40020011 
-member          POSITION_HI_ALERT_ACT     record          0x4002015E 
-member          POSITION_HI_ALERT_CNT     record          0x40020190 
-member          POSITION_HI_ALERT_STATE   record          0x40020177 
+member          POSITION_HI_ALERT_ACT     record          0x40020146 
+member          POSITION_HI_ALERT_CNT     record          0x40020112 
+member          POSITION_HI_ALERT_STATE   record          0x400200F9 
 member          POSITION_HIHI_ALERT       parameter       0x40020010 
-member          POSITION_HIHI_ALERT_ACT   record          0x4002015D 
-member          POSITION_HIHI_ALERT_CNT   record          0x4002018F 
-member          POSITION_HIHI_ALERT_STATE record          0x40020176 
+member          POSITION_HIHI_ALERT_ACT   record          0x40020145 
+member          POSITION_HIHI_ALERT_CNT   record          0x40020111 
+member          POSITION_HIHI_ALERT_STATE record          0x400200F8 
 member          POSITION_HISTOGRAM        parameter       0x4002001B 
 member          POSITION_LIMITS           parameter       0x40020008 
 member          POSITION_LO_ALERT         parameter       0x40020012 
-member          POSITION_LO_ALERT_ACT     record          0x4002015F 
-member          POSITION_LO_ALERT_CNT     record          0x40020191 
-member          POSITION_LO_ALERT_STATE   record          0x40020178 
+member          POSITION_LO_ALERT_ACT     record          0x40020147 
+member          POSITION_LO_ALERT_CNT     record          0x40020113 
+member          POSITION_LO_ALERT_STATE   record          0x400200FA 
 member          POSITION_LOLO_ALERT       parameter       0x40020013 
-member          POSITION_LOLO_ALERT_ACT   record          0x40020160 
-member          POSITION_LOLO_ALERT_CNT   record          0x40020192 
-member          POSITION_LOLO_ALERT_STATE record          0x40020179 
+member          POSITION_LOLO_ALERT_ACT   record          0x40020148 
+member          POSITION_LOLO_ALERT_CNT   record          0x40020114 
+member          POSITION_LOLO_ALERT_STATE record          0x400200FB 
 member          POSITION_TRANSDUCER_TYPE  parameter       0x40020006 
 member          PRE_OUT                   parameter       0xC0010DB3 
 member          PRE_OUT_1                 parameter       0xC0010E17 
@@ -1085,17 +1085,17 @@ member          PRE_OUT_D4                parameter       0xC0010EB3
 member          PRE_TRIP                  parameter       0xC0010D8B 
 member          PRES_UNITS                parameter       0xC0010497 
 member          PRESET_IN                 parameter       0xC0010EC3 
-member          PRESSURE                  record          0x400200FF 
+member          PRESSURE                  record          0x4002019F 
 member          PRESSURE_EXTREMES         parameter       0x40020064 
 member          PRESSURE_PORT_A           parameter       0xC0010499 
 member          PRESSURE_PORT_B           parameter       0xC001049A 
 member          PRESSURE_RANGE            parameter       0x40020026 
 member          PRESSURE_SUPPLY           parameter       0xC0010498 
 member          PRESSURE_UNITS            parameter       0xC0011744 
-member          PREVIOUS_12_MONTHS        record          0x400200E7 
-member          PREVIOUS_DAY              record          0x400200DB 
-member          PREVIOUS_MONTH            record          0x400200E3 
-member          PREVIOUS_WEEK             record          0x400200DF 
+member          PREVIOUS_12_MONTHS        record          0x400200F2 
+member          PREVIOUS_DAY              record          0x400200E6 
+member          PREVIOUS_MONTH            record          0x400200EE 
+member          PREVIOUS_WEEK             record          0x400200EA 
 member          PRIMARY_VALUE             parameter       0xC0010376 
 member          PRIMARY_VALUE_1           parameter       0xC001044E 
 member          PRIMARY_VALUE_2           parameter       0xC001046C 
@@ -1107,7 +1107,7 @@ member          PRIMARY_VALUE_TYPE        parameter       0xC0010380
 member          PRIMARY_VALUE_TYPE_1      parameter       0xC0010452 
 member          PRIMARY_VALUE_TYPE_2      parameter       0xC0010470 
 member          PRIORITY                  record          0xC001003B 
-member          PROCESS_ID                record          0x40020154 
+member          PROCESS_ID                record          0x400201A5 
 member          PROCESS_VALUE_A           parameter       0xC0013B09 
 member          PROCESS_VALUE_A_1         parameter       0xC0013B21 
 member          PROCESS_VALUE_A_10        parameter       0xC0013B2A 
@@ -1206,15 +1206,15 @@ member          PROCESS_VALUE_RANGE_A_6   parameter       0xC0013B80
 member          PROCESS_VALUE_RANGE_A_7   parameter       0xC0013B81 
 member          PROCESS_VALUE_RANGE_A_8   parameter       0xC0013B82 
 member          PROCESS_VALUE_RANGE_A_9   parameter       0xC0013B83 
-member          PROCESSOR_ALERT_ACT       record          0x40020170 
-member          PROCESSOR_ALERT_CNT       record          0x400201A2 
-member          PROCESSOR_ALERT_STATE     record          0x40020189 
+member          PROCESSOR_ALERT_ACT       record          0x40020158 
+member          PROCESSOR_ALERT_CNT       record          0x40020124 
+member          PROCESSOR_ALERT_STATE     record          0x4002010B 
 member          PROFILE                   record          0xC0010005 
 member          PROFILE_REVISION          record          0xC0010006 
 member          PROP_LIMS                 parameter       0xC0010E39 
 member          PROPAGATE_MODE            record          0x400200A6 
-member          PRS_CONTROL_HI            record          0x40020105 
-member          PRS_CONTROL_LO            record          0x40020106 
+member          PRS_CONTROL_HI            record          0x40020163 
+member          PRS_CONTROL_LO            record          0x40020164 
 member          PSP                       parameter       0xC0010DF1 
 member          PST_BREAKOUT_TIME         parameter       0xC001049B 
 member          PST_BREAKOUT_TIMEOUT      parameter       0xC0011736 
@@ -1240,14 +1240,14 @@ member          PV_D                      parameter       0xC0010138
 member          PV_FTIME                  parameter       0xC001013A 
 member          PV_SCALE                  parameter       0xC001013C 
 member          PV_STATE                  parameter       0xC001013E 
-member          QTY                       record          0x40020133 
+member          QTY                       record          0x40020195 
 member          QUIES_OPT                 parameter       0xC0010DEF 
 member          RA_FTIME                  parameter       0xC0010140 
-member          RANGE                     record          0x400200B2 
+member          RANGE                     record          0x400200B3 
 member          RANGE_HI                  parameter       0xC0010DC9 
 member          RANGE_LO                  parameter       0xC0010DCB 
 member          RATE                      parameter       0xC0010142 
-member          RATED_ADJ_CV              record          0x4002011B 
+member          RATED_ADJ_CV              record          0x40020179 
 member          RATED_TRAVEL              parameter       0xC00104A2 
 member          RAW_POSITION              parameter       0x4002004E 
 member          RCAS_IN                   parameter       0xC0010144 
@@ -1258,9 +1258,9 @@ member          READBACK                  parameter       0xC001014C
 member          READBACK_D                parameter       0xC001014E 
 member          READBACK_SELECT           parameter       0xC00104A3 
 member          RELATIVE_INDEX            record          0xC001002F 
-member          RELAY_TYPE                record          0x40020103 
+member          RELAY_TYPE                record          0x40020161 
 member          REMOTE_INDEX              record          0xC0010073 
-member          REMOTE_SENSOR             record          0x40020135 
+member          REMOTE_SENSOR             record          0x400200BF 
 member          RESERVED                  record          0xC0013A16 
 member          RESERVED_8_DS_175_1       record          0xC0013D73 
 member          RESERVED_8_DS_175_2       record          0xC0013D77 
@@ -1285,7 +1285,7 @@ member          RS_STATE                  parameter       0xC0010158
 member          RTOTAL                    parameter       0xC0010D7F 
 member          SAFEGUARD_CL              parameter       0xC0010E4D 
 member          SAFEGUARD_OP              parameter       0xC0010E4B 
-member          SAME_AS_ACTUATOR          record          0x40020112 
+member          SAME_AS_ACTUATOR          record          0x40020170 
 member          SAMPLE_1                  record          0xC0010043 
 member          SAMPLE_10                 record          0xC001004C 
 member          SAMPLE_11                 record          0xC001004D 
@@ -1308,9 +1308,9 @@ member          SAMPLE_8                  record          0xC001004A
 member          SAMPLE_9                  record          0xC001004B 
 member          SAMPLE_INTERVAL           record          0xC0010041 
 member          SAMPLE_TYPE               record          0xC0010040 
-member          SAMPLING_TIME             record          0x400201AD 
+member          SAMPLING_TIME             record          0x4002012C 
 member          SCALING_FACTOR_TB         record          0xC00104D5 
-member          SEAT_RING_TYPE            record          0x40020120 
+member          SEAT_RING_TYPE            record          0x4002017E 
 member          SECONDARY_VALUE           parameter       0xC0010382 
 member          SECONDARY_VALUE_LOW_CUT_OFF parameter       0xC00104CA 
 member          SECONDARY_VALUE_RANGE     parameter       0xC001177A 
@@ -1322,7 +1322,7 @@ member          SEL_3                     parameter       0xC001015E
 member          SEL_TYPE                  parameter       0xC0010160 
 member          SELECT_TYPE               parameter       0xC0010DBD 
 member          SELECTED                  parameter       0xC0010DC1 
-member          SELECTOR                  record          0x400200F5 
+member          SELECTOR                  record          0x40020197 
 member          SENSOR_CAL_DATE           parameter       0xC0010386 
 member          SENSOR_CAL_DATE_1         parameter       0xC0010454 
 member          SENSOR_CAL_DATE_2         parameter       0xC0010472 
@@ -1338,9 +1338,9 @@ member          SENSOR_CAL_WHO_2          parameter       0xC0010478
 member          SENSOR_CONNECTION         parameter       0xC0010392 
 member          SENSOR_CONNECTION_1       parameter       0xC001045C 
 member          SENSOR_CONNECTION_2       parameter       0xC001047A 
-member          SENSOR_FAILURE_ALERT_ACT  record          0x4002016F 
-member          SENSOR_FAILURE_ALERT_CNT  record          0x400201A1 
-member          SENSOR_FAILURE_ALERT_STATE record          0x40020188 
+member          SENSOR_FAILURE_ALERT_ACT  record          0x40020157 
+member          SENSOR_FAILURE_ALERT_CNT  record          0x40020123 
+member          SENSOR_FAILURE_ALERT_STATE record          0x4002010A 
 member          SENSOR_FILL_FLUID         parameter       0xC0010394 
 member          SENSOR_ISOLATOR_MTL       parameter       0xC0010396 
 member          SENSOR_OFFSET             parameter       0xC0010436 
@@ -1353,16 +1353,16 @@ member          SENSOR_SN_2               parameter       0xC001047E
 member          SENSOR_TYPE               parameter       0xC0010406 
 member          SENSOR_TYPE_1             parameter       0xC0010462 
 member          SENSOR_TYPE_2             parameter       0xC0010480 
-member          SERVICE_1                 record          0x40020116 
+member          SERVICE_1                 record          0x40020174 
 member          SERVICE_OPERATION         record          0xC0010074 
 member          SERVO_GAIN                parameter       0xC0010408 
 member          SERVO_RATE                parameter       0xC0010410 
 member          SERVO_RESET               parameter       0xC0010412 
 member          SET_FSTATE                parameter       0xC0010162 
-member          SET_POINT_RATE            record          0x400201AC 
-member          SET_POINT_TIMEOUT_ALERT_ACT record          0x40020161 
-member          SET_POINT_TIMEOUT_ALERT_CNT record          0x40020193 
-member          SET_POINT_TIMEOUT_ALERT_STATE record          0x4002017A 
+member          SET_POINT_RATE            record          0x4002012B 
+member          SET_POINT_TIMEOUT_ALERT_ACT record          0x40020149 
+member          SET_POINT_TIMEOUT_ALERT_CNT record          0x40020115 
+member          SET_POINT_TIMEOUT_ALERT_STATE record          0x400200FC 
 member          SET_ZERO_POINT            parameter       0xC00104C8 
 member          SETPOINT                  parameter       0x4002004C 
 member          SETPOINT_SOURCE           parameter       0x4002004B 
@@ -1371,7 +1371,7 @@ member          SHED_OPT                  parameter       0xC0010164
 member          SHED_RCAS                 parameter       0xC0010166 
 member          SHED_ROUT                 parameter       0xC0010168 
 member          SHUTDOWN_D                parameter       0xC0010D1D 
-member          SHUTOFF_DP                record          0x40020101 
+member          SHUTOFF_DP                record          0x4002015F 
 member          SIF_DET_COMM_ERR          parameter       0xC0011D00 
 member          SIF_ERROR                 parameter       0xC0011D02 
 member          SIF_ITK_VER               parameter       0xC0011D17 
@@ -1384,11 +1384,11 @@ member          SIMULATE_D                parameter       0xC001016C
 member          SIMULATE_P                parameter       0xC0010E44 
 member          SIMULATE_STATUS           record          0xC0010010 
 member          SIMULATE_VALUE            record          0xC0010013 
-member          SINCE_RESET               record          0x400200E9 
+member          SINCE_RESET               record          0x400201AD 
 member          SOFTWARE_REV              parameter       0xC0020865 
 member          SOFTWARE_REV_APP          parameter       0x40020002 
 member          SOFTWARE_REV_FF           parameter       0x40020001 
-member          SOLENOID                  record          0x40020134 
+member          SOLENOID                  record          0x40020196 
 member          SOUND_VELOCITY            parameter       0xC00104D3 
 member          SOUND_VELOCITY_UNITS      parameter       0xC00104D4 
 member          SP                        parameter       0xC001016E 
@@ -1397,7 +1397,7 @@ member          SP_HI_LIM                 parameter       0xC0010172
 member          SP_LO_LIM                 parameter       0xC0010174 
 member          SP_RATE_DN                parameter       0xC0010176 
 member          SP_RATE_UP                parameter       0xC0010178 
-member          SPEC_SHEET                record          0x4002010D 
+member          SPEC_SHEET                record          0x4002016B 
 member          SPG_STATE                 parameter       0xC0010DB1 
 member          SPM_16                    parameter       0xC0013A05 
 member          SPM_B64                   parameter       0xC0013A10 
@@ -1414,7 +1414,7 @@ member          ST_REV                    parameter       0xC001017A
 member          STALE_DATA_T              parameter       0xC0011D05 
 member          STANDARD_TYPE             record          0xC0010038 
 member          START                     parameter       0xC0010D9F 
-member          START_POSITION            record          0x400201AA 
+member          START_POSITION            record          0x40020129 
 member          START_TYPE                parameter       0xC0010DA1 
 member          START_VAL                 parameter       0xC0010D99 
 member          STATIC_REVISION           record          0xC001002E 
@@ -1473,26 +1473,26 @@ member          STROKE_TIME_OPEN          parameter       0xC00104A8
 member          STROKE_TIME_OPEN_LIM      parameter       0xC0011748 
 member          SUB_CODE                  record          0xC0010029 
 member          SUB_INDEX                 record          0x400201B8 
-member          SUPPLY_PRESS              record          0x40020150 
+member          SUPPLY_PRESS              record          0x400201A1 
 member          SUPPLY_PRESSURE           parameter       0x40020025 
 member          SUPPLY_PRESSURE_HI_ALERT  parameter       0x40020027 
-member          SUPPLY_PRESSURE_HI_ALERT_ACT record          0x40020168 
-member          SUPPLY_PRESSURE_HI_ALERT_CNT record          0x4002019A 
-member          SUPPLY_PRESSURE_HI_ALERT_STATE record          0x40020181 
+member          SUPPLY_PRESSURE_HI_ALERT_ACT record          0x40020150 
+member          SUPPLY_PRESSURE_HI_ALERT_CNT record          0x4002011C 
+member          SUPPLY_PRESSURE_HI_ALERT_STATE record          0x40020103 
 member          SUPPLY_PRESSURE_LO_ALERT  parameter       0x40020028 
-member          SUPPLY_PRESSURE_LO_ALERT_ACT record          0x40020169 
-member          SUPPLY_PRESSURE_LO_ALERT_CNT record          0x4002019B 
-member          SUPPLY_PRESSURE_LO_ALERT_STATE record          0x40020182 
+member          SUPPLY_PRESSURE_LO_ALERT_ACT record          0x40020151 
+member          SUPPLY_PRESSURE_LO_ALERT_CNT record          0x4002011D 
+member          SUPPLY_PRESSURE_LO_ALERT_STATE record          0x40020104 
 member          SUPPLY_PRESSURE_LOLO_ALERT parameter       0x40020029 
-member          SUPPLY_PRESSURE_LOLO_ALERT_ACT record          0x4002016A 
-member          SUPPLY_PRESSURE_LOLO_ALERT_CNT record          0x4002019C 
-member          SUPPLY_PRESSURE_LOLO_ALERT_STATE record          0x40020183 
-member          SUPPLY_PRESSURE_MAX       record          0x40020129 
-member          SUPPLY_PRESSURE_MIN       record          0x4002012A 
-member          SUPPLY_PRS_MAX            record          0x40020104 
-member          SUPPORTING_HARDWARE_ALERT_ACT record          0x40020174 
-member          SUPPORTING_HARDWARE_ALERT_CNT record          0x400201A6 
-member          SUPPORTING_HARDWARE_ALERT_STATE record          0x4002018D 
+member          SUPPLY_PRESSURE_LOLO_ALERT_ACT record          0x40020152 
+member          SUPPLY_PRESSURE_LOLO_ALERT_CNT record          0x4002011E 
+member          SUPPLY_PRESSURE_LOLO_ALERT_STATE record          0x40020105 
+member          SUPPLY_PRESSURE_MAX       record          0x40020187 
+member          SUPPLY_PRESSURE_MIN       record          0x40020188 
+member          SUPPLY_PRS_MAX            record          0x40020162 
+member          SUPPORTING_HARDWARE_ALERT_ACT record          0x4002015C 
+member          SUPPORTING_HARDWARE_ALERT_CNT record          0x40020128 
+member          SUPPORTING_HARDWARE_ALERT_STATE record          0x4002010F 
 member          SWAP_2                    parameter       0xC0010D57 
 member          TABLE_ELEMENT_DATA_TYPE   record          0xC00104D9 
 member          TAG_DESC                  parameter       0xC0010180 
@@ -1511,42 +1511,42 @@ member          TEMP_D7                   parameter       0xC0010EB9
 member          TEMP_D8                   parameter       0xC0010EBB 
 member          TEMP_TRANSDUCER_TYPE      parameter       0x4002002E 
 member          TEMPERATURE               parameter       0x40020030 
-member          TEMPERATURE_1             record          0x400200F4 
+member          TEMPERATURE_1             record          0x400201A0 
 member          TEMPERATURE_EXTREMES      parameter       0x40020065 
 member          TEMPERATURE_HI_ALERT      parameter       0x40020031 
-member          TEMPERATURE_HI_ALERT_ACT  record          0x4002016B 
-member          TEMPERATURE_HI_ALERT_CNT  record          0x4002019D 
-member          TEMPERATURE_HI_ALERT_STATE record          0x40020184 
+member          TEMPERATURE_HI_ALERT_ACT  record          0x40020153 
+member          TEMPERATURE_HI_ALERT_CNT  record          0x4002011F 
+member          TEMPERATURE_HI_ALERT_STATE record          0x40020106 
 member          TEMPERATURE_LO_ALERT      parameter       0x40020032 
-member          TEMPERATURE_LO_ALERT_ACT  record          0x4002016C 
-member          TEMPERATURE_LO_ALERT_CNT  record          0x4002019E 
-member          TEMPERATURE_LO_ALERT_STATE record          0x40020185 
-member          TEMPERATURE_MAX           record          0x400200F3 
-member          TEMPERATURE_MIN           record          0x400200F2 
+member          TEMPERATURE_LO_ALERT_ACT  record          0x40020154 
+member          TEMPERATURE_LO_ALERT_CNT  record          0x40020120 
+member          TEMPERATURE_LO_ALERT_STATE record          0x40020107 
+member          TEMPERATURE_MAX           record          0x4002018F 
+member          TEMPERATURE_MIN           record          0x40020190 
 member          TEMPERATURE_VALUE         parameter       0xC00104C4 
 member          TEMPERATURE_VALUE_RANGE   parameter       0xC00104C5 
 member          TEST_RW                   parameter       0xC0010182 
 member          TFPD                      parameter       0x40020004 
 member          TFPID                     parameter       0x40020005 
-member          THREE_DAYS_AGO            record          0x400200DC 
-member          THREE_MONTHS_AGO          record          0x400200E4 
-member          THREE_WEEKS_AGO           record          0x400200E0 
-member          THREE_YEARS_AGO           record          0x400200E8 
+member          THREE_DAYS_AGO            record          0x400200E7 
+member          THREE_MONTHS_AGO          record          0x400200EF 
+member          THREE_WEEKS_AGO           record          0x400200EB 
+member          THREE_YEARS_AGO           record          0x400200F3 
 member          TIME_DURATION             parameter       0xC0010D9B 
 member          TIME_POSN                 parameter       0xC0010DAB 
 member          TIME_POSN_T               parameter       0xC0010DAD 
-member          TIME_SINCE_UPDATE         record          0x4002014A 
+member          TIME_SINCE_UPDATE         record          0x40020133 
 member          TIME_STAMP                record          0xC0010028 
 member          TIME_UNIT1                parameter       0xC0010D6D 
 member          TIME_UNIT2                parameter       0xC0010D6F 
 member          TIME_UNITS                parameter       0xC0010D9D 
 member          TIMER_SP                  parameter       0xC0010DDF 
 member          TIMER_TYPE                parameter       0xC0010DE5 
-member          TODAY                     record          0x400200D9 
+member          TODAY                     record          0x400200E4 
 member          TORQUE                    parameter       0xC00104AA 
 member          TORQUE_UNITS              parameter       0xC00104A9 
 member          TOTAL_SP                  parameter       0xC0010D67 
-member          TOTAL_TIME                record          0x400200C5 
+member          TOTAL_TIME                record          0x400200D0 
 member          TOTALIZER_OPTS            parameter       0xC0010EC5 
 member          TRANSDUCER_DIRECTORY      parameter       0xC0010414 
 member          TRANSDUCER_DIRECTORY_ENTRY parameter       0xC0010415 
@@ -1559,15 +1559,15 @@ member          TRAVEL_ACCUM              parameter       0xC00104AC
 member          TRAVEL_ACCUM_DEADBAND     parameter       0xC00104AB 
 member          TRAVEL_ACCUM_LIM          parameter       0xC00104AD 
 member          TRAVEL_ACCUM_UNITS        parameter       0xC001174A 
-member          TRAVEL_ACCUMULATION       record          0x400200EB 
+member          TRAVEL_ACCUMULATION       record          0x400200F4 
 member          TRAVEL_ACCUMULATION_A_ALERT parameter       0x40020014 
-member          TRAVEL_ACCUMULATION_A_ALERT_ACT record          0x40020163 
-member          TRAVEL_ACCUMULATION_A_ALERT_CNT record          0x40020195 
-member          TRAVEL_ACCUMULATION_A_ALERT_STATE record          0x4002017C 
+member          TRAVEL_ACCUMULATION_A_ALERT_ACT record          0x4002014B 
+member          TRAVEL_ACCUMULATION_A_ALERT_CNT record          0x40020117 
+member          TRAVEL_ACCUMULATION_A_ALERT_STATE record          0x400200FE 
 member          TRAVEL_ACCUMULATION_B_ALERT parameter       0x40020015 
-member          TRAVEL_ACCUMULATION_B_ALERT_ACT record          0x40020164 
-member          TRAVEL_ACCUMULATION_B_ALERT_CNT record          0x40020196 
-member          TRAVEL_ACCUMULATION_B_ALERT_STATE record          0x4002017D 
+member          TRAVEL_ACCUMULATION_B_ALERT_ACT record          0x4002014C 
+member          TRAVEL_ACCUMULATION_B_ALERT_CNT record          0x40020118 
+member          TRAVEL_ACCUMULATION_B_ALERT_STATE record          0x400200FF 
 member          TRAVEL_ACCUMULATION_TREND parameter       0x40020016 
 member          TRAVEL_CALIBRATION        parameter       0x4002000D 
 member          TRAVEL_TIME               parameter       0xC0010E5F 
@@ -1582,8 +1582,8 @@ member          TRK_SCALE                 parameter       0xC0010186
 member          TRK_VAL                   parameter       0xC0010188 
 member          TUBE_DIAMETER_CONSTANT    parameter       0xC00104CF 
 member          TUBE_DIAMETER_UNITS       parameter       0xC00104D0 
-member          TUNE_FLAGS                record          0x40020152 
-member          TYPE_1                    record          0x40020136 
+member          TUNE_FLAGS                record          0x400201A3 
+member          TYPE_1                    record          0x400200BC 
 member          UI_ACCESS_CONTROL         parameter       0x40020045 
 member          UI_CUSTOM_CONFIGURATION   parameter       0x4002003C 
 member          UI_LANGUAGE               parameter       0x40020046 
@@ -1632,20 +1632,20 @@ member          VALUE9                    record          0xC0013A30
 member          VALVE_BODY_1              parameter       0x4002005D 
 member          VALVE_BODY_2              parameter       0x4002005E 
 member          VALVE_BODY_3              parameter       0x4002005F 
-member          VALVE_CONTROL_ALERT_ACT   record          0x40020171 
-member          VALVE_CONTROL_ALERT_CNT   record          0x400201A3 
-member          VALVE_CONTROL_ALERT_STATE record          0x4002018A 
+member          VALVE_CONTROL_ALERT_ACT   record          0x40020159 
+member          VALVE_CONTROL_ALERT_CNT   record          0x40020125 
+member          VALVE_CONTROL_ALERT_STATE record          0x4002010C 
 member          VALVE_IDENTIFICATION      parameter       0x4002005B 
 member          VALVE_INFO                parameter       0x40020060 
 member          VALVE_MAN_ID              parameter       0xC0010416 
-member          VALVE_MAN_ID_1            record          0x40020113 
+member          VALVE_MAN_ID_1            record          0x40020171 
 member          VALVE_MODEL_NUM           parameter       0xC0010418 
-member          VALVE_MODEL_NUM_1         record          0x40020114 
+member          VALVE_MODEL_NUM_1         record          0x40020172 
 member          VALVE_SERVICE             parameter       0x4002005C 
 member          VALVE_SN                  parameter       0xC0010420 
-member          VALVE_SN_1                record          0x40020115 
+member          VALVE_SN_1                record          0x40020173 
 member          VALVE_TYPE                parameter       0xC0010438 
-member          VALVE_TYPE_1              record          0x4002011C 
+member          VALVE_TYPE_1              record          0x4002017A 
 member          VAR_DIR_ENTRY             parameter       0xC0013B71 
 member          VAR_DIR16                 parameter       0xC0013B74 
 member          VAR_DIR32                 parameter       0xC0013B75 
@@ -2474,16 +2474,16 @@ member          VST_PAUSE                 parameter       0xC001172E
 member          VST_RESULT                parameter       0xC00104B3 
 member          WORKING_POS               parameter       0xC00104B4 
 member          WORKING_POS_D             parameter       0xC00104C0 
-member          WORKING_POS_MAX           record          0x40020127 
-member          WORKING_POS_MIN           record          0x40020128 
+member          WORKING_POS_MAX           record          0x40020185 
+member          WORKING_POS_MIN           record          0x40020186 
 member          WORKING_SP                parameter       0xC00104B5 
 member          WORKING_SP_D              parameter       0xC00104C1 
-member          WORKING_SP_MAX            record          0x40020125 
-member          WORKING_SP_MIN            record          0x40020126 
+member          WORKING_SP_MAX            record          0x40020183 
+member          WORKING_SP_MIN            record          0x40020184 
 member          WORKING_TIME_ALERT        parameter       0x40020054 
-member          WORKING_TIME_ALERT_ACT    record          0x40020167 
-member          WORKING_TIME_ALERT_CNT    record          0x40020199 
-member          WORKING_TIME_ALERT_STATE  record          0x40020180 
+member          WORKING_TIME_ALERT_ACT    record          0x4002014F 
+member          WORKING_TIME_ALERT_CNT    record          0x4002011B 
+member          WORKING_TIME_ALERT_STATE  record          0x40020102 
 member          WORKING_TIMES             parameter       0x40020053 
 member          WRITE_ALM                 parameter       0xC001018C 
 member          WRITE_LOCK                parameter       0xC001018E 
@@ -2547,7 +2547,7 @@ member          XD_ERROR_PRESSURE         parameter       0x40020024
 member          XD_ERROR_TEMPERATURE      parameter       0x4002002F 
 member          XD_FSTATE                 parameter       0x4002001F 
 member          XD_FSTATE_OPT             parameter       0xC00104B8 
-member          XD_FSTATE_OPT_1           record          0x4002014D 
+member          XD_FSTATE_OPT_1           record          0x40020140 
 member          XD_FSTATE_VAL             parameter       0xC00104B9 
 member          XD_FSTATE_VAL_D           parameter       0xC00104DF 
 member          XD_OOS_OPT                parameter       0xC001172C 
@@ -2607,94 +2607,161 @@ menu            device_root_menu_ptb                      0x20092
 menu            device_root_menu_rb                       0x20007 
 menu            diagnostic_root_menu_ptb                  0x20093 
 menu            diagnostic_root_menu_rb                   0x20008 
+menu            grp_alertaction                           0x2011D 
+menu            grp_alertcounter                          0x200F8 
+menu            grp_alertstate                            0x200F7 
+menu            grp_blockerror                            0x200E7 
+menu            grp_customcontrolset                      0x20115 
+menu            grp_deviationalert                        0x20116 
+menu            grp_failedstate                           0x20110 
+menu            grp_positioncutoff                        0x20113 
+menu            grp_positionlimits                        0x20112 
+menu            grp_positionratelimits                    0x20114 
+menu            grp_pressurerange                         0x20119 
+menu            grp_setpointsource                        0x20111 
+menu            grp_setpointtimealert                     0x20117 
+menu            grp_tb_blockalarm                         0x200E6 
+menu            grp_tb_updateevent                        0x200E5 
 menu            hdevice_ptb                               0x2009C 
 menu            hdiagnostic_ptb                           0x2009D 
 menu            hprocess_variables_ptb                    0x2009E 
 menu            Menu_Top_ptb                              0x20095 
-menu            Menu_Top_rb                               0x200F8 
-menu            mnu_actuator                              0x200E4 
-menu            mnu_actuatorvalve                         0x200C5 
-menu            mnu_alarm                                 0x200F2 
-menu            mnu_alarm_sum                             0x200F6 
-menu            mnu_ao_control                            0x200A8 
-menu            mnu_block                                 0x200EB 
-menu            mnu_block_alm                             0x200F4 
-menu            mnu_block_mode                            0x200AB 
-menu            mnu_cal_positions                         0x200C3 
+menu            Menu_Top_rb                               0x2013B 
+menu            mnu_act_tuningdata                        0x200DF 
+menu            mnu_actuator                              0x200DA 
+menu            mnu_actuator_a_pressure                   0x200CF 
+menu            mnu_actuator_b_pressure                   0x200D0 
+menu            mnu_alarm_in_device_setup                 0x20132 
+menu            mnu_alarm_sum                             0x2012F 
+menu            mnu_alarms_in_device_diagnostic                 0x20128 
+menu            mnu_ao_control                            0x200AC 
+menu            mnu_atmospheric_pressure                  0x200D1 
+menu            mnu_block_alm                             0x2012A 
+menu            mnu_block_mode                            0x200AF 
+menu            mnu_blockerror                            0x200A5 
+menu            mnu_cal_positions                         0x200DD 
 menu            mnu_calibrate                             0x200A2 
-menu            mnu_commconfigure                         0x200C0 
-menu            mnu_commissioning                         0x200A3 
-menu            mnu_communication_setting                 0x200F0 
+menu            mnu_characterization                      0x200E3 
 menu            mnu_config                                0x200A1 
-menu            mnu_currentfaultlist                      0x200C6 
-menu            mnu_cycle                                 0x200D3 
-menu            mnu_cyclealertA                           0x200D1 
-menu            mnu_cyclealertB                           0x200D2 
-menu            mnu_cycles                                0x200EE 
-menu            mnu_device                                0x200F7 
-menu            mnu_deviceinfo                            0x200E3 
-menu            mnu_devicestatusfaults                    0x200A4 
-menu            mnu_discrete_output                       0x200E0 
-menu            mnu_discrete_switch_configure                 0x200E1 
-menu            mnu_do_control                            0x200A9 
-menu            mnu_errorlimits                           0x200D9 
-menu            mnu_extremes                              0x200E7 
-menu            mnu_features                              0x200ED 
-menu            mnu_general                               0x200E2 
-menu            mnu_historian                             0x200A6 
-menu            mnu_historian_position                    0x200CC 
-menu            mnu_historyfaultlist                      0x200C7 
-menu            mnu_identification                        0x200EC 
-menu            mnu_inputs                                0x200BF 
-menu            mnu_ip_current_alert                      0x200DD 
-menu            mnu_itop                                  0x200D4 
-menu            mnu_limits                                0x200EA 
-menu            mnu_lock                                  0x200F1 
-menu            mnu_manualsetpoint                        0x2009F 
-menu            mnu_manualsetup                           0x200A0 
-menu            mnu_mode_row                              0x200C4 
-menu            mnu_near_close_alert                      0x200DC 
-menu            mnu_nearclosedalert                       0x200CA 
-menu            mnu_notify                                0x200EF 
-menu            mnu_other                                 0x200E8 
-menu            mnu_pidinfo                               0x200BE 
-menu            mnu_position_alert                        0x200DA 
-menu            mnu_position_hilo_alert                   0x200DB 
-menu            mnu_positionErrorhistogram                 0x200C9 
-menu            mnu_positionerrortrend                    0x200CB 
-menu            mnu_positionhistogram                     0x200C8 
-menu            mnu_positioning                           0x200E9 
-menu            mnu_posretransmit                         0x200C1 
-menu            mnu_rawdata                               0x200D8 
-menu            mnu_readpressures                         0x200D5 
-menu            mnu_sensor_state                          0x200AA 
-menu            mnu_sensormeasurements                    0x200A5 
-menu            mnu_signature                             0x200A7 
-menu            mnu_strokevalve                           0x200BD 
-menu            mnu_supply_pressure_hilo_alert                 0x200DE 
-menu            mnu_switchconfiguration                   0x200C2 
-menu            mnu_switches                              0x200D7 
-menu            mnu_temperature                           0x200D6 
-menu            mnu_temperature_alerts                    0x200DF 
-menu            mnu_travel                                0x200D0 
-menu            mnu_travelalertA                          0x200CE 
-menu            mnu_travelalertB                          0x200CF 
-menu            mnu_update_evt                            0x200F3 
-menu            mnu_valve_body                            0x200E6 
-menu            mnu_valve_info                            0x200E5 
-menu            mnu_working_time                          0x200CD 
-menu            mnu_write_alm                             0x200F5 
+menu            mnu_config_alarms                         0x2011C 
+menu            mnu_config_current                        0x2011B 
+menu            mnu_config_discretecontrol                 0x2011E 
+menu            mnu_config_discretecontrol_control                 0x2011F 
+menu            mnu_config_discretecontrol_switches                 0x20120 
+menu            mnu_config_lcddisplay                     0x20121 
+menu            mnu_config_position                       0x2010A 
+menu            mnu_config_pressure                       0x20118 
+menu            mnu_config_temperature                    0x2011A 
+menu            mnu_current_group                         0x200D4 
+menu            mnu_currentfaultlist                      0x200E8 
+menu            mnu_custuningdata                         0x200E0 
+menu            mnu_cycle                                 0x200F6 
+menu            mnu_cyclealertA                           0x200F4 
+menu            mnu_cyclealertB                           0x200F5 
+menu            mnu_deviceinfo                            0x20122 
+menu            mnu_devicestatusfaults                    0x200A6 
+menu            mnu_di_switches                           0x200B4 
+menu            mnu_diag_configuration                    0x200AB 
+menu            mnu_discrete_switch_configure                 0x20109 
+menu            mnu_do_control                            0x200AD 
+menu            mnu_do_discretecontrol                    0x200B3 
+menu            mnu_do_failedstate                        0x200B8 
+menu            mnu_do_switches                           0x200B7 
+menu            mnu_do1_switches                          0x200B5 
+menu            mnu_do2_switches                          0x200B6 
+menu            mnu_extremes                              0x20123 
+menu            mnu_fail_alm                              0x2012E 
+menu            mnu_fDiag                                 0x2013A 
+menu            mnu_fDiagactive                           0x20126 
+menu            mnu_fDiagAlertpriorities                  0x20138 
+menu            mnu_fDiagmap                              0x20135 
+menu            mnu_fDiagmask                             0x20137 
+menu            mnu_features                              0x20125 
+menu            mnu_final_value                           0x200C7 
+menu            mnu_finalposition_value                   0x200C8 
+menu            mnu_hardware                              0x20131 
+menu            mnu_historian                             0x200A8 
+menu            mnu_historian_position                    0x200F0 
+menu            mnu_historyfaultlist                      0x200E9 
+menu            mnu_identification                        0x200A3 
+menu            mnu_identification_in_device_setup                 0x20133 
+menu            mnu_identification_in_process_variable                 0x20124 
+menu            mnu_inputs                                0x200D9 
+menu            mnu_ip_current_alert                      0x20108 
+menu            mnu_ip_current_alert_hi                   0x20107 
+menu            mnu_ip_current_alert_lo                   0x20106 
+menu            mnu_maint_alm                             0x2012C 
+menu            mnu_mode_row                              0x200DE 
+menu            mnu_nearclosedalert                       0x200EE 
+menu            mnu_offspec_alm                           0x2012D 
+menu            mnu_options                               0x20134 
+menu            mnu_pidinfo                               0x200D8 
+menu            mnu_pilot_pressure                        0x200D2 
+menu            mnu_position_alert                        0x200FE 
+menu            mnu_position_alert_hi                     0x200FA 
+menu            mnu_position_alert_hihi                   0x200FD 
+menu            mnu_position_alert_lo                     0x200F9 
+menu            mnu_position_alert_lolo                   0x200FC 
+menu            mnu_position_configuration                 0x2010B 
+menu            mnu_position_group                        0x200CD 
+menu            mnu_position_hilo_alert                   0x200FB 
+menu            mnu_position_value                        0x200CC 
+menu            mnu_positionalerts                        0x2010E 
+menu            mnu_positioncontrol                       0x2010D 
+menu            mnu_positionErrorhistogram                 0x200ED 
+menu            mnu_positionerrortrend                    0x200EF 
+menu            mnu_positionerstate                       0x200AA 
+menu            mnu_positionhistogram                     0x200EC 
+menu            mnu_positionlimits                        0x2010C 
+menu            mnu_pressure_group                        0x200D3 
+menu            mnu_process_in_device_diagnostic                 0x20127 
+menu            mnu_process_in_device_setup                 0x20130 
+menu            mnu_sensor_state                          0x200AE 
+menu            mnu_sensormeasurements                    0x200A7 
+menu            mnu_setpoint_value                        0x200CB 
+menu            mnu_startup                               0x2009F 
+menu            mnu_strokevalve                           0x200D7 
+menu            mnu_supply_hi                             0x20101 
+menu            mnu_supply_ll                             0x200FF 
+menu            mnu_supply_lo                             0x20100 
+menu            mnu_supply_pressure                       0x200CE 
+menu            mnu_supply_pressure_hilo_alert                 0x20102 
+menu            mnu_tb_exconfig                           0x200A4 
+menu            mnu_tb_process                            0x200A0 
+menu            mnu_tbmode_mode                           0x200D6 
+menu            mnu_temperature_alerts                    0x20105 
+menu            mnu_temperature_alerts_hi                 0x20104 
+menu            mnu_temperature_alerts_lo                 0x20103 
+menu            mnu_temperature_group                     0x200D5 
+menu            mnu_travel                                0x200F3 
+menu            mnu_travelalertA                          0x200F1 
+menu            mnu_travelalertB                          0x200F2 
+menu            mnu_travelalerts                          0x2010F 
+menu            mnu_travelrange                           0x200E4 
+menu            mnu_trend                                 0x200A9 
+menu            mnu_tuningdata                            0x200E1 
+menu            mnu_update_evt                            0x20129 
+menu            mnu_valve_body                            0x200DC 
+menu            mnu_valve_info                            0x200DB 
+menu            mnu_workingpos_value                      0x200CA 
+menu            mnu_workingsp_value                       0x200C9 
+menu            mnu_write_alm                             0x2012B 
 menu            process_variables_root_menu_ptb                 0x20094 
 menu            process_variables_root_menu_rb                 0x20009 
-method          cancel_find_stops                         0x2026A 
+method          cancel_find_stops                         0x202AE 
 method          change_app_mode                           0x20099 
+method          clear_all_fault                           0x200EB 
+method          clear_current_fault                       0x200EA 
 method          do_autotune                               0x20097 
 method          do_find_stops                             0x20096 
 method          do_manual_hi_low_stops                    0x20098 
-method          do_test_wr_limits                         0x20269 
+method          do_read_write_control_set                 0x200E2 
+method          do_test_wr_limits                         0x202AD 
+method          FD_FAIL_MAP_default                       0x20136 
+method          FD_FAIL_pri_default                       0x20139 
 method          restart                                   0x2000A 
-method          scale_to_counts                           0x20101 
-method          scale_to_percent                          0x20100 
+method          scale_to_counts                           0x20144 
+method          scale_to_percent                          0x20143 
 record          __aal_character                           0x800208F6 
 record          __ab_character                            0x80023105 
 record          __accept_alm                              0x80020D1D 
@@ -3193,8 +3260,8 @@ record          final_value_cutoff_lo                     0x20023
 record          final_value_d                             0x2005E 
 record          final_value_dint                          0x20060 
 record          final_value_range                         0x20020 
-record          fsc_actual_d                              0x201D3 
-record          fsc_set_d                                 0x201D2 
+record          fsc_actual_d                              0x20217 
+record          fsc_set_d                                 0x20216 
 record          ip_current_extremes                       0x20088 
 record          ip_drive_current                          0x20053 
 record          ip_drive_current_hi_alert                 0x20054 
@@ -3244,15 +3311,15 @@ record          working_pos                               0x2002C
 record          working_sp                                0x2002B 
 record          working_time_alert                        0x20076 
 record          working_times                             0x20075 
-record          wrong_configuration                       0x2026F 
+record          wrong_configuration                       0x202B3 
 record          xd_fstate                                 0x2003D 
-source          src_actuators_a_press                     0x200BA 
-source          src_actuators_b_press                     0x200BB 
-source          src_final_pos_value                       0x200B6 
-source          src_final_value                           0x200B5 
-source          src_supply_press                          0x200B9 
-source          src_working_pos                           0x200B8 
-source          src_working_sp                            0x200B7 
+source          src_actuators_a_press                     0x200C5 
+source          src_actuators_b_press                     0x200C6 
+source          src_final_pos_value                       0x200C1 
+source          src_final_value                           0x200C0 
+source          src_supply_press                          0x200C4 
+source          src_working_pos                           0x200C3 
+source          src_working_sp                            0x200C2 
 unit            __unit_aal_out                            0x800208F5 
 unit            __unit_ai_out                             0x800201D6 
 unit            __unit_ai_xd                              0x800201D5 
@@ -3880,7 +3947,7 @@ variable        __fdd_locator_elem        unsigned        0x80020842
 variable        __feature_sel             bit-enumerated  0x800200DC 
 variable        __features                bit-enumerated  0x800200DE 
 variable        __ff_gain                 float           0x800200E0 
-variable        __ffddinfo                enumerated      0x20273 
+variable        __ffddinfo                enumerated      0x202B7 
 variable        __field_val_r             float           0x8002019A 
 variable        __file_locator_elem       unsigned        0x80020B46 
 variable        __file_rev                unsigned        0x80020B48 
@@ -4531,411 +4598,412 @@ variable        __y8_value_u              unsigned        0x8002171E
 variable        __y9_value_f              float           0x80020503 
 variable        __y9_value_u              unsigned        0x8002171F 
 variable        __zero_point              float           0x800204C6 
-variable        _act_effective_area       unsigned        0x2022C 
-variable        _act_fail_action          enumerated      0x2022F 
-variable        _act_man_id               visiblestring   0x20226 
-variable        _act_model_num            visiblestring   0x20227 
-variable        _act_rotary_moment_arm    visiblestring   0x2022B 
-variable        _act_size                 visiblestring   0x2022A 
-variable        _act_sn                   visiblestring   0x20228 
-variable        _act_type                 visiblestring   0x20229 
-variable        _action                   enumerated      0x201BD 
-variable        _actuator_a_max           float           0x20256 
-variable        _actuator_a_min           float           0x20257 
-variable        _actuator_b_max           float           0x20258 
-variable        _actuator_b_min           float           0x20259 
-variable        _air_supply_alert         unsigned        0x20221 
-variable        _air_supply_alert_r       unused          0x20208 
-variable        _alert                    enumerated      0x20112 
-variable        _alert_command            enumerated      0x2013B 
-variable        _alert_data_r             unsigned        0x2013C 
-variable        _alert_point              float           0x20110 
-variable        _alert_point_cnt          unsigned        0x201B7 
-variable        _alert_point_current_lo   float           0x201CB 
-variable        _alert_point_float_nd     unused          0x2015D 
-variable        _alert_point_ip_current_hi float           0x201C9 
-variable        _alert_point_press_hi     float           0x201C1 
-variable        _alert_point_press_lo     float           0x201C3 
-variable        _alert_point_temp_hi      float           0x201C4 
-variable        _alert_point_temp_lo      float           0x201C6 
-variable        _alert_point_time         unsigned        0x201BA 
-variable        _alert_total_time_r       unused          0x20225 
-variable        _app_r                    unsigned        0x201D1 
-variable        _body_size                unsigned        0x2023E 
-variable        _cal_date                 date/time       0x201AE 
-variable        _cal_location             visiblestring   0x201AD 
-variable        _cal_type                 enumerated      0x201B2 
-variable        _cal_type_r               enumerated      0x20266 
-variable        _cal_who                  visiblestring   0x201AF 
-variable        _characteristic           visiblestring   0x20242 
-variable        _commissioning_alert      unsigned        0x20220 
-variable        _commissioning_alert_r    unused          0x20207 
-variable        _current                  float           0x201C8 
-variable        _current_12_months        unsigned        0x2017C 
-variable        _current_month            unsigned        0x20178 
-variable        _current_week             unsigned        0x20174 
-variable        _currently_collected      unsigned        0x2016F 
-variable        _cycle_counter            unsigned        0x201B6 
-variable        _cycle_counter_a_alert    unsigned        0x20213 
-variable        _cycle_counter_a_alert_r  unused          0x201FA 
-variable        _cycle_counter_b_alert    unsigned        0x20214 
-variable        _cycle_counter_b_alert_r  unused          0x201FB 
-variable        _date                     visiblestring   0x20236 
-variable        _dead_band_float_nd       unused          0x2015E 
-variable        _deadband                 float           0x20111 
-variable        _deadband_ab_float_nd     unused          0x2015B 
-variable        _deadband_ab_for_cycle_count unused          0x2015C 
-variable        _deadband_press           float           0x201C2 
-variable        _deadband_temp            float           0x201C5 
-variable        _decimal_2_r              integer         0x201A0 
-variable        _decimal_3                integer         0x201C0 
-variable        _descriptor               visiblestring   0x20234 
-variable        _deviation_alert          unsigned        0x2020A 
-variable        _deviation_alert_nd       enumerated      0x201D8 
-variable        _deviation_alert_r        enumerated      0x201F1 
-variable        _direction                enumerated      0x20116 
-variable        _discrete_state_r         enumerated      0x20155 
-variable        _discrete_value           unsigned        0x20156 
-variable        _discrete_value_int_nd    unused          0x20157 
-variable        _discrete_value_int_nd_r  unused          0x20158 
-variable        _discrete_value_nd        unsigned        0x20154 
-variable        _enable                   enumerated      0x20115 
-variable        _enable_disable           enumerated      0x20152 
-variable        _enable_disable_r         unused          0x20153 
-variable        _enable_hi                enumerated      0x201A2 
-variable        _enable_lo                enumerated      0x201A3 
-variable        _enable_rate_hi           enumerated      0x201A6 
-variable        _enable_rate_lo           enumerated      0x201A7 
-variable        _eu_0_r                   unused          0x20151 
-variable        _eu_100_r                 unused          0x20150 
-variable        _ff_r                     unsigned        0x201D0 
-variable        _final_pos_value_max      float           0x2024E 
-variable        _final_pos_value_min      float           0x2024F 
-variable        _final_value_max          float           0x2024C 
-variable        _final_value_min          float           0x2024D 
-variable        _float_contained_r_nd     unused          0x200FC 
-variable        _float_current_12_months  float           0x2018D 
-variable        _float_current_month      float           0x20189 
-variable        _float_current_week       float           0x20185 
-variable        _float_currently_collected float           0x20180 
-variable        _float_last_12_months     float           0x2018E 
-variable        _float_last_day           float           0x20182 
-variable        _float_last_month         float           0x2018A 
-variable        _float_last_week          float           0x20186 
-variable        _float_limited            unused          0x2015A 
-variable        _float_previous_12_months float           0x2018F 
-variable        _float_previous_day       float           0x20183 
-variable        _float_previous_month     float           0x2018B 
-variable        _float_previous_week      float           0x20187 
-variable        _float_three_days_ago     float           0x20184 
-variable        _float_three_months_ago   float           0x2018C 
-variable        _float_three_weeks_ago    float           0x20188 
-variable        _float_three_years_ago    float           0x20190 
-variable        _float_today              float           0x20181 
-variable        _flow_action              visiblestring   0x20244 
-variable        _fstate_time              float           0x201BC 
-variable        _fstate_value             unused          0x201BB 
-variable        _function                 enumerated      0x20117 
-variable        _hand_wheel               unsigned        0x2022E 
-variable        _historic_alert           enumerated      0x20114 
-variable        _historic_alert_for_near_closed_alert unsigned        0x20113 
-variable        _ip_current_max           float           0x2025E 
-variable        _ip_current_min           float           0x2025F 
-variable        _ip_drive_current_alert_hi unsigned        0x2021B 
-variable        _ip_drive_current_alert_hi_r unused          0x20202 
-variable        _ip_drive_current_alert_lo unsigned        0x2021C 
-variable        _ip_drive_current_alert_lo_r unused          0x20203 
-variable        _ip_drive_current_deadband float           0x2013A 
-variable        _last_12_months           unsigned        0x2017D 
-variable        _last_day                 unsigned        0x20171 
-variable        _last_month               unsigned        0x20179 
-variable        _last_result_r            unsigned        0x20267 
-variable        _last_result_r_enum       enumerated      0x201B3 
-variable        _last_week                unsigned        0x20175 
-variable        _leakage_class            visiblestring   0x20243 
-variable        _limit_hi                 float           0x201A4 
-variable        _limit_lo                 float           0x201A5 
-variable        _limit_rate               float           0x201A8 
-variable        _limits_protected         unsigned        0x201A1 
-variable        _lock_level               unsigned        0x201D4 
-variable        _manufacturer             visiblestring   0x20247 
-variable        _message                  visiblestring   0x20235 
-variable        _model                    visiblestring   0x20248 
-variable        _near_close_alert         unsigned        0x20210 
-variable        _near_close_alert_r       unused          0x201F7 
-variable        _near_closed              unsigned        0x201B9 
-variable        _number_of_points_custom_char unsigned        0x201BE 
-variable        _packing                  visiblestring   0x2023F 
-variable        _password                 integer         0x201D6 
-variable        _password_enabled         enumerated      0x201D5 
-variable        _percent_complete_r       unsigned        0x201CD 
-variable        _pid_no                   unsigned        0x2023C 
-variable        _pilot_max                float           0x2025A 
-variable        _pilot_min                float           0x2025B 
-variable        _plug_type                visiblestring   0x20240 
-variable        _position                 float           0x2010F 
-variable        _position_hi_alert        unsigned        0x2020C 
-variable        _position_hi_alert_r      unused          0x201F3 
-variable        _position_hihi_alert      unsigned        0x2020B 
-variable        _position_hihi_alert_r    unused          0x201F2 
-variable        _position_lo_alert        unsigned        0x2020D 
-variable        _position_lo_alert_r      unused          0x201F4 
-variable        _position_lolo_alert      unsigned        0x2020E 
-variable        _position_lolo_alert_r    unused          0x201F5 
-variable        _previous_12_months       unsigned        0x2017E 
-variable        _previous_day             unsigned        0x20172 
-variable        _previous_month           unsigned        0x2017A 
-variable        _previous_week            unsigned        0x20176 
-variable        _process_id_r             enumerated      0x201CC 
-variable        _processor_alert_2        unsigned        0x2021E 
-variable        _processor_alert_r        unused          0x20205 
-variable        _prs_control_hi           unused          0x20232 
-variable        _prs_control_lo           unused          0x20233 
-variable        _qty                      visiblestring   0x20249 
-variable        _rated_adj_cv             visiblestring   0x20245 
-variable        _relay_type               enumerated      0x20230 
-variable        _remote_sensor            enumerated      0x2024B 
-variable        _same_as_actuator         unsigned        0x20246 
-variable        _seat_ring_type           visiblestring   0x20241 
-variable        _selector_r               integer         0x201AB 
-variable        _sensor_failure_alert_2   unsigned        0x2021D 
-variable        _sensor_failure_alert_r   unused          0x20204 
-variable        _service                  visiblestring   0x2023B 
-variable        _set_point_timeout_alert_2 unsigned        0x2020F 
-variable        _set_point_timeout_alert_r unused          0x201F6 
-variable        _shutoff_dp               unsigned        0x2022D 
-variable        _since_reset              unsigned        0x20223 
-variable        _solenoid                 visiblestring   0x2024A 
-variable        _spec_sheet               visiblestring   0x20237 
-variable        _stop_hi_pos              integer         0x201B0 
-variable        _stop_lo_pos              integer         0x201B1 
-variable        _supply_pres_max          unused          0x20231 
-variable        _supply_pressure_hi_alert_2 unsigned        0x20216 
-variable        _supply_pressure_hi_alert_r unused          0x201FD 
-variable        _supply_pressure_lo_alert_2 unsigned        0x20217 
-variable        _supply_pressure_lo_alert_r unused          0x201FE 
-variable        _supply_pressure_lolo_alert_2 unsigned        0x20218 
-variable        _supply_pressure_lolo_alert_r unused          0x201FF 
-variable        _supply_pressure_max      float           0x20254 
-variable        _supply_pressure_min      float           0x20255 
-variable        _supporting_hardware_alert_2 unsigned        0x20222 
-variable        _supporting_hardware_alert_r unused          0x20209 
-variable        _temperature_hi_alert_2   unsigned        0x20219 
-variable        _temperature_hi_alert_r   unused          0x20200 
-variable        _temperature_lo_alert_2   unsigned        0x2021A 
-variable        _temperature_lo_alert_r   unused          0x20201 
-variable        _temperature_max          float           0x2025C 
-variable        _temperature_min          float           0x2025D 
-variable        _three_days_ago           unsigned        0x20173 
-variable        _three_months_ago         unsigned        0x2017B 
-variable        _three_weeks_ago          unsigned        0x20177 
-variable        _three_years_ago          unsigned        0x2017F 
-variable        _time_float               float           0x201CA 
-variable        _time_uint_4              unsigned        0x201B5 
-variable        _today                    unsigned        0x20170 
-variable        _total_time_r             unsigned        0x20224 
-variable        _travel_accumulation      unsigned        0x20191 
-variable        _travel_accumulation_a_alert_2 unsigned        0x20211 
-variable        _travel_accumulation_a_alert_r unused          0x201F8 
-variable        _travel_accumulation_b_alert_2 unsigned        0x20212 
-variable        _travel_accumulation_b_alert_r unused          0x201F9 
-variable        _uint_selector_r          unsigned        0x201AC 
-variable        _units_index_percent_r    enumerated      0x2019F 
-variable        _units_index_press        enumerated      0x201BF 
-variable        _units_index_travel       enumerated      0x201B4 
-variable        _value_ip_r               float           0x201C7 
-variable        _value_open_close_r       float           0x201D7 
-variable        _valve_control_alert_2    unsigned        0x2021F 
-variable        _valve_control_alert_r    unused          0x20206 
-variable        _valve_man_id             visiblestring   0x20238 
-variable        _valve_model_num          visiblestring   0x20239 
-variable        _valve_sn                 visiblestring   0x2023A 
-variable        _valve_type               enumerated      0x2023D 
-variable        _working_pos_max          float           0x20252 
-variable        _working_pos_min          float           0x20253 
-variable        _working_sp_max           float           0x20250 
-variable        _working_sp_min           float           0x20251 
-variable        _working_time_alert       unsigned        0x20215 
-variable        _working_time_alert_r     unused          0x201FC 
-variable        act_style                 enumerated      0x20144 
+variable        _act_effective_area       unsigned        0x20270 
+variable        _act_fail_action          enumerated      0x20273 
+variable        _act_man_id               visiblestring   0x2026A 
+variable        _act_model_num            visiblestring   0x2026B 
+variable        _act_rotary_moment_arm    visiblestring   0x2026F 
+variable        _act_size                 visiblestring   0x2026E 
+variable        _act_sn                   visiblestring   0x2026C 
+variable        _act_type                 visiblestring   0x2026D 
+variable        _action                   enumerated      0x20201 
+variable        _actuator_a_max           float           0x2029A 
+variable        _actuator_a_min           float           0x2029B 
+variable        _actuator_b_max           float           0x2029C 
+variable        _actuator_b_min           float           0x2029D 
+variable        _air_supply_alert         unsigned        0x20265 
+variable        _air_supply_alert_r       unused          0x2024C 
+variable        _alert                    enumerated      0x20155 
+variable        _alert_command            enumerated      0x2017F 
+variable        _alert_data_r             unsigned        0x20180 
+variable        _alert_point              float           0x20153 
+variable        _alert_point_cnt          unsigned        0x201FB 
+variable        _alert_point_current_lo   float           0x2020F 
+variable        _alert_point_float_nd     unused          0x201A1 
+variable        _alert_point_ip_current_hi float           0x2020D 
+variable        _alert_point_press_hi     float           0x20205 
+variable        _alert_point_press_lo     float           0x20207 
+variable        _alert_point_temp_hi      float           0x20208 
+variable        _alert_point_temp_lo      float           0x2020A 
+variable        _alert_point_time         unsigned        0x201FE 
+variable        _alert_total_time_r       unused          0x20269 
+variable        _app_r                    unsigned        0x20215 
+variable        _body_size                unsigned        0x20282 
+variable        _cal_date                 date/time       0x201F2 
+variable        _cal_location             visiblestring   0x201F1 
+variable        _cal_type                 enumerated      0x201F6 
+variable        _cal_type_r               enumerated      0x202AA 
+variable        _cal_who                  visiblestring   0x201F3 
+variable        _characteristic           visiblestring   0x20286 
+variable        _commissioning_alert      unsigned        0x20264 
+variable        _commissioning_alert_r    unused          0x2024B 
+variable        _current                  float           0x2020C 
+variable        _current_12_months        unsigned        0x201C0 
+variable        _current_month            unsigned        0x201BC 
+variable        _current_week             unsigned        0x201B8 
+variable        _currently_collected      unsigned        0x201B3 
+variable        _cycle_counter            unsigned        0x201FA 
+variable        _cycle_counter_a_alert    unsigned        0x20257 
+variable        _cycle_counter_a_alert_r  unused          0x2023E 
+variable        _cycle_counter_b_alert    unsigned        0x20258 
+variable        _cycle_counter_b_alert_r  unused          0x2023F 
+variable        _date                     visiblestring   0x2027A 
+variable        _dead_band_float_nd       unused          0x201A2 
+variable        _deadband                 float           0x20154 
+variable        _deadband_ab_float_nd     unused          0x2019F 
+variable        _deadband_ab_for_cycle_count unused          0x201A0 
+variable        _deadband_press           float           0x20206 
+variable        _deadband_temp            float           0x20209 
+variable        _decimal_2_r              integer         0x201E4 
+variable        _decimal_3                integer         0x20204 
+variable        _descriptor               visiblestring   0x20278 
+variable        _deviation_alert          unsigned        0x2024E 
+variable        _deviation_alert_nd       enumerated      0x2021C 
+variable        _deviation_alert_r        enumerated      0x20235 
+variable        _direction                enumerated      0x20159 
+variable        _discrete_state_r         enumerated      0x20199 
+variable        _discrete_value           unsigned        0x2019A 
+variable        _discrete_value_int_nd    unused          0x2019B 
+variable        _discrete_value_int_nd_r  unused          0x2019C 
+variable        _discrete_value_nd        unsigned        0x20198 
+variable        _enable                   enumerated      0x20158 
+variable        _enable_disable           enumerated      0x20196 
+variable        _enable_disable_r         unused          0x20197 
+variable        _enable_hi                enumerated      0x201E6 
+variable        _enable_lo                enumerated      0x201E7 
+variable        _enable_rate_hi           enumerated      0x201EA 
+variable        _enable_rate_lo           enumerated      0x201EB 
+variable        _eu_0_r                   unused          0x20195 
+variable        _eu_100_r                 unused          0x20194 
+variable        _ff_r                     unsigned        0x20214 
+variable        _final_pos_value_max      float           0x20292 
+variable        _final_pos_value_min      float           0x20293 
+variable        _final_value_max          float           0x20290 
+variable        _final_value_min          float           0x20291 
+variable        _float_contained_r_nd     unused          0x2013F 
+variable        _float_current_12_months  float           0x201D1 
+variable        _float_current_month      float           0x201CD 
+variable        _float_current_week       float           0x201C9 
+variable        _float_currently_collected float           0x201C4 
+variable        _float_last_12_months     float           0x201D2 
+variable        _float_last_day           float           0x201C6 
+variable        _float_last_month         float           0x201CE 
+variable        _float_last_week          float           0x201CA 
+variable        _float_limited            unused          0x2019E 
+variable        _float_previous_12_months float           0x201D3 
+variable        _float_previous_day       float           0x201C7 
+variable        _float_previous_month     float           0x201CF 
+variable        _float_previous_week      float           0x201CB 
+variable        _float_three_days_ago     float           0x201C8 
+variable        _float_three_months_ago   float           0x201D0 
+variable        _float_three_weeks_ago    float           0x201CC 
+variable        _float_three_years_ago    float           0x201D4 
+variable        _float_today              float           0x201C5 
+variable        _flow_action              visiblestring   0x20288 
+variable        _fstate_time              float           0x20200 
+variable        _fstate_value             unused          0x201FF 
+variable        _function                 enumerated      0x2015A 
+variable        _hand_wheel               unsigned        0x20272 
+variable        _historic_alert           enumerated      0x20157 
+variable        _historic_alert_for_near_closed_alert unsigned        0x20156 
+variable        _ip_current_max           float           0x202A2 
+variable        _ip_current_min           float           0x202A3 
+variable        _ip_drive_current_alert_hi unsigned        0x2025F 
+variable        _ip_drive_current_alert_hi_r unused          0x20246 
+variable        _ip_drive_current_alert_lo unsigned        0x20260 
+variable        _ip_drive_current_alert_lo_r unused          0x20247 
+variable        _ip_drive_current_deadband float           0x2017E 
+variable        _last_12_months           unsigned        0x201C1 
+variable        _last_day                 unsigned        0x201B5 
+variable        _last_month               unsigned        0x201BD 
+variable        _last_result_r            unsigned        0x202AB 
+variable        _last_result_r_enum       enumerated      0x201F7 
+variable        _last_week                unsigned        0x201B9 
+variable        _leakage_class            visiblestring   0x20287 
+variable        _limit_hi                 float           0x201E8 
+variable        _limit_lo                 float           0x201E9 
+variable        _limit_rate               float           0x201EC 
+variable        _limits_protected         unsigned        0x201E5 
+variable        _lock_level               unsigned        0x20218 
+variable        _manufacturer             visiblestring   0x2028B 
+variable        _message                  visiblestring   0x20279 
+variable        _model                    visiblestring   0x2028C 
+variable        _near_close_alert         unsigned        0x20254 
+variable        _near_close_alert_r       unused          0x2023B 
+variable        _near_closed              unsigned        0x201FD 
+variable        _number_of_points_custom_char unsigned        0x20202 
+variable        _packing                  visiblestring   0x20283 
+variable        _password                 integer         0x2021A 
+variable        _password_enabled         enumerated      0x20219 
+variable        _percent_complete_r       unsigned        0x20211 
+variable        _pid_no                   unsigned        0x20280 
+variable        _pilot_max                float           0x2029E 
+variable        _pilot_min                float           0x2029F 
+variable        _plug_type                visiblestring   0x20284 
+variable        _position                 float           0x20152 
+variable        _position_hi_alert        unsigned        0x20250 
+variable        _position_hi_alert_r      unused          0x20237 
+variable        _position_hihi_alert      unsigned        0x2024F 
+variable        _position_hihi_alert_r    unused          0x20236 
+variable        _position_lo_alert        unsigned        0x20251 
+variable        _position_lo_alert_r      unused          0x20238 
+variable        _position_lolo_alert      unsigned        0x20252 
+variable        _position_lolo_alert_r    unused          0x20239 
+variable        _previous_12_months       unsigned        0x201C2 
+variable        _previous_day             unsigned        0x201B6 
+variable        _previous_month           unsigned        0x201BE 
+variable        _previous_week            unsigned        0x201BA 
+variable        _process_id_r             enumerated      0x20210 
+variable        _processor_alert_2        unsigned        0x20262 
+variable        _processor_alert_r        unused          0x20249 
+variable        _prs_control_hi           unused          0x20276 
+variable        _prs_control_lo           unused          0x20277 
+variable        _qty                      visiblestring   0x2028D 
+variable        _rated_adj_cv             visiblestring   0x20289 
+variable        _relay_type               enumerated      0x20274 
+variable        _remote_sensor            enumerated      0x2028F 
+variable        _same_as_actuator         unsigned        0x2028A 
+variable        _seat_ring_type           visiblestring   0x20285 
+variable        _selector_r               integer         0x201EF 
+variable        _sensor_failure_alert_2   unsigned        0x20261 
+variable        _sensor_failure_alert_r   unused          0x20248 
+variable        _service                  visiblestring   0x2027F 
+variable        _set_point_timeout_alert_2 unsigned        0x20253 
+variable        _set_point_timeout_alert_r unused          0x2023A 
+variable        _shutoff_dp               unsigned        0x20271 
+variable        _since_reset              unsigned        0x20267 
+variable        _solenoid                 visiblestring   0x2028E 
+variable        _spec_sheet               visiblestring   0x2027B 
+variable        _stop_hi_pos              integer         0x201F4 
+variable        _stop_lo_pos              integer         0x201F5 
+variable        _supply_pres_max          unused          0x20275 
+variable        _supply_pressure_hi_alert_2 unsigned        0x2025A 
+variable        _supply_pressure_hi_alert_r unused          0x20241 
+variable        _supply_pressure_lo_alert_2 unsigned        0x2025B 
+variable        _supply_pressure_lo_alert_r unused          0x20242 
+variable        _supply_pressure_lolo_alert_2 unsigned        0x2025C 
+variable        _supply_pressure_lolo_alert_r unused          0x20243 
+variable        _supply_pressure_max      float           0x20298 
+variable        _supply_pressure_min      float           0x20299 
+variable        _supporting_hardware_alert_2 unsigned        0x20266 
+variable        _supporting_hardware_alert_r unused          0x2024D 
+variable        _temperature_hi_alert_2   unsigned        0x2025D 
+variable        _temperature_hi_alert_r   unused          0x20244 
+variable        _temperature_lo_alert_2   unsigned        0x2025E 
+variable        _temperature_lo_alert_r   unused          0x20245 
+variable        _temperature_max          float           0x202A0 
+variable        _temperature_min          float           0x202A1 
+variable        _three_days_ago           unsigned        0x201B7 
+variable        _three_months_ago         unsigned        0x201BF 
+variable        _three_weeks_ago          unsigned        0x201BB 
+variable        _three_years_ago          unsigned        0x201C3 
+variable        _time_float               float           0x2020E 
+variable        _time_uint_4              unsigned        0x201F9 
+variable        _today                    unsigned        0x201B4 
+variable        _total_time_r             unsigned        0x20268 
+variable        _travel_accumulation      unsigned        0x201D5 
+variable        _travel_accumulation_a_alert_2 unsigned        0x20255 
+variable        _travel_accumulation_a_alert_r unused          0x2023C 
+variable        _travel_accumulation_b_alert_2 unsigned        0x20256 
+variable        _travel_accumulation_b_alert_r unused          0x2023D 
+variable        _uint_selector_r          unsigned        0x201F0 
+variable        _units_index_percent_r    enumerated      0x201E3 
+variable        _units_index_press        enumerated      0x20203 
+variable        _units_index_travel       enumerated      0x201F8 
+variable        _value_ip_r               float           0x2020B 
+variable        _value_open_close_r       float           0x2021B 
+variable        _valve_control_alert_2    unsigned        0x20263 
+variable        _valve_control_alert_r    unused          0x2024A 
+variable        _valve_man_id             visiblestring   0x2027C 
+variable        _valve_model_num          visiblestring   0x2027D 
+variable        _valve_sn                 visiblestring   0x2027E 
+variable        _valve_type               enumerated      0x20281 
+variable        _working_pos_max          float           0x20296 
+variable        _working_pos_min          float           0x20297 
+variable        _working_sp_max           float           0x20294 
+variable        _working_sp_min           float           0x20295 
+variable        _working_time_alert       unsigned        0x20259 
+variable        _working_time_alert_r     unused          0x20240 
+variable        act_style                 enumerated      0x20188 
 variable        activate_control_set      enumerated      0x20025 
-variable        aggressiveness            integer         0x2013F 
+variable        aggressiveness            integer         0x20183 
 variable        ai_channel                enumerated      0x2000F 
-variable        air_supply_alert          unused          0x201EF 
+variable        air_supply_alert          unused          0x20233 
 variable        algorithm                 enumerated      0x20013 
 variable        ao_channel                enumerated      0x20011 
 variable        app_mode                  enumerated      0x20069 
-variable        beta                      integer         0x2012A 
-variable        beta_r                    unused          0x20132 
+variable        beta                      integer         0x2016D 
+variable        beta_r                    unused          0x20175 
 variable        block_err_desc_1          bit-enumerated  0x20004 
-variable        capability_lev            enumerated      0x2026E 
-variable        char_sel_number_of_points_r unsigned        0x20143 
-variable        character_type            enumerated      0x20142 
+variable        capability_lev            enumerated      0x202B2 
+variable        char_sel_number_of_points_r unsigned        0x20187 
+variable        character_type            enumerated      0x20186 
 variable        clear_status              enumerated      0x2006B 
 variable        comm_state                enumerated      0x20019 
-variable        commissioning_alert       unused          0x201EE 
+variable        commissioning_alert       unused          0x20232 
 variable        compatibility_rev         unsigned        0x20003 
-variable        completion                enumerated      0x20141 
-variable        custom_1_configuration    enumerated      0x201CE 
-variable        custom_2_configuration    enumerated      0x201CF 
-variable        cutoff_point_hi           unused          0x201A9 
-variable        cutoff_point_lo           unused          0x201AA 
-variable        cycle_counter_a_alert_act unused          0x201E1 
-variable        cycle_counter_b_alert_act unused          0x201E2 
-variable        d                         integer         0x20128 
-variable        d_r                       unused          0x20130 
-variable        deadzone                  integer         0x2012C 
-variable        deadzone_r                unused          0x20134 
-variable        description               visiblestring   0x20272 
-variable        device_status_0_c         bit-enumerated  0x20163 
-variable        device_status_0_h         unused          0x20192 
-variable        device_status_1_c         bit-enumerated  0x20164 
-variable        device_status_1_h         unused          0x20193 
-variable        device_status_10_c        bit-enumerated  0x2016D 
-variable        device_status_10_h        unused          0x2019C 
-variable        device_status_11_c        bit-enumerated  0x2016E 
-variable        device_status_11_h        unused          0x2019D 
-variable        device_status_2_c         bit-enumerated  0x20165 
-variable        device_status_2_h         unused          0x20194 
-variable        device_status_3_c         bit-enumerated  0x20166 
-variable        device_status_3_h         unused          0x20195 
-variable        device_status_4_c         bit-enumerated  0x20167 
-variable        device_status_4_h         unused          0x20196 
-variable        device_status_5_c         bit-enumerated  0x20168 
-variable        device_status_5_h         unused          0x20197 
-variable        device_status_6_c         bit-enumerated  0x20169 
-variable        device_status_6_h         unused          0x20198 
-variable        device_status_7_c         bit-enumerated  0x2016A 
-variable        device_status_7_h         unused          0x20199 
-variable        device_status_8_c         bit-enumerated  0x2016B 
-variable        device_status_8_h         unused          0x2019A 
-variable        device_status_9_c         bit-enumerated  0x2016C 
-variable        device_status_9_h         unused          0x2019B 
+variable        completion                enumerated      0x20185 
+variable        custom_1_configuration    enumerated      0x20212 
+variable        custom_2_configuration    enumerated      0x20213 
+variable        cutoff_point_hi           unused          0x201ED 
+variable        cutoff_point_lo           unused          0x201EE 
+variable        cycle_counter_a_alert_act unused          0x20225 
+variable        cycle_counter_b_alert_act unused          0x20226 
+variable        d                         integer         0x2016B 
+variable        d_r                       unused          0x20173 
+variable        deadzone                  integer         0x2016F 
+variable        deadzone_r                unused          0x20177 
+variable        description               visiblestring   0x202B6 
+variable        device_status_0_c         bit-enumerated  0x201A7 
+variable        device_status_0_h         unused          0x201D6 
+variable        device_status_1_c         bit-enumerated  0x201A8 
+variable        device_status_1_h         unused          0x201D7 
+variable        device_status_10_c        bit-enumerated  0x201B1 
+variable        device_status_10_h        unused          0x201E0 
+variable        device_status_11_c        bit-enumerated  0x201B2 
+variable        device_status_11_h        unused          0x201E1 
+variable        device_status_2_c         bit-enumerated  0x201A9 
+variable        device_status_2_h         unused          0x201D8 
+variable        device_status_3_c         bit-enumerated  0x201AA 
+variable        device_status_3_h         unused          0x201D9 
+variable        device_status_4_c         bit-enumerated  0x201AB 
+variable        device_status_4_h         unused          0x201DA 
+variable        device_status_5_c         bit-enumerated  0x201AC 
+variable        device_status_5_h         unused          0x201DB 
+variable        device_status_6_c         bit-enumerated  0x201AD 
+variable        device_status_6_h         unused          0x201DC 
+variable        device_status_7_c         bit-enumerated  0x201AE 
+variable        device_status_7_h         unused          0x201DD 
+variable        device_status_8_c         bit-enumerated  0x201AF 
+variable        device_status_8_h         unused          0x201DE 
+variable        device_status_9_c         bit-enumerated  0x201B0 
+variable        device_status_9_h         unused          0x201DF 
 variable        di_channel                enumerated      0x20010 
-variable        diag_direction            enumerated      0x20264 
-variable        diag_option               enumerated      0x20265 
-variable        discrete_input_value      enumerated      0x2013E 
+variable        diag_direction            enumerated      0x202A8 
+variable        diag_option               enumerated      0x202A9 
+variable        discrete_input_value      enumerated      0x20182 
 variable        do_channel                enumerated      0x20012 
-variable        end_position              unused          0x20261 
-variable        final_value_f             float           0x20138 
+variable        end_position              unused          0x202A5 
+variable        final_value_f             float           0x2017B 
+variable        final_value_s             unused          0x2017C 
 variable        find_stops                enumerated      0x20056 
-variable        float_nd_with_max_min     float           0x20146 
-variable        float_position_value_r    unused          0x20139 
+variable        float_nd_with_max_min     float           0x2018A 
+variable        float_position_value_r    unused          0x2017D 
 variable        hardware_rev              visiblestring   0x20002 
-variable        i                         integer         0x20127 
-variable        i_r                       unused          0x2012F 
-variable        index_wrong_param         unsigned        0x20270 
-variable        int_2_element             integer         0x200FD 
-variable        int_2_element_d           integer         0x20104 
-variable        int_2_element_r           unused          0x200FF 
-variable        int_2_element_scaled      unused          0x20102 
-variable        int_2_element_scaled_r    unused          0x20103 
-variable        int_element               integer         0x200FE 
-variable        ip_drive_current_alert_hi unused          0x201E9 
-variable        ip_drive_current_alert_lo unused          0x201EA 
+variable        i                         integer         0x2016A 
+variable        i_r                       unused          0x20172 
+variable        index_wrong_param         unsigned        0x202B4 
+variable        int_2_element             integer         0x20140 
+variable        int_2_element_d           integer         0x20147 
+variable        int_2_element_r           unused          0x20142 
+variable        int_2_element_scaled      unused          0x20145 
+variable        int_2_element_scaled_r    unused          0x20146 
+variable        int_element               integer         0x20141 
+variable        ip_drive_current_alert_hi unused          0x2022D 
+variable        ip_drive_current_alert_lo unused          0x2022E 
 variable        isel_disable_value        enumerated      0x2000B 
 variable        mai_channel               enumerated      0x2000E 
-variable        mapped_to_rb              enumerated      0x20136 
-variable        near_close_alert          unused          0x201DE 
-variable        nonlin                    integer         0x2012D 
-variable        nonlin_r                  unused          0x20135 
+variable        mapped_to_rb              enumerated      0x20179 
+variable        near_close_alert          unused          0x20222 
+variable        nonlin                    integer         0x20170 
+variable        nonlin_r                  unused          0x20178 
 variable        offline_diagnostic        enumerated      0x20057 
 variable        op_selected_value         enumerated      0x2000C 
 variable        open_stop_adjustment      float           0x2006C 
-variable        p                         integer         0x20126 
-variable        p_r                       unused          0x2012E 
-variable        padj                      integer         0x20129 
-variable        padj_r                    unused          0x20131 
-variable        point_closed              float           0x20145 
-variable        pos_10_percent_r          unused          0x2011B 
-variable        pos_20_percent_r          unused          0x2011C 
-variable        pos_30_percent_r          unused          0x2011D 
-variable        pos_40_percent_r          unused          0x2011E 
-variable        pos_5_percent_closed_r    unused          0x2011A 
-variable        pos_50_percent_r          unused          0x2011F 
-variable        pos_60_percent_r          unused          0x20120 
-variable        pos_70_percent_r          unused          0x20121 
-variable        pos_80_percent_r          unused          0x20122 
-variable        pos_90_percent_r          unused          0x20123 
-variable        pos_95_percent_open_r     unused          0x20125 
-variable        pos_95_percent_r          unused          0x20124 
-variable        pos_percent               float           0x20118 
-variable        pos_percent_r             float           0x20119 
-variable        poscomp                   integer         0x2012B 
-variable        poscomp_r                 unused          0x20133 
-variable        position_hi_alert_act     unused          0x201DA 
-variable        position_hi_deadband      unused          0x2014A 
-variable        position_hi_point         unused          0x20149 
-variable        position_hihi_alert_act   unused          0x201D9 
-variable        position_hihi_deadband    unused          0x20148 
-variable        position_hihi_point       unused          0x20147 
-variable        position_history_total_time unsigned        0x201B8 
-variable        position_lo_alert_act     unused          0x201DB 
-variable        position_lo_deadband      unused          0x2014C 
-variable        position_lo_point         unused          0x2014B 
-variable        position_lolo_alert_act   unused          0x201DC 
-variable        position_lolo_deadband    unused          0x2014E 
-variable        position_lolo_point       unused          0x2014D 
+variable        p                         integer         0x20169 
+variable        p_r                       unused          0x20171 
+variable        padj                      integer         0x2016C 
+variable        padj_r                    unused          0x20174 
+variable        point_closed              float           0x20189 
+variable        pos_10_percent_r          unused          0x2015E 
+variable        pos_20_percent_r          unused          0x2015F 
+variable        pos_30_percent_r          unused          0x20160 
+variable        pos_40_percent_r          unused          0x20161 
+variable        pos_5_percent_closed_r    unused          0x2015D 
+variable        pos_50_percent_r          unused          0x20162 
+variable        pos_60_percent_r          unused          0x20163 
+variable        pos_70_percent_r          unused          0x20164 
+variable        pos_80_percent_r          unused          0x20165 
+variable        pos_90_percent_r          unused          0x20166 
+variable        pos_95_percent_open_r     unused          0x20168 
+variable        pos_95_percent_r          unused          0x20167 
+variable        pos_percent               float           0x2015B 
+variable        pos_percent_r             float           0x2015C 
+variable        poscomp                   integer         0x2016E 
+variable        poscomp_r                 unused          0x20176 
+variable        position_hi_alert_act     unused          0x2021E 
+variable        position_hi_deadband      unused          0x2018E 
+variable        position_hi_point         unused          0x2018D 
+variable        position_hihi_alert_act   unused          0x2021D 
+variable        position_hihi_deadband    unused          0x2018C 
+variable        position_hihi_point       unused          0x2018B 
+variable        position_history_total_time unsigned        0x201FC 
+variable        position_lo_alert_act     unused          0x2021F 
+variable        position_lo_deadband      unused          0x20190 
+variable        position_lo_point         unused          0x2018F 
+variable        position_lolo_alert_act   unused          0x20220 
+variable        position_lolo_deadband    unused          0x20192 
+variable        position_lolo_point       unused          0x20191 
 variable        position_transducer_type  unsigned        0x2001D 
-variable        processor_alert           unused          0x201EC 
-variable        propagate_mode            enumerated      0x20137 
+variable        processor_alert           unused          0x20230 
+variable        propagate_mode            enumerated      0x2017A 
 variable        pv_unit                   enumerated      0x20016 
 variable        raw_position              integer         0x20070 
 variable        readback_select           enumerated      0x20042 
-variable        sampling_time             unused          0x20263 
+variable        sampling_time             unused          0x202A7 
 variable        selected_value_redefined  unsigned        0x2000D 
-variable        sensor_failure_alert      unused          0x201EB 
-variable        set_point_rate            unused          0x20262 
-variable        set_point_timeout_alert   unused          0x201DD 
-variable        set_to_factory_pr_calibration unsigned        0x20268 
-variable        setpoint_alert_point      unused          0x20160 
-variable        setpoint_max_time         unused          0x20161 
+variable        sensor_failure_alert      unused          0x2022F 
+variable        set_point_rate            unused          0x202A6 
+variable        set_point_timeout_alert   unused          0x20221 
+variable        set_to_factory_pr_calibration unsigned        0x202AC 
+variable        setpoint_alert_point      unused          0x201A4 
+variable        setpoint_max_time         unused          0x201A5 
 variable        setpoint_source           enumerated      0x2006D 
 variable        software_rev              visiblestring   0x20001 
 variable        software_rev_app          unsigned        0x20006 
 variable        software_rev_ff           unsigned        0x20005 
-variable        start_position            unused          0x20260 
-variable        sub_index                 unsigned        0x20271 
-variable        supply_pressure_hi_alert_act unused          0x201E4 
-variable        supply_pressure_lo_alert_act unused          0x201E5 
-variable        supply_pressure_lolo_alert_act unused          0x201E6 
-variable        supporting_hardware_alert unused          0x201F0 
+variable        start_position            unused          0x202A4 
+variable        sub_index                 unsigned        0x202B5 
+variable        supply_pressure_hi_alert_act unused          0x20228 
+variable        supply_pressure_lo_alert_act unused          0x20229 
+variable        supply_pressure_lolo_alert_act unused          0x2022A 
+variable        supporting_hardware_alert unused          0x20234 
 variable        sv_unit                   enumerated      0x20017 
-variable        svi2_rb_normal_mode       bit-enumerated  0x2026D 
-variable        svi2_rb_permitted_mode    bit-enumerated  0x2026C 
-variable        svi2_rb_target_mode       bit-enumerated  0x2026B 
-variable        svi2_tb_normal_mode       bit-enumerated  0x200FB 
-variable        svi2_tb_permitted_mode    bit-enumerated  0x200FA 
-variable        svi2_tb_target_mode       bit-enumerated  0x200F9 
+variable        svi2_rb_normal_mode       bit-enumerated  0x202B1 
+variable        svi2_rb_permitted_mode    bit-enumerated  0x202B0 
+variable        svi2_rb_target_mode       bit-enumerated  0x202AF 
+variable        svi2_tb_normal_mode       bit-enumerated  0x2013E 
+variable        svi2_tb_permitted_mode    bit-enumerated  0x2013D 
+variable        svi2_tb_target_mode       bit-enumerated  0x2013C 
 variable        tb_block_err_desc_1       bit-enumerated  0x2008A 
 variable        temp_transducer_type      unsigned        0x2004E 
-variable        temp_value_with_unit      unused          0x2013D 
-variable        temperature_hi_alert_act  unused          0x201E7 
-variable        temperature_lo_alert_act  unused          0x201E8 
-variable        test_input_bit_enum       bit-enumerated  0x2019E 
+variable        temp_value_with_unit      unused          0x20181 
+variable        temperature_hi_alert_act  unused          0x2022B 
+variable        temperature_lo_alert_act  unused          0x2022C 
+variable        test_input_bit_enum       bit-enumerated  0x201E2 
 variable        tfpd                      float           0x20014 
 variable        tfpid                     float           0x20015 
-variable        time_since_alert          unused          0x2015F 
+variable        time_since_alert          unused          0x201A3 
 variable        transducer_type           unsigned        0x20043 
-variable        travel_accumulation_a_alert_act unused          0x201DF 
-variable        travel_accumulation_b_alert_act unused          0x201E0 
-variable        trvl_accmltn_alert_point  unsigned        0x20162 
-variable        tune_flags                unused          0x20140 
+variable        travel_accumulation_a_alert_act unused          0x20223 
+variable        travel_accumulation_b_alert_act unused          0x20224 
+variable        trvl_accmltn_alert_point  unsigned        0x201A6 
+variable        tune_flags                unused          0x20184 
 variable        ui_language               enumerated      0x20068 
-variable        uint_2_element            unsigned        0x20108 
-variable        uint_2_element_d          unsigned        0x2010B 
-variable        uint_2_element_r          unused          0x20109 
-variable        uint_2_element_rd         unused          0x2010A 
-variable        uint_4_element_nd         unsigned        0x2010D 
-variable        uint_4_element_r          unsigned        0x2010C 
-variable        uint_4_element_r_nd       unsigned        0x2010E 
-variable        uint_element              unsigned        0x20105 
-variable        uint_element_d            unsigned        0x20107 
-variable        uint_element_r            unused          0x20106 
-variable        valve_control_alert       unused          0x201ED 
-variable        working_time_alert_act    unused          0x201E3 
+variable        uint_2_element            unsigned        0x2014B 
+variable        uint_2_element_d          unsigned        0x2014E 
+variable        uint_2_element_r          unused          0x2014C 
+variable        uint_2_element_rd         unused          0x2014D 
+variable        uint_4_element_nd         unsigned        0x20150 
+variable        uint_4_element_r          unsigned        0x2014F 
+variable        uint_4_element_r_nd       unsigned        0x20151 
+variable        uint_element              unsigned        0x20148 
+variable        uint_element_d            unsigned        0x2014A 
+variable        uint_element_r            unused          0x20149 
+variable        valve_control_alert       unused          0x20231 
+variable        working_time_alert_act    unused          0x20227 
 variable        xd_error_pos              enumerated      0x2001E 
 variable        xd_error_pressure         enumerated      0x20044 
 variable        xd_error_temperature      enumerated      0x2004F 
-variable        xd_fs_configuration       enumerated      0x2014F 
-variable        xd_fstate_opt             enumerated      0x20159 
+variable        xd_fs_configuration       enumerated      0x20193 
+variable        xd_fstate_opt             enumerated      0x2019D 
