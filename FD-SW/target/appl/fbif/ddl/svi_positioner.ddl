@@ -53,6 +53,33 @@ IMPORT MANUFACTURER     __FF,
       EVERYTHING ;
       REDEFINITIONS
       {
+          REDEFINE VARIABLE    __block_err
+          {
+              LABEL           [block_err_label] ;
+              HELP            [block_err_help] ;
+              CLASS           CONTAINED & DYNAMIC ;
+              TYPE            BIT_ENUMERATED (2)
+              {
+                  { 0x0001,  [subcode_other],           [subcode_other_help] },
+                  { 0x0002,  [subcode_block_config],    [subcode_block_config_help] },
+                  { 0x0004,  [subcode_link_config],     [subcode_link_config_help] },
+                  { 0x0008,  [subcode_simulation],      [subcode_simulation_help] },
+                  { 0x0010,  [subcode_override],        [subcode_override_help] },
+                  { 0x0020,  [subcode_fault_state],     [subcode_fault_state_help] },
+                  { 0x0040,  "|en|Device Needs Maintenance Soon",      [subcode_maint_soon_help] },
+                  { 0x0080,  [subcode_input_fail],      [subcode_input_fail_help] },
+                  { 0x0100,  [subcode_output_fail],     [subcode_output_fail_help] },
+                  { 0x0200,  [subcode_mem_fail],        [subcode_mem_fail_help] },
+                  { 0x0400,  [subcode_lost_static],     [subcode_lost_static_help] },
+                  { 0x0800,  [subcode_lost_nv],         [subcode_lost_nv_help] },
+                  { 0x1000,  [subcode_readback_fail],   [subcode_readback_fail_help] },
+                  { 0x2000,  "|en|Device Needs Maintenance Now",       [subcode_maint_now_help] },
+                  { 0x4000,  [subcode_power_up],        [subcode_power_up_help] },
+                  { 0x8000,  [subcode_out_of_service],  [subcode_out_of_service_help] }
+              }
+              CONSTANT_UNIT   [blank] ;
+              HANDLING        READ ;
+          }
           REDEFINE VARIABLE    __manufac_id
           {
               LABEL           [manufac_id_label] ;
@@ -117,6 +144,7 @@ IMPORT MANUFACTURER     __FF,
                   { 0x03,    [restart_defaults],      [restart_defaults_help] },
                   { 0x04,    [restart_processor],     [restart_processor_help] },
                   { 0x05,    RESTART_FACTORY_DEFAULT, RESTART_FACTORY_DEFAULT_HELP }
+                 
               }
               HANDLING        READ & WRITE ;
           /*  RESPONSE_CODES  xxx ; */
@@ -202,6 +230,54 @@ IMPORT MANUFACTURER     __FF,
               }
           }
 
+          REDEFINE VARIABLE    __current_summary
+          {
+              LABEL           [current_summary_label] ;
+              HELP            [current_summary_help] ;
+              CLASS           CONTAINED & ALARM ;
+              TYPE            BIT_ENUMERATED (2)
+              {
+                  FD_CURR_SUMM_ENUM
+              }
+              CONSTANT_UNIT   [blank] ;
+              HANDLING        READ ;
+          }
+          REDEFINE VARIABLE    __unacked_summary
+          {
+              LABEL           [unacked_summary_label] ;
+              HELP            [unacked_summary_help] ;
+              CLASS           CONTAINED & ALARM ;
+              TYPE            BIT_ENUMERATED (2)
+              {
+                  FD_UNACK_SUMM_ENUM
+              }
+              CONSTANT_UNIT   [blank] ;
+              HANDLING        READ ;
+          }
+          REDEFINE VARIABLE    __unreported_summary
+          {
+              LABEL           [unreported_summary_label] ;
+              HELP            [unreported_summary_help] ;
+              CLASS           CONTAINED & ALARM ;
+              TYPE            BIT_ENUMERATED (2)
+              {
+                  FD_UNREP_SUMM_ENUM
+              }
+              CONSTANT_UNIT   [blank] ;
+              HANDLING        READ ;
+          }
+          REDEFINE VARIABLE    __disabled_summary
+          {
+              LABEL           [disabled_summary_label] ;
+              HELP            [disabled_summary_help] ;
+              CLASS           CONTAINED & ALARM ;
+              TYPE            BIT_ENUMERATED (2)
+              {
+                  FD_DISAB_SUMM_ENUM
+              }
+              CONSTANT_UNIT   [blank] ;
+              HANDLING        READ & WRITE ;
+          }
           REDEFINE VARIABLE __ack_option /* bug 14947 */
           {
               LABEL           [ack_option_label] ;

@@ -53,6 +53,9 @@ UNIT pressure_unit_relation
     PARAM.PRESSURE_EXTREMES.ACTUATOR_B_MIN,
     PARAM.PRESSURE_EXTREMES.PILOT_MAX,
     PARAM.PRESSURE_EXTREMES.PILOT_MIN
+PARAM.ACTUATOR_3.SUPPLY_PRS_MAX,
+    PARAM.ACTUATOR_3.PRS_CONTROL_HI,
+    PARAM.ACTUATOR_3.PRS_CONTROL_LO
 }
 
 UNIT working_sp_unit_relation
@@ -638,9 +641,25 @@ VARIABLE final_value_f
     HELP            HLP5(HLP_FINAL_VALUE);
     CLASS           CONTAINED & SERVICE ;
     TYPE            FLOAT;
-    HANDLING        READ & WRITE ;
+    HANDLING
+    IF ((PARAM.MODE_BLK.ACTUAL|PARAM.MODE_BLK.TARGET) & _AUTOMATIC ) {
+        READ;
+    }
+    ELSE {
+        READ & WRITE ;
+    }
     CONSTANT_UNIT [unit_code_1342];
     /* DATA_LIMITS(-25,125) */
+}
+final_value_s LIKE VARIABLE __status_contained_srv
+{
+    REDEFINE HANDLING
+    IF ((PARAM.MODE_BLK.ACTUAL|PARAM.MODE_BLK.TARGET) & _AUTOMATIC ) {
+        READ;
+    }
+    ELSE {
+        READ & WRITE ;
+    }
 }
 float_position_value_r LIKE VARIABLE __float_contained_r
 {
@@ -782,51 +801,51 @@ position_hihi_point LIKE VARIABLE float_nd_with_max_min
 {
     REDEFINE LABEL LBL_POSITION_HIHI_POINT;
     REDEFINE HELP  HLP5(HLP_POSITION_HIHI_POINT);
-    REDEFINE_DATA_LIMITS(FLOAT, 0.1, 200)
+    REDEFINE_DATA_LIMITS(FLOAT, 0, 12000)
 }
 position_hihi_deadband LIKE VARIABLE float_nd_with_max_min
 {
     REDEFINE LABEL LBL_POSITION_HIHI_DEADBAND;
     REDEFINE HELP  HLP5(HLP_POSITION_HIHI_DEADBAND);
-    REDEFINE_DATA_LIMITS(FLOAT, 0.1, 10)
+    REDEFINE_DATA_LIMITS(FLOAT, 0.1, 1000)
 }
 
 position_hi_point LIKE VARIABLE float_nd_with_max_min
 {
     REDEFINE LABEL LBL_POSITION_HI_POINT;
     REDEFINE HELP  HLP5(HLP_POSITION_HI_POINT);
-    REDEFINE_DATA_LIMITS(FLOAT, 0.1, 200)
+    REDEFINE_DATA_LIMITS(FLOAT, 0, 12000)
 }
 position_hi_deadband LIKE VARIABLE float_nd_with_max_min
 {
     REDEFINE LABEL LBL_POSITION_HI_DEADBAND;
     REDEFINE HELP  HLP5(HLP_POSITION_HI_DEADBAND);
-    REDEFINE_DATA_LIMITS(FLOAT, 0.1, 10)
+    REDEFINE_DATA_LIMITS(FLOAT, 0.1, 1000)
 }
 position_lo_point LIKE VARIABLE float_nd_with_max_min
 {
     REDEFINE LABEL LBL_POSITION_LO_POINT;
     REDEFINE HELP  HLP5(HLP_POSITION_LO_POINT);
-    REDEFINE_DATA_LIMITS(FLOAT, -51, 199)
+    REDEFINE_DATA_LIMITS(FLOAT, -5000, 10000)
 }
 position_lo_deadband LIKE VARIABLE float_nd_with_max_min
 {
     REDEFINE LABEL LBL_POSITION_LO_DEADBAND;
     REDEFINE HELP  HLP5(HLP_POSITION_LO_DEADBAND);
-    REDEFINE_DATA_LIMITS(FLOAT, 0.1, 10)
+    REDEFINE_DATA_LIMITS(FLOAT, 0.1, 1000)
 }
 
 position_lolo_point LIKE VARIABLE float_nd_with_max_min
 {
     REDEFINE LABEL LBL_POSITION_LOLO_POINT;
     REDEFINE HELP  HLP5(HLP_POSITION_LOLO_POINT);
-    REDEFINE_DATA_LIMITS(FLOAT, -51, 199)
+    REDEFINE_DATA_LIMITS(FLOAT, -5000, 10000)
 }
 position_lolo_deadband LIKE VARIABLE float_nd_with_max_min
 {
     REDEFINE LABEL LBL_POSITION_LOLO_DEADBAND;
     REDEFINE HELP  HLP5(HLP_POSITION_LOLO_DEADBAND);
-    REDEFINE_DATA_LIMITS(FLOAT, 0.1, 10)
+    REDEFINE_DATA_LIMITS(FLOAT, 0.1, 1000)
 }
 
 VARIABLE xd_fs_configuration
@@ -932,18 +951,21 @@ VARIABLE xd_fstate_opt
 
 _float_limited LIKE VARIABLE float_nd_with_max_min
 {
+REDEFINE LABEL "|en|Travel Range";
     REDEFINE HELP HLP5(HLP_FLOAT_VALUE);
     REDEFINE_DATA_LIMITS(FLOAT, 0.1, 10000)
 }
 
 _deadband_ab_float_nd LIKE VARIABLE float_nd_with_max_min
 {
+REDEFINE LABEL "|en|Deadband";
     REDEFINE HELP HLP5(HLP_FLOAT_VALUE);
     REDEFINE_DATA_LIMITS(FLOAT, 0.1, 10)
 }
 
 _deadband_ab_for_cycle_count LIKE VARIABLE float_nd_with_max_min
 {
+    REDEFINE LABEL "|en|Deadband";
     REDEFINE HELP HLP5(HLP_FLOAT_VALUE);
     REDEFINE_DATA_LIMITS(FLOAT, 0.05, 10)
 }
@@ -2192,7 +2214,6 @@ RECORD actuator_b_pressure
         STATUS,                                  __status_contained_r;
         VALUE,                                   __float_contained_r;
     }
-    EDD(VALIDITY FALSE;)
 }
 RECORD atmospheric_pressure
 {
@@ -3030,7 +3051,7 @@ VARIABLE  _alert_point_press_hi
     HELP  HLP5(HLP_ALERT_POINT_PRESS_HI);
     CLASS CONTAINED;
     TYPE FLOAT
-    DATA_LIMITS_FOR_PRESS_UNITS(0,1034.2)
+    DATA_LIMITS(0,1035)
 
 }
 VARIABLE  _alert_point_press_lo
@@ -3039,8 +3060,7 @@ VARIABLE  _alert_point_press_lo
     HELP  HLP5(HLP_ALERT_POINT_PRESS_LO);
     CLASS CONTAINED;
     TYPE FLOAT
-    DATA_LIMITS_FOR_PRESS_UNITS(0,1034.2)
-    /* DATA_LIMITS(0,150) */
+    DATA_LIMITS(0,1035)
 }
 VARIABLE  _alert_point_temp_hi
 {
@@ -3218,7 +3238,7 @@ VARIABLE  _deadband_press
     HELP  HLP5(HLP_DEADBAND_PRESS);
     CLASS CONTAINED;
     TYPE FLOAT
-    DATA_LIMITS_FOR_PRESS_UNITS(0,20)
+    DATA_LIMITS(0,20)
     /* DATA_LIMITS(0,2) */
 }
 VARIABLE  _deadband_temp
@@ -3588,7 +3608,7 @@ VARIABLE  _pilot_max
     HELP  HLP5(HLP_PILOT_MAX);
     CLASS CONTAINED;
     TYPE FLOAT
-    DATA_LIMITS_FOR_PRESS_UNITS(-25,1050)
+    DATA_LIMITS(-25,1050)
 }
 VARIABLE  _pilot_min
 {
@@ -3596,7 +3616,7 @@ VARIABLE  _pilot_min
     HELP  HLP5(HLP_PILOT_MIN);
     CLASS CONTAINED;
     TYPE FLOAT
-    DATA_LIMITS_FOR_PRESS_UNITS(-25,1050)
+    DATA_LIMITS(-25,1050)
 }
 VARIABLE  _plug_type
 {
@@ -3705,7 +3725,11 @@ VARIABLE  _same_as_actuator
     LABEL LBL_SAME_AS_ACTUATOR;
     HELP  HLP5(HLP_SAME_AS_ACTUATOR);
     CLASS CONTAINED;
-    TYPE UNSIGNED_INTEGER (1);
+	TYPE UNSIGNED_INTEGER (1);
+    /*TYPE  ENUMERATED (1)
+    {
+        ENUM_ALERT_STATE
+    }*/
 }
 VARIABLE  _seat_ring_type
 {
@@ -3868,7 +3892,7 @@ VARIABLE  _supply_pressure_max
     HELP  HLP5(HLP_SUPPLY_PRESSURE_MAX);
     CLASS CONTAINED;
     TYPE FLOAT
-    DATA_LIMITS_FOR_PRESS_UNITS(-25,1050)
+    DATA_LIMITS(-25,1050)
 }
 VARIABLE  _supply_pressure_min
 {
@@ -3876,7 +3900,7 @@ VARIABLE  _supply_pressure_min
     HELP  HLP5(HLP_SUPPLY_PRESSURE_MIN);
     CLASS CONTAINED;
     TYPE FLOAT
-    DATA_LIMITS_FOR_PRESS_UNITS(-25,1050)
+    DATA_LIMITS(-25,1050)
 }
 _supporting_hardware_alert_r LIKE VARIABLE _deviation_alert_r
 {
@@ -4275,9 +4299,46 @@ VARIABLE activate_control_set
     {
         ENUM_ACTIVATE_CONTROL_SET
     }
+	
     /*VALIDITY  Auto    ;*/
 }
 
+METHOD do_read_write_control_set
+{
+	LABEL "|en|Read Active Control Set from Device ";
+    HELP HLP5("|en|Refresh Control set post Activating Control Set");
+    CLASS INPUT;
+	DEFINITION
+	{
+	COMMON_LOCAL_VARS;
+	 /*Active_control_set*/
+	delayfor(5, "|en|Reading data from device ...\n", dummy, dummy, 0);
+	READ_PARAM(ITEM_ID(PARAM.ACTIVE_CONTROL_SET),MEMBER_ID(P));
+	READ_PARAM(ITEM_ID(PARAM.ACTIVE_CONTROL_SET),MEMBER_ID(I));
+	READ_PARAM(ITEM_ID(PARAM.ACTIVE_CONTROL_SET),MEMBER_ID(D));
+	READ_PARAM(ITEM_ID(PARAM.ACTIVE_CONTROL_SET),MEMBER_ID(PADJ));
+	READ_PARAM(ITEM_ID(PARAM.ACTIVE_CONTROL_SET),MEMBER_ID(BETA));
+	READ_PARAM(ITEM_ID(PARAM.ACTIVE_CONTROL_SET),MEMBER_ID(POSCOMP));
+	READ_PARAM(ITEM_ID(PARAM.ACTIVE_CONTROL_SET),MEMBER_ID(DEADZONE));
+	READ_PARAM(ITEM_ID(PARAM.ACTIVE_CONTROL_SET),MEMBER_ID(NONLIN));
+	READ_PARAM(ITEM_ID(PARAM.CUSTOM_CONTROL_SET),MEMBER_ID(P));
+	READ_PARAM(ITEM_ID(PARAM.CUSTOM_CONTROL_SET),MEMBER_ID(I));
+	READ_PARAM(ITEM_ID(PARAM.CUSTOM_CONTROL_SET),MEMBER_ID(D));
+	READ_PARAM(ITEM_ID(PARAM.CUSTOM_CONTROL_SET),MEMBER_ID(PADJ));
+	READ_PARAM(ITEM_ID(PARAM.CUSTOM_CONTROL_SET),MEMBER_ID(BETA));
+	READ_PARAM(ITEM_ID(PARAM.CUSTOM_CONTROL_SET),MEMBER_ID(POSCOMP));
+	READ_PARAM (ITEM_ID(PARAM.CUSTOM_CONTROL_SET),MEMBER_ID(DEADZONE));
+	READ_PARAM(ITEM_ID(PARAM.CUSTOM_CONTROL_SET),MEMBER_ID(NONLIN));
+	READ_PARAM(ITEM_ID(PARAM.BACKUP_CONTROL_SET),MEMBER_ID(P));
+	READ_PARAM(ITEM_ID(PARAM.BACKUP_CONTROL_SET),MEMBER_ID(I));
+	READ_PARAM(ITEM_ID(PARAM.BACKUP_CONTROL_SET),MEMBER_ID(D));
+	READ_PARAM(ITEM_ID(PARAM.BACKUP_CONTROL_SET),MEMBER_ID(PADJ));
+	READ_PARAM(ITEM_ID(PARAM.BACKUP_CONTROL_SET),MEMBER_ID(BETA));
+	READ_PARAM(ITEM_ID(PARAM.BACKUP_CONTROL_SET),MEMBER_ID(POSCOMP));
+	READ_PARAM(ITEM_ID(PARAM.BACKUP_CONTROL_SET),MEMBER_ID(DEADZONE));
+	READ_PARAM(ITEM_ID(PARAM.BACKUP_CONTROL_SET),MEMBER_ID(NONLIN));
+	}
+}
 VARIABLE position_history_total_time
 {
     LABEL LBL_236_TOTAL;
@@ -4834,6 +4895,7 @@ METHOD  do_find_stops
             
         } while(us8_buf == FINDSTOPS_START || us8_buf == FINDSTOPS_RUNNING ) /* Continue */;
 
+        delayfor(3, "|en|Checking fins stops status ...\n", dummy, dummy, 0);
         /* report find stops success/faild */
         id = ITEM_ID(PARAM.COMPLETE_STATUS);
         mb = MEMBER_ID(CURRENT_STATUS_1_C);
@@ -4866,7 +4928,7 @@ METHOD  do_find_stops
             maxlen = 33;
             status = get_date_value(trl_ids[1], trl_mbs[1], strCal_Date, &maxlen);
                 
-            /*display the travel calibration restult*/
+            /*display the travel calibration result*/
             display_message("|en|\nTravel Calibration:\n"  \
                             "  CAL_LOCATION:%[s]{strLocation}\n"  \
                             "  CAL_DATe: %{1}\n"  \
@@ -5138,50 +5200,56 @@ METHOD do_autotune
     }
 }
 
-METHOD change_app_mode
+METHOD   change_app_mode
 {
     LABEL "|en|change app mode";
-    HELP  "|en|to change the app mode:Setup, Normal or Manual";
+    HELP  "|en|Restore the app mode to Normal";
     CLASS INPUT;
     DEFINITION
     {
         COMMON_LOCAL_VARS;
 
-            unsigned long  old_value, new_value;
         int            ivalue;
-        float          flt_buf;
 
         maxlen = 256;
         id = ITEM_ID(PARAM.APP_MODE);
         mb = 0;
 
-        READ_PARAM(id, mb, "APP_MODE");
-        status = get_unsigned_value(id, mb, &us8_buf);
-        status = get_status_string(id, mb, us8_buf, str_buf, maxlen);
-        status = select_from_menu("|en| ""APP_MODE" " = %{str_buf}.\n" "Do you want to change the mode" "\n",
-                                  dummy, dummy, 0, "Yes;No(Skip)", &ivalue);
-        display_message("|en|\n", dummy, dummy, 0);
-
-        if ( ivalue == 1 ) {
-
-            id = ITEM_ID(PARAM.APP_MODE);
-            mb = 0;
-            status = select_from_menu("|en|Change to:\n", dummy, dummy, 0, "Setup;Normal", &ivalue);
-            switch (ivalue){
-            case 1:
-                status = put_unsigned_value(id, mb, CHANGE_SETUP);
-                break;
-            case 2:
+        status = read_value(id, mb);
+        if(status == BLTIN_SUCCESS) {
+            status = get_unsigned_value(id, mb, &us8_buf);
+        }
+        if(status == BLTIN_SUCCESS) {
+            status = get_status_string(id, mb, us8_buf, str_buf, maxlen);
+        }
+        if(status != BLTIN_SUCCESS) {
+            display_message("|en|Unexpected error occurred. Please try again.\n\n", dummy, dummy, 0);
+        }
+        else if ( us8_buf == CHANGE_NORMAL ) {
+            display_message("|en|Positioner is already under system control.\n"
+            "The method is only applicable for LO mode of Transducer Block.\n\n", dummy, dummy, 0);
+        }
+		
+        else {
+            status = select_from_menu("|en| "
+            "CAUTION!\nThere may be local personnel working with the valve\n"
+            "Make sure it is safe to switch the positioner to normal control\n\n"
+            "APP_MODE" " = %{str_buf}.\n" "Do you want to proceed?" "\n",
+                                    dummy, dummy, 0, "|en|Yes;No(Skip)", &ivalue);
+            display_message("|en|\n", dummy, dummy, 0);
+            if ( ivalue == 1 ) {
                 status = put_unsigned_value(id, mb, CHANGE_NORMAL);
-                break;
-            }
-            SEND_PARAM(id, mb, "APP_MODE");
+                SEND_PARAM(id, mb, "APP_MODE");
 
-            READ_PARAM(id, mb, "APP_MODE");
-            status = get_unsigned_value(id, 0, &us8_buf);
-            status = get_status_string(id, 0, us8_buf, str_buf, maxlen);
-            status = get_acknowledgement("|en| ""APP_MODE" " = %{str_buf}.\n",
-                                         dummy, dummy, 0);
+                READ_PARAM(id, mb, "APP_MODE");
+                status = get_unsigned_value(id, 0, &us8_buf);
+                status = get_status_string(id, 0, us8_buf, str_buf, maxlen);
+                status = get_acknowledgement("|en| ""APP_MODE" " = %{str_buf}.\n",
+                                             dummy, dummy, 0);
+            }
+            else {
+                display_message("|en|No changes made.\n\n", dummy, dummy, 0);
+            }
         }
     }
 }
@@ -5209,6 +5277,36 @@ METHOD  cancel_find_stops
     }
 }
 
+METHOD  clear_current_fault
+{
+    LABEL "|en|Clear Current Fault";
+    HELP HLP5("|en|Clear current status and faults.");
+    CLASS INPUT;
+    DEFINITION
+    {
+        COMMON_LOCAL_VARS;
+        id = ITEM_ID(PARAM.CLEAR_STATUS);
+        mb = 0;
+        status = put_unsigned_value(id, mb, CLEAR_CURRENT_STATUS);
+        SEND_PARAM(id, mb, "CLEAR_STATUS:CURRENT");
+        display_message("|en|\n Current faults was cleared.", dummy,dummy, 0);
+    }
+}
+METHOD  clear_all_fault
+{
+    LABEL "|en|Clear All Fault";
+    HELP HLP5("|en|Clear all status and faults.");
+    CLASS INPUT;
+    DEFINITION
+    {
+        COMMON_LOCAL_VARS;
+        id = ITEM_ID(PARAM.CLEAR_STATUS);
+        mb = 0;
+        status = put_unsigned_value(id, mb, CLEAR_ALL_STATUS);
+        SEND_PARAM(id, mb, "CLEAR_STATUS:ALL");
+        display_message("|en|\n Current and historic faults was cleared.", dummy,dummy, 0);
+    }
+}
 METHOD  do_manual_hi_low_stops
 {
     LABEL "|en|Manual Stops";
@@ -5416,7 +5514,7 @@ METHOD  do_manual_hi_low_stops
             
 
             status = select_from_menu("|en|\nPlease select:\n", 
-                                      dummy, dummy, 0, "Accept;Continue;Concel", &ivalue);
+                                      dummy, dummy, 0, "Accept;Continue;Cancel", &ivalue);
 
             if ( ivalue == 1 ) /* Accept */
             {

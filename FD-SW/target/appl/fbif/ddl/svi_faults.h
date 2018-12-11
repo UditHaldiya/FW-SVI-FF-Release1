@@ -154,7 +154,7 @@
 #define FAULT_NAME_7_3 "|en|Undefined"
 #define FAULT_NAME_7_4 "|en|UI_OFF"
 #define FAULT_NAME_7_5 "|en|Undefined"
-#define FAULT_NAME_7_6 "|en|Undefined"
+#define FAULT_NAME_7_6 "|en|IPC_LOST"
 #define FAULT_NAME_7_7 "|en|SETPOINT_TIMEOUT"
 #define FAULT_NAME_8_0 "|en|FSTATE_REQ"
 #define FAULT_NAME_8_1 "|en|NEWDIAGSIGN_BASELINE"

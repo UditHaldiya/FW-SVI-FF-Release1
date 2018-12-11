@@ -179,11 +179,12 @@ MENU hdevice_ptb
     /* STYLE MENU; */
     ITEMS
     {
-        mnu_manualsetpoint
-        mnu_manualsetup
+        mnu_startup
+        mnu_tb_process
         mnu_config
         mnu_calibrate
-        mnu_commissioning
+        mnu_identification
+        mnu_tb_exconfig
     }
 }
 MENU hdiagnostic_ptb
@@ -192,10 +193,14 @@ MENU hdiagnostic_ptb
     /* STYLE MENU; */
     ITEMS
     {
+        mnu_blockerror
         mnu_devicestatusfaults
         mnu_sensormeasurements
+		
         mnu_historian
-        mnu_signature
+        mnu_trend
+        mnu_positionerstate
+        mnu_diag_configuration
     }
 }
 
@@ -214,18 +219,24 @@ MENU hprocess_variables_ptb
 /*-------/
 ** Device
 /-------*/
+#ifdef DD4
+#define STYLE(m)
+#else
+#define STYLE(m) STYLE m;
+#endif
 
 MENU device_root_menu_ptb
 {
     LABEL "|en|Device Setup";
-    EDD(STYLE MENU;)
+    STYLE(MENU)
     ITEMS
     {
-        mnu_manualsetpoint
-        mnu_manualsetup
+        mnu_startup
+        mnu_tb_process
         mnu_config
         mnu_calibrate
-        mnu_commissioning
+        mnu_identification
+        mnu_tb_exconfig
     }
 }
 
@@ -236,13 +247,17 @@ MENU device_root_menu_ptb
 MENU diagnostic_root_menu_ptb
 {
     LABEL "|en|Status/Diagnostics";
-    EDD(STYLE MENU;)
+    STYLE(MENU)
     ITEMS
     {
+        mnu_blockerror
         mnu_devicestatusfaults
         mnu_sensormeasurements
         mnu_historian
-        mnu_signature
+        mnu_trend
+        mnu_positionerstate
+        mnu_diag_configuration
+	    mnu_extremes
     }
 }
 
@@ -253,7 +268,7 @@ MENU diagnostic_root_menu_ptb
 MENU  mnu_block_mode
 {
     LABEL "|en|Block Mode";
-    EDD(STYLE GROUP;)
+    STYLE(GROUP)
     ITEMS
     {
         PARAM.MODE_BLK.ACTUAL
@@ -270,7 +285,7 @@ MENU  mnu_block_mode
 MENU process_variables_root_menu_ptb
 {
     LABEL "|en|Process Variables";
-    EDD(STYLE MENU;)
+    STYLE(MENU)
     ITEMS
     {
         mnu_ao_control
@@ -279,40 +294,40 @@ MENU process_variables_root_menu_ptb
     }
 }
 
+#ifdef DD4
 MENU mnu_sensor_state
 {
     LABEL "|en|Sensors State";
-    EDD(STYLE WINDOW;)
+    STYLE(WINDOW)
     ITEMS
     {
-        PARAM.IP_DRIVE_CURRENT.STATUS
-        PARAM.IP_DRIVE_CURRENT.VALUE
-        EDD(COLUMNBREAK)
-        PARAM.TEMPERATURE.STATUS
-        PARAM.TEMPERATURE.VALUE
-        EDD(COLUMNBREAK)
-        PARAM.SUPPLY_PRESSURE.STATUS
-        PARAM.SUPPLY_PRESSURE.VALUE
-        EDD(ROWBREAK)
-        PARAM.PILOT_PRESSURE.STATUS
-        PARAM.PILOT_PRESSURE.VALUE
-        EDD(COLUMNBREAK)
-        PARAM.ACTUATOR_A_PRESSURE.STATUS
-        PARAM.ACTUATOR_A_PRESSURE.VALUE
-        EDD(COLUMNBREAK)
-        PARAM.ACTUATOR_B_PRESSURE.STATUS
-        PARAM.ACTUATOR_B_PRESSURE.VALUE
-        EDD(ROWBREAK)
-        EDD(mnu_pressure_gauge)
-        EDD(COLUMNBREAK)
-        EDD(mnu_act_press_gauge)
+        mnu_final_value
+        mnu_finalposition_value
+        mnu_workingpos_value
+        mnu_workingsp_value
+        mnu_pressure_group
     }
 }
+#else
+MENU mnu_sensor_state
+{
+    LABEL "|en|Sensors State";
+    STYLE(WINDOW)
+    ITEMS
+    {
+        mnu_final_value_trend
+        EDD(ROWBREAK)
+        mnu_pressure_gauge
+        EDD(COLUMNBREAK)
+        mnu_act_press_gauge
+    }
+}
+#endif
 
-MENU mnu_do_control
+MENU mnu_do_discretecontrol
 {
     LABEL "|en|Discrete Control";
-    EDD(STYLE WINDOW;)
+    STYLE(GROUP)
     ITEMS
     {
         PARAM.FINAL_VALUE_D.STATUS
@@ -320,7 +335,6 @@ MENU mnu_do_control
         EDD(COLUMNBREAK)
         PARAM.FINAL_VALUE_DINT.STATUS
         PARAM.FINAL_VALUE_DINT.VALUE
-        EDD(COLUMNBREAK)
 
         EDD(ROWBREAK)
         PARAM.FINAL_POSITION_VALUE_D.STATUS
@@ -328,22 +342,76 @@ MENU mnu_do_control
         EDD(COLUMNBREAK)
         PARAM.FINAL_POSITION_VALUE_DINT.STATUS
         PARAM.FINAL_POSITION_VALUE_DINT.VALUE
+    }
+}
 
-        EDD(ROWBREAK)
+MENU mnu_di_switches
+{
+	LABEL "|en|DI";
+STYLE(GROUP)
+ITEMS
+{
+	PARAM.DISCRETE_INPUT.STATUS
+	PARAM.DISCRETE_INPUT.VALUE
+}
+}
+MENU mnu_do1_switches
+{
+	LABEL "|en|DO1";
+STYLE(GROUP)
+ITEMS
+{
+	PARAM.DISCRETE_OUTPUT_1_STATE.STATUS
+		PARAM.DISCRETE_OUTPUT_1_STATE.VALUE
+}
+}
+MENU mnu_do2_switches
+{
+	LABEL "|en|DO2";
+STYLE(GROUP)
+ITEMS
+{
+	PARAM.DISCRETE_OUTPUT_2_STATE.STATUS
+		PARAM.DISCRETE_OUTPUT_2_STATE.VALUE
+}
+}
+MENU mnu_do_switches
+{
+    LABEL "|en|Switches";
+    STYLE(GROUP)
+    ITEMS
+    {
+		mnu_di_switches
+        EDD(COLUMNBREAK)
+		mnu_do1_switches
+        EDD(COLUMNBREAK)
+		mnu_do2_switches
+    }
+}
+MENU mnu_do_failedstate
+{
+    LABEL "|en|Failed State";
+    STYLE(GROUP)
+    ITEMS
+    {
         PARAM.FAILED_STATE.FF
         EDD(COLUMNBREAK)
         PARAM.FAILED_STATE.APP
         EDD(COLUMNBREAK)
         PARAM.FAILED_STATE.PROPAGATE_MODE
+    }
+}
+MENU mnu_do_control
+{
+    LABEL "|en|Discrete Control";
+    STYLE(WINDOW)
+    ITEMS
+    {
+        mnu_do_discretecontrol
         EDD(ROWBREAK)
-        PARAM.DISCRETE_INPUT.STATUS
-        PARAM.DISCRETE_INPUT.VALUE
-        EDD(COLUMNBREAK)
-        PARAM.DISCRETE_OUTPUT_1_STATE.STATUS
-        PARAM.DISCRETE_OUTPUT_1_STATE.VALUE
-        EDD(COLUMNBREAK)
-        PARAM.DISCRETE_OUTPUT_2_STATE.STATUS
-        PARAM.DISCRETE_OUTPUT_2_STATE.VALUE
+        mnu_do_switches
+        EDD(ROWBREAK)
+        mnu_do_failedstate
     }
 }
 
@@ -401,7 +469,10 @@ AXIS y_axis_temperature
     MAX_VALUE   100;
     CONSTANT_UNIT [unit_code_1001];
 }
+#endif
 
+#ifdef DD4
+#else
 SOURCE src_final_value
 {
     LABEL   "|en|Final Value";
@@ -412,7 +483,10 @@ SOURCE src_final_value
     LINE_COLOR 0x1f78b4;
     Y_AXIS y_axis_final_value;
 }
+#endif
 
+#ifdef DD4
+#else
 SOURCE src_final_pos_value
 {
     LABEL   "|en|Final Pos Value";
@@ -423,7 +497,10 @@ SOURCE src_final_pos_value
     LINE_COLOR 0x33a02c;
     Y_AXIS y_axis_final_pos;
 }
+#endif
 
+#ifdef DD4
+#else
 SOURCE src_working_sp
 {
     LABEL   "|en|Working SP";
@@ -434,7 +511,10 @@ SOURCE src_working_sp
     LINE_COLOR 0xe31a1c;
     Y_AXIS y_axis_working_sp;
 }
+#endif
 
+#ifdef DD4
+#else
 SOURCE src_working_pos
 {
     LABEL   "|en|Working Pos";
@@ -445,7 +525,10 @@ SOURCE src_working_pos
     LINE_COLOR 0xff7f00;
     Y_AXIS y_axis_working_pos;
 }
+#endif
 
+#ifdef DD4
+#else
 SOURCE src_supply_press
 {
     LABEL   "|en|Supply_press";
@@ -455,7 +538,10 @@ SOURCE src_supply_press
     }
     LINE_COLOR 0x1f78b4;
 }
+#endif
 
+#ifdef DD4
+#else
 SOURCE src_actuators_a_press
 {
     LABEL   "|en|Act. A Press";
@@ -466,6 +552,9 @@ SOURCE src_actuators_a_press
     LINE_COLOR 0x6a3d9a;
 }
 
+#endif
+#ifdef DD4
+#else
 SOURCE src_actuators_b_press
 {
     LABEL   "|en|Act. B Press";
@@ -475,7 +564,9 @@ SOURCE src_actuators_b_press
     }
     LINE_COLOR 0x6a3d9a;
 }
+#endif
 
+#ifndef DD4
 CHART mnu_final_value_trend
 {
     LABEL       "|en|Final Value/Final Pos Value/Working SP/Working Pos";
@@ -523,36 +614,223 @@ CHART mnu_act_press_gauge
 }
 #endif
 
-MENU mnu_ao_control
+MENU mnu_final_value
 {
-    LABEL "|en|AO Control";
-    EDD(STYLE WINDOW;)
+    LABEL "|en|Final Value";
+    STYLE(GROUP)
     ITEMS
     {
         PARAM.FINAL_VALUE.STATUS
         EDD(COLUMNBREAK)
         PARAM.FINAL_VALUE.VALUE
-        EDD(COLUMNBREAK)
+        EDD(ROWBREAK)
+    }
+}
+MENU mnu_finalposition_value
+{
+    LABEL "|en|Final Position Value";
+    STYLE(GROUP)
+    ITEMS
+    {
         PARAM.FINAL_POSITION_VALUE.STATUS
         EDD(COLUMNBREAK)
         PARAM.FINAL_POSITION_VALUE.VALUE
         EDD(ROWBREAK)
-        EDD(mnu_final_value_trend)
-        EDD(ROWBREAK)
+    }
+}
+
+MENU mnu_workingsp_value
+{
+    LABEL "|en|Characterized Setpoint";
+    STYLE(GROUP)
+    ITEMS
+    {
         PARAM.WORKING_SP.STATUS
         EDD(COLUMNBREAK)
         PARAM.WORKING_SP.VALUE
-        EDD(COLUMNBREAK)
+        EDD(ROWBREAK)
+    }
+}
+MENU mnu_workingpos_value
+{
+    LABEL "|en|Characterized Position";
+    STYLE(GROUP)
+    ITEMS
+    {
         PARAM.WORKING_POS.STATUS
         EDD(COLUMNBREAK)
         PARAM.WORKING_POS.VALUE
+        EDD(ROWBREAK)
+    }
+}
+
+MENU mnu_setpoint_value
+{
+    LABEL "|en|Set Point";
+    STYLE(GROUP)
+    ITEMS
+    {
+        PARAM.SETPOINT.STATUS
+        EDD(COLUMNBREAK)
+        PARAM.SETPOINT.VALUE
+        EDD(ROWBREAK)
+    }
+}
+MENU mnu_position_value
+{
+    LABEL "|en|Actual Position";
+    STYLE(GROUP)
+    ITEMS
+    {
+        PARAM.ACTUAL_POSITION.STATUS
+        EDD(COLUMNBREAK)
+        PARAM.ACTUAL_POSITION.VALUE
+        EDD(ROWBREAK)
+    }
+}
+
+MENU mnu_position_group
+{
+    LABEL "|en|Position";
+    STYLE(GROUP)
+    ITEMS
+    {
+        mnu_final_value
+        mnu_finalposition_value
+        mnu_workingsp_value
+        mnu_workingpos_value
+        mnu_setpoint_value
+        mnu_position_value
+    }
+}
+
+MENU mnu_supply_pressure
+{
+    LABEL "|en|Supply Pressure";
+    STYLE(GROUP)
+    ITEMS
+    {
+        PARAM.SUPPLY_PRESSURE.STATUS
+        EDD(COLUMNBREAK)
+        PARAM.SUPPLY_PRESSURE.VALUE
+        EDD(ROWBREAK)
+    }
+}
+
+MENU mnu_actuator_a_pressure
+{
+    LABEL "|en|Actuator A Pressure";
+    STYLE(GROUP)
+    ITEMS
+    {
+        PARAM.ACTUATOR_A_PRESSURE.STATUS
+        EDD(COLUMNBREAK)
+        PARAM.ACTUATOR_A_PRESSURE.VALUE
+        EDD(ROWBREAK)
+    }
+}
+MENU mnu_actuator_b_pressure
+{
+    LABEL "|en|Actuator B Pressure";
+    STYLE(GROUP)
+#ifndef DD4
+    VALIDITY
+        IF( SVI2_DBL_ACT == PARAM.ACTUATOR_3.ACT_STYLE )
+        { TRUE; }
+        ELSE
+        { FALSE; }
+#endif
+    ITEMS
+    {
+        PARAM.ACTUATOR_B_PRESSURE.STATUS
+        EDD(COLUMNBREAK)
+        PARAM.ACTUATOR_B_PRESSURE.VALUE
+        EDD(ROWBREAK)
+    }
+}
+MENU mnu_atmospheric_pressure
+{
+    LABEL "|en|Atmospheric Pressure";
+    STYLE(GROUP)
+    ITEMS
+    {
+        PARAM.ATMOSPHERIC_PRESSURE.STATUS
+        EDD(COLUMNBREAK)
+        PARAM.ATMOSPHERIC_PRESSURE.VALUE
+        EDD(ROWBREAK)
+    }
+}
+
+MENU mnu_pilot_pressure
+{
+    LABEL "|en|Pilot Pressure";
+    STYLE(GROUP)
+    ITEMS
+    {
+        PARAM.PILOT_PRESSURE.STATUS
+        EDD(COLUMNBREAK)
+        PARAM.PILOT_PRESSURE.VALUE
+        EDD(ROWBREAK)
+    }
+}
+
+MENU mnu_pressure_group
+{
+    LABEL "|en|Pressure";
+    STYLE(GROUP)
+    ITEMS
+    {
+        mnu_supply_pressure
+        mnu_actuator_a_pressure
+        mnu_actuator_b_pressure
+        mnu_atmospheric_pressure
+        mnu_pilot_pressure
+    }
+}
+
+MENU mnu_current_group
+{
+    LABEL "|en|I/P";
+    STYLE(GROUP)
+    ITEMS
+    {
+        PARAM.IP_DRIVE_CURRENT.STATUS
+        EDD(COLUMNBREAK)
+        PARAM.IP_DRIVE_CURRENT.VALUE
+        EDD(ROWBREAK)
+    }
+}
+
+MENU mnu_temperature_group
+{
+    LABEL "|en|Temperature";
+    STYLE(GROUP)
+    ITEMS
+    {
+        PARAM.TEMPERATURE.STATUS
+        EDD(COLUMNBREAK)
+        PARAM.TEMPERATURE.VALUE
+        EDD(ROWBREAK)
+    }
+}
+MENU mnu_ao_control
+{
+    LABEL "|en|AO Control";
+    STYLE(WINDOW)
+    ITEMS
+    {
+        mnu_tbmode_mode
+        mnu_position_group
+        mnu_pressure_group
+        mnu_current_group
+        mnu_temperature_group
     }
 }
 
 MENU mnu_calibrate
 {
     LABEL "|en|Calibration";
-    EDD(STYLE WINDOW;)
+    STYLE(WINDOW)
     ITEMS
     {
         mnu_strokevalve
@@ -560,42 +838,21 @@ MENU mnu_calibrate
         mnu_inputs
     }
 }
-
-MENU mnu_commissioning
+MENU mnu_identification
 {
-    LABEL "|en|Commissioning Services";
-    EDD(STYLE WINDOW;)
+    LABEL "|en|Identification";
+    STYLE(WINDOW)
     ITEMS
     {
-        mnu_commconfigure
-        mnu_manualsetpoint
-        mnu_posretransmit
-        mnu_switchconfiguration
-    }
-}
-
-MENU mnu_commconfigure
-{
-    LABEL "|en|Basic Info.";
-    EDD(STYLE PAGE;)
-    ITEMS
-    {
-        mnu_block_mode
-    }
-}
-
-MENU mnu_posretransmit
-{
-    LABEL "|en|Position Retransmit";
-    ITEMS
-    {
-        mnu_block_mode
+        mnu_actuator
+        mnu_valve_info
+        mnu_valve_body
     }
 }
 MENU mnu_cal_positions
 {
     LABEL "|en|Valve Position";
-    EDD(STYLE GROUP;)
+    STYLE(GROUP)
     ITEMS
     {
         PARAM.SUPPLY_PRESSURE.STATUS
@@ -621,7 +878,7 @@ MENU mnu_cal_positions
 MENU mnu_strokevalve
 {
     LABEL "|en|Valve Travel";
-    EDD(STYLE PAGE;)
+    STYLE(PAGE)
     ITEMS
     {
         mnu_mode_row
@@ -638,8 +895,8 @@ MENU mnu_strokevalve
 
 MENU mnu_mode_row
 {
-    LABEL "|en|RB Block Mode";
-    EDD(STYLE GROUP;)
+    LABEL "|en|Block Mode";
+    STYLE(GROUP)
     ITEMS
     {
         PARAM.MODE_BLK.TARGET
@@ -647,72 +904,205 @@ MENU mnu_mode_row
         PARAM.MODE_BLK.ACTUAL
         EDD(COLUMNBREAK)
         PARAM.MODE_BLK.PERMITTED
+/* Can't cross-reference menus between blocks
+        EDD(COLUMNBREAK)
+        change_app_mode*/
+    }
+}
+MENU  mnu_tbmode_mode
+{
+    LABEL "|en|Block Mode";
+    STYLE(GROUP)
+    ITEMS
+    {
+        PARAM.MODE_BLK.TARGET
+        EDD(COLUMNBREAK)
+        PARAM.MODE_BLK.ACTUAL
+        EDD(ROWBREAK)
         EDD(COLUMNBREAK)
         change_app_mode
     }
 }
 
-MENU mnu_manualsetpoint
+MENU mnu_act_tuningdata
 {
-    LABEL "|en|Manual Position Setpoint";
+	LABEL "|en|Active Control Tuning Data";
+	STYLE(GROUP)
+	ITEMS
+	{
+		PARAM.ACTIVATE_CONTROL_SET
+		EDD(ROWBREAK)
+		PARAM.ACTIVE_CONTROL_SET.P
+		PARAM.ACTIVE_CONTROL_SET.I
+		PARAM.ACTIVE_CONTROL_SET.D
+		PARAM.ACTIVE_CONTROL_SET.PADJ
+		PARAM.ACTIVE_CONTROL_SET.BETA
+		PARAM.ACTIVE_CONTROL_SET.POSCOMP
+		PARAM.ACTIVE_CONTROL_SET.DEADZONE
+		PARAM.ACTIVE_CONTROL_SET.NONLIN
+	}
+}
+        
+MENU mnu_custuningdata
+{
+	LABEL "|en|Custom Control Tuning Data";
+	STYLE(GROUP)
+	ITEMS
+	{
+		PARAM.CUSTOM_CONTROL_SET.P
+		PARAM.CUSTOM_CONTROL_SET.I
+		PARAM.CUSTOM_CONTROL_SET.D
+		PARAM.CUSTOM_CONTROL_SET.PADJ
+		PARAM.CUSTOM_CONTROL_SET.BETA
+		PARAM.CUSTOM_CONTROL_SET.POSCOMP
+		PARAM.CUSTOM_CONTROL_SET.DEADZONE
+		PARAM.CUSTOM_CONTROL_SET.NONLIN
+	}
+}
+MENU mnu_tuningdata
+{
+    LABEL "|en|Tuning Data";
+	STYLE(GROUP)
+    ITEMS
+    {		
+		mnu_act_tuningdata
+		EDD(COLUMNBREAK)
+		mnu_custuningdata
+        
+		EDD(ROWBREAK)
+		do_read_write_control_set
+    }
+}
+       
+MENU mnu_characterization
+{
+    LABEL "|en|Characterization";
+    STYLE(GROUP)
     ITEMS
     {
-        mnu_block_mode
-        EDD(ROWBREAK)
-        PARAM.FINAL_VALUE.STATUS
-        PARAM.FINAL_VALUE.VALUE
+        PARAM.CHAR_SELECTION.TYPE_1 /*_svi2*/
         EDD(COLUMNBREAK)
-        PARAM.WORKING_SP.STATUS
-        PARAM.WORKING_SP.VALUE   
-        EDD(ROWBREAK)
-        PARAM.WORKING_POS.STATUS
-        PARAM.WORKING_POS.VALUE
+        PARAM.CHAR_SELECTION.NUMBER_OF_POINTS_1 /*_svi2*/
         EDD(COLUMNBREAK)
-        PARAM.FINAL_POSITION_VALUE.STATUS
-        PARAM.FINAL_POSITION_VALUE.VALUE
-        EDD(ROWBREAK)
-        PARAM.SETPOINT.STATUS
-        PARAM.SETPOINT.VALUE    
     }
 }
 
-MENU mnu_manualsetup
+MENU mnu_travelrange
 {
-    LABEL "|en|Manual Setup";
-    EDD(STYLE WINDOW;)
+    LABEL "|en|Travel";
+    STYLE(GROUP)
     ITEMS
     {
-        mnu_block_mode
+        PARAM.TRAVEL.RANGE
+        EDD(COLUMNBREAK)
+        PARAM.TRAVEL.UNITS_INDEX
+        EDD(COLUMNBREAK)
+        PARAM.OPEN_STOP_ADJUSTMENT
+    }
+}
+
+MENU mnu_startup
+{
+    LABEL "|en|Startup";
+	STYLE(PAGE) /*ADDED style*/
+    ITEMS
+    {
+        mnu_tbmode_mode
+		PARAM.ACTUATOR_3.ACT_FAIL_ACTION_1
+		PARAM.ACCESSORY.REMOTE_SENSOR
+        EDD(ROWBREAK)
+        mnu_tuningdata
+        EDD(ROWBREAK)
+        mnu_characterization
+        EDD(ROWBREAK)
+        mnu_travelrange
+        EDD(ROWBREAK)
         do_find_stops
+        EDD(COLUMNBREAK)
+        do_manual_hi_low_stops
+        EDD(COLUMNBREAK)
         do_autotune
     }
 }
 
-MENU mnu_actuatorvalve
+MENU grp_tb_updateevent
 {
-    LABEL "|en|Actuator Type";
-    EDD(STYLE PAGE;)
+    LABEL "|en|Update Event";
+    STYLE(GROUP)
     ITEMS
     {
-        PARAM.ACTUATOR_3.ACT_FAIL_ACTION_1 /*_svi2*/
-        PARAM.ACTUATOR_3.ACT_STYLE
+        PARAM.UPDATE_EVT.UNACKNOWLEDGED
+        PARAM.UPDATE_EVT.UPDATE_STATE
+        PARAM.UPDATE_EVT.TIME_STAMP
+        PARAM.UPDATE_EVT.STATIC_REVISION
+        PARAM.UPDATE_EVT.RELATIVE_INDEX
+    }
+}
+MENU grp_tb_blockalarm
+{
+    LABEL "|en|Block Alarm";
+    STYLE(GROUP)
+    ITEMS
+    {
+        PARAM.BLOCK_ALM.UNACKNOWLEDGED
+        PARAM.BLOCK_ALM.ALARM_STATE
+        PARAM.BLOCK_ALM.TIME_STAMP
+        PARAM.BLOCK_ALM.SUB_CODE
+        PARAM.BLOCK_ALM.VALUE
     }
 }
 
+MENU mnu_tb_process
+{
+    LABEL "|en|Process";
+	STYLE(PAGE) /*ADDED style*/
+    ITEMS
+    {
+        mnu_block_mode
+        PARAM.TAG_DESC
+        PARAM.STRATEGY
+        PARAM.ALERT_KEY
+        EDD(ROWBREAK)
+        grp_tb_updateevent
+        EDD(COLUMNBREAK)
+        grp_tb_blockalarm
+        EDD(ROWBREAK)
+        PARAM.TRANSDUCER_DIRECTORY
+        PARAM.BLOCK_ERR_DESC_1
+    }
+}
 MENU mnu_inputs
 {
     LABEL "|en|Sensors";
-    EDD(STYLE PAGE;)
+    STYLE(PAGE)
     ITEMS
     {
         mnu_block_mode
     }
 }
 
+MENU grp_blockerror
+{
+    LABEL "|en|Block Error";
+    STYLE(GROUP)
+    ITEMS
+    {
+        PARAM.BLOCK_ERR
+    }
+}
+MENU mnu_blockerror
+{
+    LABEL "|en|Block Error";
+    STYLE(WINDOW)
+    ITEMS
+    {
+        grp_blockerror
+    }
+}
 MENU mnu_devicestatusfaults
 {
     LABEL "|en|Status/Faults";
-    EDD(STYLE WINDOW;)
+    STYLE(WINDOW)
     ITEMS
     {
         mnu_block_mode
@@ -720,13 +1110,17 @@ MENU mnu_devicestatusfaults
         mnu_currentfaultlist
         EDD(COLUMNBREAK)
         mnu_historyfaultlist
+        EDD(ROWBREAK)
+        clear_current_fault
+        EDD(COLUMNBREAK)
+        clear_all_fault
     }
 }
 
 MENU mnu_currentfaultlist
 {
     LABEL "|en|Current Faults";
-    EDD(STYLE GROUP;)
+    STYLE(GROUP)
     ITEMS
     {
         PARAM.COMPLETE_STATUS.CURRENT_STATUS_0_C
@@ -743,7 +1137,7 @@ MENU mnu_currentfaultlist
 MENU mnu_historyfaultlist
 {
     LABEL "|en|History Faults";
-    EDD(STYLE GROUP;)
+    STYLE(GROUP)
     ITEMS
     {
         PARAM.COMPLETE_STATUS.HISTORY_STATUS_0_H
@@ -760,7 +1154,7 @@ MENU mnu_historyfaultlist
 MENU mnu_positionhistogram
 {
     LABEL "|en|Position Histogram";
-    EDD(STYLE GROUP;)
+    STYLE(GROUP)
     ITEMS
     {
         PARAM.POSITION_HISTOGRAM.TOTAL_TIME
@@ -782,7 +1176,7 @@ MENU mnu_positionhistogram
 MENU mnu_positionErrorhistogram
 {
     LABEL "|en|Position Error Histogram";
-    EDD(STYLE GROUP;)
+    STYLE(GROUP)
     ITEMS
     {
         PARAM.POSITION_ERROR_HISTOGRAM.POS_5_PERCENT_CLOSED
@@ -803,7 +1197,7 @@ MENU mnu_positionErrorhistogram
 MENU mnu_nearclosedalert
 {
     LABEL "|en|Near Closed Alert";
-    EDD(STYLE GROUP;)
+    STYLE(GROUP)
     ITEMS
     {
         PARAM.NEAR_CLOSED_ALERT.POINT_CLOSED
@@ -818,7 +1212,7 @@ MENU mnu_nearclosedalert
 MENU mnu_positionerrortrend
 {
     LABEL "|en|Position Error Trend";
-    EDD(STYLE GROUP;)
+    STYLE(GROUP)
     ITEMS
     {
         PARAM.POSITION_ERROR_TREND.CURRENTLY_COLLECTED
@@ -844,7 +1238,7 @@ MENU mnu_positionerrortrend
 MENU mnu_historian_position
 {
     LABEL "|en|Position";
-    EDD(STYLE PAGE;)
+    STYLE(PAGE)
     ITEMS
     {
         mnu_positionhistogram
@@ -857,27 +1251,11 @@ MENU mnu_historian_position
     }
 }
 
-MENU mnu_working_time
-{
-    LABEL "|en|Working Time";
-    EDD(STYLE PAGE;)
-    ITEMS
-    {
-        PARAM.WORKING_TIMES.SINCE_RESET
-        PARAM.WORKING_TIMES.TOTAL_TIME
-        EDD(COLUMNBREAK)
-        PARAM.WORKING_TIME_ALERT.ALERT_TOTAL_TIME
-        PARAM.WORKING_TIME_ALERT.ALERT_POINT
-        PARAM.WORKING_TIME_ALERT.ALERT
-        PARAM.WORKING_TIME_ALERT.HISTORIC_ALERT
-        PARAM.WORKING_TIME_ALERT.ENABLE
-    }
-}
 
 MENU mnu_travelalertA
 {
     LABEL "|en|Travel Accumulation Alert A";
-    EDD(STYLE GROUP;)
+    STYLE(GROUP)
     ITEMS
     {
         PARAM.TRAVEL_ACCUMULATION_A_ALERT.TRAVEL_ACCUMULATION
@@ -892,7 +1270,7 @@ MENU mnu_travelalertA
 MENU mnu_travelalertB
 {
     LABEL "|en|Travel Accumulation Alert B";
-    EDD(STYLE GROUP;)
+    STYLE(GROUP)
     ITEMS
     {
         PARAM.TRAVEL_ACCUMULATION_B_ALERT.TRAVEL_ACCUMULATION
@@ -907,7 +1285,7 @@ MENU mnu_travelalertB
 MENU mnu_travel
 {
     LABEL "|en|Travel";
-    EDD(STYLE PAGE;)
+    STYLE(PAGE)
     ITEMS
     {
         PARAM.TRAVEL_ACCUMULATION_TREND.CURRENTLY_COLLECTED
@@ -937,7 +1315,7 @@ MENU mnu_travel
 MENU mnu_cyclealertA
 {
     LABEL "|en|Cycle Counter Alert A";
-    EDD(STYLE GROUP;)
+    STYLE(GROUP)
     ITEMS
     {
         PARAM.CYCLE_COUNTER_A_ALERT.CYCLE_COUNTER
@@ -952,7 +1330,7 @@ MENU mnu_cyclealertA
 MENU mnu_cyclealertB
 {
     LABEL "|en|Cycle Counter Alert B";
-    EDD(STYLE GROUP;)
+    STYLE(GROUP)
     ITEMS
     {
         PARAM.CYCLE_COUNTER_B_ALERT.CYCLE_COUNTER
@@ -967,7 +1345,7 @@ MENU mnu_cyclealertB
 MENU mnu_cycle
 {
     LABEL "|en|Cycle";
-    EDD(STYLE PAGE;)
+    STYLE(PAGE)
     ITEMS
     {
         PARAM.CYCLE_COUNTER_TREND.CURRENTLY_COLLECTED
@@ -996,164 +1374,514 @@ MENU mnu_cycle
 
 MENU mnu_historian
 {
-    LABEL "|en|Valve Historian";
-    EDD(STYLE WINDOW;)
+    LABEL "|en|Position Histogram";
+    STYLE(WINDOW)
     ITEMS
     {
         mnu_historian_position
-        mnu_working_time
+    }
+}
+
+MENU mnu_trend
+{
+    LABEL "|en|Trend";
+    STYLE(WINDOW)
+    ITEMS
+    {
         mnu_travel
         mnu_cycle
     }
 }
 
-MENU mnu_signature
+MENU grp_alertstate
 {
-    LABEL "|en|Signature";
-    EDD(STYLE WINDOW;)
+    LABEL "|en|Alert State";
+    STYLE(GROUP)
     ITEMS
     {
-        mnu_block_mode
+        PARAM.ALERT_STATE.DEVIATION_ALERT_STATE
+        PARAM.ALERT_STATE.POSITION_HIHI_ALERT_STATE
+        PARAM.ALERT_STATE.POSITION_HI_ALERT_STATE
+        PARAM.ALERT_STATE.POSITION_LO_ALERT_STATE
+        PARAM.ALERT_STATE.POSITION_LOLO_ALERT_STATE
+        PARAM.ALERT_STATE.SET_POINT_TIMEOUT_ALERT_STATE
+        PARAM.ALERT_STATE.NEAR_CLOSE_ALERT_STATE
+        PARAM.ALERT_STATE.TRAVEL_ACCUMULATION_A_ALERT_STATE
+        PARAM.ALERT_STATE.TRAVEL_ACCUMULATION_B_ALERT_STATE
+        PARAM.ALERT_STATE.CYCLE_COUNTER_A_ALERT_STATE
+        PARAM.ALERT_STATE.CYCLE_COUNTER_B_ALERT_STATE
+        PARAM.ALERT_STATE.WORKING_TIME_ALERT_STATE
+        PARAM.ALERT_STATE.SUPPLY_PRESSURE_HI_ALERT_STATE
+        PARAM.ALERT_STATE.SUPPLY_PRESSURE_LO_ALERT_STATE
+        PARAM.ALERT_STATE.SUPPLY_PRESSURE_LOLO_ALERT_STATE
+        PARAM.ALERT_STATE.TEMPERATURE_HI_ALERT_STATE
+        PARAM.ALERT_STATE.TEMPERATURE_LO_ALERT_STATE
+        PARAM.ALERT_STATE.IP_DRIVE_CURRENT_ALERT_HI_STATE
+        PARAM.ALERT_STATE.IP_DRIVE_CURRENT_ALERT_LO_STATE
+        PARAM.ALERT_STATE.SENSOR_FAILURE_ALERT_STATE
+        PARAM.ALERT_STATE.PROCESSOR_ALERT_STATE
+        PARAM.ALERT_STATE.VALVE_CONTROL_ALERT_STATE
+        PARAM.ALERT_STATE.COMMISSIONING_ALERT_STATE
+        PARAM.ALERT_STATE.AIR_SUPPLY_ALERT_STATE
+        PARAM.ALERT_STATE.SUPPORTING_HARDWARE_ALERT_STATE
+    }
+}
+MENU grp_alertcounter
+{
+    LABEL "|en|Alert Counter";
+    STYLE(GROUP)
+    ITEMS
+    {
+        PARAM.ALERT_COUNTERS.DEVIATION_ALERT_CNT
+        PARAM.ALERT_COUNTERS.POSITION_HIHI_ALERT_CNT
+        PARAM.ALERT_COUNTERS.POSITION_HI_ALERT_CNT
+        PARAM.ALERT_COUNTERS.POSITION_LO_ALERT_CNT
+        PARAM.ALERT_COUNTERS.POSITION_LOLO_ALERT_CNT
+        PARAM.ALERT_COUNTERS.SET_POINT_TIMEOUT_ALERT_CNT
+        PARAM.ALERT_COUNTERS.NEAR_CLOSE_ALERT_CNT
+        PARAM.ALERT_COUNTERS.TRAVEL_ACCUMULATION_A_ALERT_CNT
+        PARAM.ALERT_COUNTERS.TRAVEL_ACCUMULATION_B_ALERT_CNT
+        PARAM.ALERT_COUNTERS.CYCLE_COUNTER_A_ALERT_CNT
+        PARAM.ALERT_COUNTERS.CYCLE_COUNTER_B_ALERT_CNT
+        PARAM.ALERT_COUNTERS.WORKING_TIME_ALERT_CNT
+        PARAM.ALERT_COUNTERS.SUPPLY_PRESSURE_HI_ALERT_CNT
+        PARAM.ALERT_COUNTERS.SUPPLY_PRESSURE_LO_ALERT_CNT
+        PARAM.ALERT_COUNTERS.SUPPLY_PRESSURE_LOLO_ALERT_CNT
+        PARAM.ALERT_COUNTERS.TEMPERATURE_HI_ALERT_CNT
+        PARAM.ALERT_COUNTERS.TEMPERATURE_LO_ALERT_CNT
+        PARAM.ALERT_COUNTERS.IP_DRIVE_CURRENT_ALERT_HI_CNT
+        PARAM.ALERT_COUNTERS.IP_DRIVE_CURRENT_ALERT_LO_CNT
+        PARAM.ALERT_COUNTERS.SENSOR_FAILURE_ALERT_CNT
+        PARAM.ALERT_COUNTERS.PROCESSOR_ALERT_CNT
+        PARAM.ALERT_COUNTERS.VALVE_CONTROL_ALERT_CNT
+        PARAM.ALERT_COUNTERS.COMMISSIONING_ALERT_CNT
+        PARAM.ALERT_COUNTERS.AIR_SUPPLY_ALERT_CNT
+        PARAM.ALERT_COUNTERS.SUPPORTING_HARDWARE_ALERT_CNT
+    }
+}
+MENU mnu_positionerstate
+{
+    LABEL "|en|Positioner State";
+    STYLE(WINDOW)
+    ITEMS
+    {
+        grp_alertstate
+        EDD(COLUMNBREAK)
+        grp_alertcounter
+        EDD(ROWBREAK)
+    }
+}
+
+MENU mnu_diag_configuration
+{
+    LABEL "|en|Configuration";
+    STYLE(WINDOW)
+    ITEMS
+    {
+        PARAM.DIAGNOSTIC_CONFIGURATION.START_POSITION
+        PARAM.DIAGNOSTIC_CONFIGURATION.END_POSITION
+        PARAM.DIAGNOSTIC_CONFIGURATION.SET_POINT_RATE
+        PARAM.DIAGNOSTIC_CONFIGURATION.SAMPLING_TIME
+        PARAM.DIAGNOSTIC_CONFIGURATION.DIRECTION
+        PARAM.DIAGNOSTIC_CONFIGURATION.OPTION
+        PARAM.OFFLINE_DIAGNOSTIC
+        EDD(COLUMNBREAK)
+        PARAM.APP_MODE
+        EDD(ROWBREAK)
     }
 }
 
 MENU mnu_sensormeasurements
 {
-    LABEL "|en|Sensor Measurements";
-    EDD(STYLE WINDOW;)
+    LABEL "|en|Device State";
+    STYLE(WINDOW)
     ITEMS
     {
-        mnu_itop
-        mnu_readpressures
-        mnu_temperature
-        mnu_switches
-        mnu_rawdata
-    }
-}
-
-MENU mnu_itop
-{
-    LABEL "|en|I/P";
-    EDD(STYLE PAGE;)
-    ITEMS
-    {
-        PARAM.IP_CURRENT_EXTREMES.IP_CURRENT_MIN
-        EDD(COLUMNBREAK)
-        PARAM.IP_DRIVE_CURRENT.STATUS
-        PARAM.IP_DRIVE_CURRENT.VALUE
-        EDD(COLUMNBREAK)
-        PARAM.IP_CURRENT_EXTREMES.IP_CURRENT_MAX
-        EDD(ROWBREAK)
-        PARAM.IP_DRIVE_CURRENT_LO_ALERT.CURRENT
-        PARAM.IP_DRIVE_CURRENT_LO_ALERT.ALERT_POINT
-        PARAM.IP_DRIVE_CURRENT_LO_ALERT.DEADBAND
-        PARAM.IP_DRIVE_CURRENT_LO_ALERT.DURATION_TIME
-        PARAM.IP_DRIVE_CURRENT_LO_ALERT.ALERT
-        PARAM.IP_DRIVE_CURRENT_LO_ALERT.HISTORIC_ALERT
-        PARAM.IP_DRIVE_CURRENT_LO_ALERT.ENABLE
-        EDD(COLUMNBREAK)
-        PARAM.IP_DRIVE_CURRENT_HI_ALERT.CURRENT
-        PARAM.IP_DRIVE_CURRENT_HI_ALERT.ALERT_POINT
-        PARAM.IP_DRIVE_CURRENT_HI_ALERT.DEADBAND
-        PARAM.IP_DRIVE_CURRENT_HI_ALERT.DURATION_TIME
-        PARAM.IP_DRIVE_CURRENT_HI_ALERT.ALERT
-        PARAM.IP_DRIVE_CURRENT_HI_ALERT.HISTORIC_ALERT
-        PARAM.IP_DRIVE_CURRENT_HI_ALERT.ENABLE
-
-    }
-}
-
-MENU mnu_readpressures
-{
-    LABEL "|en|Pressures";
-    EDD(STYLE PAGE;)
-    ITEMS
-    {
+        mnu_final_value
+        mnu_finalposition_value
+        PARAM.XD_ERROR_POS
+        mnu_supply_pressure
+        mnu_actuator_a_pressure
+        mnu_actuator_b_pressure
+        mnu_atmospheric_pressure
+        mnu_pilot_pressure
         PARAM.XD_ERROR_PRESSURE
-        PARAM.PRESSURE_RANGE.EU_0
-        EDD(COLUMNBREAK)
-        PARAM.PRESSURE_RANGE.UNITS_INDEX
-        EDD(COLUMNBREAK)
-        PARAM.PRESSURE_RANGE.EU_100
-        EDD(ROWBREAK)
-        PARAM.SUPPLY_PRESSURE.STATUS
-        PARAM.SUPPLY_PRESSURE.VALUE
-        EDD(COLUMNBREAK)
-        PARAM.ACTUATOR_A_PRESSURE.STATUS
-        PARAM.ACTUATOR_A_PRESSURE.VALUE
-        EDD(COLUMNBREAK)
-        PARAM.ACTUATOR_B_PRESSURE.STATUS
-        PARAM.ACTUATOR_B_PRESSURE.VALUE
-        EDD(ROWBREAK)
-        PARAM.PILOT_PRESSURE.STATUS
-        PARAM.PILOT_PRESSURE.VALUE
-        EDD(COLUMNBREAK)
-        PARAM.ATMOSPHERIC_PRESSURE.STATUS
-        PARAM.ATMOSPHERIC_PRESSURE.VALUE
-        EDD(COLUMNBREAK)
-    }
-}
-
-MENU mnu_temperature
-{
-    LABEL "|en|Temperature";
-    EDD(STYLE PAGE;)
-    ITEMS
-    {
+        mnu_temperature_group
         PARAM.XD_ERROR_TEMPERATURE
-        PARAM.TEMPERATURE_EXTREMES.TEMPERATURE_MIN
-        EDD(COLUMNBREAK)
-        PARAM.TEMPERATURE.STATUS
-        PARAM.TEMPERATURE.VALUE
-        EDD(COLUMNBREAK)
-        PARAM.TEMPERATURE_EXTREMES.TEMPERATURE_MAX
-        EDD(ROWBREAK)
-        PARAM.TEMPERATURE_LO_ALERT.TEMPERATURE_1 /*_svi2*/
-        PARAM.TEMPERATURE_LO_ALERT.ALERT_POINT
-        PARAM.TEMPERATURE_LO_ALERT.DEADBAND
-        PARAM.TEMPERATURE_LO_ALERT.ALERT
-        PARAM.TEMPERATURE_LO_ALERT.HISTORIC_ALERT
-        PARAM.TEMPERATURE_LO_ALERT.ENABLE
-        EDD(COLUMNBREAK)
-        PARAM.TEMPERATURE_HI_ALERT.TEMPERATURE_1 /*_svi2*/
-        PARAM.TEMPERATURE_HI_ALERT.ALERT_POINT
-        PARAM.TEMPERATURE_HI_ALERT.DEADBAND
-        PARAM.TEMPERATURE_HI_ALERT.ALERT
-        PARAM.TEMPERATURE_HI_ALERT.HISTORIC_ALERT
-        PARAM.TEMPERATURE_HI_ALERT.ENABLE
-        EDD(COLUMNBREAK)
-    }
-}
-
-MENU mnu_rawdata
-{
-    LABEL "|en|Raw Sensor Data";
-    EDD(STYLE PAGE;)
-    ITEMS
-    {
-        mnu_block_mode
-        PARAM.RAW_POSITION
+        mnu_current_group
     }
 }
 
 MENU mnu_pidinfo
 {
     LABEL "|en|Valve Tuning Data";
-    EDD(STYLE PAGE;)
+    STYLE(PAGE)
+    ITEMS
+    {
+        mnu_act_tuningdata
+        EDD(COLUMNBREAK)
+		mnu_custuningdata
+        EDD(ROWBREAK)
+		do_read_write_control_set
+    }
+}
+MENU mnu_position_alert_lo
+{
+	LABEL "|en|Lo Alert";
+STYLE(GROUP)
+ITEMS
+{
+	    PARAM.POSITION_LO_ALERT.POSITION
+		PARAM.POSITION_LO_ALERT.ALERT_POINT
+		PARAM.POSITION_LO_ALERT.DEADBAND
+		PARAM.POSITION_LO_ALERT.ALERT
+		PARAM.POSITION_LO_ALERT.HISTORIC_ALERT
+		PARAM.POSITION_LO_ALERT.ENABLE
+}
+}
+MENU mnu_position_alert_hi
+{
+	LABEL "|en|Hi Alert";
+STYLE(GROUP)
+ITEMS
+{
+	PARAM.POSITION_HI_ALERT.POSITION
+		PARAM.POSITION_HI_ALERT.ALERT_POINT
+		PARAM.POSITION_HI_ALERT.DEADBAND
+		PARAM.POSITION_HI_ALERT.ALERT
+		PARAM.POSITION_HI_ALERT.HISTORIC_ALERT
+		PARAM.POSITION_HI_ALERT.ENABLE
+}
+}
+MENU mnu_position_hilo_alert
+{
+    LABEL "|en|Position Hi/Lo Alerts";
+    STYLE(GROUP)
+    ITEMS
+    {
+		mnu_position_alert_lo
+        EDD(COLUMNBREAK)
+		mnu_position_alert_hi
+    }
+}
+
+MENU mnu_position_alert_lolo
+{
+	LABEL "|en|LoLo Alert";
+STYLE(GROUP)
+ITEMS
+{
+	PARAM.POSITION_LOLO_ALERT.POSITION
+		PARAM.POSITION_LOLO_ALERT.ALERT_POINT
+		PARAM.POSITION_LOLO_ALERT.DEADBAND
+		PARAM.POSITION_LOLO_ALERT.ALERT
+		PARAM.POSITION_LOLO_ALERT.HISTORIC_ALERT
+		PARAM.POSITION_LOLO_ALERT.ENABLE
+
+    }
+}
+
+MENU mnu_position_alert_hihi
+{
+	LABEL "|en|HiHi Alert";
+STYLE(GROUP)
+    ITEMS
+    {
+	PARAM.POSITION_HIHI_ALERT.POSITION
+		PARAM.POSITION_HIHI_ALERT.ALERT_POINT
+		PARAM.POSITION_HIHI_ALERT.DEADBAND
+		PARAM.POSITION_HIHI_ALERT.ALERT
+		PARAM.POSITION_HIHI_ALERT.HISTORIC_ALERT
+		PARAM.POSITION_HIHI_ALERT.ENABLE
+
+}
+}
+
+MENU mnu_position_alert
+{
+    LABEL "|en|Position LoLo/HiHi Alert";
+    STYLE(GROUP)
+    ITEMS
+    {
+		mnu_position_alert_lolo
+        EDD(COLUMNBREAK)
+		mnu_position_alert_hihi
+    }
+}
+
+MENU mnu_supply_ll
+{
+LABEL "|en|LoLo Alert";
+STYLE(GROUP)
+ITEMS
+{
+	PARAM.SUPPLY_PRESSURE.VALUE
+		PARAM.SUPPLY_PRESSURE_LOLO_ALERT.ALERT_POINT
+		PARAM.SUPPLY_PRESSURE_LOLO_ALERT.DEADBAND
+		PARAM.SUPPLY_PRESSURE_LOLO_ALERT.ALERT
+		PARAM.SUPPLY_PRESSURE_LOLO_ALERT.HISTORIC_ALERT
+		PARAM.SUPPLY_PRESSURE_LOLO_ALERT.ENABLE
+}
+}
+MENU mnu_supply_lo
+{
+	LABEL "|en|Lo Alert";
+STYLE(GROUP)
+ITEMS
+{
+        PARAM.SUPPLY_PRESSURE.VALUE
+		PARAM.SUPPLY_PRESSURE_LO_ALERT.ALERT_POINT
+		PARAM.SUPPLY_PRESSURE_LO_ALERT.DEADBAND
+		PARAM.SUPPLY_PRESSURE_LO_ALERT.ALERT
+		PARAM.SUPPLY_PRESSURE_LO_ALERT.HISTORIC_ALERT
+		PARAM.SUPPLY_PRESSURE_LO_ALERT.ENABLE
+}
+}
+
+MENU mnu_supply_hi
+{
+	LABEL "|en|Hi Alert";
+STYLE(GROUP)
+ITEMS
+{
+	PARAM.SUPPLY_PRESSURE.VALUE
+		PARAM.SUPPLY_PRESSURE_HI_ALERT.ALERT_POINT
+		PARAM.SUPPLY_PRESSURE_HI_ALERT.DEADBAND
+		PARAM.SUPPLY_PRESSURE_HI_ALERT.ALERT
+		PARAM.SUPPLY_PRESSURE_HI_ALERT.HISTORIC_ALERT
+		PARAM.SUPPLY_PRESSURE_HI_ALERT.ENABLE
+}
+}
+MENU mnu_supply_pressure_hilo_alert
+{
+    LABEL "|en|Supply pressure alerts";
+    STYLE(GROUP)
+    ITEMS
+    {
+		mnu_supply_ll
+        EDD(COLUMNBREAK)
+		mnu_supply_lo
+        EDD(COLUMNBREAK)
+		mnu_supply_hi
+    }
+}
+
+MENU mnu_temperature_alerts_lo
+{
+	LABEL "|en|Lo Alert";
+STYLE(GROUP)
+ITEMS
+{
+        PARAM.TEMPERATURE.VALUE
+        PARAM.TEMPERATURE_LO_ALERT.ALERT_POINT
+        PARAM.TEMPERATURE_LO_ALERT.DEADBAND
+        PARAM.TEMPERATURE_LO_ALERT.ALERT
+        PARAM.TEMPERATURE_LO_ALERT.HISTORIC_ALERT
+        PARAM.TEMPERATURE_LO_ALERT.ENABLE
+}
+}
+
+MENU mnu_temperature_alerts_hi
+{
+	LABEL "|en|Hi Alert";
+STYLE(GROUP)
+ITEMS
+{
+	PARAM.TEMPERATURE.VALUE
+        PARAM.TEMPERATURE_HI_ALERT.ALERT_POINT
+        PARAM.TEMPERATURE_HI_ALERT.DEADBAND
+        PARAM.TEMPERATURE_HI_ALERT.ALERT
+        PARAM.TEMPERATURE_HI_ALERT.HISTORIC_ALERT
+        PARAM.TEMPERATURE_HI_ALERT.ENABLE
+}
+}
+MENU mnu_temperature_alerts
+{
+    LABEL "|en|Temperature alerts";
+    STYLE(GROUP)
+    ITEMS
+    {
+		mnu_temperature_alerts_lo
+        EDD(COLUMNBREAK)
+		mnu_temperature_alerts_hi
+    }
+}
+
+MENU mnu_ip_current_alert_lo
+{
+	LABEL "|en|Lo Alert";
+STYLE(GROUP)
+ITEMS
+{
+	PARAM.IP_DRIVE_CURRENT.VALUE
+		PARAM.IP_DRIVE_CURRENT_LO_ALERT.ALERT_POINT
+		PARAM.IP_DRIVE_CURRENT_LO_ALERT.DEADBAND
+		PARAM.IP_DRIVE_CURRENT_LO_ALERT.DURATION_TIME
+		PARAM.IP_DRIVE_CURRENT_LO_ALERT.ALERT
+		PARAM.IP_DRIVE_CURRENT_LO_ALERT.HISTORIC_ALERT
+		PARAM.IP_DRIVE_CURRENT_LO_ALERT.ENABLE
+}
+}
+
+MENU mnu_ip_current_alert_hi
+{
+	LABEL "|en|Hi Alert";
+STYLE(GROUP)
+    ITEMS
+    {
+	PARAM.IP_DRIVE_CURRENT.VALUE
+		PARAM.IP_DRIVE_CURRENT_HI_ALERT.ALERT_POINT
+		PARAM.IP_DRIVE_CURRENT_HI_ALERT.DEADBAND
+		PARAM.IP_DRIVE_CURRENT_HI_ALERT.DURATION_TIME
+		PARAM.IP_DRIVE_CURRENT_HI_ALERT.ALERT
+		PARAM.IP_DRIVE_CURRENT_HI_ALERT.HISTORIC_ALERT
+		PARAM.IP_DRIVE_CURRENT_HI_ALERT.ENABLE
+}
+}
+
+MENU mnu_ip_current_alert
+{
+    LABEL "|en|IP Current Alerts";
+    STYLE(GROUP)
+    ITEMS
+    {
+		mnu_ip_current_alert_lo
+        EDD(COLUMNBREAK)
+		mnu_ip_current_alert_hi
+    }
+}
+
+MENU mnu_discrete_switch_configure
+{
+    LABEL "|en|Discrete Switch Configure";
+    STYLE(GROUP)
+    ITEMS
+    {
+        PARAM.DISCRETE_SWITCH_1_CONF.DIRECTION
+        PARAM.DISCRETE_SWITCH_1_CONF.FUNCTION
+        EDD(COLUMNBREAK)
+        PARAM.DISCRETE_SWITCH_2_CONF.DIRECTION
+        PARAM.DISCRETE_SWITCH_2_CONF.FUNCTION
+    }
+}
+
+MENU mnu_config_position
+{
+    LABEL "|en|Position";
+    STYLE(WINDOW)
+    ITEMS
+    {
+        mnu_position_configuration
+        mnu_positionlimits
+        mnu_positioncontrol
+        mnu_characterization
+        mnu_positionalerts
+        mnu_travelalerts
+    }
+}
+MENU mnu_position_configuration
+{
+    LABEL "|en|Configuration";
+    STYLE(PAGE)
+    ITEMS
+    {
+        mnu_travelrange
+        grp_failedstate
+        EDD(ROWBREAK)
+        grp_setpointsource
+    }
+}
+MENU mnu_positionlimits
+{
+    LABEL "|en|Position Limits";
+    STYLE(PAGE)
+    ITEMS
+    {
+        grp_positionlimits
+        EDD(COLUMNBREAK)
+        grp_positioncutoff
+        EDD(ROWBREAK)
+        grp_positionratelimits
+    }
+}
+MENU mnu_positioncontrol
+{
+    LABEL "|en|Position Control";
+    STYLE(PAGE)
     ITEMS
     {
         PARAM.ACTIVATE_CONTROL_SET
+        grp_customcontrolset
+    }
+}
+MENU mnu_positionalerts
+{
+    LABEL "|en|Position Alerts";
+    STYLE(PAGE)
+    ITEMS
+    {
+        mnu_position_hilo_alert
         EDD(ROWBREAK)
-        PARAM.ACTIVE_CONTROL_SET.SELECTOR
-        PARAM.ACTIVE_CONTROL_SET.P
-        PARAM.ACTIVE_CONTROL_SET.I
-        PARAM.ACTIVE_CONTROL_SET.D
-        PARAM.ACTIVE_CONTROL_SET.PADJ
-        PARAM.ACTIVE_CONTROL_SET.BETA
-        PARAM.ACTIVE_CONTROL_SET.POSCOMP
-        PARAM.ACTIVE_CONTROL_SET.DEADZONE
-        PARAM.ACTIVE_CONTROL_SET.NONLIN
+        mnu_position_alert
+        EDD(ROWBREAK)
+        grp_deviationalert
         EDD(COLUMNBREAK)
+        mnu_nearclosedalert
+        EDD(ROWBREAK)
+        grp_setpointtimealert
+    }
+}
+MENU mnu_travelalerts
+{
+    LABEL "|en|Travel Alerts";
+    STYLE(PAGE)
+    ITEMS
+    {
+        mnu_travelalertA
+        EDD(COLUMNBREAK)
+        mnu_travelalertB
+        EDD(ROWBREAK)
+        mnu_cyclealertA
+        EDD(COLUMNBREAK)
+        mnu_cyclealertB
+    }
+}
+MENU grp_deviationalert
+{
+    LABEL "|en|Deviation Alert";
+    STYLE(GROUP)
+    ITEMS
+    {
+        PARAM.DEVIATION_ALERT.DEVIATION_VALUE_1
+        PARAM.DEVIATION_ALERT.ALERT_POINT
+        PARAM.DEVIATION_ALERT.DEADBAND
+        PARAM.DEVIATION_ALERT.DURATION_TIME
+        PARAM.DEVIATION_ALERT.ALERT
+        PARAM.DEVIATION_ALERT.HISTORIC_ALERT
+        PARAM.DEVIATION_ALERT.ENABLE
+    }
+}
+MENU grp_setpointtimealert
+{
+    LABEL "|en|Setpoint Timeout Alert";
+    STYLE(GROUP)
+    ITEMS
+    {
+        PARAM.SETPOINT_TIMEOUT_ALERT.TIME_SINCE_UPDATE
+        PARAM.SETPOINT_TIMEOUT_ALERT.ALERT_POINT
+        PARAM.SETPOINT_TIMEOUT_ALERT.MAX_TIME
+        PARAM.SETPOINT_TIMEOUT_ALERT.ALERT
+        PARAM.SETPOINT_TIMEOUT_ALERT.HISTORIC_ALERT
+        PARAM.SETPOINT_TIMEOUT_ALERT.ENABLE
+    }
+}
+
+MENU grp_customcontrolset
+{
+    LABEL "|en|Custom Control Set";
+    STYLE(GROUP)
+    ITEMS
+    {
         PARAM.CUSTOM_CONTROL_SET.P
         PARAM.CUSTOM_CONTROL_SET.I
         PARAM.CUSTOM_CONTROL_SET.D
@@ -1165,252 +1893,223 @@ MENU mnu_pidinfo
     }
 }
 
-MENU mnu_errorlimits
+MENU grp_positionlimits
 {
-    LABEL "|en|Alert/Alarms Setup";
-    EDD(STYLE PAGE;)
+    LABEL "|en|Position Limits";
+    STYLE(GROUP)
     ITEMS
     {
-        mnu_position_alert
-        mnu_position_hilo_alert
-        mnu_near_close_alert
-        mnu_ip_current_alert
+        PARAM.POSITION_LIMITS.LIMITS_PROTECTED
+        PARAM.POSITION_LIMITS.ENABLE_HI
+        PARAM.POSITION_LIMITS.ENABLE_LO
+        PARAM.POSITION_LIMITS.LIMIT_HI
+        PARAM.POSITION_LIMITS.LIMIT_LO
+    }
+}
+
+MENU grp_positionratelimits
+{
+    LABEL "|en|Position Rate Limits";
+    STYLE(GROUP)
+    ITEMS
+    {
+        PARAM.POSITION_LIMITS.ENABLE_RATE_HI
+        PARAM.POSITION_LIMITS.ENABLE_RATE_LO
+        PARAM.POSITION_LIMITS.LIMIT_RATE
+    }
+}
+MENU grp_positioncutoff
+{
+    LABEL "|en|Cut-Offs";
+    STYLE(GROUP)
+    ITEMS
+    {
+        PARAM.FINAL_VALUE_CUTOFF_HI.ENABLE
+        PARAM.FINAL_VALUE_CUTOFF_HI.CUTOFF_POINT_HI
+        PARAM.FINAL_VALUE_CUTOFF_LO.ENABLE
+        PARAM.FINAL_VALUE_CUTOFF_LO.CUTOFF_POINT_LO
+    }
+}
+MENU grp_failedstate
+{
+    LABEL "|en|Failed State";
+    STYLE(GROUP)
+    ITEMS
+    {
+        PARAM.XD_FSTATE.CONFIGURATION
+        PARAM.XD_FSTATE.XD_FSTATE_OPT_1
+        EDD(COLUMNBREAK)
+        PARAM.XD_FSTATE.FSTATE_VALUE_1
+        PARAM.XD_FSTATE.FSTATE_TIME_1
+    }
+}
+
+MENU grp_setpointsource
+{
+    LABEL "|en|Setpoint Source";
+    STYLE(GROUP)
+    ITEMS
+    {
+        PARAM.SETPOINT_SOURCE
+        EDD(COLUMNBREAK)
+        PARAM.READBACK_SELECT
+        EDD(ROWBREAK)
+    }
+}
+
+MENU mnu_config_pressure
+{
+    LABEL "|en|Pressure";
+    STYLE(WINDOW)
+    ITEMS
+    {
+        grp_pressurerange
         mnu_supply_pressure_hilo_alert
+    }
+}
+
+MENU grp_pressurerange
+{
+    LABEL "|en|Pressure Range";
+    STYLE(GROUP)
+    ITEMS
+    {
+        PARAM.PRESSURE_RANGE.EU_100
+        PARAM.PRESSURE_RANGE.EU_100
+        EDD(COLUMNBREAK)
+        PARAM.PRESSURE_RANGE.UNITS_INDEX
+        PARAM.PRESSURE_RANGE.DECIMAL
+        EDD(ROWBREAK)
+
+    }
+}
+
+MENU mnu_config_temperature
+{
+    LABEL "|en|Temperature";
+    STYLE(WINDOW)
+    ITEMS
+    {
         mnu_temperature_alerts
     }
 }
 
-MENU mnu_position_hilo_alert
+MENU mnu_config_current
 {
-    LABEL "|en|Position Hi/Lo Alerts";
+    LABEL "|en|IP Current";
+    STYLE(WINDOW)
     ITEMS
     {
-        PARAM.POSITION_LO_ALERT.POSITION
-        PARAM.POSITION_LO_ALERT.ALERT_POINT
-        PARAM.POSITION_LO_ALERT.DEADBAND
-        PARAM.POSITION_LO_ALERT.ALERT
-        PARAM.POSITION_LO_ALERT.HISTORIC_ALERT
-        PARAM.POSITION_LO_ALERT.ENABLE
-        EDD(COLUMNBREAK)
-        PARAM.POSITION_HI_ALERT.POSITION
-        PARAM.POSITION_HI_ALERT.ALERT_POINT
-        PARAM.POSITION_HI_ALERT.DEADBAND
-        PARAM.POSITION_HI_ALERT.ALERT
-        PARAM.POSITION_HI_ALERT.HISTORIC_ALERT
-        PARAM.POSITION_HI_ALERT.ENABLE
+        mnu_ip_current_alert
     }
 }
 
-MENU mnu_position_alert
+MENU mnu_config_alarms
 {
-    LABEL "|en|Position lolo/hihi Alert";
+    LABEL "|en|Alarms";
+    STYLE(WINDOW)
     ITEMS
     {
-        PARAM.POSITION_LOLO_ALERT.POSITION
-        PARAM.POSITION_LOLO_ALERT.ALERT_POINT
-        PARAM.POSITION_LOLO_ALERT.DEADBAND
-        PARAM.POSITION_LOLO_ALERT.ALERT
-        PARAM.POSITION_LOLO_ALERT.HISTORIC_ALERT
-        PARAM.POSITION_LOLO_ALERT.ENABLE
-        EDD(COLUMNBREAK)
-        PARAM.POSITION_HIHI_ALERT.POSITION
-        PARAM.POSITION_HIHI_ALERT.ALERT_POINT
-        PARAM.POSITION_HIHI_ALERT.DEADBAND
-        PARAM.POSITION_HIHI_ALERT.ALERT
-        PARAM.POSITION_HIHI_ALERT.HISTORIC_ALERT
-        PARAM.POSITION_HIHI_ALERT.ENABLE
+        grp_alertaction
     }
 }
 
-MENU mnu_near_close_alert
+MENU grp_alertaction
 {
-    LABEL "|en|Near Close Alert";
+    LABEL "|en|Alert Action";
+    STYLE(GROUP)
     ITEMS
     {
-        PARAM.NEAR_CLOSED_ALERT.POINT_CLOSED
-        PARAM.NEAR_CLOSED_ALERT.NEAR_CLOSED
-        PARAM.NEAR_CLOSED_ALERT.ALERT_POINT
-        PARAM.NEAR_CLOSED_ALERT.ALERT
-        PARAM.NEAR_CLOSED_ALERT.HISTORIC_ALERT
-        PARAM.NEAR_CLOSED_ALERT.ENABLE
+        PARAM.ALERT_ACTION.MAPPED_TO_RB
+        PARAM.ALERT_ACTION.DEVIATION_ALERT_ACT
+        PARAM.ALERT_ACTION.POSITION_HIHI_ALERT_ACT
+        PARAM.ALERT_ACTION.POSITION_HI_ALERT_ACT
+        PARAM.ALERT_ACTION.POSITION_LO_ALERT_ACT
+        PARAM.ALERT_ACTION.POSITION_LOLO_ALERT_ACT
+        PARAM.ALERT_ACTION.SET_POINT_TIMEOUT_ALERT_ACT
+        PARAM.ALERT_ACTION.NEAR_CLOSE_ALERT_ACT
+        PARAM.ALERT_ACTION.TRAVEL_ACCUMULATION_A_ALERT_ACT
+        PARAM.ALERT_ACTION.TRAVEL_ACCUMULATION_B_ALERT_ACT
+        PARAM.ALERT_ACTION.CYCLE_COUNTER_A_ALERT_ACT
+        PARAM.ALERT_ACTION.CYCLE_COUNTER_B_ALERT_ACT
+        PARAM.ALERT_ACTION.WORKING_TIME_ALERT_ACT
+        EDD(COLUMNBREAK)
+        PARAM.ALERT_ACTION.SUPPLY_PRESSURE_HI_ALERT_ACT
+        PARAM.ALERT_ACTION.SUPPLY_PRESSURE_LO_ALERT_ACT
+        PARAM.ALERT_ACTION.SUPPLY_PRESSURE_LOLO_ALERT_ACT
+        PARAM.ALERT_ACTION.TEMPERATURE_HI_ALERT_ACT
+        PARAM.ALERT_ACTION.TEMPERATURE_LO_ALERT_ACT
+        PARAM.ALERT_ACTION.IP_DRIVE_CURRENT_ALERT_HI_ACT
+        PARAM.ALERT_ACTION.IP_DRIVE_CURRENT_ALERT_LO_ACT
+        PARAM.ALERT_ACTION.SENSOR_FAILURE_ALERT_ACT
+        PARAM.ALERT_ACTION.PROCESSOR_ALERT_ACT
+        PARAM.ALERT_ACTION.VALVE_CONTROL_ALERT_ACT
+        PARAM.ALERT_ACTION.COMMISSIONING_ALERT_ACT
+        PARAM.ALERT_ACTION.AIR_SUPPLY_ALERT_ACT
+        PARAM.ALERT_ACTION.SUPPORTING_HARDWARE_ALERT_ACT
     }
 }
 
-MENU mnu_supply_pressure_hilo_alert
+MENU mnu_config_discretecontrol
 {
-    LABEL "|en|Supply pressure hi/lo alerts";
+    LABEL "|en|Discrete Control";
+    STYLE(WINDOW)
     ITEMS
     {
-        PARAM.SUPPLY_PRESSURE_LOLO_ALERT.PRESSURE
-        PARAM.SUPPLY_PRESSURE_LOLO_ALERT.ALERT_POINT
-        PARAM.SUPPLY_PRESSURE_LOLO_ALERT.DEADBAND
-        PARAM.SUPPLY_PRESSURE_LOLO_ALERT.ALERT
-        PARAM.SUPPLY_PRESSURE_LOLO_ALERT.HISTORIC_ALERT
-        PARAM.SUPPLY_PRESSURE_LOLO_ALERT.ENABLE
-        EDD(COLUMNBREAK)
-        PARAM.SUPPLY_PRESSURE_LO_ALERT.PRESSURE
-        PARAM.SUPPLY_PRESSURE_LO_ALERT.ALERT_POINT
-        PARAM.SUPPLY_PRESSURE_LO_ALERT.DEADBAND
-        PARAM.SUPPLY_PRESSURE_LO_ALERT.ALERT
-        PARAM.SUPPLY_PRESSURE_LO_ALERT.HISTORIC_ALERT
-        PARAM.SUPPLY_PRESSURE_LO_ALERT.ENABLE
-        EDD(COLUMNBREAK)
-        PARAM.SUPPLY_PRESSURE_HI_ALERT.PRESSURE
-        PARAM.SUPPLY_PRESSURE_HI_ALERT.ALERT_POINT
-        PARAM.SUPPLY_PRESSURE_HI_ALERT.DEADBAND
-        PARAM.SUPPLY_PRESSURE_HI_ALERT.ALERT
-        PARAM.SUPPLY_PRESSURE_HI_ALERT.HISTORIC_ALERT
-        PARAM.SUPPLY_PRESSURE_HI_ALERT.ENABLE
-
+        mnu_config_discretecontrol_control
+        mnu_config_discretecontrol_switches
     }
 }
 
-MENU mnu_temperature_alerts
+MENU mnu_config_discretecontrol_control
 {
-    LABEL "|en|Temperature alerts";
+    LABEL "|en|Control";
+    STYLE(PAGE)
     ITEMS
     {
-        PARAM.TEMPERATURE_LO_ALERT.TEMPERATURE_1 /*_svi2*/
-        PARAM.TEMPERATURE_LO_ALERT.ALERT_POINT
-        PARAM.TEMPERATURE_LO_ALERT.DEADBAND
-        PARAM.TEMPERATURE_LO_ALERT.ALERT
-        PARAM.TEMPERATURE_LO_ALERT.HISTORIC_ALERT
-        PARAM.TEMPERATURE_LO_ALERT.ENABLE
-        EDD(COLUMNBREAK)
-        PARAM.TEMPERATURE_HI_ALERT.TEMPERATURE_1 /*_svi2*/
-        PARAM.TEMPERATURE_HI_ALERT.ALERT_POINT
-        PARAM.TEMPERATURE_HI_ALERT.DEADBAND
-        PARAM.TEMPERATURE_HI_ALERT.ALERT
-        PARAM.TEMPERATURE_HI_ALERT.HISTORIC_ALERT
-        PARAM.TEMPERATURE_HI_ALERT.ENABLE
+        mnu_do_discretecontrol
     }
 }
 
-MENU mnu_ip_current_alert
-{
-    LABEL "|en|IP Current Alerts";
-    ITEMS
-    {
-        PARAM.IP_DRIVE_CURRENT_LO_ALERT.CURRENT
-        PARAM.IP_DRIVE_CURRENT_LO_ALERT.ALERT_POINT
-        PARAM.IP_DRIVE_CURRENT_LO_ALERT.DEADBAND
-        PARAM.IP_DRIVE_CURRENT_LO_ALERT.DURATION_TIME
-        PARAM.IP_DRIVE_CURRENT_LO_ALERT.ALERT
-        PARAM.IP_DRIVE_CURRENT_LO_ALERT.HISTORIC_ALERT
-        PARAM.IP_DRIVE_CURRENT_LO_ALERT.ENABLE
-        EDD(COLUMNBREAK)
-        PARAM.IP_DRIVE_CURRENT_HI_ALERT.CURRENT
-        PARAM.IP_DRIVE_CURRENT_HI_ALERT.ALERT_POINT
-        PARAM.IP_DRIVE_CURRENT_HI_ALERT.DEADBAND
-        PARAM.IP_DRIVE_CURRENT_HI_ALERT.DURATION_TIME
-        PARAM.IP_DRIVE_CURRENT_HI_ALERT.ALERT
-        PARAM.IP_DRIVE_CURRENT_HI_ALERT.HISTORIC_ALERT
-        PARAM.IP_DRIVE_CURRENT_HI_ALERT.ENABLE
-    }
-}
-
-MENU mnu_switches
-{
-    LABEL "|en|I/O's";
-    EDD(STYLE PAGE;)
-    ITEMS
-    {
-        PARAM.DISCRETE_OUTPUT_1_STATE.STATUS
-        PARAM.DISCRETE_OUTPUT_1_STATE.VALUE
-        EDD(COLUMNBREAK)
-        PARAM.DISCRETE_OUTPUT_2_STATE.STATUS
-        PARAM.DISCRETE_OUTPUT_2_STATE.VALUE
-        EDD(COLUMNBREAK)
-        PARAM.DISCRETE_INPUT.STATUS
-        PARAM.DISCRETE_INPUT.VALUE
-        EDD(ROWBREAK)
-        PARAM.DISCRETE_SWITCH_1_CONF.DIRECTION
-        PARAM.DISCRETE_SWITCH_1_CONF.FUNCTION
-        EDD(COLUMNBREAK)
-        PARAM.DISCRETE_SWITCH_2_CONF.DIRECTION
-        PARAM.DISCRETE_SWITCH_2_CONF.FUNCTION
-    }
-}
-
-MENU mnu_switchconfiguration
+MENU mnu_config_discretecontrol_switches
 {
     LABEL "|en|Switches";
-    EDD(STYLE PAGE;)
+    STYLE(PAGE)
     ITEMS
     {
-        mnu_discrete_output
-        PARAM.DISCRETE_INPUT.STATUS
-        PARAM.DISCRETE_INPUT.VALUE
+        mnu_do_switches
         mnu_discrete_switch_configure
     }
 }
 
-MENU mnu_discrete_output
+MENU mnu_config_lcddisplay
 {
-    LABEL "|en|Discrete Output";
-    EDD(STYLE GROUP;)
+    LABEL "|en|LCD Display";
+    STYLE(WINDOW)
     ITEMS
     {
-        PARAM.DISCRETE_OUTPUT_1_STATE.STATUS
-        PARAM.DISCRETE_OUTPUT_1_STATE.VALUE
-        EDD(COLUMNBREAK)
-        PARAM.DISCRETE_OUTPUT_2_STATE.STATUS
-        PARAM.DISCRETE_OUTPUT_2_STATE.VALUE
-    }
-}
-
-MENU mnu_discrete_switch_configure
-{
-    LABEL "|en|Discrete Switch Configure";
-    EDD(STYLE GROUP;)
-    ITEMS
-    {
-        PARAM.DISCRETE_SWITCH_1_CONF.DIRECTION
-        PARAM.DISCRETE_SWITCH_1_CONF.FUNCTION
-        EDD(COLUMNBREAK)
-        PARAM.DISCRETE_SWITCH_2_CONF.DIRECTION
-        PARAM.DISCRETE_SWITCH_2_CONF.FUNCTION
-    }
-}
-
-MENU mnu_general
-{
-    LABEL "|en|General";
-    EDD(STYLE PAGE;)
-    ITEMS
-    {
-        PARAM.FINAL_VALUE_RANGE.EU_100
-        PARAM.FINAL_VALUE_RANGE.EU_0
-        PARAM.FINAL_VALUE_RANGE.UNITS_INDEX
-        PARAM.FINAL_VALUE_RANGE.DECIMAL
-        EDD(COLUMNBREAK)    
-        PARAM.TRAVEL.RANGE
-        PARAM.TRAVEL.UNITS_INDEX
-        EDD(COLUMNBREAK)    
-        PARAM.PRESSURE_RANGE.EU_100
-        PARAM.PRESSURE_RANGE.EU_0
-        PARAM.PRESSURE_RANGE.UNITS_INDEX
-        PARAM.PRESSURE_RANGE.DECIMAL
+        PARAM.UI_LANGUAGE
+        PARAM.UI_CUSTOM_CONFIGURATION.CUSTOM_1_CONFIGURATION
+        PARAM.UI_CUSTOM_CONFIGURATION.CUSTOM_2_CONFIGURATION
     }
 }
 
 MENU mnu_deviceinfo
 {
     LABEL "|en|Valve Info";
-    EDD(STYLE PAGE;)
+    STYLE(WINDOW)
     ITEMS
     {
         mnu_actuator
         mnu_valve_info
         mnu_valve_body
-        mnu_extremes
-        mnu_other
     }
 }
 
 MENU mnu_actuator
 {
     LABEL "|en|Actuator";
+    STYLE(PAGE)
     ITEMS
     {
         PARAM.ACTUATOR_3.SHUTOFF_DP
@@ -1440,6 +2139,7 @@ MENU mnu_actuator
 MENU mnu_valve_info
 {
     LABEL "|en|Valve Info";
+    STYLE(PAGE)
     ITEMS
     {
         PARAM.VALVE_INFO.SAME_AS_ACTUATOR
@@ -1460,6 +2160,7 @@ MENU mnu_valve_info
 MENU mnu_valve_body
 {
     LABEL "|en|Valve_Body";
+    STYLE(PAGE)
     ITEMS
     {
         PARAM.VALVE_BODY_2.CHARACTERISTIC
@@ -1479,6 +2180,7 @@ MENU mnu_valve_body
 MENU mnu_extremes
 {
     LABEL "|en|Extremes";
+    STYLE(WINDOW)
     ITEMS
     {
         PARAM.POSITION_EXTREMES.FINAL_VALUE_MAX
@@ -1507,9 +2209,10 @@ MENU mnu_extremes
     }
 }
 
-MENU mnu_other
+MENU mnu_tb_exconfig
 {
-    LABEL "|en|Other";
+    LABEL "|en|Extended Configuration";
+    STYLE(WINDOW)
     ITEMS
     {
         PARAM.BOOSTER.MANUFACTURER_INFO
@@ -1525,36 +2228,23 @@ MENU mnu_other
 MENU mnu_config
 {
     LABEL "|en|Configuration";
-    EDD(STYLE WINDOW;)
+    STYLE(MENU)
     ITEMS
     {
-        mnu_general
-        mnu_actuatorvalve
-        mnu_positioning
-        mnu_limits
-        mnu_errorlimits
-        mnu_switchconfiguration
-        mnu_block
+        mnu_config_position
+        mnu_config_pressure
+        mnu_config_temperature
+        mnu_config_current
+        mnu_config_alarms
+        mnu_config_discretecontrol
+        mnu_config_lcddisplay
         mnu_deviceinfo
     }
 }
 
-MENU mnu_positioning
-{
-    LABEL "|en|Positioning";
-    EDD(STYLE PAGE;)
-    ITEMS
-    {
-        PARAM.CHAR_SELECTION.TYPE_1 /*_svi2*/
-        PARAM.CHAR_SELECTION.NUMBER_OF_POINTS_1 /*_svi2*/
         /*update_custom_char_points */    
         /* mnu_current_char_points */
-        EDD(COLUMNBREAK)
-        PARAM.CUSTOM_CHAR.ACTION
-        PARAM.CUSTOM_CHAR.NUMBER_OF_POINTS_1 /*_svi2*/
         /* mnu_custom_char_points */
-    }
-}
 
 /* MENU mnu_current_char_points */
 /* { */
@@ -1574,57 +2264,7 @@ MENU mnu_positioning
 /*     } */
 /* } */
 
-MENU mnu_limits
-{
-    LABEL "|en|Limits/Shutoff";
-    EDD(STYLE PAGE;)
-    ITEMS
-    {
-        PARAM.POSITION_LIMITS.LIMITS_PROTECTED
-        PARAM.POSITION_LIMITS.ENABLE_HI
-        PARAM.POSITION_LIMITS.ENABLE_LO
-        PARAM.POSITION_LIMITS.LIMIT_HI
-        PARAM.POSITION_LIMITS.LIMIT_LO
-        PARAM.POSITION_LIMITS.ENABLE_RATE_HI
-        PARAM.POSITION_LIMITS.ENABLE_RATE_LO
-        PARAM.POSITION_LIMITS.LIMIT_RATE
-        EDD(COLUMNBREAK)
-        PARAM.FINAL_VALUE_CUTOFF_HI.ENABLE
-        PARAM.FINAL_VALUE_CUTOFF_HI.CUTOFF_POINT_HI
-        PARAM.FINAL_VALUE_CUTOFF_LO.ENABLE
-        PARAM.FINAL_VALUE_CUTOFF_LO.CUTOFF_POINT_LO
-    }
-}
 
-MENU mnu_block
-{
-    LABEL "|en|Block";
-    EDD(STYLE PAGE;)
-    ITEMS
-    {
-        PARAM.ST_REV
-        PARAM.TAG_DESC
-        PARAM.STRATEGY
-        PARAM.ALERT_KEY
-        PARAM.MODE_BLK.TARGET
-        PARAM.MODE_BLK.ACTUAL
-        PARAM.MODE_BLK.PERMITTED
-        PARAM.MODE_BLK.NORMAL
-        PARAM.BLOCK_ERR
-        PARAM.UPDATE_EVT.UNACKNOWLEDGED
-        PARAM.UPDATE_EVT.UPDATE_STATE
-        PARAM.UPDATE_EVT.TIME_STAMP
-        PARAM.UPDATE_EVT.STATIC_REVISION
-        PARAM.UPDATE_EVT.RELATIVE_INDEX
-        PARAM.BLOCK_ALM.UNACKNOWLEDGED
-        PARAM.BLOCK_ALM.ALARM_STATE
-        PARAM.BLOCK_ALM.TIME_STAMP
-        PARAM.BLOCK_ALM.SUB_CODE
-        PARAM.BLOCK_ALM.VALUE
-        PARAM.TRANSDUCER_DIRECTORY
-        PARAM.BLOCK_ERR_DESC_1
-    }
-}
 
 /*=========================/
  * MENUS for Resource Block
@@ -1634,44 +2274,6 @@ MENU mnu_block
 ** Status menus
 /-------------*/
 
-MENU diagnostic_root_menu_rb
-{
-    LABEL "|en|Status";
-    ITEMS
-    {
-        PARAM.TAG_DESC (READ_ONLY)
-        EDD(COLUMNBREAK)
-        PARAM.DEV_TYPE
-        EDD(COLUMNBREAK)
-        PARAM.ST_REV
-        EDD(ROWBREAK)
-        PARAM.MODE_BLK.ACTUAL
-        EDD(COLUMNBREAK)
-        PARAM.MODE_BLK.TARGET
-        EDD(COLUMNBREAK)
-        PARAM.MODE_BLK.NORMAL
-        EDD(ROWBREAK)
-        PARAM.BLOCK_ERR
-        EDD(COLUMNBREAK)
-        PARAM.BLOCK_ERR_DESC_1
-        EDD(ROWBREAK)
-        PARAM.RS_STATE
-        EDD(ROWBREAK)
-        PARAM.FAULT_STATE
-        EDD(COLUMNBREAK)
-        PARAM.SET_FSTATE
-        EDD(COLUMNBREAK)
-        PARAM.CLR_FSTATE
-        EDD(ROWBREAK)
-        PARAM.BLOCK_ALM.UNACKNOWLEDGED
-        EDD(COLUMNBREAK)
-        PARAM.BLOCK_ALM.ALARM_STATE
-        EDD(ROWBREAK)
-        PARAM.WRITE_LOCK
-        EDD(COLUMNBREAK)
-        PARAM.WRITE_PRI
-    }
-}
 
 /*-------------/
 ** Device menus
@@ -1679,188 +2281,39 @@ MENU diagnostic_root_menu_rb
 
 MENU process_variables_root_menu_rb
 {
-    LABEL "|en|Device";
+    LABEL "|en|Process Variable";
     ITEMS
     {
-        mnu_identification (READ_ONLY)
-        mnu_features       (READ_ONLY)
+       mnu_identification_in_process_variable
+       mnu_features
     }
 }
 
-MENU mnu_features
-{
-    LABEL "|en|Features";
-    EDD(STYLE PAGE;)
-    ITEMS
-    {
-        PARAM.FEATURES
-        PARAM.FEATURE_SEL
-    }
-}
 
-MENU mnu_cycles
+
+MENU mnu_identification_in_process_variable
 {
-    LABEL "|en|Cycles";
-    EDD(STYLE PAGE;)
+    LABEL "|en|Identification";
+    STYLE(PAGE)
     ITEMS
     {
-        PARAM.CYCLE_TYPE
+        __res_2_character.BLOCK_TAG
+
         EDD(COLUMNBREAK)
-        PARAM.CYCLE_SEL
-        EDD(ROWBREAK)
-    }
-}
 
-MENU mnu_notify
-{
-    LABEL "|en|Alerts Notify Setting";
-    EDD(STYLE PAGE;)
-    ITEMS
-    {
-        PARAM.MAX_NOTIFY
-        PARAM.LIM_NOTIFY
-    }
-}
 
-MENU mnu_communication_setting
-{
-    LABEL "|en|Communication Setting";
-    EDD(STYLE PAGE;)
-    ITEMS
-    {
-        PARAM.SHED_RCAS
-        PARAM.SHED_ROUT
-        PARAM.CONFIRM_TIME
-    }
-}
 
-MENU mnu_lock
-{
-    LABEL "|en|Write Lock";
-    EDD(STYLE PAGE;)
-    ITEMS
-    {
-        PARAM.WRITE_LOCK
-        PARAM.WRITE_PRI
-    }
-}
 
-MENU mnu_alarm
-{
-    LABEL "|en|Alarm";
-    EDD(STYLE PAGE;)
-    ITEMS
-    {
-        mnu_update_evt
-        EDD(COLUMNBREAK)
-        mnu_block_alm
-        EDD(COLUMNBREAK)
-        mnu_write_alm
-        EDD(ROWBREAK)
-        mnu_alarm_sum
-        EDD(COLUMNBREAK)
-        PARAM.ACK_OPTION
 
-    }
-}
-
-MENU mnu_write_alm
-{
-    LABEL "|en|Write Alm";
-    EDD(STYLE GROUP;)
-    ITEMS
-    {
-        PARAM.WRITE_ALM
-    }
-}
-
-MENU mnu_alarm_sum
-{
-    LABEL "|en|Alarm Sum";
-    EDD(STYLE GROUP;)
-    ITEMS
-    {
-        PARAM.ALARM_SUM
-    }
-}
-
-MENU mnu_block_alm
-{
-    LABEL "|en|Block Alarm";
-    EDD(STYLE GROUP;)
-    ITEMS
-    {
-        PARAM.BLOCK_ALM.UNACKNOWLEDGED
-        PARAM.BLOCK_ALM.ALARM_STATE
-        PARAM.BLOCK_ALM.TIME_STAMP
-        PARAM.BLOCK_ALM.SUB_CODE
-        PARAM.BLOCK_ALM.VALUE
-    }
-}
-
-MENU mnu_update_evt
-{
-    LABEL "|en|Update Evt";
-    EDD(STYLE GROUP;)
-    ITEMS
-    {
-        PARAM.UPDATE_EVT
-    }
-}
 
 /*------------/
 ** Setup menus
 /------------*/
 
-MENU device_root_menu_rb
-{
-    LABEL "|en|Setup";
-    ITEMS
-    {
-        mnu_device
-        mnu_identification
-        mnu_cycles
-        mnu_notify
-        mnu_communication_setting
-        mnu_lock
-        mnu_alarm
-    }
-}
 
-MENU mnu_device
-{
-    LABEL "|en|Device";
-    EDD(STYLE PAGE;)
-    ITEMS
-    {
-        PARAM.TAG_DESC
-        PARAM.STRATEGY
-        EDD(COLUMNBREAK)
-        PARAM.ALERT_KEY
-        PARAM.ST_REV
-        EDD(ROWBREAK)
-        mnu_mode_row
-        EDD(ROWBREAK)
-        PARAM.GRANT_DENY.GRANT
-        EDD(COLUMNBREAK)
-        PARAM.GRANT_DENY.DENY
-        EDD(ROWBREAK)
-        PARAM.FEATURES
-        EDD(COLUMNBREAK)
-        PARAM.FEATURE_SEL
-        EDD(ROWBREAK)
-        PARAM.RESTART
-    }
-}
 
-MENU mnu_identification
-{
-    LABEL "|en|Identification";
-    EDD(STYLE PAGE;)
-    ITEMS
-    {
         PARAM.MANUFAC_ID
-        EDD(COLUMNBREAK)
+		EDD(ROWBREAK)
         PARAM.DEV_TYPE
         EDD(COLUMNBREAK)
         PARAM.DEV_REV
@@ -1869,18 +2322,375 @@ MENU mnu_identification
         EDD(COLUMNBREAK)
         PARAM.DD_REV
         EDD(ROWBREAK)
-        PARAM.COMPATIBILITY_REV
-
+        PARAM.ITK_VER
         EDD(COLUMNBREAK)
-        PARAM.HARDWARE_REV
+		PARAM.SOFTWARE_REV
+		EDD(ROWBREAK)
+		PARAM.HARDWARE_REV
+		EDD(COLUMNBREAK)
+        PARAM.COMPATIBILITY_REV
+        EDD(ROWBREAK)
+        PARAM.TAG_DESC
+		EDD(ROWBREAK)
+        PARAM.SOFTWARE_REV_FF
+		EDD(ROWBREAK)
+        PARAM.SOFTWARE_REV_APP
+    }
+}
+
+MENU mnu_fDiagactive
+{
+LABEL "|en|FD Active Alerts";
+STYLE(PAGE)
+ITEMS
+{
+	   __fd_fail_active
+		EDD(COLUMNBREAK)
+		__fd_offspec_active
+		EDD(COLUMNBREAK)
+		__fd_maint_active
+		EDD(COLUMNBREAK)
+		__fd_check_active
+		EDD(COLUMNBREAK)
+}
+}
+MENU diagnostic_root_menu_rb
+{
+    LABEL "|en|Device Diagnostic";
+    ITEMS
+    {
+        mnu_process_in_device_diagnostic
+        mnu_alarms_in_device_diagnostic
+		mnu_fDiagactive
+    }
+}
+MENU mnu_process_in_device_diagnostic
+{
+    LABEL "|en|Process";
+    STYLE(PAGE)
+    ITEMS
+    {
+        PARAM.MODE_BLK.TARGET
+        EDD(COLUMNBREAK)
+        PARAM.MODE_BLK.ACTUAL
+        EDD(COLUMNBREAK)
+        EDD(ROWBREAK)
+        PARAM.BLOCK_ERR
+        EDD(COLUMNBREAK)
+        PARAM.FAULT_STATE
+        EDD(COLUMNBREAK)
+        PARAM.RS_STATE
+    }
+}
+MENU mnu_alarms_in_device_diagnostic
+{
+    LABEL "|en|Alarms";
+    STYLE(PAGE)
+    ITEMS
+    {
+        mnu_update_evt
+        EDD(COLUMNBREAK)
+        mnu_block_alm
+        EDD(ROWBREAK)
+        mnu_write_alm
+        EDD(COLUMNBREAK)
+        mnu_maint_alm
+        EDD(COLUMNBREAK)
+        mnu_offspec_alm
+        EDD(ROWBREAK)
+		mnu_fail_alm
+		EDD(COLUMNBREAK)
+        mnu_alarm_sum
+    }
+}
+MENU mnu_features
+{
+    LABEL "|en|Features";
+    STYLE(PAGE)
+    ITEMS
+    {
+        PARAM.FEATURE_SEL
+    }
+}
+MENU mnu_fail_alm
+{
+	LABEL "|en|Failed Alm";
+	STYLE(GROUP)
+	ITEMS
+	{
+		PARAM.FD_FAIL_ALM.UNACKNOWLEDGED,
+		PARAM.FD_FAIL_ALM.ALARM_STATE,
+		PARAM.FD_FAIL_ALM.TIME_STAMP,
+		PARAM.FD_FAIL_ALM.SUB_CODE,
+		PARAM.FD_FAIL_ALM.VALUE
+	}
+}
+MENU mnu_write_alm
+{
+    LABEL "|en|Write Alm";
+    STYLE(GROUP)
+    ITEMS
+    {
+        PARAM.WRITE_ALM.UNACKNOWLEDGED,
+        PARAM.WRITE_ALM.ALARM_STATE,
+        PARAM.WRITE_ALM.TIME_STAMP,
+        PARAM.WRITE_ALM.SUB_CODE,
+        PARAM.WRITE_ALM.VALUE
+    }
+}
+MENU mnu_maint_alm
+{
+    LABEL "|en|Maintenance Alm";
+    STYLE(GROUP)
+    ITEMS
+    {
+        PARAM.FD_MAINT_ALM.UNACKNOWLEDGED,
+        PARAM.FD_MAINT_ALM.ALARM_STATE,
+        PARAM.FD_MAINT_ALM.TIME_STAMP,
+        PARAM.FD_MAINT_ALM.SUB_CODE,
+        PARAM.FD_MAINT_ALM.VALUE
+    }
+}
+MENU mnu_offspec_alm
+{
+    LABEL "|en|Off-spec Alm";
+    STYLE(GROUP)
+    ITEMS
+    {
+        PARAM.FD_OFFSPEC_ALM.UNACKNOWLEDGED,
+        PARAM.FD_OFFSPEC_ALM.ALARM_STATE,
+        PARAM.FD_OFFSPEC_ALM.TIME_STAMP,
+        PARAM.FD_OFFSPEC_ALM.SUB_CODE,
+        PARAM.FD_OFFSPEC_ALM.VALUE
+    }
+}
+MENU mnu_alarm_sum
+{
+    LABEL "|en|Alarm Sum";
+    STYLE(GROUP)
+    ITEMS
+    {
+         PARAM.ALARM_SUM.CURRENT,
+         PARAM.ALARM_SUM.UNACKNOWLEDGED,
+         PARAM.ALARM_SUM.UNREPORTED,
+         PARAM.ALARM_SUM.DISABLED
+    }
+}
+MENU mnu_block_alm
+{
+    LABEL "|en|Block Alarm";
+    STYLE(GROUP)
+    ITEMS
+    {
+        PARAM.BLOCK_ALM.UNACKNOWLEDGED,
+        PARAM.BLOCK_ALM.ALARM_STATE,
+        PARAM.BLOCK_ALM.TIME_STAMP,
+        PARAM.BLOCK_ALM.SUB_CODE,
+        PARAM.BLOCK_ALM.VALUE
+    }
+}
+MENU mnu_update_evt
+{
+    LABEL "|en|Update Evt";
+    STYLE(GROUP)
+    ITEMS
+    {
+        PARAM.UPDATE_EVT.UNACKNOWLEDGED,
+        PARAM.UPDATE_EVT.UPDATE_STATE,
+        PARAM.UPDATE_EVT.TIME_STAMP,
+        PARAM.UPDATE_EVT.STATIC_REVISION,
+        PARAM.UPDATE_EVT.RELATIVE_INDEX
+    }
+}
+MENU mnu_process_in_device_setup
+{
+    LABEL "|en|Process";
+    STYLE(PAGE)
+    ITEMS
+    {
+       mnu_mode_row
+       EDD(ROWBREAK)
+       PARAM.STRATEGY
+       EDD(COLUMNBREAK)
+       PARAM.ALERT_KEY
+       EDD(COLUMNBREAK)
+       PARAM.SHED_RCAS
+       EDD(COLUMNBREAK)
+       PARAM.SHED_ROUT
+       EDD(ROWBREAK)
+       PARAM.FAULT_STATE
+       EDD(COLUMNBREAK)
+       PARAM.CLR_FSTATE
+       EDD(COLUMNBREAK)
+       PARAM.SET_FSTATE
+       EDD(ROWBREAK)
+       mnu_update_evt
+    }
+}
+MENU mnu_hardware
+{
+    LABEL "|en|Hardware";
+    STYLE(PAGE)
+    ITEMS
+    {
+        PARAM.HARD_TYPES
+        EDD(COLUMNBREAK)
+        PARAM.MEMORY_SIZE
+        EDD(COLUMNBREAK)
+        PARAM.FREE_TIME
+        EDD(ROWBREAK)
+        PARAM.FREE_SPACE
+        EDD(COLUMNBREAK)
+        PARAM.MIN_CYCLE_T
+        EDD(COLUMNBREAK)
+        PARAM.NV_CYCLE_T
+        EDD(ROWBREAK)
+        PARAM.RESTART
+        EDD(COLUMNBREAK)
+        PARAM.WRITE_LOCK
+    }
+}
+MENU mnu_alarm_in_device_setup
+{
+    LABEL "|en|Alarms";
+    STYLE(PAGE)
+    ITEMS
+    {
+        PARAM.WRITE_PRI
+        EDD(COLUMNBREAK)
+        PARAM.CONFIRM_TIME
+        EDD(COLUMNBREAK)
+        PARAM.MAX_NOTIFY
+        EDD(ROWBREAK)
+        PARAM.LIM_NOTIFY
+        EDD(COLUMNBREAK)
+        PARAM.ACK_OPTION
+        EDD(ROWBREAK)
+        mnu_block_alm
+        EDD(COLUMNBREAK)
+        mnu_write_alm
+        EDD(COLUMNBREAK)
+        mnu_alarm_sum
+    }
+}
+MENU mnu_identification_in_device_setup
+{
+    LABEL "|en|Identification";
+    STYLE(PAGE)
+    ITEMS
+    {
+        __res_2_character.BLOCK_TAG
+        EDD(COLUMNBREAK)
+        PARAM.MANUFAC_ID
+        EDD(ROWBREAK)
+		PARAM.DEV_TYPE
+		EDD(COLUMNBREAK)
+        PARAM.DEV_REV
+		EDD(ROWBREAK)
+        PARAM.DD_REV
+		EDD(COLUMNBREAK)
+        PARAM.ITK_VER
         EDD(ROWBREAK)
         PARAM.SOFTWARE_REV
         EDD(COLUMNBREAK)
-        PARAM.SOFTWARE_REV_FF
-        EDD(COLUMNBREAK)
-        PARAM.SOFTWARE_REV_APP
+        PARAM.HARDWARE_REV
         EDD(ROWBREAK)
-        PARAM.ITK_VER
+        PARAM.TAG_DESC
+        EDD(COLUMNBREAK)
+        PARAM.SOFTWARE_REV_FF
+        EDD(ROWBREAK)
+        PARAM.SOFTWARE_REV_APP
+    }
+}
+MENU mnu_options
+{
+    LABEL "|en|Options";
+    STYLE(PAGE)
+    ITEMS
+    {
+         PARAM.GRANT_DENY.GRANT
+         EDD(COLUMNBREAK)
+         PARAM.GRANT_DENY.DENY
+         EDD(COLUMNBREAK)
+		 PARAM.FEATURE_SEL
+        EDD(ROWBREAK)
+         PARAM.CYCLE_SEL
+    }
+}
+
+MENU mnu_fDiagmap
+{
+LABEL "|en|FD Alert Map";
+STYLE(PAGE)
+ITEMS
+{
+	    __fd_fail_map
+		EDD(COLUMNBREAK)
+		__fd_offspec_map
+		EDD(COLUMNBREAK)
+		__fd_maint_map
+		EDD(COLUMNBREAK)
+		__fd_check_map
+		EDD(ROWBREAK)
+	    FD_FAIL_MAP_default
+}
+}
+MENU mnu_fDiagmask
+{
+	LABEL "|en|FD Alert Mask";
+STYLE(PAGE)
+ITEMS
+{
+	    __fd_fail_mask
+		EDD(COLUMNBREAK)
+		__fd_offspec_mask
+		EDD(COLUMNBREAK)
+		__fd_maint_mask
+		EDD(COLUMNBREAK)
+		__fd_check_mask
+		EDD(COLUMNBREAK)
+}
+}
+MENU mnu_fDiagAlertpriorities
+{
+LABEL "|en|FD Alert Priorities";
+STYLE(PAGE)
+ITEMS
+{
+	    __fd_fail_pri
+		EDD(COLUMNBREAK)
+		__fd_offspec_pri
+		EDD(COLUMNBREAK)
+		__fd_maint_pri
+		EDD(COLUMNBREAK)
+		__fd_check_pri
+		EDD(ROWBREAK)
+		FD_FAIL_pri_default
+		EDD(COLUMNBREAK)
+}
+}
+MENU mnu_fDiag
+{
+	LABEL "|en|FD Alert Configuration";
+  STYLE(PAGE)
+  ITEMS
+{
+	mnu_fDiagmap
+	mnu_fDiagmask
+	mnu_fDiagAlertpriorities
+}
+}
+MENU device_root_menu_rb
+{
+    LABEL "|en|Device Setup";
+    ITEMS
+    {
+        mnu_process_in_device_setup
+        mnu_identification_in_device_setup
+        mnu_hardware
+        mnu_alarm_in_device_setup
+        mnu_options
+		mnu_fDiag
     }
 }
 

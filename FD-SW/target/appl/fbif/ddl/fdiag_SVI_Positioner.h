@@ -145,27 +145,6 @@ This file contains DD labels and DD help strings for Field Diagnositics paramete
     { 0x00000080,  "|en|Block Configuration Error",               HLP5("|en|Block Configuration Error") },\
     { 0x00000100,  "|en|Other",                                   HLP5("|en|Other") },\
     { 0x00000200,  "|en|Faults reported in Detected_Faults only", HLP5("|en|Faults reported in Detected_Faults only") },\
-    { 0x00000400,  "|en|Cond21",                                  HLP5("|en|Cond21 help") },\
-    { 0x00000800,  "|en|Cond20",                                  HLP5("|en|Cond20 help") },\
-    { 0x00001000,  "|en|Cond19",                                  HLP5("|en|Cond19 help") },\
-    { 0x00002000,  "|en|Cond18",                                  HLP5("|en|Cond18 help") },\
-    { 0x00004000,  "|en|Cond17",                                  HLP5("|en|Cond17 help") },\
-    { 0x00008000,  "|en|Cond16",                                  HLP5("|en|Cond16 help") },\
-    { 0x00010000,  "|en|Cond15",                                  HLP5("|en|Cond15 help") },\
-    { 0x00020000,  "|en|Cond14",                                  HLP5("|en|Cond14 help") },\
-    { 0x00040000,  "|en|Cond13",                                  HLP5("|en|Cond13 help") },\
-    { 0x00080000,  "|en|Cond12",                                  HLP5("|en|Cond12 help") },\
-    { 0x00100000,  "|en|Cond11",                                  HLP5("|en|Cond11 help") },\
-    { 0x00200000,  "|en|Cond10",                                  HLP5("|en|Cond10 help") },\
-    { 0x00400000,  "|en|Cond09",                                  HLP5("|en|Cond09 help") },\
-    { 0x00800000,  "|en|Cond08",                                  HLP5("|en|Cond08 help") },\
-    { 0x01000000,  "|en|Cond07",                                  HLP5("|en|Cond07 help") },\
-    { 0x02000000,  "|en|Cond06",                                  HLP5("|en|Cond06 help") },\
-    { 0x04000000,  "|en|Cond05",                                  HLP5("|en|Cond05 help") },\
-    { 0x08000000,  "|en|Cond04",                                  HLP5("|en|Cond04 help") },\
-    { 0x10000000,  "|en|Cond03",                                  HLP5("|en|Cond03 help") },\
-    { 0x20000000,  "|en|Cond02",                                  HLP5("|en|Cond02 help") },\
-    { 0x40000000,  "|en|Cond01",                                  HLP5("|en|Cond01 help") },\
     { 0x80000000,  "|en|Transducer Block does not work properly", HLP5("|en|Transducer Block does not work properly") }
                                                                   
 
@@ -181,27 +160,6 @@ This file contains DD labels and DD help strings for Field Diagnositics paramete
     { 0x00000080,  "|en|Block Configuration Error Disabled",               HLP5("|en|Block Configuration Error disabled") },\
     { 0x00000100,  "|en|Other Disabled",                                   HLP5("|en|Other disabled") },\
     { 0x00000200,  "|en|Faults reported in Detected_Faults only Disabled", HLP5("|en|Faults reported in Detected_Faults only disabled") },\
-    { 0x00000400,  "|en|Cond21 Disabled",                                  HLP5("|en|Cond21 disabled help") },\
-    { 0x00000800,  "|en|Cond20 Disabled",                                  HLP5("|en|Cond20 disabled help") },\
-    { 0x00001000,  "|en|Cond19 Disabled",                                  HLP5("|en|Cond19 disabled help") },\
-    { 0x00002000,  "|en|Cond18 Disabled",                                  HLP5("|en|Cond18 disabled help") },\
-    { 0x00004000,  "|en|Cond17 Disabled",                                  HLP5("|en|Cond17 disabled help") },\
-    { 0x00008000,  "|en|Cond16 Disabled",                                  HLP5("|en|Cond16 disabled help") },\
-    { 0x00010000,  "|en|Cond15 Disabled",                                  HLP5("|en|Cond15 disabled help") },\
-    { 0x00020000,  "|en|Cond14 Disabled",                                  HLP5("|en|Cond14 disabled help") },\
-    { 0x00040000,  "|en|Cond13 Disabled",                                  HLP5("|en|Cond13 disabled help") },\
-    { 0x00080000,  "|en|Cond12 Disabled",                                  HLP5("|en|Cond12 disabled help") },\
-    { 0x00100000,  "|en|Cond11 Disabled",                                  HLP5("|en|Cond11 disabled help") },\
-    { 0x00200000,  "|en|Cond10 Disabled",                                  HLP5("|en|Cond10 disabled help") },\
-    { 0x00400000,  "|en|Cond09 Disabled",                                  HLP5("|en|Cond09 disabled help") },\
-    { 0x00800000,  "|en|Cond08 Disabled",                                  HLP5("|en|Cond08 disabled help") },\
-    { 0x01000000,  "|en|Cond07 Disabled",                                  HLP5("|en|Cond07 disabled help") },\
-    { 0x02000000,  "|en|Cond06 Disabled",                                  HLP5("|en|Cond06 disabled help") },\
-    { 0x04000000,  "|en|Cond05 Disabled",                                  HLP5("|en|Cond05 disabled help") },\
-    { 0x08000000,  "|en|Cond04 Disabled",                                  HLP5("|en|Cond04 disabled help") },\
-    { 0x10000000,  "|en|Cond03 Disabled",                                  HLP5("|en|Cond03 disabled help") },\
-    { 0x20000000,  "|en|Cond02 Disabled",                                  HLP5("|en|Cond02 disabled help") },\
-    { 0x40000000,  "|en|Cond01 Disabled",                                  HLP5("|en|Cond01 disabled help") },\
     { 0x80000000,  "|en|Transducer Block does not work properly Disabled", HLP5("|en|Transducer Block does not work properly disabled ") }
                                                                            
 
@@ -287,7 +245,7 @@ This file contains DD labels and DD help strings for Field Diagnositics paramete
 /* -------------------------------------------------------------------- */
 
 #define FD_CURR_SUMM_ENUM \
-    { 0x0001, "|en|Write Alarm",    "|en|Write Alarm active"                               }, \
+    { 0x0001, "|en|Discrete Alarm",    "|en|Discrete Alarm active"                               }, \
     { 0x0080, "|en|Block Alarm",    "|en|Block Alarm Active"                               }, \
     { 0x0100, "|en|Fail Alarm",     "|en|Field Diagnostics Failed Alarm Active"            }, \
     { 0x0200, "|en|OffSpec Alarm",  "|en|Field Diagnostics Off Specification Alarm Active" }, \
@@ -295,28 +253,28 @@ This file contains DD labels and DD help strings for Field Diagnositics paramete
     { 0x0800, "|en|Check Alarm",    "|en|Field Diagnostics Check Function Alarm Active"    }
 
 #define FD_UNACK_SUMM_ENUM \
-    { 0x0001, "|en|Write Alm Unack",   "|en|Write Alarm not acknowledged by operator"                               }, \
-    { 0x0080, "|en|Block Alm Unack",   "|en|Block Alarm not acknowledged by operator"                               }, \
-    { 0x0100, "|en|Fail Alm Unack",    "|en|Field Diagnostics Failed Alarm not acknowledged by operator"            }, \
-    { 0x0200, "|en|OffSpec Alm Unack", "|en|Field Diagnostics Off Specification Alarm not acknowledged by operator" }, \
-    { 0x0400, "|en|Maint Alm Unack",   "|en|Field Diagnostics Maintenance Alarm not acknowledged by operator"       }, \
-    { 0x0800, "|en|Check Alm Unack",   "|en|Field Diagnostics Check Function Alarm not acknowledged by operator"    }
+    { 0x0001, "|en|Discrete Alarm Unack",   "|en|Discrete Alarm not acknowledged by operator"                               }, \
+    { 0x0080, "|en|Block Alarm Unack",   "|en|Block Alarm not acknowledged by operator"                               }, \
+    { 0x0100, "|en|Fail Alarm Unack",    "|en|Field Diagnostics Failed Alarm not acknowledged by operator"            }, \
+    { 0x0200, "|en|OffSpec Alarm Unack", "|en|Field Diagnostics Off Specification Alarm not acknowledged by operator" }, \
+    { 0x0400, "|en|Maint Alarm Unack",   "|en|Field Diagnostics Maintenance Alarm not acknowledged by operator"       }, \
+    { 0x0800, "|en|Check Alarm Unack",   "|en|Field Diagnostics Check Function Alarm not acknowledged by operator"    }
 
 #define FD_UNREP_SUMM_ENUM \
-    { 0x0001, "|en|Write Alm Unrep",   "|en|Write Alarm not reported"                               }, \
-    { 0x0080, "|en|Block Alm Unrep",   "|en|Block Alarm not reported"                               }, \
-    { 0x0100, "|en|Fail Alm Unrep",    "|en|Field Diagnostics Failed Alarm not reported"            }, \
-    { 0x0200, "|en|OffSpec Alm Unrep", "|en|Field Diagnostics Off Specification Alarm not reported" }, \
-    { 0x0400, "|en|Maint Alm Unrep",   "|en|Field Diagnostics Maintenance Alarm not reported"       }, \
-    { 0x0800, "|en|Check Alm Unrep",   "|en|Field Diagnostics Check Function Alarm not reported"    }
+    { 0x0001, "|en|Discrete Alarm Unrep",   "|en|Write Alarm not reported"                               }, \
+    { 0x0080, "|en|Block Alarm Unrep",   "|en|Block Alarm not reported"                               }, \
+    { 0x0100, "|en|Fail Alarm Unrep",    "|en|Field Diagnostics Failed Alarm not reported"            }, \
+    { 0x0200, "|en|OffSpec Alarm Unrep", "|en|Field Diagnostics Off Specification Alarm not reported" }, \
+    { 0x0400, "|en|Maint Alarm Unrep",   "|en|Field Diagnostics Maintenance Alarm not reported"       }, \
+    { 0x0800, "|en|Check Alarm Unrep",   "|en|Field Diagnostics Check Function Alarm not reported"    }
 
 #define FD_DISAB_SUMM_ENUM \
-    { 0x0001, "|en|Write Alm Disabled",   "|en|Write Alarm disabled"                               }, \
-    { 0x0080, "|en|Block Alm Disabled",   "|en|Block Alarm disabled"                               }, \
-    { 0x0100, "|en|Fail Alm Disabled",    "|en|Field Diagnostics Failed Alarm disabled"            }, \
-    { 0x0200, "|en|OffSpec Alm Disabled", "|en|Field Diagnostics Off Specification Alarm disabled" }, \
-    { 0x0400, "|en|Maint Alm Disabled",   "|en|Field Diagnostics Maintenance Alarm disabled"       }, \
-    { 0x0800, "|en|Check Alm Disabled",   "|en|Field Diagnostics Check Function Alarm disabled"    }
+    { 0x0001, "|en|Discrete Alarm Disabled",   "|en|Write Alarm disabled"                               }, \
+    { 0x0080, "|en|Block Alarm Disabled",   "|en|Block Alarm disabled"                               }, \
+    { 0x0100, "|en|Fail Alarm Disabled",    "|en|Field Diagnostics Failed Alarm disabled"            }, \
+    { 0x0200, "|en|OffSpec Alarm Disabled", "|en|Field Diagnostics Off Specification Alarm disabled" }, \
+    { 0x0400, "|en|Maint Alarm Disabled",   "|en|Field Diagnostics Maintenance Alarm disabled"       }, \
+    { 0x0800, "|en|Check Alarm Disabled",   "|en|Field Diagnostics Check Function Alarm disabled"    }
 
 #define ACK_OPTIONS_RES2 \
     { 0x0001, "|en|Write Alm AutoAck Enabled",   "|en|Write Alarm automatic acknowledge enabled"                               }, \
