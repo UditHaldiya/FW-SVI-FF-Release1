@@ -339,7 +339,7 @@ resource block
                       { 0x0008,  [feature_soft_write],   [feature_soft_write_help]                 }, \
                       { 0x0010,  [feature_hard_write],   [feature_hard_write_help]                 }, \
                       { 0x0020,  [feature_out_readback], [feature_out_readback_help]               }, \
-                      { 0x0001,  "|en|Mbit Alarm",       "|en|Multi-bit Alarm supported"           }
+                      { 0x0400,  "|en|Mbit Alarm",       "|en|Multi-bit Alarm supported"           }
 
 #define RESTART_FACTORY_DEFAULT       "|en|Restore TB to Factory"
 #define RESTART_FACTORY_DEFAULT_HELP  "|en|Restart device and reset all transducer block parameters to the values before any configuration was done by the user"
