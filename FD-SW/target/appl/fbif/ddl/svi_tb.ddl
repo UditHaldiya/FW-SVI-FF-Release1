@@ -2,7 +2,7 @@
 /*
 #+LINK: SVIFFDocs file:c:/Users/300010777/Desktop/FF Design Documents/
   Web Document:
-  http://libraries.ge.com/download?fileid=439958398101&entity_id=24543915101&sid=101 
+  http://libraries.ge.com/download?fileid=439958398101&entity_id=24543915101&sid=101
   Loc. Document: [[SVIFFDocs:FF_Parameter_Mapping_TB_131031.xlsx][FF_Parameter_Mapping_TB.xlsx]]
 */
 
@@ -651,6 +651,7 @@ VARIABLE final_value_f
     CONSTANT_UNIT [unit_code_1342];
     /* DATA_LIMITS(-25,125) */
 }
+#if 0
 final_value_s LIKE VARIABLE __status_contained_srv
 {
     REDEFINE HANDLING
@@ -661,6 +662,7 @@ final_value_s LIKE VARIABLE __status_contained_srv
         READ & WRITE ;
     }
 }
+#endif
 float_position_value_r LIKE VARIABLE __float_contained_r
 {
     REDEFINE CONSTANT_UNIT [unit_code_1342];
@@ -926,7 +928,7 @@ _discrete_value_int_nd_r LIKE VARIABLE _discrete_value_nd
     REDEFINE HELP  HLP5(HLP_VALUE_DINT);
     REDEFINE_DATA_LIMITS(UNSIGNED_INTEGER, 0, 100)
     REDEFINE HANDLING READ;
-    
+
 }
 
 /* xd_fstate_opt LIKE VARIABLE __xd_fstate_opt /\* bug 15845 *\/ */
@@ -939,7 +941,7 @@ VARIABLE xd_fstate_opt
     LABEL [xd_fstate_opt_label] ;
     HELP [xd_fstate_opt_help] ;
     CLASS CONTAINED & SERVICE ;
-    TYPE ENUMERATED (1) 
+    TYPE ENUMERATED (1)
     {
         { 0, [hold_last_value_label],[hold_last_value_help] },
         { 1, [fail_closed_label], [fail_closed_help] },
@@ -2429,7 +2431,7 @@ RECORD final_position_value_dint
         VALUE,                                   _discrete_value_int_nd_r;
     }
 }
-RECORD fsc_set_d 
+RECORD fsc_set_d
 {
     LABEL LBL_408_FSC_SET_D;
     HELP HLP5(HLP_408_FSC_SET_D);
@@ -3559,7 +3561,7 @@ VARIABLE  _number_of_points_custom_char
     HELP  HLP5(HLP_NUMBER_OF_POINTS_CUSTOM_CHAR);
     CLASS CONTAINED;
     TYPE UNSIGNED_INTEGER (1)
-    DATA_LIMITS(0,19)    
+    DATA_LIMITS(0,19)
 }
 VARIABLE  _packing
 {
@@ -3585,7 +3587,7 @@ VARIABLE  _password_enabled
     {
          ENUM_ENABLE_DISABLE
     }
-    
+
 }
 VARIABLE  _percent_complete_r
 {
@@ -4299,7 +4301,7 @@ VARIABLE activate_control_set
     {
         ENUM_ACTIVATE_CONTROL_SET
     }
-	
+
     /*VALIDITY  Auto    ;*/
 }
 
@@ -4397,7 +4399,7 @@ VARIABLE xd_error_pressure
     {
         ENUM_IO_FAILURE
     }
-    
+
     HANDLING READ;
 }
 VARIABLE set_to_factory_pr_calibration
@@ -4426,7 +4428,7 @@ VARIABLE xd_error_temperature
     {
         ENUM_IO_FAILURE
     }
-    
+
     HANDLING READ;
 }
 VARIABLE find_stops
@@ -4677,7 +4679,7 @@ METHOD do_test_wr_limits
             mb = 0;
             status = send_value(id, mb);
             break;
-        case 2:    
+        case 2:
             mb = MEMBER_ID(ENABLE_HI);
             status = send_value(id, mb);
             mb = MEMBER_ID(ENABLE_LO);
@@ -4726,7 +4728,7 @@ METHOD  do_find_stops
 
         CHECK_DEVICE_IN_MAN;
 
-        get_acknowledgement(TEXT_STROKE_VALVE, ids, dummy, 0);        
+        get_acknowledgement(TEXT_STROKE_VALVE, ids, dummy, 0);
 
 
         /* set the default travel parameters */
@@ -4853,7 +4855,7 @@ METHOD  do_find_stops
         GET_ENUM_STRING(ids[3], mbs[3], str_buf, 256);
 
         SEND_PARAM(ids[3], 0, "FIND_STOPS");
-        do 
+        do
         {
             /* The software shall detect that the procedure is completed, when
              * the value of FIND_STOPS is switched from 11 (Find stops Running)
@@ -4889,10 +4891,10 @@ METHOD  do_find_stops
                                  "  RAW POSITION = %[8i]{6}\n"          \
                                  "  ACTUAL POSITION = %[7.2f]{7}\n",    \
                                  ids, mbs, 9);
-            
+
             READ_PARAM(ids[3], 0, "FIND_STOPS");
             status = get_unsigned_value(ids[3], 0, &us8_buf);
-            
+
         } while(us8_buf == FINDSTOPS_START || us8_buf == FINDSTOPS_RUNNING ) /* Continue */;
 
         delayfor(3, "|en|Checking fins stops status ...\n", dummy, dummy, 0);
@@ -4927,7 +4929,7 @@ METHOD  do_find_stops
             status = get_string_value(trl_ids[2], trl_mbs[2], strWho, &maxlen);
             maxlen = 33;
             status = get_date_value(trl_ids[1], trl_mbs[1], strCal_Date, &maxlen);
-                
+
             /*display the travel calibration result*/
             display_message("|en|\nTravel Calibration:\n"  \
                             "  CAL_LOCATION:%[s]{strLocation}\n"  \
@@ -4966,7 +4968,7 @@ METHOD  do_find_stops
 
         status = put_float_value(ids[9], MEMBER_ID(SUPPLY_PRESSURE_MIN), fSupply_press_min);
         SEND_PARAM(ids[9], MEMBER_ID(SUPPLY_PRESSURE_MIN), "SUPPLY_PRESSURE_EXTREMES");
-        
+
         status = put_float_value(ITEM_ID(PARAM.OPEN_STOP_ADJUSTMENT), 0, 100.0);
         SEND_PARAM(ITEM_ID(PARAM.OPEN_STOP_ADJUSTMENT), MEMBER_ID(SUPPLY_PRESSURE_MIN), "OPEN_STOP_ADJUSTMENT");
 
@@ -4993,7 +4995,7 @@ METHOD do_autotune
         long           chk_cnt;
 
         CHECK_DEVICE_IN_PROCESS;
-        
+
 
         /* check mode, if OOS or MAN? */
         id = ITEM_ID(PARAM.MODE_BLK);
@@ -5114,7 +5116,7 @@ METHOD do_autotune
             } while (sel < -9 || sel > 9);
             SEND_PARAM(id, mb, "AUTOTUNE.AGGRESSIVENESS");
         }
-        
+
         status = select_from_menu("|en|This procedure will take few minutes to conclude. \n" \
                                   "The sequence Number will be listed periodically.      \n" \
                                   "Do you want to proceed?                               \n", \
@@ -5229,7 +5231,7 @@ METHOD   change_app_mode
             display_message("|en|Positioner is already under system control.\n"
             "The method is only applicable for LO mode of Transducer Block.\n\n", dummy, dummy, 0);
         }
-		
+
         else {
             status = select_from_menu("|en| "
             "CAUTION!\nThere may be local personnel working with the valve\n"
@@ -5460,7 +5462,7 @@ METHOD  do_manual_hi_low_stops
         }
 
         if ( sel == FINDSTOPS_SETCLOSED )
-        {    
+        {
             status = select_from_menu("|en|\nDefault Open Stops Adjustment:\n\n" \
                                       "  OPEN_STOP_ADJUSTMENT = %[5.2f]{2}%%\n\n", \
                                       ids, mbs, 9, "Continue", &ivalue);
@@ -5485,7 +5487,7 @@ METHOD  do_manual_hi_low_stops
 
         GET_ENUM_STRING(ids[3], mbs[3], str_buf, 256);
         SEND_PARAM(ids[3], 0, "FIND_STOPS");
-        do 
+        do
         {
             /* The software shall detect that the procedure is completed, when
              * the value of FIND_STOPS is switched from 11 (Find stops Running)
@@ -5511,9 +5513,9 @@ METHOD  do_manual_hi_low_stops
                                  "  ACTUAL POSITION = %[7.2f]{7}\n",    \
                                  ids, mbs, 9);
             }
-            
 
-            status = select_from_menu("|en|\nPlease select:\n", 
+
+            status = select_from_menu("|en|\nPlease select:\n",
                                       dummy, dummy, 0, "Accept;Continue;Cancel", &ivalue);
 
             if ( ivalue == 1 ) /* Accept */
@@ -5529,12 +5531,12 @@ METHOD  do_manual_hi_low_stops
                     ivalue = 2;
                     func = FINDSTOPS_SETCLOSED;
                 }
-                
+
             }
-            
-            
+
+
         } while(ivalue == 2) /* Continue */;
-        
+
         if (ivalue == 3) /* Cancel */
         {
             return;
@@ -5542,7 +5544,7 @@ METHOD  do_manual_hi_low_stops
 
         if (ivalue == 1)
         {
-            status = select_from_menu("|en|\nPlease select:\n", 
+            status = select_from_menu("|en|\nPlease select:\n",
                                       dummy, dummy, 0, "Confirm;No(skip)", &ivalue);
             if (ivalue == 1)
             {
@@ -5570,7 +5572,7 @@ METHOD  do_manual_hi_low_stops
                 status = get_string_value(trl_ids[2], trl_mbs[2], strWho, &maxlen);
                 maxlen = 33;
                 status = get_date_value(trl_ids[1], trl_mbs[1], strCal_Date, &maxlen);
-                
+
                 /*display the travel calibration restult*/
                 display_message("|en|\nTravel Calibration:\n"  \
                                 "  CAL_LOCATION:%[s]{strLocation}\n"  \

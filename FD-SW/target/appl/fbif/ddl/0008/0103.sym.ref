@@ -4913,7 +4913,6 @@ variable        discrete_input_value      enumerated      0x2013E
 variable        do_channel                enumerated      0x20012 
 variable        end_position              unused          0x20261 
 variable        final_value_f             float           0x20138 
-variable        final_value_s             unused          0x202D3 
 variable        find_stops                enumerated      0x20056 
 variable        float_nd_with_max_min     float           0x20146 
 variable        float_position_value_r    unused          0x20139 

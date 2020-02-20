@@ -1132,7 +1132,6 @@ menu            mnu_tuningdata                            0x20293
 method          do_read_write_control_set                 0x20294 
 menu            mnu_temperature_alerts_lo                 0x202A5 
 menu            mnu_current_group                         0x2028E 
-variable        final_value_s             unused          0x202D3 
 menu            mnu_characterization                      0x20295 
 menu            grp_tb_updateevent                        0x20297 
 menu            mnu_supply_hi                             0x202A4 

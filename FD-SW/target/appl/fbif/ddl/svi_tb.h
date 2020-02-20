@@ -69,7 +69,7 @@
 
 #ifdef DDTEST
 #define ACCELERATE_FOR_DEV(x) (x)
-#define NO_ABORT_FOR_TEST(x) 
+#define NO_ABORT_FOR_TEST(x)
 #define TEST_ID_MID(id, mid)                                           \
 {                                                                      \
     tid = id;                                                          \
@@ -81,9 +81,9 @@
 unsigned long tid, tm_id \
 
 #else
-#define ACCELERATE_FOR_DEV(x) 
+#define ACCELERATE_FOR_DEV(x)
 #define NO_ABORT_FOR_TEST(x) x
-#define TEST_ID_MID(id, mid) 
+#define TEST_ID_MID(id, mid)
 #define TEST_VARS
 #endif
 
@@ -982,9 +982,9 @@ MENU device_status_#x_tb                                \
 #define AUTOTUNE_EXHAUST_TIME_EXCEEDED         77
 #define AUTOTUNE_OUT_OF_RANGE                  88
 
-#define CHANGE_SETUP     0x00 
-#define CHANGE_MANUAL    0x01 
-#define CHANGE_FAILSAFE  0x02 
+#define CHANGE_SETUP     0x00
+#define CHANGE_MANUAL    0x01
+#define CHANGE_FAILSAFE  0x02
 #define CHANGE_NORMAL    0x03
 
 #define SVI2_DBL_ACT             0x00

@@ -2829,7 +2829,6 @@ var-list        __pos_a_d_xdcr_view_3                     0x80022903
 member          Y19_VALUE_U               record          0xC0011712 
 variable        __comp_lo_lim             float           0x80020D85 
 variable        __dd_revis                unsigned        0x80020004 
-variable        final_value_s             unused          0x202D3 
 member          OPEN_STOP_ADJUSTMENT      parameter       0x4002004A 
 variable        _model                    visiblestring   0x20248 
 var-list        __pos_a_d_xdcr_view_4                     0x80022904 
