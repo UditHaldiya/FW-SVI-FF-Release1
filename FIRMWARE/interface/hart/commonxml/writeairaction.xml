@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command CmdNum="171" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Write Air Action" CmdNum="210" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Write ATO/ATC">
+          <RequestParams>
+            <Param>Air Action</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Param>Air Action</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+  <Variables></Variables>
+  <Structs></Structs>
+</HART>

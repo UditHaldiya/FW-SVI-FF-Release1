@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command Name="Read TempComp Points" CmdNum="237" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read temperature cal points at which measurements/calculations were made">
+      <RequestParams>
+        <Param>Board Number<!--Same param as in other temperature stuff (see raw/tempcomp data)--></Param>
+      </RequestParams>
+      <ResponseParams>
+        <Param>Board Number</Param>
+        <Param>Number of Points</Param>
+        <Param>TempPoint</Param>
+      </ResponseParams>
+    </Command>
+    <Command Name="Read TempComp Row" CmdNum="236" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read temperature cal OffsetSpan cells (as 16- or 32-bit entries)">
+      <RequestParams>
+        <Param>SubCmdNum</Param>
+      </RequestParams>
+      <ResponseParams>
+        <Param>SubCmdNum</Param>
+      </ResponseParams>
+      <SubCommands></SubCommands>
+    </Command>
+    <Command Name="Write TempComp Row" CmdNum="233" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND | HC_FACTORY_COMMAND" Description="Write temperature cal OffsetSpan cells (as 16- or 32-bit entries)&#xD;&#xA;NOTE: No tempcomp is not written to NVMEM automatically. Instead, when you have written all channels (and only you know what all means), you should commit RAM to NVMEM for the NVMEM volume(s) affected.">
+      <RequestParams>
+        <Param>SubCmdNum</Param>
+      </RequestParams>
+      <ResponseParams>
+        <Param>SubCmdNum</Param>
+      </ResponseParams>
+      <SubCommands></SubCommands>
+    </Command>
+    <Command Name="Write TempComp Points" CmdNum="234" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND | HC_FACTORY_COMMAND" Description="Write temperature cal points at which measurements/calculations were made.&#xD;&#xA;NOTE: No tempcomp is not written to NVMEM automatically. Instead, when you have written all channels (and only you know what all means), you should commit RAM to NVMEM for the NVMEM volume(s) affected.">
+      <RequestParams>
+        <Param>Board Number</Param>
+        <Param>Number of Points</Param>
+        <Param>TempPoint</Param>
+      </RequestParams>
+    </Command>
+    <Command CmdNum="130" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Enable All AD Channels" CmdNum="45" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_COMMAND_COMMAND | HC_FACTORY_COMMAND" Description="Used for board calibration only"></Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+  <Variables>
+    <Variable Name="Number of Points" DataType="H_UCHAR" Printf="%u" EnRangeCheck="1" Description="Number of temperature calibration points (common to all channels on the selected board)">
+      <Range Model="Standard" MinValue="2" MaxValue="8" />
+    </Variable>
+    <Variable Name="TempPoint" DataType="H_UINT" Printf="%u" Description="Temperature at the temperature cal point in the &quot;raw&quot; sensor representation.&#xD;&#xA;For DLT, a measurement offset by some number TBD to make it unsigned." MaxSize="8" EnRangeCheck="1" DisplayName="Temp Points">
+      <Range Model="Standard" MinValue="0" MaxValue="65535" />
+    </Variable>
+    <Variable Name="Tempr Offset" DataType="H_INT" Printf="%d" EnRangeCheck="1" Description="An artificial offset to make temperature an unsigned value. Absolutely must match the firmware value (or the write will fail)">
+      <Range Model="Standard" MinValue="-32768" MaxValue="32767" EnRangeCheck="1" />
+    </Variable>
+    <Variable Name="Board Number" DataType="H_UCHAR" Printf="%u" Description="0-Main board, 1-Sensor board" EnRangeCheck="1">
+      <Range Model="TypeRange" />
+      <EnumValues v0="BN_MainBoard | Main Board" v1="BN_SensorBoard | Sensor Board" />
+    </Variable>
+    <Variable Name="TC Offset16" DisplayName="Offset" DataType="H_INT" Printf="%d" EnRangeCheck="1" Description="offset in 16-bit tempcomp calculation">
+      <Range Model="Standard" MinValue="-32768" MaxValue="32767" />
+    </Variable>
+    <Variable Name="TC Span16" DisplayName="Span" DataType="H_INT" Printf="%d" EnRangeCheck="1" Description="span (slope) in 16-bit tempcomp calculation">
+      <Range Model="Standard" MinValue="-32768" MaxValue="32767" />
+    </Variable>
+    <Variable Name="TC Offset32" DisplayName="Offset" DataType="H_INT4" Printf="%d" EnRangeCheck="1" Description="offset in 32-bit tempcomp calculation">
+      <Range Model="Standard" MinValue="-2147483648" MaxValue="2147483647" />
+    </Variable>
+    <Variable Name="TC Span32" DisplayName="Span" DataType="H_INT4" Printf="%d" EnRangeCheck="1" Description="span (slope) in 32-bit tempcomp calculation">
+      <Range Model="Standard" MinValue="-2147483648" MaxValue="2147483647" />
+    </Variable>
+    <Variable Name="Channel Shift" DataType="H_UCHAR" EnRangeCheck="1" Description="Common right-shift value for a tempcomp row">
+      <Range Model="Standard" MinValue="0" MaxValue="255" />
+    </Variable>
+    <Variable Name="TempComp16 tag" DataType="H_UCHAR" Description="A tag of a 16-bit tempcomp channel" Printf="%u" EnRangeCheck="1">
+      <Range Model="TypeRange" />
+      <EnumValues v0="Loop Current Feedback TC" v1="Procces Var TC" v2="AO 0 (Retransmit) TC" v3="AO 1 (Loop Current) TC" />
+    </Variable>
+    <Variable Name="TempComp32 tag" DataType="H_UCHAR" Description="A tag of a 32-bit tempcomp channel" Printf="%u" EnRangeCheck="1">
+      <Range Model="TypeRange" />
+      <EnumValues v0="Level Main Board TC" v1="Level Sensor Board TC" />
+    </Variable>
+  </Variables>
+  <Structs>
+    <Struct Name="TC OffsetSpan16">
+      <Param>TC Offset16</Param>
+      <Param>TC Span16</Param>
+    </Struct>
+    <Struct Name="TC OffsetSpan32">
+      <Param>TC Offset32</Param>
+      <Param>TC Span32</Param>
+    </Struct>
+  </Structs>
+</HART>

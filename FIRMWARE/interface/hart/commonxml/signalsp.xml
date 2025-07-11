@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Variables>
+    <Variable Name="Simulated Signal Setpoint" DataType="H_FLOAT" Printf="%.3f" DisplayName="Simulated Signal Setpoint" Units="mA" Description="setpoint in loop current domain; needs range conversion and characterization to convert to position">
+      <Range Model="Standard" MinValue="-5" MaxValue="160" />
+    </Variable>
+    <Variable Name="Signal LRV" DataType="H_FLOAT" Printf="%.3f" Units="mA" Description="Lower limit of split range " />
+    <Variable Name="Signal URV" DataType="H_FLOAT" Printf="%.3f" Units="mA" Description="Upper limit of split range " />
+  </Variables>
+  <Structs>
+    <Struct Name="Signal RV">
+      <Param>Signal LRV</Param>
+      <Param>Signal URV</Param>
+    </Struct>
+  </Structs>
+  <Commands>
+    <SubCmdOnly CmdNum="155">
+      <SubCommands>
+        <Command CmdNum="0" Name="Write Simulated Signal Setpoint" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_MAN" CmdFlags="HC_COMMAND_COMMAND | HC_PROCESS_COMMAND" Description="Sends position setpoint as loop current; subject to range conversion and characterization">
+          <RequestParams>
+            <Param>Simulated Signal Setpoint</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Param>Simulated Signal Setpoint</Param>
+          </ResponseParams>
+        </Command>
+        <Command CmdNum="12" Name="Set Diagnostic Setpoint" AllowedModes="HC_ALLOWED_MODE_OOS" CmdFlags="HC_COMMAND_COMMAND | HC_PROCESS_COMMAND"></Command>
+      </SubCommands>
+    </SubCmdOnly>
+    <FutureCommand Name="Write Signal Range Values" CmdNum="181" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Write split range values of input signal">
+      <RequestParams>
+        <Struct>Signal RV</Struct>
+      </RequestParams>
+      <ResponseParams>
+        <Struct>Signal RV</Struct>
+      </ResponseParams>
+    </FutureCommand>
+    <FutureCommand Name="Read Signal Range Values" CmdNum="213" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read split range values of input signal">
+      <ResponseParams>
+        <Struct>Signal RV</Struct>
+      </ResponseParams>
+    </FutureCommand>
+  </Commands>
+</HART>

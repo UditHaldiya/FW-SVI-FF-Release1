@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Variables>
+    <Variable Name="Position Setpoint" DataType="H_FLOAT" Printf="%.3f" DisplayName="Setpoint Value" Units="%" Description="setpoint in position domain; doesn't need characterization">
+      <Range Model="Standard" MinValue="-5" MaxValue="160" />
+    </Variable>
+    <Variable Name="Digital Setpoint" DataType="H_FLOAT" Printf="%.3f" DisplayName="Digital Setpoint" Units="%" Description="setpoint in setpoint domain; needs characterization to convert to position">
+      <Range Model="Standard" MinValue="-5" MaxValue="160" />
+    </Variable>
+    <Variable Name="Control Algorithm Mode" DataType="H_UCHAR" Printf="%u" EnRangeCheck="1">
+      <Range Model="TypeRange" />
+      <EnumValues v1="MODE_ipDiag | IPDiag" v2="MODE_manual | Manual" v3="MODE_ipLow | IPLow" v4="MODE_ipLowFail | IPLowFail" v5="MODE_ipHigh | IPHigh" v6="MODE_ipHighFactory | IPHighFactory" v7="MODE_ipHighFail | IPHighFail" v8="MODE_off | Off" v9="MODE_ipLowProc | IPLowProc" v10="MODE_ipHighProc | IPHighProc"  />
+    </Variable>
+    <Variable Name="Charact Segment Selector" DataType="H_UCHAR" Printf="%u" Description="One of the coarse segments"></Variable>
+    <Variable Name="SP Characterization" DataType="H_UCHAR" Printf="%u" Description="One of the predefined types of SP characterization">
+      <EnumValues v0="HART_SP_CHARACT_LINEAR | Linear" v1="HART_SP_CHARACT_EQUAL_30 | Eq 30%" v2="HART_SP_CHARACT_EQUAL_50 | Eq 50%" v3="HART_SP_CHARACT_QUICK_OPEN | Quick open" v4="HART_SP_CHARACT_CUSTOM | Custom" v5="HART_SP_CHARACT_CAMFLEX_EQ30 | Camflex Eq 30%" />
+    </Variable>
+    <Variable Name="XorY" DataType="H_UCHAR" Printf="%u" Description="0-X, 1-Y selector">
+      <EnumValues v0="HART_SP_CHARACT_X | X" v1="HART_SP_CHARACT_Y | Y" />
+    </Variable>
+    <Variable Name="SP Characterization Index" DataType="H_UCHAR" Printf="%u" Description="One of the predefined types of SP characterization; same enumeration as &quot;SP Characterization&quot;">
+      <EnumValues />
+    </Variable>
+    <Variable Name="Num Charact Points" DataType="H_UCHAR" Printf="%u" Description="Number of internal points in characterization curve" EnRangeCheck="1">
+      <Range Model="Standard" MinValue="0" MaxValue="19" />
+    </Variable>
+    <Variable Name="Num Custom Charact Segments" DataType="H_UCHAR" Printf="%u" Description="1-20"></Variable>
+    <Variable Name="Custom Charact Magic" DataType="H_UINT" Printf="%04x" Description="A magic number for quick consistency verification"></Variable>
+    <XVariable Name="SP Characterization Fine Segment Numpoints" DataType="H_UCHAR" Printf="%u" Description="Number of points in a segment" />
+    <XVariable Name="Stored Fine Segment Numpoints" DataType="H_UCHAR" Printf="%u" Description="Number of points in a fine segment" MaxSize="4" />
+    <Variable Name="Charact Ypoint" DataType="H_INT" Description="A Y point in mapping [0-100]% (0-16384) on itself" EnRangeCheck="1">
+      <Range Model="Standard" MinValue="0" MaxValue="16384" />
+    </Variable>
+    <XVariable Name="Fine Charact Ypoint" DataType="H_FLOAT" Description="A Y point in mapping [0-100]% (0-16384) on itself for fine segments" />
+    <Variable Name="Charact Xpoint" DataType="H_INT" Description="An X point in mapping [0-100]% (0-16384) on itself" EnRangeCheck="1">
+      <Range Model="Standard" MinValue="0" MaxValue="16384" />
+    </Variable>
+    <Variable Name="Charact Point" DataType="H_INT" Description="An X or Y (depending on XorY) point in mapping [0-100]% (0-16384) on itself" EnRangeCheck="1" MaxSize="19">
+      <Range Model="Standard" MinValue="0" MaxValue="16384" />
+    </Variable>
+    <XVariable Name="Fine Charact Xpoint" DataType="H_INT" Description="An X point in mapping [0-100]% (0-16384) on inself for fine segments" />
+  </Variables>
+  <Structs>
+    <Struct Name="Characterization Point">
+      <Param>Charact Xpoint</Param>
+      <Param>Charact Ypoint</Param>
+    </Struct>
+    <XStruct Name="Fine Characterization Point">
+      <Param>Fine Charact Xpoint</Param>
+      <Param>Fine Charact Ypoint</Param>
+    </XStruct>
+  </Structs>
+  <Commands>
+    <Command Name="Read Setpoint" CmdNum="154" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Reads setpoint">
+      <ResponseParams>
+        <Param>Position Setpoint</Param>
+        <Param>Digital Setpoint</Param>
+        <Param>Control Algorithm Mode</Param>
+      </ResponseParams>
+    </Command>
+    <Command Name="Write Setpoint" CmdNum="155" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_COMMAND_COMMAND" Description="Writes settings selected by the subcommand">
+      <RequestParams>
+        <Param>SubCmdNum</Param>
+      </RequestParams>
+      <ResponseParams>
+        <Param>SubCmdNum</Param>
+      </ResponseParams>
+      <SubCommands>
+        <Command CmdNum="1" Name="Write Position Setpoint" AllowedModes="HC_ALLOWED_MODE_MAN | HC_ALLOWED_MODE_OOS" CmdFlags="HC_COMMAND_COMMAND">
+          <RequestParams>
+            <Param>Position Setpoint</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Param>Position Setpoint</Param>
+          </ResponseParams>
+        </Command>
+        <Command CmdNum="2" Name="Set Full Closed" AllowedModes="HC_ALLOWED_MODE_MAN | HC_ALLOWED_MODE_OOS" CmdFlags="HC_COMMAND_COMMAND"></Command>
+        <Command CmdNum="3" Name="Set Full Open" AllowedModes="HC_ALLOWED_MODE_MAN | HC_ALLOWED_MODE_OOS" CmdFlags="HC_COMMAND_COMMAND"></Command>
+        <Command CmdNum="4" Name="DeEnergize" AllowedModes="HC_ALLOWED_MODE_MAN | HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_COMMAND_COMMAND"></Command>
+      </SubCommands>
+    </Command>
+    <Command CmdNum="171" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Write Custom Characterization" CmdNum="178" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_COMMAND_COMMAND | HC_WRITE_PROTECT" Description="Write custom Characterization. Endpoints (0%,0%) and (100%, 100%) are implied">
+          <RequestParams>
+            <Param>Num Charact Points</Param>
+            <StructArray MaxSize="19">Characterization Point</StructArray>
+          </RequestParams>
+          <ResponseParams></ResponseParams>
+        </Command>
+        <Command Name="Select SP Characterization" CmdNum="179" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Select Setpoint/Position Characterization">
+          <RequestParams>
+            <Param>SP Characterization</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Param>SP Characterization</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+    <Command CmdNum="170" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Read SP Characterization Selection" CmdNum="179" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_READ_COMMAND" Description="Read SP and Position Characterization Selection">
+          <ResponseParams>
+            <Param>SP Characterization</Param>
+            <Param>Num Custom Charact Segments</Param>
+            <Param>Custom Charact Magic</Param>
+          </ResponseParams>
+        </Command>
+        <Command Name="Read SP Characterization" CmdNum="178" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read coarse reference points of Custom Characterization">
+          <RequestParams>
+            <Param>SP Characterization Index</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Param>SP Characterization Index</Param>
+            <Param>Num Charact Points</Param>
+            <StructArray MaxSize="19">Characterization Point</StructArray>
+          </ResponseParams>
+        </Command>
+        <Command Name="Read SP Characterization X or Y" CmdNum="177" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read coarse reference points of Custom Characterization">
+          <RequestParams>
+            <Param>SP Characterization Index</Param>
+            <Param>XorY</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Param>SP Characterization Index</Param>
+            <Param>XorY</Param>
+            <Param>Num Charact Points</Param>
+            <Param>Charact Point</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+    <XCommand Name="Commit Custom Characterization" CmdNum="172" CmdType="Command" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_COMMAND_COMMAND | HC_WRITE_PROTECT" Description="Commit previously written Custom SP Characterization to NVMEM">
+      <RequestParams></RequestParams>
+      <ResponseParams></ResponseParams>
+    </XCommand>
+  </Commands>
+  <UpdateVariables>
+    <UpdateVariable Name="SP Characterization Index" EnumFromVarName="SP Characterization" />
+  </UpdateVariables>
+</HART>

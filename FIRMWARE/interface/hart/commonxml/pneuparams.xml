@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command CmdNum="171" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Write Pneumatic Parameters" CmdNum="167" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND | HC_FACTORY_COMMAND" Description="Parameters related to pneumatic relay">
+          <RequestParams>
+            <Struct>Pneumatic Parameters</Struct>
+          </RequestParams>
+          <ResponseParams>
+            <Struct>Pneumatic Parameters</Struct>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+    <Command CmdNum="171" SubCmdOnly="1">
+      <SubCommands>
+        <FutureCommand Name="Write Pneumatic Parameters in FP" CmdNum="168" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND | HC_FACTORY_COMMAND" Description="Parameters related to pneumatic relay (in floating point)">
+          <RequestParams>
+            <Struct>FP Pneumatic Parameters</Struct>
+          </RequestParams>
+          <ResponseParams>
+            <Struct>FP Pneumatic Parameters</Struct>
+          </ResponseParams>
+        </FutureCommand>
+      </SubCommands>
+    </Command>
+    <Command CmdNum="170" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Read Pneumatic Parameters" CmdNum="167" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_READ_COMMAND" Description="Parameters related to pneumatic relay">
+          <ResponseParams>
+            <Struct>Pneumatic Parameters</Struct>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+    <Command CmdNum="170" SubCmdOnly="1">
+      <SubCommands>
+        <FutureCommand Name="Read Pneumatic Parameters FP" CmdNum="168" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_READ_COMMAND" Description="Parameters related to pneumatic relay (in floating point)">
+          <ResponseParams>
+            <Struct>FP Pneumatic Parameters</Struct>
+          </ResponseParams>
+        </FutureCommand>
+      </SubCommands>
+    </Command>
+  </Commands>
+  <Structs>
+    <Struct Name="Pneumatic Parameters">
+      <Param>Boost Threshold</Param>
+      <Param>Boost Offset</Param>
+      <Param>Pilot Pressure Saturation Limits</Param>
+      <Param>Low Supply Pressure Pilot Threshold</Param>
+      <Param>Low Supply Pressure Supply Threshold</Param>
+      <Param>Single Acting Flag</Param>
+      <Param>Pressure Sensor Map </Param>
+    </Struct>
+    <FutureStruct Name="FP Pneumatic Parameters">
+      <Param>Control Output Units</Param>
+      <Param>FP Boost Threshold</Param>
+      <Param>FP Boost Offset</Param>
+      <Param>Pressure Units</Param>
+      <Param>FP Pilot Pressure Saturation Limits</Param>
+      <Param>FP Low Supply Pressure Pilot Threshold</Param>
+      <Param>FP Low Supply Pressure Supply Threshold</Param>
+      <Param>Single Acting Flag</Param>
+      <Param>Pressure Sensor Map </Param>
+    </FutureStruct>
+  </Structs>
+  <Variables>
+    <Variable Name="Boost Threshold" DataType="H_UCHAR" MaxSize="2" Description="[0] - lower, [1] - upper compensation for pneumatic relay &quot;flat spot&quot;" />
+    <XVariable Name="FP Boost Threshold" DataType="H_FLOAT" MaxSize="2" Description="[0] - lower, [1] - upper compensation for pneumatic relay &quot;flat spot&quot;" Printf="%.5f" />
+    <Variable Name="Boost Offset" DataType="H_CHAR" Description="beginning of &quot;flat spot&quot;" />
+    <XVariable Name="FP Boost Offset" DataType="H_FLOAT" Description="beginning of &quot;flat spot&quot;" Printf="%.5f" />
+    <Variable Name="Pilot Pressure Saturation Limits" DataType="H_INT" MaxSize="2" Description="[0]-lower; [1]-upper - pilot pressure limits indicationg actuator saturation (in internal representation)" />
+    <XVariable Name="FP Pilot Pressure Saturation Limits" DataType="H_FLOAT" MaxSize="2" Description="[0]-lower; [1]-upper - pilot pressure limits indicationg actuator saturation (in internal representation)" />
+    <Variable Name="Low Supply Pressure Pilot Threshold" DataType="H_INT" Description="Low supply indicator by pilot pressure " />
+    <XVariable Name="FP Low Supply Pressure Pilot Threshold" DataType="H_FLOAT" Description="Low supply indicator by pilot pressure " />
+    <Variable Name="Low Supply Pressure Supply Threshold" DataType="H_INT" Description="Low supply indicator by supply pressure " />
+    <XVariable Name="FP Low Supply Pressure Supply Threshold" DataType="H_FLOAT" Description="Low supply indicator by supply pressure " />
+    <Variable Name="Control Output Units" DataType="H_UCHAR" Description="Units code for boost"></Variable>
+    <Variable Name="Single Acting Flag" DataType="H_UCHAR" Description="0-Double-Acting, non-0 - Single Acting">
+      <EnumValues v0="SAFDouble Acting | Double Acting" v1="SAFSingle Acting | Single Acting" />
+    </Variable>
+    <Variable Name="Pressure Sensor Map" DataType="H_CHAR" MaxSize="5" Description="A relay-specific map of pressure sensors to the predefined set of A/D channels\n&#xD;&#xA;[0] - Actuator 1\n&#xD;&#xA;[1] - Actuator 2\n&#xD;&#xA;[2] - Supply\n&#xD;&#xA;[3] - Pilot\n&#xD;&#xA;[4] - Atmospheric\n&#xD;&#xA;">
+      <EnumValues v-1="PSMNot Installed | Not Installed" />
+    </Variable>
+  </Variables>
+</HART>

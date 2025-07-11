@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command CmdNum="170" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Read Air Action" CmdNum="210" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_READ_COMMAND" Description="Read ATO/ATC">
+          <ResponseParams>
+            <Param>Air Action</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+  <Variables>
+    <Variable Name="Air Action" DataType="H_UCHAR" Printf="%u" Description="ATO or ATC (meaning of de-energized position stop)">
+      <EnumValues v0="H Air To Close | Air to Close (ATC)" v1="H Air To Open | Air to Open (ATO)"></EnumValues>
+    </Variable>
+  </Variables>
+  <Structs></Structs>
+</HART>

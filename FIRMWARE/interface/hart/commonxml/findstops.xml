@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command Name="Manual Find Stops" CmdNum="179" CmdType="Process" AllowedModes="HC_ALLOWED_MODE_OOS" CmdFlags="HC_COMMAND_COMMAND | HC_WRITE_PROTECT">
+      <RequestParams>
+        <Param>Manual Find Stops Step</Param>
+      </RequestParams>
+    </Command>
+    <XCommand CmdNum="190" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Step Test" CmdNum="3" CmdType="Process" AllowedModes="HC_ALLOWED_MODE_OOS" CmdFlags="HC_PROCESS_COMMAND">
+          <RequestParams>
+            <Struct>Diagnostic Parameters</Struct>
+          </RequestParams>
+        </Command>
+      </SubCommands>
+    </XCommand>
+  </Commands>
+  <Variables>
+    <Variable Name="Manual Find Stops Step" DataType="H_UCHAR" Description="Sequence step in manual find stops">
+      <EnumValues v0="HFindStops Cancel | Cancel" v1="HFindStops Start | Start" v3="HFindStops Accept | Accept " v6="HFindStops Commit | Commit" />
+    </Variable>
+  </Variables>
+  <Structs></Structs>
+</HART>

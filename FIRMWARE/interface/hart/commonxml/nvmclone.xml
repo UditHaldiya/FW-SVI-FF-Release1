@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command CmdNum="190" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Clone Nvmem To Opposite Bank" CmdNum="131" CmdType="Process" AllowedModes="HC_ALLOWED_MODE_FS | HC_ALLOWED_MODE_ALL" CmdFlags="HC_PROCESS_COMMAND" Description="Debug command to support NVMEM cloning for firmware download"></Command>
+      </SubCommands>
+    </Command>
+    <Command CmdNum="170" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Complete Cloning Nvmem To Opposite Bank" CmdNum="131" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_FS | HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Debug command to support NVMEM cloning for firmware download">
+          <ResponseParams>
+            <Param>Cloning Completion Code</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+  <Variables>
+    <Variable Name="Cloning Completion Code" DataType="H_UCHAR" Description="0 indicates success; non-0 failure" />
+  </Variables>
+  <Structs></Structs>
+</HART>

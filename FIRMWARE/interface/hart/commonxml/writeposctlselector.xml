@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--    $Archive: /MNCB/Dev/LCX2AP/FIRMWARE/interface/hart/commonxml/writeposctlselector.xml $
+    $Date: 1/15/12 2:33p $
+    $Revision: 1 $
+    $Author: Arkkhasin $
+
+-->
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command CmdNum="171" SubCmdOnly="1">
+      <RequestParams />
+      <SubCommands>
+        <Command CmdNum="216" Name="Write Control Parameters Selector" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND">
+          <RequestParams>
+            <Param>PIDData Selector</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Param>PIDData Selector</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+</HART>

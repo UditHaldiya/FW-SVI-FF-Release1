@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--    $Archive: /MNCB/Dev/AP_Release_3.1.x/LCX_devel/FIRMWARE/interface/hart/commonxml/setpoint_signal.xml $
+    $Date: 8/18/10 6:17p $
+    $Revision: 2 $
+    $Author: Arkkhasin $
+
+-->
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <CommandToMove Name="Write Position Stops Adjustment" CmdNum="168" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Write Position Stops Adjustment as % of full range">
+      <RequestParams>
+        <Struct>StopAdjust</Struct>
+      </RequestParams>
+      <ResponseParams>
+        <Struct>StopAdjust</Struct>
+      </ResponseParams>
+    </CommandToMove>
+    <CommandToMove Name="Read Position Stops Adjustment" CmdNum="169" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read Position Stops Adjustment as % of full range">
+      <ResponseParams>
+        <Struct>StopAdjust</Struct>
+      </ResponseParams>
+    </CommandToMove>
+    <FutureCommand Name="Write Signal Range Values" CmdNum="181" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Write split range values of input signal">
+      <RequestParams>
+        <Struct>Signal RV</Struct>
+      </RequestParams>
+      <ResponseParams>
+        <Struct>Signal RV</Struct>
+      </ResponseParams>
+    </FutureCommand>
+    <FutureCommand Name="Read Signal Range Values" CmdNum="213" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read split range values of input signal">
+      <ResponseParams>
+        <Struct>Signal RV</Struct>
+      </ResponseParams>
+    </FutureCommand>
+    <XCommand Name="Write Signal SP Characterization" CmdNum="172" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Write Signal SP Characterization">
+      <RequestParams>
+        <StructArray MaxSize="10">SigSP Custom Characterization</StructArray>
+      </RequestParams>
+      <ResponseParams>
+        <StructArray MaxSize="10">SigSP Custom Characterization</StructArray>
+      </ResponseParams>
+    </XCommand>
+    <XCommand Name="Read Signal SP Characterization" CmdNum="211" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read Signal SP Characterization">
+      <ResponseParams>
+        <StructArray MaxSize="10">SigSP Custom Characterization</StructArray>
+      </ResponseParams>
+    </XCommand>
+  </Commands>
+  <Variables>
+    <Variable Name="Signal Emulation Setpoint" DataType="H_FLOAT" Printf="%.3f" Units="mA" Description="Setpoint of position expressed in signal domain" />
+    <Variable Name="Signal LRV" DataType="H_FLOAT" Printf="%.3f" Units="mA" Description="Lower limit of split range " />
+    <Variable Name="Signal URV" DataType="H_FLOAT" Printf="%.3f" Units="mA" Description="Upper limit of split range " />
+    <Variable Name="Closed Stop Adjustment" DataType="H_FLOAT" Printf="%.2f" Units="%" Description="Lower limit of position w.r.t. the range of hard stops " />
+    <Variable Name="Open Stop Adjustment" DataType="H_FLOAT" Printf="%.2f" Units="%" Description="Upper limit of position w.r.t. the range of hard stops " />
+  </Variables>
+  <Structs>
+    <Struct Name="Signal RV">
+      <Param>Signal LRV</Param>
+      <Param>Signal URV</Param>
+    </Struct>
+    <Struct Name="StopAdjust">
+      <Param>Closed Stop Adjustment</Param>
+      <Param>Open Stop Adjustment</Param>
+    </Struct>
+  </Structs>
+</HART>

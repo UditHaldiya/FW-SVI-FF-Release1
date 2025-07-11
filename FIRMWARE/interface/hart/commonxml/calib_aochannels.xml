@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command CmdNum="230" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Reset AO 0 (Retransmit) Calibrations To Factory" CmdNum="230" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND">
+          <RequestParams></RequestParams>
+          <ResponseParams></ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+    <Command CmdNum="130" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Direct AO Control" CmdNum="43" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND | HC_FACTORY_COMMAND" Description="Enable/Disable AO direct control and supply the value">
+          <RequestParams>
+            <Param>AO channel number</Param>
+            <Param>Enable flag</Param>
+            <Param>Direct Control Value</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Param>Direct Control Value</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+    <Command CmdNum="236" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Read AO 0 (Retransmit) TCRow" CmdNum="2" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+          <ResponseParams>
+            <Param>Channel Shift</Param>
+            <StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+    <Command CmdNum="233" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Write AO 0 (Retransmit) TCRow" CmdNum="2" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND">
+          <RequestParams>
+            <Param>Channel Shift</Param>
+            <StructArray MaxSize="8">TC OffsetSpan16</StructArray>
+          </RequestParams>
+        </Command>
+      </SubCommands>
+    </Command>
+    <Command Name="Calibrate AO 0 (Retransmit)" CmdNum="226" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS" CmdFlags="HC_WRITE_COMMAND" Description="I/O Channel calibration. Will turn into a subcommand as soon as support becomes available">
+      <RequestParams>
+        <Param>Cal Type</Param>
+        <Param>Cal Value</Param>
+      </RequestParams>
+      <ResponseParams>
+        <Param>Cal Type</Param>
+        <Param>Cal Value</Param>
+      </ResponseParams>
+    </Command>
+    <Command SubCmdOnly="1" CmdNum="229">
+      <SubCommands>
+        <Command Name="Read AO User Trim" CmdNum="230" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+          <RequestParams>
+            <Param>AO Channel Selector</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Param>AO Channel Selector</Param>
+            <Struct>User Trim Record</Struct>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+    <Command Name="Write Fixed Optional Output" CmdNum="243" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS" CmdFlags="HC_WRITE_COMMAND" Description="Send direct number in mA to the optional output. 0.0 reverts to normal.&#xD;&#xA;NOTE: in MNCB the flag was HC_PROCESS_COMMAND; probably to dodge the write lock; may need to revisit it.">
+      <RequestParams>
+        <Param>Opt Output</Param>
+      </RequestParams>
+      <ResponseParams>
+        <Param>Opt Output</Param>
+      </ResponseParams>
+    </Command>
+  </Commands>
+  <Structs></Structs>
+  <Variables>
+    <Variable Name="AO Channel Selector" DataType="H_UCHAR" Printf="%d" Description="AO selector (0-retransmit, 1-loop output)"></Variable>
+    <Variable Name="Opt Output" Units="mA" DataType="H_FLOAT" Printf="%.5f" Description="Retransmit Output mA (AO 0)" />
+  </Variables>
+</HART>

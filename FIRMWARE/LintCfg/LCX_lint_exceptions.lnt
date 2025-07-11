@@ -1,0 +1,104 @@
+codebase.lnt
+
+-esym(960,8.8) //redundantly defined object
+-e762 //redundantly defined object
+-esym(960,4.1) //hex escape sequence
+-esym(960,16.4) //param list differs (in names)
+-esym(960,14.3) // lint bug in contdiag.c
+
+-e756 //unused typedef
+-e755 //unused macro
+-e768 //unused struct member
+-e769 //unused enum value
+
+-e701 //Shift left of signed quantity (int) [MISRA 2004 Rule 10.5]
+
+-esym(960,6.1) -esym(960,6.2) //MNCB_DEFAULT_DATE_STRING treated as plain char, also num->string conversion, also bufferr fill
+
+-e839 //Storage class of symbol assumed static (cumulative with prototype)
+
+-e715 //symbol not referenced in ifman.c
+
+-e453 //transitivity of pure semantics
+-e438 //last value not used
+-esym(960,18.4) //union used
+//-e458
+//-e457 //thread-unsafe
+
+//---------------------- Code-specific Lint shenanigans ----------------------
+-efunc(661,util_GetAscii) -efunc(662,util_GetAscii) // lint gets it plainly wrong
+-efunc(613,oswrap_GetTaskStamp) //Because OSRunning means CurrTskTCB != 0
+-esym(765,OSTaskIdleHook) -esym(714,OSTaskIdleHook) -esym(759,OSTaskIdleHook) //Lint 9.00g-h inexplicably misses the use of it
+-sem(main,no_thread) //semantics
+
+-esym(457, LcdInfo) //don't care about thread-safety
+-esym(457, KeyData) //don't care about thread-safety
+-esym(457, uistate) //don't care about thread-safety
+-esym(458, error_IsAnyFaultWithAttributes) //don't care about thread-safety
+-esym(458, bios_ReadPushButtonStatus) //don't care about thread-safety
+
+-esym(457, enableIP) -esym(458, enableIP) //atomic
+-esym(457, lastVal) //atomic
+
+-esym(458,GetFaultCodeBit) //atomic
+-esym(458,process_GetProcId) //atomic
+-esym(458,smooth_GetSmoothedData) //atomic
+-esym(458,error_TestData) // lint bug
+-esym(458,mode_GetMode) // lint bug
+-esym(458,mode_GuardControlMode) // lint bug
+-esym(458,CheckUI) // atomic
+-esym(458,process_CheckCancelProcess) // atomic
+-esym(458,process_MopupSrv) // atomic
+-esym(458,error_IsAnyFaultExt) //doesn't work -sem(error_IsAnyFaultExt, thread_safe) //don't care if a fault is just missed
+-esym(458,selftest_GetStat) //doesn't work --sem(selftest_GetStat, thread_safe) //intependent atomic members
+-esym(458,process_RunProcedure) // atomic
+-esym(458,process_WaitForTimeExt) // lint bug
+
+//---------------- Transitional for likely UNDO when code is fixed ---------------------
+-esym(652,f2i_Scaled) //compatibility redifinition; will have to go when fpconvert comes
+-esym(961,PRESSURE_SCALE,PRESSURE_UI_DECIMAL_DIGITS,PRESSURE_FP_SHIFT,PRESSURE_UI_SHIFT) //will go when fpconvert comes
+-esym(728,m_RawHallPosition) //not explicitly init'ed
+
+-wlib(1)
++libm(*\quad.c) -efile(766,*\quad.c)
+-efile(766,*\sysiolopwr.c)
++libm(*\led.c)
+
++libm(*\control.c)
++libm(*\diagnostics.c)
++libm(*\diagnosticsUniversal.c) -efile(766,*\diagnosticsUniversal.c)
+-efile(766,*\pressmon_pilot.c)
+-efile(766,*\pressmon_act.c)
+
++libm(*\inituc.c)
++libm(*\fram.c)
++libm(*\pbypass.c)
++libm(*\serial.c)
++libm(*\i2c.c)
++libm(*\ad.c)
++libm(*\pwm.c) -efile(766,*\pwm.c)
++libm(*\dohwif.c)
++libm(*\sernumchip.c)
++libm(*\charact.c)
+
++libm(*\conversion.c)
++libm(*\configure.c) -efile(766,*\configure.c)
+-efile(766,*\configure1.c)
+
++libm(*\mnhartcmd.c)
++libm(*\hart.c) -efile(766,*\hart.c)
++libm(*\hartconf.c) -efile(766,*\hartconf.c)
+//+libm(*\hartfunc.c)
+
++libm(*\uimain.c)
++libm(*\uijumpers.c) -efile(766,*\uijumpers.c)
+
++libm(*\adhwconf.c) -efile(766,*\adhwconf.c)
++libm(*\key.c) -efile(766,*\key.c)
++libm(*\bsp.c) -efile(766,*\bsp.c)
++libm(*\digital_pot.c) //-efile(766,*\digital_pot.c)
++libm(*\watchdog.c) -efile(766,*\watchdog.c)
+-efile(766,*\cycle.c)
+-esym(957,main_GetCpuFree)
+
++libh(lpc2114io.h)

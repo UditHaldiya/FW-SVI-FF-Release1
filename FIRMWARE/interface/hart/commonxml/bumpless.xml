@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command CmdNum="171" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Write Bumpless Transfer Conf" CmdNum="177" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Write Bumpless Transfer Conf">
+          <RequestParams>
+            <Struct>Bumpless Transfer Conf</Struct>
+          </RequestParams>
+          <ResponseParams>
+            <Struct>Bumpless Transfer Conf</Struct>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+    <Command CmdNum="170" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Read Bumpless Transfer Conf" CmdNum="177" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_READ_COMMAND" Description="Read Bumpless Transfer Conf">
+          <ResponseParams>
+            <Struct>Bumpless Transfer Conf</Struct>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+  <Structs>
+    <Struct Name="Bumpless Transfer Conf">
+      <Param>Bumpless Required</Param>
+      <Param>Bumpless Speed</Param>
+    </Struct>
+  </Structs>
+  <Variables>
+    <Variable Name="Bumpless Speed" DataType="H_UCHAR" Printf="%u" Description="Bumpless stroke time, in s/100%. 0 is same as 1." />
+    <Variable Name="Bumpless Required" DataType="H_UCHAR" Printf="%u" Description="0-may go straight from manual to normal, 1 or any non-zero value - bumpless transfer is required">
+      <EnumValues v1="BTCBumplessTransferRequired | Bumpless Transfer Required " v0="BTCBumplessTransferNotRequired | May Go Straight To Normal" />
+    </Variable>
+  </Variables>
+</HART>

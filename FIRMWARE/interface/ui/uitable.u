@@ -1,0 +1,665 @@
+#MP If 0 ;Tombstone header
+/*
+Copyright 2004-2007 by Dresser, Inc., as an unpublished trade secret.  All rights reserved.
+This document and all information herein are the property of Dresser, Inc.
+It and its contents are  confidential and have been provided as a part of
+a confidential relationship.  As such, no part of it may be made public,
+decompiled, reverse engineered or copied and it is subject to return upon
+demand.
+*/
+/**
+    \file uitable.u
+    \brief Configuration of LCD UI tables for MNCB
+
+    CPU: Any
+
+    OWNER: AK
+    $Archive: /MNCB/Dev/LCX2AP/FIRMWARE/interface/ui/uitable.u $
+    $Date: 1/09/12 6:33p $
+    $Revision: 2 $
+    $Author: Arkkhasin $
+
+    \ingroup UI
+*/
+/* (Optional) $History: uitable.u $
+ *
+ * *****************  Version 2  *****************
+ * User: Arkkhasin    Date: 1/09/12    Time: 6:33p
+ * Updated in $/MNCB/Dev/LCX2AP/FIRMWARE/interface/ui
+ * UI table update FBO TFS:8577
+ *
+ * *****************  Version 1  *****************
+ * User: Arkkhasin    Date: 1/06/12    Time: 4:58p
+ * Created in $/MNCB/Dev/LCX2AP/FIRMWARE/interface/ui
+ * TFS:8577 - UI graph
+ *
+ * *****************  Version 133  *****************
+ * User: Arkkhasin    Date: 5/04/10    Time: 3:03p
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * uitable.c is generated so that if UNIT_TEST_ENVIRONMENT is defined, a
+ * table of all nodes is available (needed for unit test only)
+ *
+ * *****************  Version 132  *****************
+ * User: Arkkhasin    Date: 11/17/09   Time: 10:46p
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * A step in modularization of "enable" table entries and C headers:
+ * macoized and moved to places where the graph nodes themselves are
+ * defined.
+ *
+ * *****************  Version 131  *****************
+ * User: Arkkhasin    Date: 6/06/09    Time: 8:06a
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Moved sg_dlt.h from uitable.u to ui_calib_sg_dlt.h
+ *
+ * *****************  Version 130  *****************
+ * User: Derek Li     Date: 6/04/09    Time: 3:31p
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Added enable entries:AO2_FROZEN,
+ * RetransmitOptionEn,RetransmitOptionDisable;deleted enable entries:
+ * SFTR_MANUAL and SFTR_AUTOTUNE
+ *
+ * *****************  Version 129  *****************
+ * User: Arkkhasin    Date: 6/03/09    Time: 11:55a
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Cleaned up DLT incarnation; uifunc.h is ready for factoring out
+ * (pending MNCB)
+ *
+ * *****************  Version 128  *****************
+ * User: Derek Li     Date: 5/29/09    Time: 12:54p
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Added #include "sg_dlt.h"
+ *
+ * *****************  Version 127  *****************
+ * User: Arkkhasin    Date: 5/14/09    Time: 1:33a
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * TIMEBASE_H_, timebasedlt.h, timebasemncb.h replaced by timebase.h which
+ * are now different in inc_DLT and inc_MNCB
+ *
+ * *****************  Version 126  *****************
+ * User: Derek Li     Date: 5/13/09    Time: 6:17p
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Updated StartEnEntry("FAIL_LOW") and StartEnEntry("FAIL_HIGH")
+ *
+ * *****************  Version 125  *****************
+ * User: Derek Li     Date: 5/08/09    Time: 11:08a
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Added en_t entries: SFTR_MANUAL and SFTR_AUTOTUNE
+ *
+ * *****************  Version 124  *****************
+ * User: Arkkhasin    Date: 5/05/09    Time: 4:40p
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Extracted more UI glue into separate supporting files
+ *
+ * *****************  Version 123  *****************
+ * User: Derek Li     Date: 4/13/09    Time: 1:29p
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Added en_t FAIL_LOW_ENABLE and FAIL_LOW_DISABLE
+ *
+ * *****************  Version 122  *****************
+ * User: Derek Li     Date: 4/09/09    Time: 3:05p
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Added some en_t for AO_1 filter and smart filter
+ *
+ * *****************  Version 121  *****************
+ * User: Arkkhasin    Date: 4/07/09    Time: 7:35p
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Some Menus macroized into different files;
+ * MNCB conditionals repaired
+ *
+ * *****************  Version 120  *****************
+ * User: Derek Li     Date: 4/06/09    Time: 11:21a
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Comment some unuseful enable entries
+ *
+ * *****************  Version 119  *****************
+ * User: Arkkhasin    Date: 4/03/09    Time: 7:24p
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Lint
+ *
+ * *****************  Version 118  *****************
+ * User: Derek Li     Date: 4/02/09    Time: 2:54p
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Added feature condition for ATO and ATC
+ *
+ * *****************  Version 117  *****************
+ * User: Derek Li     Date: 4/02/09    Time: 2:05p
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Added some en_t elements
+ *
+ * *****************  Version 116  *****************
+ * User: Derek Li     Date: 3/31/09    Time: 2:55p
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Added some en_t for alarm menu
+ *
+ * *****************  Version 113  *****************
+ * User: Derek Li     Date: 3/30/09    Time: 3:05p
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Removed #include "control.h"
+ *
+ * *****************  Version 112  *****************
+ * User: Derek Li     Date: 3/26/09    Time: 4:24p
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Add SGM_SUCCESS and SGM_FAIL en_t
+ *
+ * *****************  Version 111  *****************
+ * User: Arkkhasin    Date: 3/26/09    Time: 12:37a
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * First crack at UI support for smart filter auto-tune
+ *
+ * *****************  Version 110  *****************
+ * User: Derek Li     Date: 3/20/09    Time: 5:38p
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Update service and mounting en_t
+ *
+ * *****************  Version 109  *****************
+ * User: Derek Li     Date: 3/18/09    Time: 7:28p
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Add some header files and en_t elements
+ *
+ * *****************  Version 108  *****************
+ * User: Arkkhasin    Date: 3/13/09    Time: 2:35a
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Removed Manual Mode access from HART and UI for DLT if not controller
+ * (i.e. for now, always)
+ *
+ * *****************  Version 107  *****************
+ * User: Derek Li     Date: 3/12/09    Time: 2:40p
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Add some en_t definitions
+ *
+ * *****************  Version 106  *****************
+ * User: Derek Li     Date: 3/06/09    Time: 12:04p
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Add enable entry for DLT service(level or interface)
+ *
+ * *****************  Version 105  *****************
+ * User: Arkkhasin    Date: 3/02/09    Time: 2:08a
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Lint comments and type fixes
+ *
+ * *****************  Version 104  *****************
+ * User: Arkkhasin    Date: 2/15/09    Time: 2:38a
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * UI for main output signal generator
+ *
+ * *****************  Version 103  *****************
+ * User: Arkkhasin    Date: 2/06/09    Time: 12:30a
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Macro-ized Setup mode submenus, extracted in separate .inc files, with
+ * new lock scheme
+ *
+ * *****************  Version 102  *****************
+ * User: Arkkhasin    Date: 2/01/09    Time: 10:49p
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Intermediate check-in for button locks with password override
+ *
+ * *****************  Version 101  *****************
+ * User: Arkkhasin    Date: 1/27/09    Time: 12:05a
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Custom units set and save UI nodes are disabled if the current unit is
+ * built-in
+ *
+ * *****************  Version 100  *****************
+ * User: Arkkhasin    Date: 1/11/09    Time: 7:45p
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Mode indicating fault bits removed. Went back to the mode stored
+ *
+ * *****************  Version 99  *****************
+ * User: Arkkhasin    Date: 12/26/08   Time: 2:18a
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Removed obsolete inactive UI_LANGUGAGE_NAMED_IN_ALL_LANGUAGES
+ *
+ * *****************  Version 98  *****************
+ * User: Arkkhasin    Date: 7/28/08    Time: 1:57p
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Light linting
+ *
+ * *****************  Version 97  *****************
+ * User: Arkkhasin    Date: 7/05/08    Time: 1:28a
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Changes to accommodate the new position input management
+ *
+ * *****************  Version 96  *****************
+ * User: Arkkhasin    Date: 6/13/08    Time: 12:08a
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Fixed a name conflict (signal characterization names didn't use
+ * prefixes - against naming convention)
+ *
+ * *****************  Version 95  *****************
+ * User: Ernieprice   Date: 5/12/08    Time: 9:50a
+ * Updated in $/MNCB/Dev/FIRMWARE/interface/ui
+ * Updated files for 12400 BIOS - chnaged timebase.h to TIMEBASE_H_
+*/
+#MP Endif
+#MP Setstr basename=uAutoLine
+#MP Include "ustd.inc"
+
+#MP fcat_out=0
+#MP
+#MP
+#MP ;-------------- Create UI enumeration header ---------------
+#MP Export (0) {uJoin, basename, #@.h#}
+#MP
+/*
+Copyright 2004-2007 by Dresser, Inc., as an unpublished trade secret.  All rights reserved.
+This document and all information herein are the property of Dresser, Inc.
+It and its contents are  confidential and have been provided as a part of
+a confidential relationship.  As such, no part of it may be made public,
+decompiled, reverse engineered or copied and it is subject to return upon
+demand.
+*/
+/**
+    \file #mp%sbasename.h
+    \brief Misc. definitions for UI tables for MNCB
+
+    This file is automatically generated by Unimal from uitables.u
+    DO NOT edit it manually! Edit uitables.u instead.
+
+    CPU: Any
+
+    OWNER: #mp%sbasename.u
+    $Archive: /MNCB/Dev/LCX2AP/FIRMWARE/interface/ui/uitable.u $
+    $Date: 1/09/12 6:33p $
+    $Revision: 2 $
+    $Author: Arkkhasin $
+
+    \ingroup UI
+*/
+#ifndef #mp{%s toupper}_H_
+#define #mp{%s toupper}_H_
+#MP Include "uimenus.inc"
+#MP Include "uigluefunc.inc"
+#MP Include #@uienable.inc#
+#MP Include #@uixlate.inc#
+#MP
+#MP ;Include aggregate definitions of individual components
+
+/*lint -esym(961, 19.13)
+  We disable MISRA2 "Don't use ##" since this macro improves
+  readability of automatically generated code (to the extent it's achieved)
+  NOTE: We don't use CAT wrapper since we don't want "func" to expand if such a macro exists.
+*/
+#define XLATE_INDEX(func) INDEX_ ## func
+/*lint +esym(961, 19.13) */
+#define ENOFFS(index) (INDEX_IN_ENABLE_STRUCT(index)) //a valid reference cannot be 0
+#endif //#mp{%s toupper}_H_
+/* This line marks the end of the source */
+#MP
+#MP Export (0) {uJoin, basename, #@.c#}
+#MP ; C file header
+/*
+Copyright 2004-2007 by Dresser, Inc., as an unpublished trade secret.  All rights reserved.
+This document and all information herein are the property of Dresser, Inc.
+It and its contents are  confidential and have been provided as a part of
+a confidential relationship.  As such, no part of it may be made public,
+decompiled, reverse engineered or copied and it is subject to return upon
+demand.
+*/
+/**
+    \file #mp%sbasename.c
+    \brief Configuration of LCD UI tables for MNCB
+
+    This version ia a table-driven definition of local UI a la SVI-II.
+    This file is automatically generated by Unimal from uitable.u
+    DO NOT edit it manually!
+
+    CPU: Any
+
+    OWNER: #mp%sbasename.u
+    $Archive: /MNCB/Dev/LCX2AP/FIRMWARE/interface/ui/uitable.u $
+    $Date: 1/09/12 6:33p $
+    $Revision: 2 $
+    $Author: Arkkhasin $
+
+    \ingroup UI
+*/
+#MP If FEATURE_HARDWARE_PLATFORM == FEATURE_HARDWARE_PLATFORM_MNCB
+#include "config.h" //for bitutils.h
+#MP Endif
+#include "projectdef.h"
+#include "mnwrap.h" //for MN_OFFSETOF
+#include "uipublic.h"
+#include "uidef.h"
+#include "uitable.h"
+#include "uitext.h"
+#include "bitutils.h" //for bit location in a bit array
+
+//For data interface
+#include "mncbtypes.h"
+#include "errcodes.h"
+#include "configure.h"
+#include "position.h"
+#include "param.h"
+#include "faultpublic.h"
+#include "devicemode.h"
+//#include "posmon.h"
+#MP If FEATURE_AO == FEATURE_AO_SUPPORTED
+#include "ao.h"
+#MP Endif
+
+#include "timebase.h"
+#include "uistartnodes.h"
+#MP If FEATURE_PARTIAL_STROKE_TEST == FEATURE_PARTIAL_STROKE_TEST_SUPPORTED
+#include "pst.h"
+#include "process.h"
+#MP Endif ;FEATURE_PARTIAL_STROKE_TEST == FEATURE_PARTIAL_STROKE_TEST_SUPPORTED
+#MP If FEATURE_SIGNAL_SETPOINT == FEATURE_SIGNAL_SETPOINT_SUPPORTED
+#MP If FEATURE_UI_SIGNAL_LIMITS == FEATURE_UI_SIGNAL_LIMITS_SHOW
+#include "signalsp.h"
+#MP Endif ;FEATURE_UI_SIGNAL_LIMITS == FEATURE_UI_SIGNAL_LIMITS_SHOW
+#MP Endif ;FEATURE_SIGNAL_SETPOINT == FEATURE_SIGNAL_SETPOINT_SUPPORTED
+#MP
+#MP
+#MP If FEATURE_PRESSURE_INPUTS == FEATURE_PRESSURE_INPUTS_INCLUDED
+#include "ui_pressures.h"
+#MP Endif
+#include "interface.h"
+#include "uigluefunc.h"
+#MP If FEATURE_HARDWARE_PLATFORM == FEATURE_HARDWARE_PLATFORM_MNCB
+//AK: Temporary until eliminated
+#include "uifunc.h" //last since has to know all types
+#MP Endif
+#MP If FEATURE_CPU == FEATURE_CPU_STM32F10xxE
+#include "ff_tbblockvars.h"
+#MP Endif
+
+#define UINODE_DISABLED ENOFFS(DISABLED)
+#define UINODE_ENABLED (0)
+#define NODE_LINK(node) (((nodelink_t)MN_OFFSETOF(nodeTable_t, node)+(nodelink_t)1u))
+
+//-------------- enforce project dependence ------------------
+#ifndef PROJECTDEF_H_
+#   error "Must include projectdef.h"
+#endif
+
+//-------------- limits -----------------
+
+/* We need to have different "enable" options for the
+   item PREVIOUS to custom, to be able to set
+   the correct next value. See its use below
+*/
+
+#define FWORD(f) BYTENUM((u32)(f))
+#define FBITPOS(f) BYTEBITMASK((u32)(f))
+
+#MP Expand StartEnableTable()
+    #MP    ;always disabled: zero var mask, non-zero match value
+    #MP Expand StartEnEntry(#@DISABLED#)
+        DATAFUNC(ui_getProcId)/*any address is OK*/, 0, 0, 1,
+        0 //chain terminated
+    #MP Expand EndEnEntry()
+    #MP Enable_UIButtonLockTest() ;Aggregate for lock test
+    #MP DevModes_En ; Aggregate for device mode/submode-driven enablers
+    #MP ;---------- various operating modes -------------
+#MP If FEATURE_PRESSURE_INPUTS == FEATURE_PRESSURE_INPUTS_INCLUDED
+    #MP Expand StartEnEntry(#@PRESS_ACTUATOR_TO_OPERMAN#)
+        DATAFUNC(ui_GetOptionConfig), MN_OFFSETOF(OptionConfig_t, m_OptionConfig)+BYTENUM(PRESSURE_SENSOR_1), BYTEBITMASK(PRESSURE_SENSOR_1), BYTEBITMASK(PRESSURE_SENSOR_1), //from configure.h
+        #MP Expand EnEntryNext(#@OPMODE_OPERMAN#)
+    #MP Expand EndEnEntry()
+    #MP Expand StartEnEntry(#@PRESS_ACTUATOR#)
+        DATAFUNC(ui_GetOptionConfig), MN_OFFSETOF(OptionConfig_t, m_OptionConfig)+BYTENUM(PRESSURE_SENSOR_1), BYTEBITMASK(PRESSURE_SENSOR_1), BYTEBITMASK(PRESSURE_SENSOR_1), //from configure.h
+        0 //chain terminated
+    #MP Expand EndEnEntry()
+#MP Endif
+
+    #MP condex(AirAction_En)
+
+#MP If FEATURE_HARDWARE_PLATFORM == FEATURE_HARDWARE_PLATFORM_MNCB
+//AK: Temporary until eliminated conditionally (with condex)
+    #MP     ;The next two enable entries enable exactly one of the full-cost and
+    #MP     ;low-cost options
+    #MP Expand StartEnEntry(#@COST_FULL#)
+        DATAFUNC(ui_getCostOption), 0, LOW_COST_VERSION, 0,
+        0 //chain terminated
+    #MP Expand EndEnEntry()
+#MP Endif ;FEATURE_HARDWARE_PLATFORM_MNCB
+#MP
+#MP condex(SigSpCharact_En)
+#MP condex(TightShutoffLo_En)
+#MP condex(TightShutoffHi_En)
+#MP condex(Manual_Tune_En)
+#MP
+#MP If FEATURE_CPU == FEATURE_CPU_STM32F10xxE
+#MP condex(CycleMenu_FfVar_En)
+#MP Endif ;FEATURE_CPU
+#MP
+    #MP
+    #MP     ;The next many entries control fault display nodes visibility
+    #MP Faults_En
+    #MP
+#MP If FEATURE_POSITION_CONTROL == FEATURE_POSITION_CONTROL_INCLUDED
+    //-- single/double acting -- : not visible in low cost version
+    #MP Expand StartEnEntry(#@Act_Single#)
+        DATAFUNC(ui_getPneuParams), MN_OFFSETOF(PneumaticParams_t, SingleActing), 0x1U, 0x1U,
+        #MP Expand EnEntryNext(#@COST_FULL#)
+    #MP Expand EndEnEntry()
+    #MP Expand StartEnEntry(#@Act_Double#)
+        DATAFUNC(ui_getPneuParams), MN_OFFSETOF(PneumaticParams_t, SingleActing), 0x1U, 0x0U,
+        #MP Expand EnEntryNext(#@COST_FULL#)
+    #MP Expand EndEnEntry()
+#MP Endif ;FEATURE_POSITION_CONTROL_INCLUDED
+#MP
+#MP condex(TripLatch_En)
+#MP
+#MP ;----- PST-related
+#MP If FEATURE_PARTIAL_STROKE_TEST == FEATURE_PARTIAL_STROKE_TEST_SUPPORTED
+    #MP Expand StartEnEntry("EN_PST_CANCELED")
+        DATAFUNC(ui_GetFaultCodeData), MN_OFFSETOF(FaultCodeData_t, fcode) + FWORD(FAULT_PST_CANCELED-1U), FBITPOS(FAULT_PST_CANCELED-1U), FBITPOS(FAULT_PST_CANCELED-1U),
+        #MP Expand EnEntryNext()
+    #MP Expand EndEnEntry()
+    #MP Expand StartEnEntry("PST_ON")
+        ui_getProcId, 0, 0xff, PROC_DIAG_PARTIAL_STROKE_TEST,
+        #MP Expand EnEntryNext()
+    #MP Expand EndEnEntry()
+    #MP Expand StartEnEntry("PST_START")
+        DATAFUNC(ui_IsPSTEnabled), 0, 0x01, 0x01,
+        #MP Expand EnEntryNext(#@OPMODE_NOT_FSAFE_NOR_LOWPOWER#)
+    #MP Expand EndEnEntry()
+    #MP Expand StartEnEntry("EN_PST_SETUP")
+        DATAFUNC(ui_IsPSTAllowed), 0, 0x01, 0x01,
+        #MP Expand EnEntryNext("OPMODE_SETUP")
+    #MP Expand EndEnEntry()
+    #MP Expand StartEnEntry("EN_PST_VIEW")
+        DATAFUNC(ui_IsPSTAllowed), 0, 0x01, 0x01,
+        #MP Expand EnEntryNext()
+    #MP Expand EndEnEntry()
+#MP Endif ;FEATURE_PARTIAL_STROKE_TEST == FEATURE_PARTIAL_STROKE_TEST_SUPPORTED
+#MP If FEATURE_ESD_CONTINUOUS_DIAGS == FEATURE_ESD_CONTINUOUS_DIAGS_SUPPORTED
+    #MP Expand StartEnEntry("EN_PNEU_CANCELED")
+        DATAFUNC(ui_GetFaultCodeData), MN_OFFSETOF(FaultCodeData_t, fcode) + FWORD(FAULT_PNEUMATIC_TEST_CANCELED-1U), FBITPOS(FAULT_PNEUMATIC_TEST_CANCELED-1U), FBITPOS(FAULT_PNEUMATIC_TEST_CANCELED-1U),
+        #MP Expand EnEntryNext()
+    #MP Expand EndEnEntry()
+    #MP Expand StartEnEntry("EN_PNEU_ON")
+        ui_getProcId, 0, 0xff, PROC_ESD_CONT_DIAGS,
+        #MP Expand EnEntryNext()
+    #MP Expand EndEnEntry()
+#MP Endif ;FEATURE_ESD_CONTINUOUS_DIAGS == FEATURE_ESD_CONTINUOUS_DIAGS_SUPPORTED
+#MP
+#MP condex(DispMode_En)
+#MP condex(EngUnits_En)
+#MP
+#MP If FEATURE_HARDWARE_PLATFORM == FEATURE_HARDWARE_PLATFORM_DLT
+#MP
+    #MP Expand StartEnEntry("TUNE_ON")
+        ui_getProcId, 0, 0xff, PROC_AUTOTUNE,
+        #MP Expand EnEntryNext()
+    #MP Expand EndEnEntry()
+    #MP StartEnEntry("AO1_FROZEN")
+        DATAFUNC(ui_CheckFrozenAO1), 0, 1, 1,
+        #MP Expand EnEntryNext()
+    #MP EndEnEntry()
+        #MP StartEnEntry("AO2_FROZEN")
+        DATAFUNC(ui_CheckFrozenAO2), 0, 1, 1,
+        #MP Expand EnEntryNext()
+    #MP EndEnEntry()
+    #MP StartEnEntry("SERVICE_LEVEL")
+        DATAFUNC(ui_GetServiceFlag), 0, 1, 0,
+        #MP Expand EnEntryNext()
+    #MP EndEnEntry()
+    #MP StartEnEntry("SERVICE_INTERFACE")
+        DATAFUNC(ui_GetServiceFlag), 0, 1, 1,
+        #MP Expand EnEntryNext()
+    #MP EndEnEntry()
+    #MP StartEnEntry("MOUNT_LEFT")
+        DATAFUNC(ui_GetMountingFlag), 0, 1, 0,
+        #MP Expand EnEntryNext()
+    #MP EndEnEntry()
+    #MP StartEnEntry("MOUNT_RIGHT")
+        DATAFUNC(ui_GetMountingFlag), 0, 1, 1,
+        #MP Expand EnEntryNext()
+    #MP EndEnEntry()
+    #MP StartEnEntry("CUR_DIRECT")
+        DATAFUNC(ui_GetCurDir), 0, 1, 1,
+        #MP Expand EnEntryNext()
+    #MP EndEnEntry()
+    #MP StartEnEntry("CUR_REVERSE")
+        DATAFUNC(ui_GetCurDir), 0, 1, 0,
+        #MP Expand EnEntryNext()
+    #MP EndEnEntry()
+        #MP StartEnEntry("A01FTR_ON")
+        DATAFUNC(ui_GetAO1FTRStatus), 0, 0x01, 1,
+        #MP Expand EnEntryNext()
+    #MP EndEnEntry()
+        #MP StartEnEntry("A01FTR_OFF")
+        DATAFUNC(ui_GetAO1FTRStatus), 0, 0x01, 0,
+        #MP Expand EnEntryNext()
+    #MP EndEnEntry()
+        #MP StartEnEntry("SFTR_ON")
+        DATAFUNC(ui_GetSFTRStatus), 0, 0x01, 1,
+        #MP Expand EnEntryNext()
+    #MP EndEnEntry()
+        #MP StartEnEntry("SFTR_OFF")
+        DATAFUNC(ui_GetSFTRStatus), 0, 0x01, 0,
+        #MP Expand EnEntryNext()
+    #MP EndEnEntry()
+        #MP StartEnEntry("SGM_SUCCESS")
+        DATAFUNC(ui_GetSGMStatus), 0, 0x01, 1,
+        #MP Expand EnEntryNext()
+    #MP EndEnEntry()
+    #MP StartEnEntry("SGM_FAIL")
+        DATAFUNC( ui_GetSGMStatus), 0, 0x01, 0,
+        #MP Expand EnEntryNext()
+    #MP EndEnEntry()
+    #MP StartEnEntry("CAL_ZERO_SUCCESS")
+        DATAFUNC(ui_GetZeroStatus), 0, 0x01, 1,
+        #MP Expand EnEntryNext()
+    #MP EndEnEntry()
+    #MP StartEnEntry("CAL_ZERO_FAIL")
+        DATAFUNC( ui_GetZeroStatus), 0, 0x01, 0,
+        #MP Expand EnEntryNext()
+    #MP EndEnEntry()
+
+        #MP StartEnEntry("CAL_SPAN_SUCCESS")
+        DATAFUNC(ui_GetSpanStatus), 0, 0x01, 1,
+        #MP Expand EnEntryNext()
+    #MP EndEnEntry()
+    #MP StartEnEntry("CAL_SPAN_FAIL")
+        DATAFUNC( ui_GetSpanStatus), 0, 0x01, 0,
+        #MP Expand EnEntryNext()
+    #MP EndEnEntry()
+        #MP StartEnEntry("SGMCAL_ZERO_SUCCESS")
+        DATAFUNC(ui_GetSGMZeroStatus), 0, 0x01, 1,
+        #MP Expand EnEntryNext()
+    #MP EndEnEntry()
+    #MP StartEnEntry("SGMCAL_ZERO_FAIL")
+        DATAFUNC( ui_GetSGMZeroStatus), 0, 0x01, 0,
+        #MP Expand EnEntryNext()
+    #MP EndEnEntry()
+        #MP StartEnEntry("SGMCAL_SPAN_SUCCESS")
+        DATAFUNC(ui_GetSGMSpanStatus), 0, 0x01, 1,
+        #MP Expand EnEntryNext()
+    #MP EndEnEntry()
+    #MP StartEnEntry("SGMCAL_SPAN_FAIL")
+        DATAFUNC( ui_GetSGMSpanStatus), 0, 0x01, 0,
+        #MP Expand EnEntryNext()
+    #MP EndEnEntry()
+    #MP StartEnEntry("FAIL_LOW")
+        DATAFUNC(ui_GetFailDirSel), 0, 0x01, 0,
+        #MP Expand EnEntryNext()
+    #MP EndEnEntry()
+    #MP StartEnEntry("FAIL_HIGH")
+        DATAFUNC(ui_GetFailDirSel), 0, 0x01, 1,
+        #MP Expand EnEntryNext()
+    #MP EndEnEntry()
+#MP If 0
+        #MP StartEnEntry("SFTR_MANUAL")
+        DATAFUNC(ui_GetSFTRAutoTuneStatus), 0, 0x01, 0,
+        #MP Expand EnEntryNext()
+    #MP EndEnEntry()
+    #MP StartEnEntry("SFTR_AUTOTUNE")
+        DATAFUNC( ui_GetSFTRAutoTuneStatus), 0, 0x01, 1,
+        #MP Expand EnEntryNext()
+    #MP EndEnEntry()
+#MP Endif; /* 0 */
+        #MP StartEnEntry("RetransmitOptionEn")
+        DATAFUNC(ui_GetOptionConfig), MN_OFFSETOF(OptionConfig_t, m_OptionConfig) + BYTENUM(POSITION_RETRANSMIT_OPTION), POSITION_RETRANSMIT_OPTION_BMASK, POSITION_RETRANSMIT_OPTION_BMASK, //from configure.h
+        #MP EnEntryNext()
+    #MP EndEnEntry()
+    #MP StartEnEntry("RetransmitOptionDisable")
+        DATAFUNC(ui_GetOptionConfig), MN_OFFSETOF(OptionConfig_t, m_OptionConfig) + BYTENUM(POSITION_RETRANSMIT_OPTION), POSITION_RETRANSMIT_OPTION_BMASK, 0, //from configure.h
+        #MP EnEntryNext()
+    #MP EndEnEntry()
+    #MP StartEnEntry("OPMODE_SETUP_ControllerOption")
+        DATAFUNC(ui_GetOptionConfig), MN_OFFSETOF(OptionConfig_t, m_OptionConfig) + BYTENUM(FACTOPT_PROCESS_CONTROLLER), BYTEBITMASK(FACTOPT_PROCESS_CONTROLLER), BYTEBITMASK(FACTOPT_PROCESS_CONTROLLER),
+        #MP Expand EnEntryNext("OPMODE_SETUP")
+    #MP EndEnEntry()
+    #MP StartEnEntry("OPMODE_OPER_ControllerOption")
+        DATAFUNC(ui_GetOptionConfig), MN_OFFSETOF(OptionConfig_t, m_OptionConfig) + BYTENUM(FACTOPT_PROCESS_CONTROLLER), BYTEBITMASK(FACTOPT_PROCESS_CONTROLLER), BYTEBITMASK(FACTOPT_PROCESS_CONTROLLER),
+        #MP Expand EnEntryNext("OPMODE_OPER")
+    #MP EndEnEntry()
+
+#MP Endif ;FEATURE_HARDWARE_PLATFORM_DLT
+
+#MP Expand EndEnableTable()
+
+//========= input translation functions ===================
+#MP Expand StartXlateTable()
+    #MP ; This translation is not used anymore: Expand XlateFunc(#@xlate_OperMenu#)
+    #MP Expand XlateFunc(#@xlate_StdMenu#)
+    #MP Expand XlateFunc(#@xlate_OperMenu1#)
+    #MP Expand XlateFunc(#@xlate_NextIfEnabled#)
+    #MP Expand XlateFunc(#@xlate_SelectIfEnabled#)
+    #MP Expand XlateFunc(#@xlate_StdWiz#)
+#MP Expand EndXlateTable()
+
+//---------------------------------------------
+#MP
+#MP Expand SetGenerateUINodeTable()
+#MP
+#MP
+/* Each node must be individually named, so that other nodes
+   can set up link(s) to it.
+   Try to preserve look and feel of the raw C table
+*/
+#MP Include #@uinodedef.inc#
+//-------start-up init values ----------------------
+const uistate_t initstate =
+{
+    .menu = menu,
+    .uitext = NULL,
+    .varspeed = NULL, //varspeed
+    .en_index = en_table,
+    .nodes = (const nodetype_t *)&nodeTable,
+    .inxlate = xlatef,
+    .node = NODE_LINK(#mp%sCyclingMenuStart), //from uinodedef.inc
+    //don't care about this as long as .uistackp = 0: .uistack =
+    .input = 0, //input
+    .uistackp = 0, //UI "call" stack pointer
+    .mindex = 0, //menu index
+    .age = 0, //age
+    .age_index = 0, //age_index
+    .num_startnodes = NELEM(menu), //for user jump boundaries check
+    .timeout = 0, //no default timeout yet
+    //.nextnode = 0, //no node request
+    CHECKFIELD_CLEAR()
+};
+
+#ifdef UNIT_TEST_ENVIRONMENT
+//Array of all nodes for unit testing
+#MP SetGenerateUINodesArrayForUnitTest
+#MP Include #@uinodedef.inc#
+#endif //UNIT_TEST_ENVIRONMENT
+
+/* This line marks the end of the source */
+#MP ;/* This line marks the end of the source */
+

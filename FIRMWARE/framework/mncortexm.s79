@@ -1,0 +1,70 @@
+/*
+Copyright 2005-2007 by Dresser, Inc., as an unpublished trade secret.  All rights reserved.
+This document and all information herein are the property of Dresser, Inc.
+It and its contents are  confidential and have been provided as a part of
+a confidential relationship.  As such, no part of it may be made public,
+decompiled, reverse engineered or copied and it is subject to return upon
+demand.
+*/
+/**
+    \file mncortexm.s79
+    \brief enable/disable interrupts
+
+    CPU: ARM Cortex-M (IAR Assembler)
+
+    OWNER: AK
+
+*/
+
+#define ASSEMBLER_VERSION_5 (__VER__ >= 5000000)
+#if ASSEMBLER_VERSION_5
+# define org ;
+# define ENDMOD
+# define VECTOR_SECTION            SECTION      .intvec:CODE:ROOT(2)
+# define STARTUP_SECTION           SECTION      .text:CODE:NOROOT(2)
+#else
+# define SECTION RSEG
+# define VECTOR_SECTION            COMMON  INTVEC:CODE:ROOT(2)
+# define STARTUP_SECTION           RSEG    ICODE:CODE:NOROOT(2)
+#endif
+
+
+; void cpu_restore_psw(psw_t psw)
+;
+;   This unfortunately has to be in assembler because C intrinsic is crippled
+;       and because C inline assembler is crippled
+;       and because the PSW to restore must be passed per C calling convention
+;   Restore CPU P[rogram] S[tatus] W[ord]
+
+                MODULE mnenable
+                STARTUP_SECTION
+                THUMB
+#if __VER__< 5050008
+                PUBLIC  cpu_restore_psw,cpu_save_psw_and_disable,cpu_get_psw
+
+cpu_get_psw
+                MRS     R0, PRIMASK
+                BX      LR
+
+cpu_save_psw_and_disable
+                MRS     R0, PRIMASK    ; Set prio int mask to mask all (except faults)
+                CPSID   I
+                BX      LR
+
+cpu_restore_psw
+                MSR     PRIMASK, R0
+                BX      LR
+#endif
+        public jmpstart
+jmpstart
+    CPSID   I
+    mov     r2,#0
+    msr     control,r2
+
+    ldr     r1,[r0,#0]
+    mov     sp,r1
+    ldr     r0,[r0,#4]
+    bx      r0
+                END
+
+/* This line marks the end of the source */

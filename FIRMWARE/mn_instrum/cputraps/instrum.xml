@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--    $Archive: /MNCB/Dev/AP_Release_3.1.x/LCX_devel/FIRMWARE/mn_instrum/cputraps/instrum.xml $
+    $Date: 6/10/11 2:26p $
+    $Revision: 1 $
+    $Author: Arkkhasin $
+
+-->
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command CmdNum="129" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Read A Word" CmdNum="254" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND | HC_FACTORY_COMMAND" Description="Read free CPU time and ticks spent in various places">
+          <RequestParams>
+            <Param>Raw Address</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Param>Raw Address</Param>
+            <Param>Data Word</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+    <Command CmdNum="130" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Write A Word" CmdNum="254" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND | HC_FACTORY_COMMAND" Description="Read free CPU time and ticks spent in various places">
+          <RequestParams>
+            <Param>Raw Address</Param>
+            <Param>Data Word</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Param>Raw Address</Param>
+            <Param>Data Word</Param>
+          </ResponseParams>
+        </Command>
+        <Command Name="Goto" CmdNum="252" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND | HC_FACTORY_COMMAND" Description="Force execution from an address">
+          <RequestParams>
+            <Param>Raw Address</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Param>Raw Address</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+  <Variables>
+    <Variable Name="Raw Address" DataType="H_UINT4" Description="Anything in the address space" Printf="%08X"></Variable>
+    <Variable Name="Data Word" DataType="H_UINT4" Printf="%08X"></Variable>
+  </Variables>
+</HART>

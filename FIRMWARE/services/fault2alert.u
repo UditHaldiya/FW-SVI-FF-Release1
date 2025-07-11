@@ -1,0 +1,29 @@
+#MP Include "ustd.inc"
+#include <softing_base.h>
+#include "mnwrap.h"
+#include "mnfault2alert.h"
+#MP Macro StartFaultAlarmDef
+const MnFaultAlarmMap_t MnFaultAlarmMap[MAX_FAULT_NUMBER] = MN_ALLOW_INIT_ZERODEFAULT()
+{
+#MP Endm
+#MP Macro FaultAlarmDef
+    [FAULT_#mp%n#1# - 1] =
+    {
+        .BlockError = #mp%s#2#,
+        #MP strcmp(#3#, "ALERT_NONE")
+        #MP If strcmp>=0 ;match found
+        .BlockAlertX=ALERT_NONE,
+        #MP Else
+        .BlockAlertX=ALERT_INDEX(#mp%s#3#),
+        #MP Endif
+        .diag_alarm_number=#mp%s#4#,
+        .recommended_action=#mp%s#5#,
+        .priority = #mp%s#6#,
+    },
+#MP Endm
+#MP Macro EndFaultAlramDef
+};
+#MP Endm
+
+#MP Include "fault2alert.inc"
+/* This line marks the end of the source */

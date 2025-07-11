@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART>
+  <Sequences>
+    <Sequence Name="Read Board ID">
+      <!--This is a dummy sequence that does nothing.  It is intended to be used where a derived class wasts to reuse methods of its parent where the derived class does not support a command of its parent.-->
+      <Steps />
+    </Sequence>
+    <Sequence Name="Write Board ID">
+      <!--This is a dummy sequence that does nothing.  It is intended to be used where a derived class wasts to reuse methods of its parent where the derived class does not support a command of its parent.-->
+      <Steps />
+    </Sequence>
+  </Sequences>
+  <Variables>
+    <Variable Name="Final Assembly Number" DataType="H_UINT3" Description="final assembly number" EnRangeCheck="1" MaxSize="1" DisplayName="Board ID" Default="0">
+      <!--Dummy Variable for compatibility with DLT Factory Page-->
+      <Range Model="TypeRange" />
+    </Variable>
+  </Variables>
+</HART>

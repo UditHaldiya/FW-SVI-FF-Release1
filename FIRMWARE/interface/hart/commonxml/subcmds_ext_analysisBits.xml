@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="">
+  <CannedCommands>
+    <Command Name="ExtendedAnalysisDataCollector" CmdNum="242">
+      <SubCommand Name="ExtendedAnalysisDataCollector" CmdNum="1">
+        <ResponseParams>
+          <Param Value="ControlBitsBA">eadc_CtrlByte</Param>
+          <Param Value="BitPackBA">eadc_BitPack</Param>
+        </ResponseParams>
+      </SubCommand>
+    </Command>
+  </CannedCommands>
+  <BitArrays>
+    <BitArray Name="ControlBitsBA" Printf="%02X" StartBitNum="0" MaxSize="1">
+      <Param>Regular Control</Param>
+      <Param>Integral Control</Param>
+      <Param>Is Moving</Param>
+      <Param>Jiggle On</Param>
+      <Param>Overshoot Present</Param>
+    </BitArray>
+    <BitArray Name="BitPackBA" Printf="%02X" StartBitNum="0" MaxSize="2">
+      <Param>Pressure Limit-</Param>
+      <Param>Pressure Limit+</Param>
+      <Param>Tight Shutoff</Param>
+      <Param>IP Current</Param>
+      <Param>Actuator Limit</Param>
+      <Param>Overshoots &gt; 0</Param>
+      <Param>Jiggles &gt; 0</Param>
+      <Param>At Limit</Param>
+      <Param>Exhausting</Param>
+      <Param>Startup</Param>
+      <Param>Air Low</Param>
+      <Param>Count Limit-</Param>
+      <Param>Count Limit+</Param>
+      <Param>Pilot Limit-</Param>
+      <Param>Pilot Limit+</Param>
+    </BitArray>
+  </BitArrays>
+  <BitVariables>
+    <BitVariable Name="Regular Control" BitNum="0" Description="If 1, the firmware is in control"></BitVariable>
+    <BitVariable Name="Integral Control" BitNum="1" Description="If 1, the device is under Integral control"></BitVariable>
+    <BitVariable Name="Is Moving" BitNum="2" Description="If 1, the actuator is moving"></BitVariable>
+    <BitVariable Name="Jiggle On" BitNum="3" Description="If 1, the jiggle test is in progress"></BitVariable>
+    <BitVariable Name="Overshoot Present" BitNum="4" Description="If 1, the overshoot is in progress\n Parameter is excluded. Always returns TRUE."></BitVariable>
+    <BitVariable Name="Pressure Limit-" BitNum="0" Description="If 1, main pressure is at Fill limit"></BitVariable>
+    <BitVariable Name="Pressure Limit+" BitNum="1" Description="If 1, main pressure is at Exhaust limit"></BitVariable>
+    <BitVariable Name="Tight Shutoff" BitNum="2" Description="If 1, the system is in the state of Tight shutoff"></BitVariable>
+    <BitVariable Name="IP Current" BitNum="3" Description="If 1, I/P current is zero AND PWM&gt;high limit"></BitVariable>
+    <BitVariable Name="Actuator Limit" BitNum="4" Description="If 1, Integral windup to limit (of actuator pressure)"></BitVariable>
+    <BitVariable Name="Overshoots &gt; 0" BitNum="5" Description="If 1, number of overshoots occurred is 1 or more"></BitVariable>
+    <BitVariable Name="Jiggles &gt; 0" BitNum="6" Description="If 1, number of jiggle tests occurred is 1 or more"></BitVariable>
+    <BitVariable Name="At Limit" BitNum="8" Description="If 1, any air pressure is at limit"></BitVariable>
+    <BitVariable Name="Exhausting" BitNum="9" Description="If 1, air is exhausting"></BitVariable>
+    <BitVariable Name="Startup" BitNum="10" Description="If 1, the system is in startup state"></BitVariable>
+    <BitVariable Name="Air Low" BitNum="11" Description="If 1, air is at low limit"></BitVariable>
+    <BitVariable Name="Count Limit-" BitNum="12" Description="If 1, I/P or Bias is at upper limit"></BitVariable>
+    <BitVariable Name="Count Limit+" BitNum="13" Description="If 1, I/P or Bias is at lower limit"></BitVariable>
+    <BitVariable Name="Pilot Limit-" BitNum="14" Description="If 1, pilot pressure is at Fill limit"></BitVariable>
+    <BitVariable Name="Pilot Limit+" BitNum="15" Description="If 1, pilot pressure is at Exhaust limit"></BitVariable>
+  </BitVariables>
+</HART>

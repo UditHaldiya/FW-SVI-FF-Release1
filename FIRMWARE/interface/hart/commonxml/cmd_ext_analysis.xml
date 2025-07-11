@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="">
+  <Include></Include>
+  <Commands>
+    <Command Name="ExtendedAnalysis" CmdNum="242" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="TBD">
+      <RequestParams>
+        <Param>SubCmdNum</Param>
+      </RequestParams>
+      <ResponseParams>
+        <Param>SubCmdNum</Param>
+      </ResponseParams>
+      <SubCommands></SubCommands>
+    </Command>
+  </Commands>
+</HART>

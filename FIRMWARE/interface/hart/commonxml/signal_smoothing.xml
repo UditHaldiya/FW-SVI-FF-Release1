@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--    $Archive: /MNCB/Dev/LCX2AP/FIRMWARE/interface/hart/commonxml/signal_smoothing.xml $
+    $Date: 1/30/12 2:01p $
+    $Revision: 1 $
+    $Author: Arkkhasin $
+
+-->
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command Name="Read Factory Values" CmdNum="129" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+      <!--Read factory values selectively by a subcommand-->
+      <RequestParams>
+        <Param>SubCmdNum</Param>
+      </RequestParams>
+      <ResponseParams>
+        <Param>SubCmdNum</Param>
+      </ResponseParams>
+      <SubCommands>
+        <Command Name="Read Signal Smoothing Coefficient" CmdNum="101" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read signal/readback smoothing coefficient (exponential forgetting value)">
+          <ResponseParams>
+            <Param>SmoothCoefSignal</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+    <Command Name="Write Factory Values" CmdNum="130" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND" Description="Write factory values and establish and cancel factory mode. All the work done by subcommands.">
+      <!--Write factory values selectively by a subcommand-->
+      <RequestParams>
+        <Param>SubCmdNum</Param>
+      </RequestParams>
+      <ResponseParams>
+        <Param>SubCmdNum</Param>
+      </ResponseParams>
+      <SubCommands>
+        <Command Name="Write Signal Smoothing Coefficient" CmdNum="101" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_FACTORY_COMMAND" Description="Write signal/readback smoothing coefficient (exponential forgetting value)">
+          <RequestParams>
+            <Param>SmoothCoefSignal</Param>
+          </RequestParams>
+        </Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+  <Variables>
+    <Variable Name="SmoothCoefSignal" DataType="H_UCHAR" Printf="%u" Description="Exponent of forgetting coefficient" EnRangeCheck="1" DisplayName="Smooth Coef Signal">
+      <Range Model="Standard" MinValue="0" MaxValue="6" />
+    </Variable>
+  </Variables>
+</HART>

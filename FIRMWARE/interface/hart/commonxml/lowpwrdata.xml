@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--    $Archive: /MNCB/Dev/AP_Release_3.1.x/LCX_devel/FIRMWARE/interface/hart/commonxml/lowpwrdata.xml $
+    $Date: 9/18/10 10:46p $
+    $Revision: 1 $
+    $Author: Arkkhasin $
+
+-->
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command CmdNum="129" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Read Low Power IP limiting Factory Coef" CmdNum="140" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_READ_COMMAND">
+          <ResponseParams>
+            <Struct>H IP Limiting Factory Coef</Struct>
+          </ResponseParams>
+        </Command>
+        <Command Name="Read Low Power Thresholds Factory Coef" CmdNum="250" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_READ_COMMAND">
+          <ResponseParams>
+            <Struct>H Low Power Thresholds Factory Coef</Struct>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+    <Command CmdNum="130" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Write Low Power IP limiting Factory Coef" CmdNum="140" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND | HC_FACTORY_COMMAND">
+          <RequestParams>
+            <Struct>H IP Limiting Factory Coef</Struct>
+          </RequestParams>
+        </Command>
+        <Command Name="Write Low Power Thresholds Factory Coef" CmdNum="250" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND | HC_FACTORY_COMMAND">
+          <RequestParams>
+            <Struct>H Low Power Thresholds Factory Coef</Struct>
+          </RequestParams>
+        </Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+  <Variables>
+    <Variable Name="LPFC Hysteresis" DataType="H_UINT" Description="Marginal Power Data"></Variable>
+    <Variable Name="LPFC IP Limiting Threshold" DataType="H_UINT" Description="IP Limiting Threshold"></Variable>
+    <Variable Name="LPFC Marginal Power Threshold" DataType="H_UINT" Description="Marginal Power Data"></Variable>
+    <Variable Name="LPFC Low Power Threshold" DataType="H_UINT" Description="Low Power Data"></Variable>
+    <Variable Name="LPFC Power Coef" DataType="H_INT" Description="Low Power Data"></Variable>
+    <Variable Name="LPFC Pressure Coef" DataType="H_INT" Description="Low Power Data"></Variable>
+  </Variables>
+  <Structs>
+    <Struct Name="H IP Limiting Factory Coef">
+      <Param>LPFC IP Limiting Threshold</Param>
+      <Param>LPFC Power Coef</Param>
+      <Param>LPFC Pressure Coef</Param>
+    </Struct>
+    <Struct Name="H Low Power Thresholds Factory Coef">
+      <Param>LPFC Hysteresis</Param>
+      <Param>LPFC Low Power Threshold</Param>
+      <Param>LPFC Marginal Power Threshold</Param>
+    </Struct>
+  </Structs>
+</HART>

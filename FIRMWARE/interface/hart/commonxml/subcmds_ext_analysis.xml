@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="">
+  <Include></Include>
+  <Commands>
+    <Command CmdNum="242" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="ExtendedAnalysisVersion" CmdNum="0" CmdType="Read" CmdFlags="HC_READ_COMMAND|HC_UNPUBLISHED_COMMAND" AllowedModes="HC_ALLOWED_MODE_ALL" Description="Provides a version of the Extended Analysis command">
+          <RequestParams />
+          <ResponseParams>
+            <Param>eav_Version</Param>
+          </ResponseParams>
+        </Command>
+        <Command Name="ExtendedAnalysisDataCollector" CmdNum="1" CmdType="Read" CmdFlags="HC_READ_COMMAND|HC_UNPUBLISHED_COMMAND" AllowedModes="HC_ALLOWED_MODE_ALL" Description="Provides values of internal control variables at run-time.">
+          <RequestParams />
+          <ResponseParams>
+            <Param>Control Algorithm Mode</Param>
+            <Param>eadc_UserSetpoint</Param>
+            <Param>eadc_RateLimitedSetpoint</Param>
+            <Param>eadc_PositionScaled</Param>
+            <Param>eadc_PWM</Param>
+            <Param>eadc_CtlOutput</Param>
+            <Param>eadc_P_pilot</Param>
+            <Param>eadc_P_1</Param>
+            <Param>eadc_P_2</Param>
+            <Param>eadc_P_supply</Param>
+            <Param>eadc_AvgErr</Param>
+            <Param>eadc_MinErr</Param>
+            <Param>eadc_MaxErr</Param>
+            <Param>eadc_PosComp</Param>
+            <Param>eadc_P_element</Param>
+            <Param>eadc_D_element</Param>
+            <Param>eadc_Boost_element</Param>
+            <Param>eadc_Fast_elements</Param>
+            <Param>eadc_Integral</Param>
+            <Param>eadc_Bias</Param>
+            <Param>eadc_Overshoots</Param>
+            <Param>eadc_JigglesPassed</Param>
+            <Param>eadc_CalcPeriod</Param>
+            <Param>eadc_IntegalCount</Param>
+            <Param>eadc_CtrlByte</Param>
+            <Param>eadc_BitPack</Param>
+          </ResponseParams>
+        </Command>
+        <Command Name="ExtendedAnalysisPosPropagation" CmdNum="2" CmdType="Read" CmdFlags="HC_READ_COMMAND|HC_UNPUBLISHED_COMMAND" AllowedModes="HC_ALLOWED_MODE_ALL" Description="Provides values of position as it propagates from raw A/D to scaled position.">
+          <RequestParams />
+          <ResponseParams>
+            <Param>eapp_posADraw</Param>
+            <Param>eapp_posTCcalibrated</Param>
+            <Param>eapp_posLinearized</Param>
+            <Param>eapp_posScaled</Param>
+            <Param>eapp_temperRaw</Param>
+            <Param>eapp_temperTCcomp</Param>
+            <Param>eapp_posTCspan</Param>
+            <Param>eapp_posTCoffset</Param>
+            <Param>eapp_P_pilot</Param>
+            <Param>eapp_PWM</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+  <Variables>
+    <Variable Name="eadc_UserSetpoint" DataType="H_INT" DisplayName="User Setpoint" Description="Signal or Manual setpoint as requested by a user (not rate-limited), counts" />
+    <Variable Name="eadc_RateLimitedSetpoint" DataType="H_INT" DisplayName="Rate Limited Setpoint" Description="Momentary value of setpoint with rate limit applied, counts" />
+    <Variable Name="eadc_PositionScaled" DataType="H_INT" DisplayName="Scaled Position" Description="Normalized position in counts" />
+    <Variable Name="eadc_PWM" DataType="H_UINT" DisplayName="PWM" Description="Actual (possibly normalized) PWM output of the FW" />
+    <Variable Name="eadc_CtlOutput" DataType="H_UINT" DisplayName="Control Output" Description="Output in counts, computed by control program (prior to normalizing, which converts it to PWM output)." />
+    <Variable Name="eadc_P_pilot" DataType="H_INT" DisplayName="Pilot Pressure" Description="Pilot pressure, counts" />
+    <Variable Name="eadc_P_main" DataType="H_INT" DisplayName="Main Pressure" Description="Pressure P1 – P2 for double acting and P1 for single acting, counts" />
+    <Variable Name="eadc_P_1" DataType="H_INT" DisplayName="P1" Description="Pressure P1, counts" />
+    <Variable Name="eadc_P_2" DataType="H_INT" DisplayName="P2" Description="Pressure P2 (counts) if double acting, 0 if single acting" />
+    <Variable Name="eadc_P_supply" DataType="H_INT" DisplayName="Supply Pressure" Description="Supply presssure, counts" />
+    <Variable Name="eadc_AvgErr" DataType="H_INT" DisplayName="Average Error" Description="Average of 8 sequential errors (from a moving window) in counts" />
+    <Variable Name="eadc_MinErr" DataType="H_INT" DisplayName="Min Error" Description="Min error of 8 sequential errors (from a moving window) in counts" />
+    <Variable Name="eadc_MaxErr" DataType="H_INT" DisplayName="Max Error" Description="Max error of 8 sequential errors (from a moving window) in counts" />
+    <Variable Name="eadc_PosComp" DataType="H_UINT" DisplayName="PosComp" Description="Last computed PosComp" />
+    <Variable Name="eadc_P_element" DataType="H_INT" DisplayName="P term" Description="P (Proportional)term of PID control" />
+    <Variable Name="eadc_D_element" DataType="H_INT" DisplayName="D term" Description="D (Derivative) term of PID control" />
+    <Variable Name="eadc_Boost_element" DataType="H_INT" DisplayName="Boost term" Description="Boost component of the control algorithm" />
+    <Variable Name="eadc_Fast_elements" DataType="H_INT" DisplayName="Fast terms" Description="Total of fast-acting components of the control algorithm.\nThe sum of P, D -terms and Boost; Integral is excluded." />
+    <Variable Name="eadc_Integral" DataType="H_INT4" DisplayName="Integral" Description="Momentary value of Integral component" />
+    <Variable Name="eadc_Bias" DataType="H_UINT" DisplayName="Bias" Description="Momentary value of Bias" />
+    <Variable Name="eadc_Overshoots" DataType="H_UINT" DisplayName="Number of Overshoots" Description="Number of overshoots" />
+    <Variable Name="eadc_JigglesPassed" DataType="H_UINT" DisplayName="Number of Jiggle Tests" Description="Number of passed jiggle tests" />
+    <Variable Name="eadc_CalcPeriod" DataType="H_UINT" DisplayName="Calc Period" Description="Period of adding Integral to Bias (counted in control periods)." />
+    <Variable Name="eadc_IntegalCount" DataType="H_UCHAR" DisplayName="Integral Count" Description="Number of cycles since last addition integral to bias (reset to 0 when added)" />
+    <Variable Name="eadc_CtrlByte" DataType="H_UCHAR" DisplayName="Control Byte" MaxSize="1" Description="A single-byte bit pattern, reflecting a number of control parameters" />
+    <Variable Name="eadc_BitPack" DataType="H_UCHAR" MaxSize="2" DisplayName="BitPack" Description="A two-byte bit pattern, reflecting a number of process parameters" />
+    <Variable Name="eav_Version" DataType="H_UINT" MaxSize="2" DisplayName="CmdVersion" Description="A 2-UINT long version of the command Extended Analysis.\nFirst word - FW version (example: B-5 for beta-5);\n2nd word - the command version within FW version, or zero." />
+    <Variable Name="eapp_posADraw" DataType="H_INT4" DisplayName="AD Raw Pos" Description="Raw position value obtained from A/D converter" />
+    <Variable Name="eapp_posTCcalibrated" DataType="H_INT4" DisplayName="TC Calib Pos" Description="TC calibrated position value before magnetic correction" />
+    <Variable Name="eapp_posMagnCorrected" DataType="H_INT" DisplayName="Magn Corr Pos" Description="Position value after temperature magnetic correction" />
+    <Variable Name="eapp_posLinearized" DataType="H_INT" DisplayName="Linearized Pos" Description="Linearized (from ASIN table) position value" />
+    <Variable Name="eapp_posScaled" DataType="H_INT4" DisplayName="Std Scaled Pos" Description="Position scaled to 0 to 100%" />
+    <Variable Name="eapp_temperRaw" DataType="H_INT4" DisplayName="Raw brd temper" Description="Raw board temperature." />
+    <Variable Name="eapp_temperTCcomp" DataType="H_INT4" DisplayName="TempComped temper" Description="TC compensated temperature (divide by 100 to obtain value in degrees C)" />
+    <Variable Name="eapp_posTCspan" DataType="H_INT4" DisplayName="Real pos span" Description="Real TC compensated position span." />
+    <Variable Name="eapp_posTCoffset" DataType="H_INT4" DisplayName="Real pos offset" Description="Real TC compensated position offset." />
+    <Variable Name="eapp_P_pilot" DataType="H_INT" DisplayName="Pilot Pressure" Description="Pilot pressure (TC compensated, divide by 250 to obtain psi value)" />
+    <Variable Name="eapp_PWM" DataType="H_UINT" DisplayName="PWM" Description="Real PWM - value sent to the hardware PWM controller." />
+  </Variables>
+</HART>

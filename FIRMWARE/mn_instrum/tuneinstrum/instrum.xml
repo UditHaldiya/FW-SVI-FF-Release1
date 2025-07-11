@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="">
+  <Include></Include>
+  <Commands>
+    <Command CmdNum="242" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="ExtendedAnalysisAutoTune" CmdNum="3" CmdType="Read" CmdFlags="HC_READ_COMMAND|HC_UNPUBLISHED_COMMAND" AllowedModes="HC_ALLOWED_MODE_ALL" Description="Command for testing Autotune process; returns Autotune parameters as described.\nThis command is for internal use only. Implementation not finished.">
+          <RequestParams>
+            <Param>eaat_req_step</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Param>eaat_step</Param>
+            <Param>eaat_initBias</Param>
+            <Param>eaat_gainInit</Param>
+            <Param>eaat_dTime</Param>
+            <Param>eaat_BiasLow</Param>
+            <Param>eaat_BiasHigh</Param>
+            <Param>eaat_openLoopTests</Param>
+            <Param>eaat_RampLoops</Param>
+            <Param>eaat_closedLoops</Param>
+            <Param>eaat_Time</Param>
+            <Param>eaat_TimeLastStep</Param>
+            <Param>eaat_TimeElapsed</Param>
+            <Param>eaat_DeltaTime</Param>
+            <Param>eaat_Delta</Param>
+            <Param>eaat_Inc</Param>
+            <Param>eaat_gainP</Param>
+          </ResponseParams>
+        </Command>
+        <Command Name="ExtendedAnalysisAutoTuneTimes" CmdNum="4" CmdType="Read" CmdFlags="HC_READ_COMMAND|HC_UNPUBLISHED_COMMAND" AllowedModes="HC_ALLOWED_MODE_ALL" Description="Returns time stamps in ticks for all instrumented points">
+          <RequestParams />
+          <ResponseParams>
+            <Param>eaat_Times</Param>
+          </ResponseParams>
+        </Command>
+        <Command Name="ExtendedAnalysisAutoTuneDeltaTimes" CmdNum="5" CmdType="Read" CmdFlags="HC_READ_COMMAND|HC_UNPUBLISHED_COMMAND" AllowedModes="HC_ALLOWED_MODE_ALL" Description="Function not correctly implemented returns Times not Delta Times same as subcommand 4">
+          <RequestParams />
+          <ResponseParams>
+            <Param>eaat_DeltaTimes</Param>
+          </ResponseParams>
+        </Command>
+        <Command Name="ExtendedAnalysisAutoTuneDeltas" CmdNum="6" CmdType="Read" CmdFlags="HC_READ_COMMAND|HC_UNPUBLISHED_COMMAND" AllowedModes="HC_ALLOWED_MODE_ALL" Description="Provides the open loop increments sent to the PWM in groups of 2 (open and closed).  The minimum is 1 pair there is no maximum in the firmware the maximum stored is 20.  The number of non-zero points should match eaat_openLoopTests">
+          <RequestParams />
+          <ResponseParams>
+            <Param>eaat_Deltas</Param>
+          </ResponseParams>
+        </Command>
+        <Command Name="ExtendedAnalysisAutoTuneIncs" CmdNum="7" CmdType="Read" CmdFlags="HC_READ_COMMAND|HC_UNPUBLISHED_COMMAND" AllowedModes="HC_ALLOWED_MODE_ALL" Description="Provides the ">
+          <RequestParams />
+          <ResponseParams>
+            <Param>eaat_Incs</Param>
+          </ResponseParams>
+        </Command>
+        <Command Name="ExtendedAnalysisAutoTunegainPs" CmdNum="8" CmdType="Read" CmdFlags="HC_READ_COMMAND|HC_UNPUBLISHED_COMMAND" AllowedModes="HC_ALLOWED_MODE_ALL" Description="Provides the P gain at various steps the coding for steps can be found in ext_analysis.h currently open loop start end (1,2), ramp test (3,4), closed loop (5,6)">
+          <RequestParams />
+          <ResponseParams>
+            <Param>eaat_gainPs</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+  <Variables>
+    <Variable Name="eaat_req_step" DataType="H_UCHAR" DisplayName="Requested Step" Description="Requested Step"></Variable>
+    <Variable Name="eaat_step" DataType="H_UINT" DisplayName="Autotune Step" Description="Autotune step number for returned data"></Variable>
+    <Variable Name="eaat_initBias" DataType="H_UINT" DisplayName="Bias as Start of Autotune" Description="Bias at Start of Autotune"></Variable>
+    <Variable Name="eaat_gainInit" DataType="H_UINT" DisplayName="Initial Gain" Description="Two initial gains" MaxSize="2"></Variable>
+    <Variable Name="eaat_dTime" DataType="H_UINT" DisplayName="dTime" Description="dTime" MaxSize="1"></Variable>
+    <Variable Name="eaat_BiasLow" DataType="H_UINT" DisplayName="Low Bias from ramp" Description="Low Bias from ramp" MaxSize="1"></Variable>
+    <Variable Name="eaat_BiasHigh" DataType="H_UINT" DisplayName="High Bias from ramp" Description="High Bias from ramp" MaxSize="1"></Variable>
+    <Variable Name="eaat_gainRuns" DataType="H_UINT" DisplayName="gainRuns not yet used" Description="gainRuns not yet used" MaxSize="1"></Variable>
+    <Variable Name="eaat_curItr" DataType="H_UINT" DisplayName="dTime" Description="dTime" MaxSize="1"></Variable>
+    <Variable Name="eaat_openLoopTests" DataType="H_UINT" DisplayName="Number Open Loop Tests" Description="Number Open Loop Tests"></Variable>
+    <Variable Name="eaat_RampLoops" DataType="H_UINT" DisplayName="Number Ramp Loops" Description="Number Ramp Loops"></Variable>
+    <Variable Name="eaat_closedLoops" DataType="H_UINT" DisplayName="Number Closed Loops Run" Description="Number Closed Loops Run"></Variable>
+    <Variable Name="eaat_Times" DataType="H_UINT4" DisplayName="Time Stamp At This Step" Description="Time Stamp At This Step" MaxSize="20"></Variable>
+    <Variable Name="eaat_Time" DataType="H_UINT4" DisplayName="Time Stamp At This Step" Description="Time Stamp At This Step"></Variable>
+    <Variable Name="eaat_TimeElapsed" DataType="H_UINT" DisplayName="Time Difference From Start" Description="Time Difference From Start"></Variable>
+    <Variable Name="eaat_TimeLastStep" DataType="H_UCHAR" DisplayName="Time Difference From Last Step" Description="Time Difference From Last Step"></Variable>
+    <Variable Name="eaat_DeltaTimes" DataType="H_UINT" DisplayName="Delta Time for step" Description="Time Elapsed Between Increments 10 and 30" MaxSize="20"></Variable>
+    <Variable Name="eaat_DeltaTime" DataType="H_UINT" DisplayName="Delta Time for step" Description="Time Elapsed Between Increments 10 and 30" MaxSize="1"></Variable>
+    <Variable Name="eaat_Deltas" DataType="H_UINT" DisplayName="Speed for each step" Description="This is the difference in position between the diagnostic buffer at 30 samples and 10 samples" MaxSize="20"></Variable>
+    <Variable Name="eaat_Delta" DataType="H_UINT" DisplayName="Change in Position for step" Description="Change in Position Between Increments 10 and 30" MaxSize="1"></Variable>
+    <Variable Name="eaat_Incs" DataType="H_UINT" DisplayName="Open loop step size, each direction is adjusted individually so they should be matched pairs only if eaat_openLoopTests is 1 which indicates that each test passed on its initial setting " Description="Change in Increment for Next Step" MaxSize="20"></Variable>
+    <Variable Name="eaat_Inc" DataType="H_UINT" DisplayName="Calculated change for next step" Description="Change in Increment for Next Step" MaxSize="1"></Variable>
+    <Variable Name="eaat_gainPs" DataType="H_UINT" DisplayName="Current Mode" Description="Two initial gains" MaxSize="20"></Variable>
+    <Variable Name="eaat_gainP" DataType="H_UINT" DisplayName="Current Mode" Description="Gain at this step" MaxSize="1"></Variable>
+  </Variables>
+</HART>

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--    $Archive: /MNCB/Dev/LCX2AP/FIRMWARE/inc_FFAP/HARTCommands.xml $
+    $Date: 1/30/12 2:00p $
+    $Revision: 18 $
+    $Author: Arkkhasin $
+
+-->
+<HART Title="FF AP HART Commands Definition" Version="1.0">
+  <Commands>
+    <!--Sample commands; params are ordered-->
+  </Commands>
+  <Include>
+    <FileName>..\interface\hart\commonxml\mncommon.xml</FileName>
+    <FileName>..\interface\hart\commonxml\poscontrol.xml</FileName>
+    <FileName>..\interface\hart\commonxml\poscontrollimits.xml</FileName>
+    <FileName>..\interface\hart\commonxml\pneuparams.xml</FileName>
+    <FileName>..\interface\hart\commonxml\readairaction.xml</FileName>
+    <NonFileName>..\interface\hart\commonxml\bumpless.xml</NonFileName>
+    <FileName>..\interface\hart\commonxml\cmd_ext_analysis.xml</FileName>
+    <FileName>..\interface\hart\commonxml\subcmds_ext_analysis.xml</FileName>
+    <FileName>..\interface\hart\commonxml\lowpwrdata.xml</FileName>
+    <FileName>..\interface\hart\commonxml\stops_adj_readwrite.xml</FileName>
+    <FileName>..\interface\hart\commonxml\testassert.xml</FileName>
+    <FileName>..\interface\hart\commonxml\mncbpres.xml</FileName>
+    <FileName>..\interface\hart\commonxml\engunitsif.xml</FileName>
+    <FileName>..\interface\hart\commonxml\temprMB.xml</FileName>
+    <FileName>..\interface\hart\commonxml\findstops.xml</FileName>
+    <!--Added for new tempcomp - see what it means for AP and FF-->
+    <FileName>..\interface\hart\commonxml\cmd_tempcomp.xml</FileName>
+    <FileName>..\interface\hart\commonxml\tempcomp_ffap.xml</FileName>
+    <FileName>..\interface\hart\commonxml\cmd220_221_mncb.xml</FileName>
+    <FileName>..\interface\hart\commonxml\cmd128_mncb.xml</FileName>
+    <NonFileName>..\interface\hart\commonxml\calib.xml</NonFileName>
+    <FileName>..\interface\hart\commonxml\errlimits.xml</FileName>
+    <NonFileName>..\interface\hart\commonxml\calib_aochannels.xml</NonFileName>
+    <!--Added write interfaces not available in LCX-->
+    <FileName>..\interface\hart\commonxml\writeairaction.xml</FileName>
+    <FileName>..\interface\hart\commonxml\writeposctlselector.xml</FileName>
+    <!--Borrowed pieces of LCX-->
+    <FileName>..\interface\hart\commonxml\activation.xml</FileName>
+    <FileName>..\interface\hart\commonxml\write_ctlout.xml</FileName>
+    <!--Magic for SA Custom Cal page automation-->
+    <FileName>..\interface\hart\commonxml\CCBoardID.xml</FileName>
+    <!--Temporary for FFP types gen-->
+    <TestFileName>..\interface\hart\commonxml\cmdFFPInfo.xml</TestFileName>
+    <!--Added for IPC communications-->
+    <FileName>..\interface\hart\ffvarxml\ipc_commands.xml</FileName>
+    <!--Added for IPC FW Download syupport-->
+    <FileName>..\interface\hart\ffvarxml\ipc_fwdlxmit.xml</FileName>
+    <!--Digital setpoint etc.-->
+    <FileName>..\interface\hart\commonxml\mnsetpoint.xml</FileName>
+    <FileName>..\interface\hart\commonxml\digitalsp.xml</FileName>
+    <FileName>..\interface\hart\commonxml\logfile.xml</FileName>
+    <NonFileName>..\interface\hart\commonxml\valvediag.xml</NonFileName>
+    <FileName>..\interface\hart\commonxml\process_mncb.xml</FileName>
+    <FileName>..\interface\hart\commonxml\process_ap.xml</FileName>
+    <FileName>..\interface\hart\commonxml\ref_voltage.xml</FileName>
+    <FileName>..\interface\hart\commonxml\sensortype.xml</FileName>
+    <!--Commands for testing support-->
+    <FileName>..\interface\hart\commonxml\dbuffertest.xml</FileName>
+    <!--Commands for switches-->
+    <FileName>..\interface\hart\commonxml\doswitchesw.xml</FileName>
+    <!--NVMEM factory defaults-->
+    <FileName>..\interface\hart\commonxml\nvmdefaults.xml</FileName>
+    <FileName>..\interface\hart\commonxml\nvmclone.xml</FileName>
+  </Include>
+</HART>

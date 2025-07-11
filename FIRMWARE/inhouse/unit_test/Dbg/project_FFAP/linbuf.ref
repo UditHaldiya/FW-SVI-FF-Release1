@@ -1,0 +1,170 @@
+
+
+Report output styles:
+H: Harness output
+S: Stub output
+I: Instrumentation output
+
+
+***Description:***
+Linear buffer sampling and pruning tests
+
+**** Test 1: ****
+
+Description:
+Initialize a buffer***
+Test acceptance criteria::
+***
+Automatic: 
+:
+Ensure that prefix data are filled correctly
+Execution Trace:
+H: Expected {"0"  (=0)} == {"memcmp(stuff, buf, sizeof(stuff))"  (=0)} :  PASSED
+test case overall:  PASSED
+test overall:  PASSED
+
+**** Test 2: ****
+
+Description:
+Fill the buffer with max number of points***
+Test acceptance criteria::
+***
+Automatic: 
+:
+Ensure that no pruning occurred and the buffer contains all data
+Execution Trace:
+H: Add DATA_COUNT samples
+H: Check that the data prefix is intact
+H: Expected {"0"  (=0)} == {"memcmp(stuff, buf, sizeof(stuff))"  (=0)} :  PASSED
+H: Check that the data is correct
+H: Expected 0 vs. Actual 0:  PASSED
+H: Expected 1 vs. Actual 1:  PASSED
+H: Expected 2 vs. Actual 2:  PASSED
+H: Expected 3 vs. Actual 3:  PASSED
+H: Expected 4 vs. Actual 4:  PASSED
+H: Expected 5 vs. Actual 5:  PASSED
+H: Expected 6 vs. Actual 6:  PASSED
+H: Expected 7 vs. Actual 7:  PASSED
+H: Expected 8 vs. Actual 8:  PASSED
+H: Expected 9 vs. Actual 9:  PASSED
+H: Expected 10 vs. Actual 10:  PASSED
+H: Expected 11 vs. Actual 11:  PASSED
+H: Expected 12 vs. Actual 12:  PASSED
+H: Expected 13 vs. Actual 13:  PASSED
+H: Expected 14 vs. Actual 14:  PASSED
+H: Expected 15 vs. Actual 15:  PASSED
+H: Expected 16 vs. Actual 16:  PASSED
+H: Expected 17 vs. Actual 17:  PASSED
+H: Expected 18 vs. Actual 18:  PASSED
+H: Expected 19 vs. Actual 19:  PASSED
+H: Expected 20 vs. Actual 20:  PASSED
+H: Expected 21 vs. Actual 21:  PASSED
+H: Expected 22 vs. Actual 22:  PASSED
+H: Expected 23 vs. Actual 23:  PASSED
+H: Expected 24 vs. Actual 24:  PASSED
+H: Expected 25 vs. Actual 25:  PASSED
+H: Expected 26 vs. Actual 26:  PASSED
+H: Expected 27 vs. Actual 27:  PASSED
+H: Expected 28 vs. Actual 28:  PASSED
+H: Expected 29 vs. Actual 29:  PASSED
+H: Expected 30 vs. Actual 30:  PASSED
+H: Expected 31 vs. Actual 31:  PASSED
+H: Expected 32 vs. Actual 32:  PASSED
+H: Expected 33 vs. Actual 33:  PASSED
+H: Expected 34 vs. Actual 34:  PASSED
+H: Expected 35 vs. Actual 35:  PASSED
+H: Expected 36 vs. Actual 36:  PASSED
+H: Expected 37 vs. Actual 37:  PASSED
+H: Expected 38 vs. Actual 38:  PASSED
+H: Expected 39 vs. Actual 39:  PASSED
+H: Expected 40 vs. Actual 40:  PASSED
+H: Expected 41 vs. Actual 41:  PASSED
+H: Expected 42 vs. Actual 42:  PASSED
+H: Expected 43 vs. Actual 43:  PASSED
+H: Expected 44 vs. Actual 44:  PASSED
+H: Expected 45 vs. Actual 45:  PASSED
+H: Expected 46 vs. Actual 46:  PASSED
+H: Expected 47 vs. Actual 47:  PASSED
+H: Expected 48 vs. Actual 48:  PASSED
+H: Expected 49 vs. Actual 49:  PASSED
+H: Expected 50 vs. Actual 50:  PASSED
+H: Expected 51 vs. Actual 51:  PASSED
+H: Expected 52 vs. Actual 52:  PASSED
+H: Expected 53 vs. Actual 53:  PASSED
+H: Expected 54 vs. Actual 54:  PASSED
+H: Expected 55 vs. Actual 55:  PASSED
+H: Expected 56 vs. Actual 56:  PASSED
+H: Expected 57 vs. Actual 57:  PASSED
+H: Expected 58 vs. Actual 58:  PASSED
+H: Expected 59 vs. Actual 59:  PASSED
+H: Expected 60 vs. Actual 60:  PASSED
+H: Expected 61 vs. Actual 61:  PASSED
+H: Expected 62 vs. Actual 62:  PASSED
+H: Expected 63 vs. Actual 63:  PASSED
+H: Expected 64 vs. Actual 64:  PASSED
+H: Expected 65 vs. Actual 65:  PASSED
+H: Expected 66 vs. Actual 66:  PASSED
+H: Expected 67 vs. Actual 67:  PASSED
+H: Expected 68 vs. Actual 68:  PASSED
+H: Expected 69 vs. Actual 69:  PASSED
+H: Expected 70 vs. Actual 70:  PASSED
+H: Expected 71 vs. Actual 71:  PASSED
+test case overall:  PASSED
+test overall:  PASSED
+
+**** Test 3: ****
+
+Description:
+Fill the buffer with more points***
+Test acceptance criteria::
+***
+Automatic: 
+:
+Ensure that pruning occurred correctly
+Execution Trace:
+H: Add 100 samples
+H: Expected {"true"  (=1)} == {"num_samples==num_processed_samples"  (=1)} :  PASSED
+H: Check that the data prefix is intact
+H: Expected {"0"  (=0)} == {"memcmp(stuff, buf, sizeof(stuff))"  (=0)} :  PASSED
+H: Pruning scale=4 (effective 2 prunings)
+H: Check that the data is correct
+test case overall:  PASSED
+H: Add 100 samples
+H: Expected {"true"  (=1)} == {"num_samples==num_processed_samples"  (=1)} :  PASSED
+H: Check that the data prefix is intact
+H: Expected {"0"  (=0)} == {"memcmp(stuff, buf, sizeof(stuff))"  (=0)} :  PASSED
+H: Pruning scale=4 (effective 2 prunings)
+H: Check that the data is correct
+H: Add 200 samples
+H: Expected {"true"  (=1)} == {"num_samples==num_processed_samples"  (=1)} :  PASSED
+H: Check that the data prefix is intact
+H: Expected {"0"  (=0)} == {"memcmp(stuff, buf, sizeof(stuff))"  (=0)} :  PASSED
+H: Pruning scale=8 (effective 3 prunings)
+H: Check that the data is correct
+H: Add 300 samples
+H: Expected {"true"  (=1)} == {"num_samples==num_processed_samples"  (=1)} :  PASSED
+H: Check that the data prefix is intact
+H: Expected {"0"  (=0)} == {"memcmp(stuff, buf, sizeof(stuff))"  (=0)} :  PASSED
+H: Pruning scale=16 (effective 4 prunings)
+H: Check that the data is correct
+H: Add 150 samples
+H: Expected {"true"  (=1)} == {"num_samples==num_processed_samples"  (=1)} :  PASSED
+H: Check that the data prefix is intact
+H: Expected {"0"  (=0)} == {"memcmp(stuff, buf, sizeof(stuff))"  (=0)} :  PASSED
+H: Pruning scale=8 (effective 3 prunings)
+H: Check that the data is correct
+H: Add 250 samples
+H: Expected {"true"  (=1)} == {"num_samples==num_processed_samples"  (=1)} :  PASSED
+H: Check that the data prefix is intact
+H: Expected {"0"  (=0)} == {"memcmp(stuff, buf, sizeof(stuff))"  (=0)} :  PASSED
+H: Pruning scale=8 (effective 3 prunings)
+H: Check that the data is correct
+H: Add 350 samples
+H: Expected {"true"  (=1)} == {"num_samples==num_processed_samples"  (=1)} :  PASSED
+H: Check that the data prefix is intact
+H: Expected {"0"  (=0)} == {"memcmp(stuff, buf, sizeof(stuff))"  (=0)} :  PASSED
+H: Pruning scale=16 (effective 4 prunings)
+H: Check that the data is correct
+test case overall:  PASSED
+test overall:  PASSED
+test set overall:  PASSED

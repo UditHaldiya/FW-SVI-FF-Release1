@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command Name="Read Raw Values" CmdNum="220" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+      <!--Read all raw values-->
+      <ResponseParams>
+        <Struct>Raw Values</Struct>
+      </ResponseParams>
+    </Command>
+    <Command Name="Read TCorrected Values" CmdNum="221" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND">
+      <!--Read all temperature-corrected values-->
+      <ResponseParams>
+        <Struct>Temperature Corrected Values</Struct>
+      </ResponseParams>
+    </Command>
+  </Commands>
+  <Variables>
+    <Variable Name="AD sp" DataType="H_UINT" />
+    <Variable Name="AD pv" DataType="H_UINT" />
+    <Variable Name="AD tempr" DataType="H_UINT" />
+    <Variable Name="AD presAtm" DataType="H_UINT" />
+    <Variable Name="AD pos rem" DataType="H_UINT" />
+    <Variable Name="AD pres1" DataType="H_UINT" />
+    <Variable Name="AD pos int" DataType="H_UINT" />
+    <Variable Name="AD pres3" DataType="H_UINT" />
+    <Variable Name="AD pres2" DataType="H_UINT" />
+    <Variable Name="AD presPilot" DataType="H_UINT" />
+    <Variable Name="AD IP" DataType="H_UINT" />
+    <Variable Name="AD refV" DataType="H_UINT" />
+  </Variables>
+  <Variables>
+    <Variable Name="TC sp" DataType="H_INT" />
+    <Variable Name="TC pv" DataType="H_INT" />
+    <Variable Name="TC tempr" DataType="H_INT" />
+    <Variable Name="TC presAtm" DataType="H_INT" />
+    <Variable Name="TC pos rem" DataType="H_INT" />
+    <Variable Name="TC pres1" DataType="H_INT" />
+    <Variable Name="TC pos int" DataType="H_INT" />
+    <Variable Name="TC pres3" DataType="H_INT" />
+    <Variable Name="TC pres2" DataType="H_INT" />
+    <Variable Name="TC presPilot" DataType="H_INT" />
+    <Variable Name="TC IP" DataType="H_INT" />
+  </Variables>
+  <Structs>
+    <Struct Name="Raw Values">
+      <Param>AD sp</Param>
+      <Param>AD pv</Param>
+      <Param>AD tempr</Param>
+      <Param>AD presAtm</Param>
+      <Param>AD pos rem</Param>
+      <Param>AD pres1</Param>
+      <Param>AD pos int</Param>
+      <Param>AD pres3</Param>
+      <Param>AD pres2</Param>
+      <Param>AD presPilot</Param>
+      <Param>AD IP</Param>
+      <Param>AD refV</Param>
+    </Struct>
+    <Struct Name="Temperature Corrected Values">
+      <Param>TC sp</Param>
+      <Param>TC pv</Param>
+      <Param>TC tempr</Param>
+      <Param>TC presAtm</Param>
+      <Param>TC pos rem</Param>
+      <Param>TC pres1</Param>
+      <Param>TC pos int</Param>
+      <Param>TC pres3</Param>
+      <Param>TC pres2</Param>
+      <Param>TC presPilot</Param>
+      <Param>TC IP</Param>
+      <Param>AD refV<!--Not temperature-corrected--></Param>
+    </Struct>
+  </Structs>
+</HART>

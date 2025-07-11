@@ -1,0 +1,153 @@
+/*
+Copyright 2010 by Dresser, Inc., as an unpublished trade secret.  All rights reserved.
+
+This document and all information herein are the property of Dresser, Inc.
+It and its contents are  confidential and have been provided as a part of
+a confidential relationship.  As such, no part of it may be made public,
+decompiled, reverse engineered or copied and it is subject to return upon
+demand.
+*/
+/**
+    \file ds2401_a.s79
+    \brief Assembler support for reading of DS2401
+
+    See also ds2401.c
+
+    CPU: NXP LPC21x4 (IAR Assembler)
+
+    OWNER: EP
+    $Archive: /MNCB/Dev/AP_Release_3.1.x/LCX_devel/FIRMWARE/hal/bios/src/ds2401_a.s79 $
+    $Date: 6/15/10 2:35p $
+    $Revision: 1 $
+    $Author: Anatoly Podpaly $
+
+    \ingroup ds2401
+*/
+#include "timebase.h"
+
+        RSEG CODE:CODE:NOROOT(2)
+        CODE32
+
+#define PORT_PIN    19                          // 16 for production
+#define PORT_SHFT   (PORT_PIN + 1u)             // amt to shift into C flag
+#define PORT_MASK   (1u << PORT_PIN)            // bit to set,res,read
+
+#if VPRATE == VPBDIV1
+#define IO_CPU_CLKS 8                           // cpu cycles per 1 IO cycle
+#elif VPRATE == VPBDIV2 
+#define IO_CPU_CLKS 10                          // cpu cycles per 1 IO cycle
+#elif VPRATE == VPBDIV4 
+#define IO_CPU_CLKS 16                          // cpu cycles per 1 IO cycle
+#else
+#error Cannot work with this VPRATE
+#endif
+
+#define PIN_OFS     0                           // offset of pin data in GPIOx
+#define DDR_OFS     8                           // offset of direction register in GPIOx
+
+#define CLK_NS      (1000000000 / XTALFREQ)
+#define TMR_NS      (CLK_NS * VPRATE)
+#define IO_NS       (IO_CPU_CLKS * CLK_NS)
+#define BIT_NS      60000                       //  60 microseconds
+#define RES_NS      480000                      // 480 microseconds
+
+#define DLY_CT(DLY_NS)  ((DLY_NS) / TMR_NS)
+#define COMMAND     0x133                       // 0x33 with gurad bit 
+
+// register assignments
+#define     port        r0                      // base address of GPIO0
+#define     pTmr        r1                      // address of T1->TC
+#define     portL       r2                      // value to drive port low (output)
+#define     portH       r3                      // value to set port high (input with pull-up)
+#define     cmdVal      r4                      // READROM command
+#define     accum       r4                      // 32 LSB of the 64-bit word 
+#define     accumX      r5                      // 32 MSB of the 64-bit word
+#define     hld         r6                      // port read sample
+#define     dlyTime     r7                      // InlineDelay count in timer1 ticks
+#define     curTime     r8                      // working timer value
+#define     begTime     r12                     // working timer value
+
+InlineDelay macro       
+            local       tmrloop
+            ldr         begTime,[pTmr,#0]       // read starting timer value
+tmrloop
+            ldr         curTime,[pTmr,#0]       // read current timer value
+            sub         curTime,curTime,begTime // compute elapsed ticks
+            cmp         curTime,dlyTime         // compare elapsed with desired
+            bcc         tmrloop                 // loop if not enough
+            endm
+
+/*  \brief Subrooutine to delay half of the reset interval
+*/
+ResetDelay
+            InlineDelay       
+            mov         pc,lr
+
+/*  \brief Function to read the DS2401
+
+     u64 OW_ReadSequence(gpio_t *port, const volatile u32 *tmr)
+
+    \param  r0 - base address of GPIO0
+    \param  r1 - address of T1->TC
+    \return u64 - serial number in r1,r0
+*/
+
+            public      OW_ReadSequence
+ 
+OW_ReadSequence
+
+            push        {r4,r5,r6,r7,r8,lr}     // some working regs, please
+
+            // setup some registers
+            ldr         portL,[port,#DDR_OFS]   // get current DDR value
+            mov         portH,#PORT_MASK        // port bit of DS2401
+            orr         portL,portL,portH       // value to set port output
+            eor         portH,portH,portL       // value to set port input
+
+            ldr         dlyTime,=DLY_CT(RES_NS) // value for 480 us reset delay
+
+OW_Reset
+            // issue the reset 
+            str         portL,[port,#DDR_OFS]   // set port low
+            bl          ResetDelay
+            str         portH,[port,#DDR_OFS]   // set port high .. we do not check for presence
+            bl          ResetDelay
+
+            mov         dlyTime,#DLY_CT(BIT_NS - (4 * IO_NS)) // value for write/read inter-bit delay
+
+            // write the command
+            ldr         cmdVal,=COMMAND         // READROM command with guard bit
+OW_WriteCmd                                
+            movs        cmdVal,cmdVal, lsr #1   // shift bit into carry
+            beq         OW_CmdDone              // if result == 0, we're done
+            str         portL,[port,#DDR_OFS]   // start condition  
+            strcs       portH,[port,#DDR_OFS]   // set high if carry
+            InlineDelay                         // wait 1 bit time
+            str         portH,[port, #DDR_OFS]  // set high (may already be)
+            b           OW_WriteCmd
+
+OW_CmdDone
+
+            // now read the 64-bit serial
+            mov         accumX,#0x80000000      // clear MSW and set guard bit
+            mov         accum,#0                // clear LSW
+
+OW_ReadSerial
+
+            str         portL,[port,#DDR_OFS]   // start condition     
+            str         portH,[port,#DDR_OFS]   // release  
+            ldr         hld,[port,#PIN_OFS]     // read bit from DS2401
+            InlineDelay                         // wait 1 bit time
+            movs        hld,hld,lsr #PORT_SHFT  // extract DS2401 bit to Carry
+            movs        accumX,accumX,rrx       // shift it into accum MSW
+            movs        accum,accum,rrx         // shift into accum LSW
+            bcc         OW_ReadSerial           // if not Carry, continue
+
+            mov         r0,accum                // LSW to r0
+            mov         r1,accumX               // MSW to r1
+
+            pop         {r4,r5,r6,r7,r8,pc}     // restore regs and return                
+
+            end
+
+/* This line marks the end of the source */

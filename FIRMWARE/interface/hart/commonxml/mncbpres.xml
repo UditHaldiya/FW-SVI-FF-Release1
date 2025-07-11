@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command Name="Read All Pressures" CmdNum="201" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read all configured pressure inputs&#xD;&#xA;[0]=Actuator 1&#xD;&#xA;[1]=Actuator 2&#xD;&#xA;[2]=Supply&#xD;&#xA;[3]=Pilot&#xD;&#xA;[4]=Atmospheric">
+      <ResponseParams>
+        <Param MaxSize="5">Pressure Array</Param>
+        <Param>Pres Units</Param>
+      </ResponseParams>
+    </Command>
+  </Commands>
+  <Variables>
+    <Variable Name="Pres Units" DataType="H_UCHAR" Printf="%u" Description="Effective pressure units">
+      <EnumValues v06="HART Unit PSI | psi" v07="HART Unit Bar | Bar" v12="HART Unit KPa | KPa" />
+    </Variable>
+    <Variable Name="Pressure Array" MaxSize="5" DataType="H_FLOAT" Printf="%.3f" Units="PresUnits" Description="Pressures array &#xD;&#xA;[0]=Actuator 1&#xD;&#xA;[1]=Actuator 2&#xD;&#xA;[2]=Supply&#xD;&#xA;[3]=Pilot&#xD;&#xA;[4]=Atmospheric" />
+  </Variables>
+  <Structs></Structs>
+</HART>

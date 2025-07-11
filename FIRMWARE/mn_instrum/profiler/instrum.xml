@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--    $Archive: /MNCB/Dev/FIRMWARE/mn_instrum/profiler/instrum.xml $
+    $Date: 2/18/11 4:16p $
+    $Revision: 2 $
+    $Author: Arkkhasin $
+
+-->
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command CmdNum="129" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Read Profiling Data" CmdNum="255" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read free CPU time and ticks spent in various places">
+          <ResponseParams>
+            <Param>Free CPU time H</Param>
+            <Param>Longest crit sect</Param>
+            <Param>Address of crit sect</Param>
+            <Param>Longest control task</Param>
+            <Param>Longest cycle task</Param>
+            <Param>Longest HART task</Param>
+            <Param>Longest process segment</Param>
+            <Struct>Profiler Configuration</Struct>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+    <Command CmdNum="130" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Write Profiler Configuration" CmdNum="255" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_WRITE_COMMAND | HC_FACTORY_COMMAND" Description="Configure extra load in a task">
+          <RequestParams>
+            <Struct>Profiler Configuration</Struct>
+          </RequestParams>
+          <ResponseParams>
+            <Struct>Profiler Configuration</Struct>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+  <Variables>
+    <Variable Name="Free CPU time H" DataType="H_UCHAR" Description="Rough estimate in %" />
+    <Variable Name="Longest crit sect" DataType="H_UINT4" Description="In CPU clock ticks"></Variable>
+    <Variable Name="Address of crit sect" DataType="H_UINT4" Printf="%08X"></Variable>
+    <Variable Name="Longest control task" DataType="H_UINT4" Description="In CPU clock ticks"></Variable>
+    <Variable Name="Longest cycle task" DataType="H_UINT4" Description="In CPU clock ticks"></Variable>
+    <Variable Name="Longest HART task" DataType="H_UINT4" Description="In CPU clock ticks"></Variable>
+    <Variable Name="Longest process segment" DataType="H_UINT4" Description="In CPU clock ticks"></Variable>
+    <Variable Name="Profiler Extra time load" DataType="H_UINT4" Description="Extra load of a selected task, In CPU clock ticks"></Variable>
+    <Variable Name="Profiler Task ID" DataType="H_UCHAR" Description="0-turn off, 1-control, 2-cycle, 3-HART, 4-process"></Variable>
+  </Variables>
+  <Structs>
+    <Struct Name="Profiler Configuration">
+      <Param>Profiler Task ID</Param>
+      <Param>Profiler Extra time load</Param>
+    </Struct>
+  </Structs>
+</HART>

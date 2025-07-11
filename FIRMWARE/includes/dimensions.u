@@ -1,0 +1,98 @@
+#MP If 0 ;Tombstone header
+/*
+Copyright 2004-2008 by Dresser, Inc., as an unpublished trade secret.  All rights reserved.
+This document and all information herein are the property of Dresser, Inc.
+It and its contents are  confidential and have been provided as a part of
+a confidential relationship.  As such, no part of it may be made public,
+decompiled, reverse engineered or copied and it is subject to return upon
+demand.
+*/
+/**
+    \file dimensions.u
+    \brief Definitions of fixed-size-like parameters shared between Unimal and C.
+
+    CPU: Any
+
+    OWNER: AK
+    $Archive: /MNCB/Dev/LCX2AP/FIRMWARE/includes/dimensions.u $
+    $Date: 1/30/12 12:25p $
+    $Revision: 3 $
+    $Author: Arkkhasin $
+
+    \ingroup nvmem
+*/
+#MP Endif ;Tombstone header
+#MP
+#MP Setstr basename = uAutoLine
+#MP Include "ustd.inc"
+#MP dummy(".c")
+#MP Export (0) {uJoin, basename, ".h"}
+/**
+    \file dimensions.h
+    \brief Definitions of fixed-size-like parameters shared between Unimal and C.
+
+    CPU: Any
+
+    OWNER: #mp{%s basename}.u
+    $Archive: /MNCB/Dev/LCX2AP/FIRMWARE/includes/dimensions.u $
+    $Date: 1/30/12 12:25p $
+    $Revision: 3 $
+    $Author: Arkkhasin $
+
+    \ingroup proj
+*/
+#ifndef #mp{%s toupper}_H_
+#define #mp{%s toupper}_H_
+#MP Include "dimensions.inc"
+#define NUMBER_OF_CALIB_POINTS #mp%uNUMBER_OF_CALIB_POINTS //The # of cal points as known to Unimal and C
+#MP Ifdef NUMBER_DIAGNOSTIC_CURVES
+#define NUMBER_DIAGNOSTIC_CURVES #mp{%u NUMBER_DIAGNOSTIC_CURVES}U //The # of diagnostic curves in NVMEM
+#MP Endif
+#define FAULT_CODE_BYTES_STORED #mp%uFAULT_CODE_BYTES_STORED //The # of bytes allocated in NVMEM to store a single copy of faults bitmap
+#define NVMEM_MAX_VOLID #mp%uNVMEM_MAX_VOLID //Valid NVMEM volumes are 0 through #mp%uNVMEM_MAX_VOLID
+#MP Ifdef DLTLIN_BLOCKNUM
+#define DLTLIN_BLOCKNUM #mp%uDLTLIN_BLOCKNUM //! Number of interpolation points in each block
+#MP Endif
+#MP Ifdef DLTLIN_BLOCKSZ
+#define DLTLIN_BLOCKSZ #mp%uDLTLIN_BLOCKSZ //! Number of "blocks" of interpolation points that fit comfortably in a single FRAM record
+#MP Endif
+#MP Ifdef AO_NUM_CHANNELS
+#define AO_NUM_CHANNELS #mp%uAO_NUM_CHANNELS //! Number of Analog Outputs
+#MP Endif
+#MP Ifdef TEMPR_NUM_SENSORS
+#define TEMPR_NUM_SENSORS #mp%uTEMPR_NUM_SENSORS //! Number of temperature sensors
+#MP Endif
+#MP Ifdef SG_NUM_ENTRIES
+#define SG_NUM_ENTRIES #mp%uSG_NUM_ENTRIES //! Number of specific gravity records (with corresponding level range values)
+#MP Endif
+#MP Ifdef NUM_POS_MONITORS
+#define NUM_POS_MONITORS #mp%uNUM_POS_MONITORS //! Number of independent position range monitors
+#MP Endif
+#MP Ifdef NUM_POSCTL_PARAMSETS
+#define NUM_POSCTL_PARAMSETS #mp%uNUM_POSCTL_PARAMSETS //! Number of independent position control parameter sets
+#MP Endif
+#MP Ifdef DO_NUM_CHANNELS
+#define DO_NUM_CHANNELS #mp%uDO_NUM_CHANNELS //! Number of Discrete Outputs
+#MP Endif
+#MP Ifdef COMM_NUM_CHANNELS
+#define COMM_NUM_CHANNELS #mp%uCOMM_NUM_CHANNELS //! Number of UART-based comm channels
+#MP Endif
+#MP Ifdef POSCHARACT_COARSE_SEGS
+#define POSCHARACT_COARSE_SEGS #mp%uPOSCHARACT_COARSE_SEGS //! Number of coarse characterization points - 1
+#MP Endif
+#MP Ifdef NUM_DIAG_BUFFERS
+#define NUM_DIAG_BUFFERS #mp{%u NUM_DIAG_BUFFERS}U //! number of diagnostic buffers
+#MP Endif
+#MP Ifdef DIAG_BUFFER_LOGSIZE
+#define DIAG_BUFFER_LOGSIZE #mp%uDIAG_BUFFER_LOGSIZE //! diag buffer size is 1<<DIAG_BUFFER_LOGSIZE
+#MP Endif
+#MP Ifdef NVRAM_PARTITION_REMAP_SIZE
+#MP Else
+#MP ;MUST exist for Anatoly
+#MP NVRAM_PARTITION_REMAP_SIZE=0
+#MP Endif
+#define NVRAM_PARTITION_REMAP_SIZE #mp%uNVRAM_PARTITION_REMAP_SIZE //! diag buffer size is 1<<DIAG_BUFFER_LOGSIZE
+#endif //#mp{%s toupper}_H_
+/* This line marks the end of the source */
+#MP
+#MP ;/* This line marks the end of the source */

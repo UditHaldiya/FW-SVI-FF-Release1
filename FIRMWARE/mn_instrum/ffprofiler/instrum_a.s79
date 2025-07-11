@@ -1,0 +1,50 @@
+/*
+Copyright 2004-2006 by Dresser, Inc., as an unpublished trade secret.  All rights reserved.
+
+This document and all information herein are the property of Dresser, Inc.
+It and its contents are  confidential and have been provided as a part of
+a confidential relationship.  As such, no part of it may be made public,
+decompiled, reverse engineered or copied and it is subject to return upon
+demand.
+*/
+/**
+    \file instrum_a.s79
+    \brief ARM assembly-language code for MN firmware instrumentation
+
+    CPU: Philips LPC21x4 (ARM7TDMI-S)
+
+    OWNER: AK
+
+    $Archive: /MNCB/Dev/FIRMWARE/mn_instrum/profiler/instrum_a.s79 $
+    $Date: 9/01/09 11:31a $
+    $Revision: 1 $
+    $Author: Arkkhasin $
+
+    \ingroup OSPort
+*/
+
+#define ASSEMBLER_VERSION_5 (__VER__ >= 5000000)
+#if ASSEMBLER_VERSION_5
+# define CODE_SECTION           SECTION      .text:CODE:NOROOT(2)
+#else
+# define CODE_SECTION           RSEG        CODE:CODE:NOROOT(2)
+#endif
+
+; Public functions declared in this file
+
+            PUBLIC  mn_getPC
+
+            CODE_SECTION
+#if __CORE__ == __ARM7M__
+                THUMB
+#else
+                CODE32
+#endif
+
+mn_getPC
+            mov r0, lr
+            bx  lr
+
+            END
+
+/* This line marks the end of the source */

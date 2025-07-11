@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command Name="WriteStopAdjust" CmdNum="167" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Subcommands set open and close stop adjustment values and open stop overrun correction value.\nSet close stop is not implemented for SVi 1000.">
+      <RequestParams>
+        <Param>SubCmdNum</Param>
+      </RequestParams>
+      <ResponseParams>
+        <Param>SubCmdNum</Param>
+      </ResponseParams>
+      <SubCommands>
+        <Command Name="Set Open Stop Adjust" CmdNum="0" CmdType="Write" AllowedModes="HC_ALLOWED_MODE_OOS | HC_ALLOWED_MODE_FS" CmdFlags="HC_WRITE_COMMAND" Description="Set open stop adjustment value (floating point).">
+          <RequestParams>
+            <Param>adj_OpenStopAdj</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Param>adj_OpenStopAdj</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+    <Command Name="ReadStopAdjust" CmdNum="169" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Subcommands read open and close stop adjustment values and open stop overrun correction value.\nRead close stop is not implemented for SVi 1000.">
+      <RequestParams>
+        <Param>SubCmdNum</Param>
+      </RequestParams>
+      <ResponseParams>
+        <Param>SubCmdNum</Param>
+      </ResponseParams>
+      <SubCommands>
+        <Command Name="Read Open Stop Adjust" CmdNum="0" CmdType="Read" AllowedModes="HC_ALLOWED_MODE_ALL" CmdFlags="HC_READ_COMMAND" Description="Read open stop adjustment value (floating point).">
+          <RequestParams />
+          <ResponseParams>
+            <Param>adj_OpenStopAdj</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+  <Variables>
+    <Variable Name="adj_OpenStopAdj" DataType="H_FLOAT" DisplayName="OS Adjust" Description="Open Stop Adjustment value">
+      <Range Model="Standard" MinValue="60.0" MaxValue="100.0" />
+    </Variable>
+  </Variables>
+</HART>

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <Command CmdNum="190" SubCmdOnly="1">
+      <SubCommands>
+        <Command Name="Save Nvmem As Factory Default" CmdNum="130" CmdType="Process" AllowedModes="HC_ALLOWED_MODE_FS" CmdFlags="HC_PROCESS_COMMAND" Description="Starts a process to copy NVMEM standard image to a NVMEM log file"></Command>
+        <Command Name="Restore Factory Default Nvmem" CmdNum="129" CmdType="Process" AllowedModes="HC_ALLOWED_MODE_FS" CmdFlags="HC_PROCESS_COMMAND" Description="Starts a process to restore NVMEM standard image from a previously created NVMEM log file">
+          <RequestParams>
+            <Param>Nvmem Volume Id</Param>
+            <Param>Nvmem Defaults Mask Flags</Param>
+            <Param>Nvmem Defaults Match Flags</Param>
+            <Param>Nvmem Defaults Test Only</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Param>Nvmem Volume Id</Param>
+            <Param>Nvmem Defaults Mask Flags</Param>
+            <Param>Nvmem Defaults Match Flags</Param>
+            <Param>Nvmem Defaults Test Only</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </Command>
+  </Commands>
+  <Variables>
+    <Variable Name="Nvmem Volume Id" DataType="H_UCHAR" Description="Volume id; 0 is always present, others project-dependent" />
+    <Variable Name="Nvmem Defaults Mask Flags" DataType="H_UCHAR" Printf="%02X" Description="Works together with Match Flags (see description); intended value is 0x04"></Variable>
+    <Variable Name="Nvmem Defaults Match Flags" DataType="H_UCHAR" Printf="%02X" Description="Works together with Mask Flags. Both 0's will restore everything. Other sensible values are for internal use. The logic is that the item is resored iff its (flags &amp; mask) == match. The intended use is with value 0x04 (only NVMEM records designed to be restored)"></Variable>
+    <Variable Name="Nvmem Defaults Test Only" DataType="H_UCHAR" Description="0 executes requested defaults; !=0 tests the defaults integrity">
+      <EnumValues v0="HC_RESTORE_DEFAULTS " v1="HC_DRY_RUN" />
+    </Variable>
+  </Variables>
+  <Structs></Structs>
+</HART>

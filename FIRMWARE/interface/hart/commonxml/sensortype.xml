@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HART Version="1.0">
+  <Include></Include>
+  <Commands>
+    <SubCmdOnly CmdNum="170">
+      <SubCommands>
+        <Command CmdNum="248" Name="Read Sensor Type" CmdFlags="HC_READ_COMMAND" AllowedModes="HC_ALLOWED_MODE_ALL">
+          <RequestParams />
+          <ResponseParams>
+            <Param>Position Sensor Type</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </SubCmdOnly>
+    <SubCmdOnly CmdNum="171">
+      <SubCommands>
+        <Command CmdNum="248" Name="Write Sensor Type" CmdFlags="HC_READ_COMMAND" AllowedModes="HC_ALLOWED_MODE_FS">
+          <RequestParams>
+            <Param>Position Sensor Type</Param>
+          </RequestParams>
+          <ResponseParams>
+            <Param>Position Sensor Type</Param>
+          </ResponseParams>
+        </Command>
+      </SubCommands>
+    </SubCmdOnly>
+  </Commands>
+  <Variables>
+    <Variable Name="Position Sensor Type" DataType="H_UCHAR" Description="Position Sensor Internal/External">
+      <EnumValues v0="HC Internal Position Sensor | Internal" v1="HC External Position Sensor | External" />
+    </Variable>
+  </Variables>
+</HART>
